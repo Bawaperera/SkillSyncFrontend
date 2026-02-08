@@ -112,7 +112,7 @@ export default function LandingPage() {
                             <div className="grid md:grid-cols-2 gap-12 items-center">
                                 <div className="text-left">
                                     <h2 className="text-3xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white leading-tight">
-                                        Meet SkillSync: <br />
+                                        Meet SkillSync <br />
                                         The <span className="text-blue-600 dark:text-blue-400">AI-Bridge</span>
                                     </h2>
                                     <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-8">

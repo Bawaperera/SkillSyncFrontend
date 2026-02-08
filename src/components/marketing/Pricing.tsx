@@ -1,15 +1,30 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 export function Pricing() {
+    const [isYearly, setIsYearly] = useState(false);
+
+    // Define pricing
+    const pricing = {
+        standard: {
+            monthly: 9.99,
+            yearly: 99.99
+        },
+        pro: {
+            monthly: 19.99,
+            yearly: 199.99
+        }
+    };
+
     return (
         <section id="pricing" className="relative py-24 bg-background transition-colors duration-500 overflow-hidden font-sans">
 
             <div className="relative z-10 max-w-7xl mx-auto px-6">
 
                 {/* Header */}
-                <div className="text-center mb-20 relative z-20">
+                <div className="text-center mb-24 relative z-20">
                     <h2 className="text-4xl md:text-5xl font-bold mb-4 text-primary dark:text-white">Elevate your team</h2>
                     <p className="text-muted-foreground text-lg">Choose a plan that fits your scale.</p>
                 </div>
@@ -57,7 +72,12 @@ export function Pricing() {
                             <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest text-primary-foreground shadow-lg">Most Popular</div>
 
                             <span className="text-sm font-medium text-muted-foreground uppercase tracking-wider block mb-4">Standard Plan</span>
-                            <div className="text-5xl font-bold mb-6 text-foreground flex items-baseline gap-1">$9.99<span className="text-xl text-muted-foreground font-normal">/m</span></div>
+                            <div className="text-5xl font-bold mb-6 text-foreground flex items-baseline gap-1">
+                                ${isYearly ? pricing.standard.yearly : pricing.standard.monthly}
+                                <span className="text-xl text-muted-foreground font-normal">
+                                    /{isYearly ? 'yr' : 'm'}
+                                </span>
+                            </div>
                             <ul className="space-y-4 mb-8 text-foreground">
                                 <li className="flex items-center gap-3"><div className="w-5 h-5 rounded-full bg-primary/20 text-primary flex items-center justify-center">✓</div> <span className="text-sm font-medium">Unlimited transfers</span></li>
                                 <li className="flex items-center gap-3"><div className="w-5 h-5 rounded-full bg-primary/20 text-primary flex items-center justify-center">✓</div> <span className="text-sm font-medium">Transaction history with export</span></li>
@@ -78,7 +98,12 @@ export function Pricing() {
                                         border border-white/20 dark:border-white/10
                                         shadow-lg dark:shadow-2xl">
                             <span className="text-sm font-medium text-muted-foreground uppercase tracking-wider block mb-4">Pro Plan</span>
-                            <div className="text-4xl font-bold mb-6 text-foreground flex items-baseline gap-1">$19.99<span className="text-xl text-muted-foreground font-normal">/m</span></div>
+                            <div className="text-4xl font-bold mb-6 text-foreground flex items-baseline gap-1">
+                                ${isYearly ? pricing.pro.yearly : pricing.pro.monthly}
+                                <span className="text-xl text-muted-foreground font-normal">
+                                    /{isYearly ? 'yr' : 'm'}
+                                </span>
+                            </div>
                             <ul className="space-y-4 mb-8 text-foreground/80">
                                 <li className="flex items-center gap-3"><div className="w-5 h-5 rounded-full bg-foreground/10 flex items-center justify-center">✓</div> <span className="text-sm">Priority processing</span></li>
                                 <li className="flex items-center gap-3"><div className="w-5 h-5 rounded-full bg-foreground/10 flex items-center justify-center">✓</div> <span className="text-sm">Comprehensive analytics</span></li>
@@ -96,8 +121,19 @@ export function Pricing() {
 
                 {/* Billed Yearly Toggle */}
                 <div className="mt-20 flex justify-center items-center gap-3">
-                    <div className="w-12 h-6 rounded-full bg-muted border border-border relative p-1 cursor-pointer transition-colors hover:border-primary/50">
-                        <div className="w-4 h-4 rounded-full bg-background shadow-sm transition-transform"></div>
+                    <div 
+                        onClick={() => setIsYearly(!isYearly)}
+                        className={`w-12 h-6 rounded-full relative p-1 cursor-pointer transition-colors border ${
+                            isYearly 
+                                ? 'bg-primary border-primary' 
+                                : 'bg-muted border-border hover:border-primary/50'
+                        }`}
+                    >
+                        <div 
+                            className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${
+                                isYearly ? 'translate-x-6' : 'translate-x-0'
+                            }`}
+                        ></div>
                     </div>
                     <span className="text-sm font-medium text-muted-foreground">Billed Yearly</span>
                 </div>
