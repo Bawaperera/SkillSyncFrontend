@@ -1,4 +1,5 @@
 import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 
 export default function PublicLayout({
     children,
@@ -6,16 +7,12 @@ export default function PublicLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="min-h-screen flex flex-col">
+        <div className="min-h-screen flex flex-col selection:bg-blue-500/30">
             <Navbar />
-            <main className="flex-1 pt-20">
+            <main className="flex-1">
                 {children}
             </main>
-            <footer className="border-t border-white/10 py-8 text-center text-gray-500 text-sm">
-                <div className="container mx-auto px-6">
-                    <p>© {new Date().getFullYear()} SkillSync. All rights reserved.</p>
-                </div>
-            </footer>
+            <Footer />
         </div>
     );
 }

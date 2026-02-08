@@ -56,6 +56,11 @@ const config: Config = {
           300: "rgba(255, 255, 255, 0.3)",
         },
       },
+      boxShadow: {
+        'soft': '0 10px 40px -10px rgba(0, 0, 0, 0.05)',
+        'glow': '0 0 20px rgba(59, 130, 246, 0.3)',
+        'glass-inset': 'inset 0 0 20px rgba(255, 255, 255, 0.05)',
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

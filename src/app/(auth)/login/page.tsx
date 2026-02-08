@@ -1,0 +1,183 @@
+"use client";
+
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/navigation";
+import { Mail, Lock, ArrowRight, CheckCircle2 } from "lucide-react";
+import Link from "next/link";
+
+import { AuthSplitLayout } from "@/components/auth/AuthSplitLayout";
+import { AuthInput } from "@/components/auth/AuthInput";
+import { RoleTabs, UserRole } from "@/components/auth/RoleTabs";
+import { SocialLogin } from "@/components/auth/SocialLogin";
+import { GlassButton } from "@/components/ui/GlassButton";
+
+const loginSchema = z.object({
+    email: z.string().email("Please enter a valid email address"),
+    password: z.string().min(1, "Password is required"),
+});
+
+type LoginFormData = z.infer<typeof loginSchema>;
+
+export default function LoginPage() {
+    const [activeRole, setActiveRole] = useState<UserRole>("student");
+    const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<LoginFormData>({
+        resolver: zodResolver(loginSchema),
+    });
+
+    const onSubmit = async (data: LoginFormData) => {
+        setIsLoading(true);
+        // Simulate API call
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+
+        // Redirect based on role
+        router.push(`/${activeRole}/dashboard`);
+    };
+
+    // Dynamic Marketing Content for Left Panel
+    const marketingContent = (
+        <div key={activeRole} className="space-y-6">
+            <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                className="relative"
+            >
+                {activeRole === "student" && (
+                    <div className="bg-white/10 backdrop-blur-xl border border-white/10 p-8 rounded-3xl shadow-2xl">
+                        <div className="flex items-center gap-4 mb-6">
+                            <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400">
+                                <CheckCircle2 size={24} />
+                            </div>
+                            <div>
+                                <h3 className="text-xl font-bold text-white">Skill Verified</h3>
+                                <p className="text-sm text-gray-400">React.js Expert</p>
+                            </div>
+                        </div>
+                        <p className="text-lg text-gray-300 italic mb-4">
+                            "I skipped 3 rounds of technical interviews because my SkillSync profile proved I could actually code."
+                        </p>
+                        <p className="font-bold text-white">— Sarah J., Hired at Virtusa</p>
+                    </div>
+                )}
+
+                {activeRole === "recruiter" && (
+                    <div className="bg-white/10 backdrop-blur-xl border border-white/10 p-8 rounded-3xl shadow-2xl">
+                        <div className="flex items-center gap-4 mb-6">
+                            <div className="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400">
+                                <CheckCircle2 size={24} />
+                            </div>
+                            <div>
+                                <h3 className="text-xl font-bold text-white">Time Saved</h3>
+                                <p className="text-sm text-gray-400">Hiring Metric</p>
+                            </div>
+                        </div>
+                        <p className="text-lg text-gray-300 italic mb-4">
+                            "We stopped filtering CVs manually. The AI matches are 90% accurate to our job descriptions."
+                        </p>
+                        <p className="font-bold text-white">— James L., Tech Lead @ Sysco</p>
+                    </div>
+                )}
+
+                {activeRole === "university" && (
+                    <div className="bg-white/10 backdrop-blur-xl border border-white/10 p-8 rounded-3xl shadow-2xl">
+                        <div className="flex items-center gap-4 mb-6">
+                            <div className="w-12 h-12 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-400">
+                                <CheckCircle2 size={24} />
+                            </div>
+                            <div>
+                                <h3 className="text-xl font-bold text-white">Curriculum Gap</h3>
+                                <p className="text-sm text-gray-400">Real-time Insight</p>
+                            </div>
+                        </div>
+                        <p className="text-lg text-gray-300 italic mb-4">
+                            "SkillSync showed us exactly where our syllabus was lagging behind industry trends. We updated it in weeks."
+                        </p>
+                        <p className="font-bold text-white">— Dr. Perera, Dean of Computing</p>
+                    </div>
+                )}
+            </motion.div>
+        </div>
+    );
+
+    return (
+        <AuthSplitLayout marketingContent={marketingContent}>
+            <div className="text-center mb-8">
+                <h1 className="text-3xl font-bold text-white mb-2">Welcome Back</h1>
+                <p className="text-gray-400">
+                    Sign in to access your {activeRole} dashboard.
+                </p>
+            </div>
+
+            <RoleTabs activeRole={activeRole} onRoleChange={(role) => setActiveRole(role)} />
+
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                <AuthInput
+                    label="Email Address"
+                    type="email"
+                    placeholder="name@example.com"
+                    icon={Mail}
+                    register={register("email")}
+                    error={errors.email}
+                />
+
+                <div className="space-y-1">
+                    <AuthInput
+                        label="Password"
+                        type="password"
+                        placeholder="••••••••"
+                        icon={Lock}
+                        register={register("password")}
+                        error={errors.password}
+                    />
+                    <div className="flex justify-end">
+                        <Link href="#" className="text-sm text-blue-400 hover:text-blue-300 transition-colors">
+                            Forgot password?
+                        </Link>
+                    </div>
+                </div>
+
+                <GlassButton
+                    type="submit"
+                    variant="primary"
+                    className="w-full py-4 text-base font-bold bg-blue-600 hover:bg-blue-500 border-none"
+                    disabled={isLoading}
+                >
+                    {isLoading ? (
+                        <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin mx-auto" />
+                    ) : (
+                        "Sign In"
+                    )}
+                </GlassButton>
+            </form>
+
+            {activeRole === "student" && (
+                <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="space-y-6"
+                >
+                    <SocialLogin />
+                </motion.div>
+            )}
+
+            <div className="text-center text-sm text-gray-500 mt-8">
+                Don't have an account?{" "}
+                <Link href={activeRole === "university" ? "/contact-university" : `/register/${activeRole}`} className="text-white hover:underline font-medium">
+                    {activeRole === "university" ? "Request Access" : "Sign up"}
+                </Link>
+            </div>
+        </AuthSplitLayout>
+    );
+}
