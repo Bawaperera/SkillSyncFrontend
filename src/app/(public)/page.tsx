@@ -125,8 +125,9 @@ export default function LandingPage() {
 
                                 <div className="relative w-full max-w-md mx-auto aspect-square flex items-center justify-center">
                                     {/* Triangle Animation Lines */}
-                                    <svg className="absolute inset-0 w-full h-full pointer-events-none">
-                                        <path d="M256 50 L50 450 L462 450 Z" stroke="url(#gradient)" strokeWidth="2" fill="none" className="opacity-30" />
+                                    {/* Triangle Animation Lines */}
+                                    <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
+                                        <path d="M50 15 L20 85 L80 85 Z" stroke="url(#gradient)" strokeWidth="0.5" vectorEffect="non-scaling-stroke" fill="none" className="opacity-30" />
                                         <defs>
                                             <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
                                                 <stop offset="0%" stopColor="#3b82f6" />
@@ -134,9 +135,9 @@ export default function LandingPage() {
                                             </linearGradient>
                                         </defs>
                                         {/* Animated Dots */}
-                                        <motion.circle r="6" fill="#3b82f6"
+                                        <motion.circle r="1" fill="#3b82f6"
                                             animate={{ pathLength: 1, offsetDistance: ["0%", "100%"] }}
-                                            style={{ offsetPath: "path('M256 50 L50 450 L462 450 Z')" }}
+                                            style={{ offsetPath: "path('M50 15 L20 85 L80 85 Z')" }}
                                             transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                                         />
                                     </svg>

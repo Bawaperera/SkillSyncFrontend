@@ -1,0 +1,205 @@
+"use client";
+
+import { useState } from "react";
+import { SettingsSidebar } from "@/components/student/settings/SettingsSidebar";
+import { ToggleSwitch } from "@/components/student/settings/ToggleSwitch";
+import { ConnectionCard } from "@/components/student/settings/ConnectionCard";
+import { DangerZone } from "@/components/student/settings/DangerZone";
+import { GlassCard } from "@/components/ui/GlassCard";
+import { ChevronLeft, User, Github, Linkedin, ShieldCheck, Download } from "lucide-react";
+
+export default function SettingsPage() {
+    const [activeTab, setActiveTab] = useState("account");
+
+    // Mock State
+    const [notifications, setNotifications] = useState({
+        emailDigest: true,
+        inApp: true,
+        appUpdates: true,
+        sms: false
+    });
+
+    const [privacy, setPrivacy] = useState({
+        universityData: true,
+        anonymize: false,
+        visibility: "open"
+    });
+
+    return (
+        <div className="min-h-screen bg-[#0A0A0B] pb-20">
+            <div className="max-w-6xl mx-auto px-4 py-8">
+                <h1 className="text-2xl font-bold text-white mb-8">Settings</h1>
+
+                <div className="flex flex-col md:flex-row gap-8">
+                    {/* Sidebar */}
+                    <div className="w-full md:w-64 shrink-0">
+                        <GlassCard className="p-2">
+                            <SettingsSidebar activeTab={activeTab} onSelect={setActiveTab} />
+                        </GlassCard>
+                    </div>
+
+                    {/* Main Content */}
+                    <div className="flex-1">
+                        {activeTab === 'account' && (
+                            <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
+                                {/* Profile Header */}
+                                <div className="flex items-center gap-4 mb-8">
+                                    <div className="w-20 h-20 rounded-full bg-blue-600 flex items-center justify-center text-2xl font-bold text-white border-4 border-[#0A0A0B] shadow-xl">
+                                        B
+                                    </div>
+                                    <div>
+                                        <h2 className="text-xl font-bold text-white">Bawantha Perera</h2>
+                                        <p className="text-sm text-gray-400">bawantha@uoc.edu</p>
+                                        <button className="text-xs text-blue-400 font-medium mt-1 hover:text-blue-300">
+                                            Change Profile Photo
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {/* Connected Accounts */}
+                                <section>
+                                    <h3 className="text-lg font-bold text-white mb-4">Connected Accounts</h3>
+                                    <div className="grid md:grid-cols-2 gap-4">
+                                        <ConnectionCard
+                                            provider="GitHub"
+                                            connected={true}
+                                            username="bawantha_dev"
+                                            onAction={() => console.log("Disconnect GitHub")}
+                                        />
+                                        <ConnectionCard
+                                            provider="LinkedIn"
+                                            connected={false}
+                                            onAction={() => console.log("Connect LinkedIn")}
+                                        />
+                                    </div>
+                                </section>
+
+                                {/* Personal Details Form */}
+                                <GlassCard className="p-6 space-y-4">
+                                    <div className="grid md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="text-xs font-bold text-gray-500 uppercase mb-1 block">Full Name</label>
+                                            <input type="text" defaultValue="Bawantha Perera" className="w-full bg-[#1A1A1C] border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-blue-500/50 outline-none" />
+                                        </div>
+                                        <div>
+                                            <label className="text-xs font-bold text-gray-500 uppercase mb-1 block">Email</label>
+                                            <input type="email" defaultValue="bawantha@uoc.edu" className="w-full bg-[#1A1A1C] border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-blue-500/50 outline-none" />
+                                        </div>
+                                    </div>
+                                    <div className="flex justify-end">
+                                        <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-white text-xs font-bold transition-colors border border-white/5">
+                                            Update Details
+                                        </button>
+                                    </div>
+                                </GlassCard>
+
+                                <DangerZone />
+                            </div>
+                        )}
+
+                        {activeTab === 'notifications' && (
+                            <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
+                                <h2 className="text-xl font-bold text-white mb-2">Notification Preferences</h2>
+                                <p className="text-gray-400 text-sm mb-6">Manage how you receive updates and alerts.</p>
+
+                                <GlassCard className="p-6 divide-y divide-white/5">
+                                    <div className="pb-4">
+                                        <h3 className="text-sm font-bold text-blue-400 uppercase mb-4">Job Alerts</h3>
+                                        <ToggleSwitch
+                                            label="Weekly Email Digest"
+                                            checked={notifications.emailDigest}
+                                            onChange={(v) => setNotifications({ ...notifications, emailDigest: v })}
+                                            description="Receive a summary of new recommended jobs every Monday."
+                                        />
+                                        <ToggleSwitch
+                                            label="In-App Notifications"
+                                            checked={notifications.inApp}
+                                            onChange={(v) => setNotifications({ ...notifications, inApp: v })}
+                                            description="Get real-time alerts within SkillSync."
+                                        />
+                                    </div>
+                                    <div className="pt-4">
+                                        <h3 className="text-sm font-bold text-purple-400 uppercase mb-4">Application Updates</h3>
+                                        <ToggleSwitch
+                                            label="Immediate Email Alerts"
+                                            checked={notifications.appUpdates}
+                                            onChange={(v) => setNotifications({ ...notifications, appUpdates: v })}
+                                            description="Get notified immediately when a recruiter views your application."
+                                        />
+                                        <ToggleSwitch
+                                            label="SMS Notifications"
+                                            checked={notifications.sms}
+                                            onChange={(v) => setNotifications({ ...notifications, sms: v })}
+                                            description="Receive text messages for interview requests."
+                                        />
+                                    </div>
+                                </GlassCard>
+                            </div>
+                        )}
+
+                        {activeTab === 'privacy' && (
+                            <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
+                                <h2 className="text-xl font-bold text-white mb-2">Privacy & Data</h2>
+                                <p className="text-gray-400 text-sm mb-6">Control visibility and data sharing settings.</p>
+
+                                <GlassCard className="p-6 mb-6">
+                                    <h3 className="text-sm font-bold text-green-400 uppercase mb-4 flex items-center gap-2">
+                                        <ShieldCheck size={16} /> Data Sharing
+                                    </h3>
+                                    <ToggleSwitch
+                                        label="Share Academic Data"
+                                        checked={privacy.universityData}
+                                        onChange={(v) => setPrivacy({ ...privacy, universityData: v })}
+                                        description="Allow University of Colombo to view your Skill Gap Score for curriculum analysis."
+                                    />
+                                    <ToggleSwitch
+                                        label="Anonymize My Data"
+                                        checked={privacy.anonymize}
+                                        onChange={(v) => setPrivacy({ ...privacy, anonymize: v })}
+                                        description="Hide your name in University reports."
+                                    />
+                                </GlassCard>
+
+                                <GlassCard className="p-6">
+                                    <h3 className="text-sm font-bold text-white mb-4">Profile Visibility</h3>
+                                    <div className="space-y-3">
+                                        {[
+                                            { id: 'public', label: 'Public', desc: 'Visible to all recruiters.' },
+                                            { id: 'open', label: 'Open to Work', desc: 'Visible only to recruiters (Hidden from current employer).' },
+                                            { id: 'private', label: 'Private', desc: 'Only visible to you.' }
+                                        ].map(opt => (
+                                            <label key={opt.id} className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${privacy.visibility === opt.id
+                                                    ? "bg-blue-600/10 border-blue-500/50"
+                                                    : "border-white/5 hover:bg-white/5"
+                                                }`}>
+                                                <input
+                                                    type="radio"
+                                                    name="visibility"
+                                                    checked={privacy.visibility === opt.id}
+                                                    onChange={() => setPrivacy({ ...privacy, visibility: opt.id })}
+                                                    className="mt-1"
+                                                />
+                                                <div>
+                                                    <div className={`text-sm font-bold ${privacy.visibility === opt.id ? "text-blue-400" : "text-gray-300"}`}>
+                                                        {opt.label}
+                                                    </div>
+                                                    <div className="text-xs text-gray-500">{opt.desc}</div>
+                                                </div>
+                                            </label>
+                                        ))}
+                                    </div>
+                                </GlassCard>
+
+                                <div className="flex justify-start">
+                                    <button className="flex items-center gap-2 text-xs text-gray-400 hover:text-white transition-colors">
+                                        <Download size={14} /> Download My Data
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}

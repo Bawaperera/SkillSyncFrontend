@@ -1,0 +1,143 @@
+"use client";
+
+import { useState } from "react";
+import { GlassCard } from "@/components/ui/GlassCard";
+import { ScoreGauge } from "./ScoreGauge";
+import { AlertTriangle, CheckCircle2, XCircle, Sparkles, Download } from "lucide-react";
+import { motion } from "framer-motion";
+
+// Mock analysis data
+const MOCK_ANALYSIS = {
+    score: 72,
+    atsCompatibility: "Medium",
+    criticalIssues: [
+        "Missing 'GitHub Link' in contact info",
+        "Layout is not mobile-friendly (columns too narrow)",
+        "3 Spelling errors detected"
+    ],
+    missingKeywords: ["Docker", "AWS", "CI/CD", "TypeScript"],
+    foundKeywords: ["React", "Node.js", "SQL", "Tailwind CSS"],
+    formattingScore: 65,
+};
+
+interface CVAnalysisDashboardProps {
+    file: File;
+    onReset: () => void;
+}
+
+export function CVAnalysisDashboard({ file, onReset }: CVAnalysisDashboardProps) {
+    const [isFixing, setIsFixing] = useState(false);
+
+    const handleAutoFix = () => {
+        setIsFixing(true);
+        // Simulate fix delay
+        setTimeout(() => setIsFixing(false), 2000);
+    };
+
+    return (
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 h-[calc(100vh-140px)]">
+            {/* Left Column: PDF Preview */}
+            <div className="lg:col-span-7 flex flex-col h-full bg-gray-900/50 rounded-3xl border border-white/10 overflow-hidden relative group">
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <p className="text-gray-500 text-sm">PDF Preview for {file.name}</p>
+                </div>
+                {/* Overlay Controls */}
+                <div className="absolute bottom-0 inset-x-0 p-6 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <button onClick={onReset} className="px-4 py-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 text-sm font-bold border border-red-500/20 transition-colors">
+                        Delete & Re-upload
+                    </button>
+                    <button className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-sm font-bold border border-white/10 transition-colors flex items-center gap-2">
+                        <Download size={16} /> Download
+                    </button>
+                </div>
+            </div>
+
+            {/* Right Column: Analysis */}
+            <div className="lg:col-span-5 space-y-6 overflow-y-auto pr-2 custom-scrollbar">
+                {/* Score Card */}
+                <GlassCard className="p-6 flex items-center justify-between relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                    <div>
+                        <h3 className="text-lg font-bold text-white mb-1">ATS Compatibility Score</h3>
+                        <p className="text-sm text-gray-400">Based on industry standards</p>
+                    </div>
+                    <ScoreGauge score={MOCK_ANALYSIS.score} />
+                </GlassCard>
+
+                {/* Critical Issues */}
+                <GlassCard className="p-6 border-l-4 border-l-orange-500">
+                    <div className="flex items-center gap-2 mb-4">
+                        <AlertTriangle className="text-orange-500" size={20} />
+                        <h3 className="font-bold text-white">Critical Issues Found</h3>
+                    </div>
+                    <ul className="space-y-3">
+                        {MOCK_ANALYSIS.criticalIssues.map((issue, i) => (
+                            <li key={i} className="flex items-start gap-3 text-sm text-gray-300">
+                                <span className="w-1.5 h-1.5 mt-1.5 rounded-full bg-orange-500 shrink-0" />
+                                {issue}
+                            </li>
+                        ))}
+                    </ul>
+                    <button
+                        onClick={handleAutoFix}
+                        disabled={isFixing}
+                        className="w-full mt-6 py-3 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-sm shadow-lg shadow-orange-500/20 transition-all flex items-center justify-center gap-2"
+                    >
+                        {isFixing ? (
+                            <>Fixing Issues...</>
+                        ) : (
+                            <><Sparkles size={16} /> Auto-Fix with AI</>
+                        )}
+                    </button>
+                </GlassCard>
+
+                {/* Keyword Match */}
+                <GlassCard className="p-6">
+                    <div className="mb-4">
+                        <h3 className="font-bold text-white mb-1">Target Role Keyword Match</h3>
+                        <p className="text-xs text-purple-400 font-medium">Job: Full-Stack Developer</p>
+                    </div>
+
+                    <div className="space-y-4">
+                        <div>
+                            <div className="flex items-center gap-2 mb-2">
+                                <CheckCircle2 size={16} className="text-green-400" />
+                                <span className="text-xs font-bold uppercase tracking-wider text-green-400">Found Keywords</span>
+                            </div>
+                            <div className="flex flex-wrap gap-2">
+                                {MOCK_ANALYSIS.foundKeywords.map(k => (
+                                    <span key={k} className="px-2 py-1 rounded bg-green-500/10 border border-green-500/20 text-xs text-green-300">
+                                        {k}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div>
+                            <div className="flex items-center gap-2 mb-2">
+                                <XCircle size={16} className="text-red-400" />
+                                <span className="text-xs font-bold uppercase tracking-wider text-red-400">Missing Keywords</span>
+                            </div>
+                            <div className="flex flex-wrap gap-2">
+                                {MOCK_ANALYSIS.missingKeywords.map(k => (
+                                    <span key={k} className="px-2 py-1 rounded bg-red-500/10 border border-red-500/20 text-xs text-red-300">
+                                        {k}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="mt-6 pt-4 border-t border-white/5">
+                        <p className="text-xs text-gray-400 mb-3">
+                            You have these missing skills in your profile. Add them to CV?
+                        </p>
+                        <button className="w-full py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium text-xs transition-colors">
+                            + Add Missing Keywords
+                        </button>
+                    </div>
+                </GlassCard>
+            </div>
+        </div>
+    );
+}
