@@ -60,11 +60,11 @@ export function Footer() {
                         <ul className="space-y-4">
                             <li className="flex items-start gap-3 text-blue-100/80">
                                 <Mail className="w-5 h-5 mt-1 shrink-0" />
-                                <span>hello@skillsync.lk</span>
+                                <span>contact@skillsync.lk</span>
                             </li>
                             <li className="flex items-start gap-3 text-blue-100/80">
                                 <Phone className="w-5 h-5 mt-1 shrink-0" />
-                                <span>+94 11 234 5678</span>
+                                <span>+94 112 119 334</span>
                             </li>
                             <li className="flex items-start gap-3 text-blue-100/80">
                                 <MapPin className="w-5 h-5 mt-1 shrink-0" />
