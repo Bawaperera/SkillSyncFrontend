@@ -40,8 +40,11 @@ export function Navbar() {
         animate={{ y: 0 }}
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
-          "bg-white/80 dark:bg-[#0A0A0B]/80 backdrop-blur-md border-white/10 py-4 shadow-sm"
-        )}
+          activeDropdown
+            ? "bg-white dark:bg-[#0A0A0B] border-transparent py-4"
+            : "bg-white/80 dark:bg-[#0A0A0B]/80 backdrop-blur-md border-white/10 py-4 shadow-sm"
+        )
+        }
         onMouseLeave={() => setActiveDropdown(null)}
       >
         <div className="container mx-auto px-6 flex items-center justify-between relative z-50">
@@ -132,7 +135,7 @@ export function Navbar() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={menuTransition}
-              className="absolute top-full left-0 right-0 w-full overflow-hidden bg-white/95 dark:bg-[#0A0A0B]/95 backdrop-blur-3xl border-b border-gray-200 dark:border-white/5 shadow-2xl z-40"
+              className="absolute top-full left-0 right-0 w-full overflow-hidden bg-white dark:bg-[#0A0A0B] border-b border-gray-200 dark:border-white/5 shadow-2xl z-40"
               onMouseEnter={() => setActiveDropdown(activeDropdown)}
               onMouseLeave={() => setActiveDropdown(null)}
             >
