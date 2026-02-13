@@ -22,18 +22,18 @@ export function AuthSplitLayout({ children, marketingContent, backgroundImage }:
                     <div className="absolute bottom-[-20%] right-[-20%] w-[800px] h-[800px] bg-purple-600/20 rounded-full blur-[150px]" />
                 </div>
 
-                <div className="relative z-10 w-full max-w-lg">
-                    {/* Brand Logo */}
-                    <div className="absolute top-8 left-8">
-                        <Link href="/" className="flex items-center gap-2 font-bold text-2xl tracking-tighter hover:opacity-80 transition-opacity">
-                            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white">
-                                S
-                            </div>
-                            SkillSync.
-                        </Link>
-                    </div>
+                {/* Brand Logo - Separate from content */}
+                <div className="absolute top-8 left-8 z-20">
+                    <Link href="/" className="flex items-center gap-2 font-bold text-2xl tracking-tighter hover:opacity-80 transition-opacity">
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white">
+                            S
+                        </div>
+                        SkillSync.
+                    </Link>
+                </div>
 
-                    {/* Dynamic Content */}
+                {/* Dynamic Content */}
+                <div className="relative z-10 w-full max-w-lg">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
