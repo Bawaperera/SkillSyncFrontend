@@ -165,7 +165,7 @@ export default function StudentRegisterPage() {
                                     register={register("firstName")}
                                     error={errors.firstName}
                                     className="shadow-none"
-                                    inputClassName="h-11 py-2.5 bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-white/10 text-gray-900 dark:text-white shadow-none focus:bg-white dark:focus:bg-black/50"
+                                    inputClassName="h-11 py-2.5 bg-gray-50 dark:bg-white/5 !border-2 !border-gray-300 dark:!border-white/20 !text-gray-900 dark:!text-white shadow-none focus:bg-white dark:focus:bg-black/50 focus:!border-blue-500"
                                     labelClassName="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400 font-semibold mb-1"
                                 />
                                 <AuthInput
@@ -175,7 +175,7 @@ export default function StudentRegisterPage() {
                                     register={register("lastName")}
                                     error={errors.lastName}
                                     className="shadow-none"
-                                    inputClassName="h-11 py-2.5 bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-white/10 text-gray-900 dark:text-white shadow-none focus:bg-white dark:focus:bg-black/50"
+                                    inputClassName="h-11 py-2.5 bg-gray-50 dark:bg-white/5 !border-2 !border-gray-300 dark:!border-white/20 !text-gray-900 dark:!text-white shadow-none focus:bg-white dark:focus:bg-black/50 focus:!border-blue-500"
                                     labelClassName="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400 font-semibold mb-1"
                                 />
                             </div>
@@ -187,11 +187,11 @@ export default function StudentRegisterPage() {
                                     <div className="relative">
                                         <select
                                             {...register("university")}
-                                            className="w-full h-11 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl px-4 py-2.5 pl-10 text-sm text-gray-900 dark:text-white placeholder-gray-500 outline-none focus:border-blue-500/50 focus:bg-white dark:focus:bg-black/50 transition-all appearance-none shadow-sm"
+                                            className="w-full h-11 bg-gray-50 dark:bg-white/5 border-2 border-gray-300 dark:border-white/20 rounded-xl px-4 py-2.5 pl-10 text-sm text-gray-900 dark:text-white placeholder-gray-500 outline-none focus:border-blue-500 focus:bg-white dark:focus:bg-black/50 transition-all appearance-none shadow-sm"
                                         >
-                                            <option value="" className="bg-white dark:bg-[#0A0A0B]">Select University</option>
+                                            <option value="" className="bg-white dark:bg-[#0A0A0B] text-gray-900 dark:text-white">Select University</option>
                                             {UNIVERSITIES.map(u => (
-                                                <option key={u.value} value={u.value} className="bg-white dark:bg-[#0A0A0B]">{u.label}</option>
+                                                <option key={u.value} value={u.value} className="bg-white dark:bg-[#0A0A0B] text-gray-900 dark:text-white">{u.label}</option>
                                             ))}
                                         </select>
                                         <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={16} />
@@ -204,11 +204,11 @@ export default function StudentRegisterPage() {
                                     <div className="relative">
                                         <select
                                             {...register("degree")}
-                                            className="w-full h-11 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl px-4 py-2.5 pl-10 text-sm text-gray-900 dark:text-white placeholder-gray-500 outline-none focus:border-blue-500/50 focus:bg-white dark:focus:bg-black/50 transition-all appearance-none shadow-sm"
+                                            className="w-full h-11 bg-gray-50 dark:bg-white/5 border-2 border-gray-300 dark:border-white/20 rounded-xl px-4 py-2.5 pl-10 text-sm text-gray-900 dark:text-white placeholder-gray-500 outline-none focus:border-blue-500 focus:bg-white dark:focus:bg-black/50 transition-all appearance-none shadow-sm"
                                         >
-                                            <option value="" className="bg-white dark:bg-[#0A0A0B]">Select Degree</option>
+                                            <option value="" className="bg-white dark:bg-[#0A0A0B] text-gray-900 dark:text-white">Select Degree</option>
                                             {DEGREES.map(d => (
-                                                <option key={d.value} value={d.value} className="bg-white dark:bg-[#0A0A0B]">{d.label}</option>
+                                                <option key={d.value} value={d.value} className="bg-white dark:bg-[#0A0A0B] text-gray-900 dark:text-white">{d.label}</option>
                                             ))}
                                         </select>
                                         <GraduationCap className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={16} />
@@ -226,7 +226,7 @@ export default function StudentRegisterPage() {
                                 register={register("email")}
                                 error={errors.email}
                                 className="shadow-none"
-                                inputClassName="h-11 py-2.5 bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-white/10 text-gray-900 dark:text-white shadow-none focus:bg-white dark:focus:bg-black/50"
+                                inputClassName="h-11 py-2.5 bg-gray-50 dark:bg-white/5 !border-2 !border-gray-300 dark:!border-white/20 !text-gray-900 dark:!text-white shadow-none focus:bg-white dark:focus:bg-black/50 focus:!border-blue-500"
                                 labelClassName="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400 font-semibold mb-1"
                             />
 
@@ -241,7 +241,7 @@ export default function StudentRegisterPage() {
                                         register={register("password")}
                                         error={errors.password}
                                         className="shadow-none"
-                                        inputClassName="h-11 py-2.5 bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-white/10 text-gray-900 dark:text-white shadow-none focus:bg-white dark:focus:bg-black/50"
+                                        inputClassName="h-11 py-2.5 bg-gray-50 dark:bg-white/5 !border-2 !border-gray-300 dark:!border-white/20 !text-gray-900 dark:!text-white shadow-none focus:bg-white dark:focus:bg-black/50 focus:!border-blue-500"
                                         labelClassName="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400 font-semibold mb-1"
                                     />
                                     {/* Strength Meter - Mini */}
@@ -267,7 +267,7 @@ export default function StudentRegisterPage() {
                                     register={register("confirmPassword")}
                                     error={errors.confirmPassword}
                                     className="shadow-none"
-                                    inputClassName="h-11 py-2.5 bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-white/10 text-gray-900 dark:text-white shadow-none focus:bg-white dark:focus:bg-black/50"
+                                    inputClassName="h-11 py-2.5 bg-gray-50 dark:bg-white/5 !border-2 !border-gray-300 dark:!border-white/20 !text-gray-900 dark:!text-white shadow-none focus:bg-white dark:focus:bg-black/50 focus:!border-blue-500"
                                     labelClassName="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400 font-semibold mb-1"
                                 />
                             </div>

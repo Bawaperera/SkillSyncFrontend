@@ -61,6 +61,9 @@ export function AuthInput({
                         ${error ? "border-red-500/50 focus:border-red-500/50 focus:ring-red-500/10" : ""}
                         ${inputClassName}
                     `}
+                    style={{
+                        colorScheme: 'dark'
+                    }}
                     onFocus={() => setFocused(true)}
                     onBlur={() => setFocused(false)}
                 />
