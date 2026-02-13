@@ -44,9 +44,9 @@ export function Pricing() {
 
                         {/* Free Plan */}
                         <div className="group relative p-8 rounded-[24px] transition-all duration-300 hover:-translate-y-2
-                                        bg-white/90 dark:bg-white/5 
+                                        bg-white/60 dark:bg-white/5 
                                         backdrop-blur-[20px] 
-                                        border border-white/20 dark:border-white/10
+                                        border border-black/5 dark:border-white/10
                                         shadow-lg dark:shadow-2xl">
                             <span className="text-sm font-medium text-muted-foreground uppercase tracking-wider block mb-4">Free Plan</span>
                             <div className="text-4xl font-bold mb-6 text-foreground">Free</div>
@@ -64,7 +64,7 @@ export function Pricing() {
 
                         {/* Standard Plan (Highlighted) */}
                         <div className="relative p-10 rounded-[24px] transition-all duration-300 hover:-translate-y-4 scale-105 z-20
-                                        bg-white/95 dark:bg-white/5 
+                                        bg-white/70 dark:bg-white/5 
                                         backdrop-blur-[20px] 
                                         border border-primary/20 dark:border-white/20
                                         shadow-xl dark:shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
@@ -93,9 +93,9 @@ export function Pricing() {
 
                         {/* Pro Plan */}
                         <div className="group relative p-8 rounded-[24px] transition-all duration-300 hover:-translate-y-2
-                                        bg-white/90 dark:bg-white/5 
+                                        bg-white/60 dark:bg-white/5 
                                         backdrop-blur-[20px] 
-                                        border border-white/20 dark:border-white/10
+                                        border border-black/5 dark:border-white/10
                                         shadow-lg dark:shadow-2xl">
                             <span className="text-sm font-medium text-muted-foreground uppercase tracking-wider block mb-4">Pro Plan</span>
                             <div className="text-4xl font-bold mb-6 text-foreground flex items-baseline gap-1">
@@ -121,18 +121,16 @@ export function Pricing() {
 
                 {/* Billed Yearly Toggle */}
                 <div className="mt-20 flex justify-center items-center gap-3">
-                    <div 
+                    <div
                         onClick={() => setIsYearly(!isYearly)}
-                        className={`w-12 h-6 rounded-full relative p-1 cursor-pointer transition-colors border ${
-                            isYearly 
-                                ? 'bg-primary border-primary' 
+                        className={`w-12 h-6 rounded-full relative p-1 cursor-pointer transition-colors border ${isYearly
+                                ? 'bg-primary border-primary'
                                 : 'bg-muted border-border hover:border-primary/50'
-                        }`}
-                    >
-                        <div 
-                            className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${
-                                isYearly ? 'translate-x-6' : 'translate-x-0'
                             }`}
+                    >
+                        <div
+                            className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${isYearly ? 'translate-x-6' : 'translate-x-0'
+                                }`}
                         ></div>
                     </div>
                     <span className="text-sm font-medium text-muted-foreground">Billed Yearly</span>
