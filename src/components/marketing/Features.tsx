@@ -56,7 +56,7 @@ export function Features() {
                     viewport={{ once: true }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">Everything you need to <span className="text-blue-600 dark:text-blue-400">stand out</span></h2>
+                    <h2 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text">Everything you need to <span className="text-blue-600 dark:text-blue-400">stand out</span></h2>
                     <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Skip the generic CVs. SkillSync gives you tools to prove your worth with data.</p>
                 </motion.div>
 
