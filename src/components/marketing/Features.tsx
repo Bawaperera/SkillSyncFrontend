@@ -69,13 +69,13 @@ export function Features() {
                 >
                     {/* Visual 1: Radar Chart (Equal Size) */}
                     <motion.div variants={itemVariants} className="h-full">
-                        <GlassCard className="h-full relative overflow-hidden group flex flex-col justify-between p-0 bg-white border-gray-100 shadow-sm">
+                        <GlassCard className="h-full relative overflow-hidden group flex flex-col justify-between p-0 bg-white dark:bg-white border-gray-100 dark:border-gray-100 shadow-sm">
                             <div className="p-6 z-10 relative">
                                 <div className="p-3 bg-blue-50 rounded-xl inline-block mb-3 text-blue-600 group-hover:scale-110 transition-transform duration-300">
                                     <ScanFace className="w-8 h-8" />
                                 </div>
-                                <h3 className="text-xl font-bold text-gray-900 mb-2">AI Skill Gap Analysis</h3>
-                                <p className="text-sm text-gray-600">Deep dive into your strengths.</p>
+                                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-900 mb-2">AI Skill Gap Analysis</h3>
+                                <p className="text-sm text-gray-600 dark:text-gray-600">Deep dive into your strengths.</p>
                             </div>
 
                             <div className="flex-1 w-full h-[200px] mt-4 relative">
@@ -93,13 +93,13 @@ export function Features() {
 
                     {/* Visual 2: Code Scanning */}
                     <motion.div variants={itemVariants} className="h-full">
-                        <GlassCard className="h-full relative group overflow-hidden flex flex-col p-0 bg-white border-gray-100 shadow-sm">
+                        <GlassCard className="h-full relative group overflow-hidden flex flex-col p-0 bg-white dark:bg-white border-gray-100 dark:border-gray-100 shadow-sm">
                             <div className="p-6 z-10 relative">
                                 <div className="p-2 bg-purple-50 rounded-lg inline-block mb-2 text-purple-600">
                                     <FileCode className="w-6 h-6" />
                                 </div>
-                                <h3 className="text-lg font-bold text-gray-900">GitHub Code Scanning</h3>
-                                <p className="text-xs text-gray-600 mt-1">Prove your code quality.</p>
+                                <h3 className="text-lg font-bold text-gray-900 dark:text-gray-900">GitHub Code Scanning</h3>
+                                <p className="text-xs text-gray-600 dark:text-gray-600 mt-1">Prove your code quality.</p>
                             </div>
 
                             <div className="absolute right-0 bottom-0 w-3/4 p-4 bg-gray-900 border-t border-l border-white/10 rounded-tl-2xl font-mono text-[10px] text-gray-400 leading-relaxed shadow-2xl translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
@@ -118,13 +118,13 @@ export function Features() {
 
                     {/* Visual 3: Verified Talent Badge */}
                     <motion.div variants={itemVariants} className="h-full">
-                        <GlassCard className="h-full relative group overflow-hidden bg-gradient-to-br from-white to-green-50 flex flex-col p-0 border-gray-100 shadow-sm">
+                        <GlassCard className="h-full relative group overflow-hidden bg-gradient-to-br from-white to-green-50 dark:from-white dark:to-green-50 flex flex-col p-0 border-gray-100 dark:border-gray-100 shadow-sm">
                             <div className="p-6 z-10 relative">
                                 <div className="p-2 bg-green-50 rounded-lg inline-block mb-2 text-green-600">
                                     <CheckCircle2 className="w-6 h-6" />
                                 </div>
-                                <h3 className="text-lg font-bold text-gray-900">Verified Talent Pool</h3>
-                                <p className="text-xs text-gray-600 mt-1">Hire in half the time.</p>
+                                <h3 className="text-lg font-bold text-gray-900 dark:text-gray-900">Verified Talent Pool</h3>
+                                <p className="text-xs text-gray-600 dark:text-gray-600 mt-1">Hire in half the time.</p>
                             </div>
 
                             <div className="absolute bottom-6 right-6">

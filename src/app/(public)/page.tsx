@@ -71,28 +71,28 @@ export default function LandingPage() {
                         </div>
 
                         <div className="grid md:grid-cols-3 gap-8">
-                            <GlassCard className="group hover:border-red-500/30 transition-colors bg-[#F8F7F4] border-gray-100 shadow-sm">
+                            <GlassCard className="group hover:border-red-500/30 transition-colors bg-[#F8F7F4] dark:bg-[#F8F7F4] border-gray-100 dark:border-gray-100 shadow-sm">
                                 <div className="p-3 bg-red-100 rounded-xl inline-block mb-4 text-red-600 group-hover:scale-110 transition-transform">
                                     <AlertTriangle className="w-8 h-8" />
                                 </div>
-                                <h3 className="text-xl font-bold mb-2 text-gray-900">The Student Trap</h3>
-                                <p className="text-gray-600">Graduating with good grades but still getting rejected? It’s not you; it’s the <strong className="text-gray-900">Skill Gap</strong> between curriculum and industry.</p>
+                                <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-gray-900">The Student Trap</h3>
+                                <p className="text-gray-600 dark:text-gray-600">Graduating with good grades but still getting rejected? It’s not you; it’s the <strong className="text-gray-900 dark:text-gray-900">Skill Gap</strong> between curriculum and industry.</p>
                             </GlassCard>
 
-                            <GlassCard className="group hover:border-orange-500/30 transition-colors bg-[#F8F7F4] border-gray-100 shadow-sm">
+                            <GlassCard className="group hover:border-orange-500/30 transition-colors bg-[#F8F7F4] dark:bg-[#F8F7F4] border-gray-100 dark:border-gray-100 shadow-sm">
                                 <div className="p-3 bg-orange-100 rounded-xl inline-block mb-4 text-orange-600 group-hover:scale-110 transition-transform">
                                     <FileSearch className="w-8 h-8" />
                                 </div>
-                                <h3 className="text-xl font-bold mb-2 text-gray-900">The Recruiter Fatigue</h3>
-                                <p className="text-gray-600">Tired of shifting through hundreds of CVs that list &apos;Java&apos; but have <strong className="text-gray-900">no code</strong> to back it up?</p>
+                                <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-gray-900">The Recruiter Fatigue</h3>
+                                <p className="text-gray-600 dark:text-gray-600">Tired of shifting through hundreds of CVs that list &apos;Java&apos; but have <strong className="text-gray-900 dark:text-gray-900">no code</strong> to back it up?</p>
                             </GlassCard>
 
-                            <GlassCard className="group hover:border-yellow-500/30 transition-colors bg-[#F8F7F4] border-gray-100 shadow-sm">
+                            <GlassCard className="group hover:border-yellow-500/30 transition-colors bg-[#F8F7F4] dark:bg-[#F8F7F4] border-gray-100 dark:border-gray-100 shadow-sm">
                                 <div className="p-3 bg-yellow-100 rounded-xl inline-block mb-4 text-yellow-600 group-hover:scale-110 transition-transform">
                                     <TrendingDown className="w-8 h-8" />
                                 </div>
-                                <h3 className="text-xl font-bold mb-2 text-gray-900">The University Blindspot</h3>
-                                <p className="text-gray-600">Struggling to track if your syllabus matches what companies are hiring for <strong className="text-gray-900">right now</strong>?</p>
+                                <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-gray-900">The University Blindspot</h3>
+                                <p className="text-gray-600 dark:text-gray-600">Struggling to track if your syllabus matches what companies are hiring for <strong className="text-gray-900 dark:text-gray-900">right now</strong>?</p>
                             </GlassCard>
                         </div>
                     </div>
