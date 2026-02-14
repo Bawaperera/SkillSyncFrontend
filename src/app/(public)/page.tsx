@@ -131,7 +131,11 @@ export default function LandingPage() {
                                     <p className="text-gray-600 text-lg leading-relaxed mb-8">
                                         We don't just list jobs. We analyze code, verify skills, and match candidates based on <strong className="text-gray-900">real data</strong>, not just claims on a CV.
                                     </p>
-                                    <GlassButton className="px-8 py-3 bg-blue-600 text-white hover:bg-blue-700 font-bold border-none shadow-lg">
+                                    <GlassButton 
+                                        variant="primary" 
+                                        className="px-8 py-3 bg-blue-600 text-white hover:bg-blue-700 font-bold border-none shadow-lg"
+                                        onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
+                                    >
                                         See How It Works
                                     </GlassButton>
                                 </div>
