@@ -1,4 +1,4 @@
-"use client";
+    "use client";
 
 import { Hero } from "@/components/marketing/Hero";
 import { Features } from "@/components/marketing/Features";
@@ -116,7 +116,7 @@ export default function LandingPage() {
                                         The <span className="text-blue-600 dark:text-blue-400">AI-Bridge</span>
                                     </h2>
                                     <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-8">
-                                        We don&apos;t just list jobs. We analyze code, verify skills, and match candidates based on <strong className="text-gray-900 dark:text-white">real data</strong>, not just claims on a CV.
+                                        We don't just list jobs. We analyze code, verify skills, and match candidates based on <strong className="text-gray-900 dark:text-white">real data</strong>, not just claims on a CV.
                                     </p>
                                     <GlassButton className="px-8 py-3 bg-blue-600 text-white hover:bg-blue-700 dark:bg-white dark:text-blue-900 dark:hover:bg-gray-100 font-bold border-none shadow-lg">
                                         See How It Works
