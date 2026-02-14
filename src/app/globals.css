@@ -96,7 +96,8 @@
 @layer components {
 
   .glass-card {
-    @apply bg-white shadow-soft border border-gray-100 dark:bg-[#121214]/60 dark:backdrop-blur-xl dark:border-white/5 dark:shadow-2xl dark:shadow-black/50 rounded-[20px] transition-all duration-500;
+    @apply bg-white shadow-xl shadow-gray-200/50 border border-gray-100 dark:bg-[#121214]/60 dark:backdrop-blur-xl dark:border-white/5 dark:shadow-2xl dark:shadow-black/50 rounded-[20px] transition-all duration-500;
+
   }
 
   .glass-card-hover {

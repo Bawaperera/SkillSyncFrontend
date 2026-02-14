@@ -41,12 +41,13 @@ export function Navbar() {
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
           activeDropdown
-            ? "bg-white dark:bg-[#0A0A0B] border-transparent py-4"
-            : "bg-white/80 dark:bg-[#0A0A0B]/80 backdrop-blur-md border-white/10 py-4 shadow-sm"
+            ? "bg-[#0A0A0B] border-transparent py-4"
+            : "bg-[#0A0A0B]/80 backdrop-blur-md border-white/10 py-4 shadow-sm"
         )
         }
         onMouseLeave={() => setActiveDropdown(null)}
       >
+
         <div className="container mx-auto px-6 flex items-center justify-between relative z-50">
           {/* Brand */}
           <Link
@@ -67,7 +68,7 @@ export function Navbar() {
               <button
                 className={cn(
                   "text-sm font-medium transition-colors py-2",
-                  activeDropdown === 'how-it-works' ? "text-blue-500" : "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+                  activeDropdown === 'how-it-works' ? "text-blue-500" : "text-gray-300 hover:text-white"
                 )}
               >
                 How It Works
@@ -82,20 +83,20 @@ export function Navbar() {
               <button
                 className={cn(
                   "text-sm font-medium transition-colors py-2",
-                  activeDropdown === 'features' ? "text-blue-500" : "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+                  activeDropdown === 'features' ? "text-blue-500" : "text-gray-300 hover:text-white"
                 )}
               >
                 Features
               </button>
             </div>
 
-            <Link href="/#pricing" className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+            <Link href="/#pricing" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">
               Pricing
             </Link>
-            <Link href="/about" className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+            <Link href="/about" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">
               About
             </Link>
-            <Link href="/contact" className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+            <Link href="/contact" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">
               Contact Us
             </Link>
           </div>
@@ -235,42 +236,46 @@ export function Navbar() {
             </motion.div>
           )}
         </AnimatePresence>
-      </motion.nav>
+      </motion.nav >
 
       {/* Background Blur Overlay (Depth Effect) */}
       <AnimatePresence>
-        {activeDropdown && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-black/20 backdrop-blur-[2px] pointer-events-none"
-            style={{ top: '80px' }} // Start below navbar
-          />
-        )}
-      </AnimatePresence>
+        {
+          activeDropdown && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 z-40 bg-black/20 backdrop-blur-[2px] pointer-events-none"
+              style={{ top: '80px' }} // Start below navbar
+            />
+          )
+        }
+      </AnimatePresence >
 
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl md:hidden pt-24 px-6"
-          >
-            <div className="flex flex-col gap-6 text-lg">
-              <Link href="/#students" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-white">For Students</Link>
-              <Link href="/#recruiters" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-white">For Recruiters</Link>
-              <Link href="/#universities" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-white">For Universities</Link>
-              <div className="h-px bg-white/10 my-2" />
-              <Link href="/login" onClick={() => setIsMobileMenuOpen(false)} className="text-blue-400">Log In</Link>
-              <Link href="/register" onClick={() => setIsMobileMenuOpen(false)} className="text-white font-bold">Sign Up</Link>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        {
+          isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, x: '100%' }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: '100%' }}
+              className="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl md:hidden pt-24 px-6"
+            >
+              <div className="flex flex-col gap-6 text-lg">
+                <Link href="/#students" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-white">For Students</Link>
+                <Link href="/#recruiters" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-white">For Recruiters</Link>
+                <Link href="/#universities" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-white">For Universities</Link>
+                <div className="h-px bg-white/10 my-2" />
+                <Link href="/login" onClick={() => setIsMobileMenuOpen(false)} className="text-blue-400">Log In</Link>
+                <Link href="/register" onClick={() => setIsMobileMenuOpen(false)} className="text-white font-bold">Sign Up</Link>
+              </div>
+            </motion.div>
+          )
+        }
+      </AnimatePresence >
       <RoleSelectionModal isOpen={isRoleModalOpen} onClose={() => setIsRoleModalOpen(false)} />
     </>
   );
