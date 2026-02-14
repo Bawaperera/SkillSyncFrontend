@@ -29,7 +29,7 @@ export default function StudentDashboard() {
     };
 
     return (
-        <div className="relative min-h-screen bg-black text-white overflow-x-hidden">
+        <div className="relative min-h-screen bg-gray-50 dark:bg-[#0A0A0B] text-gray-900 dark:text-white overflow-x-hidden">
             {/* 
                 ZERO STATE OVERLAY 
                 - Covers the entire screen with a high z-index
@@ -148,23 +148,23 @@ export default function StudentDashboard() {
                     <header className="mb-12">
                         <div className="flex justify-between items-end mb-8">
                             <div>
-                                <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent mb-2">Dashboard Overview</h1>
-                                <p className="text-gray-400">Track your growth and job applications.</p>
+                                <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Dashboard Overview</h1>
+                                <p className="text-gray-600 dark:text-gray-400">Track your growth and job applications.</p>
                             </div>
                             <GlassButton size="sm">Download Report</GlassButton>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                             {[
-                                { label: "Skill Score", value: "850", trend: "+12%", color: "text-blue-400" },
-                                { label: "Profile Views", value: "1,204", trend: "+5%", color: "text-purple-400" },
-                                { label: "Applications", value: "12", trend: "Pending", color: "text-orange-400" },
-                                { label: "Interviews", value: "3", trend: "This Week", color: "text-green-400" },
+                                { label: "Skill Score", value: "850", trend: "+12%", color: "text-blue-500 dark:text-blue-400" },
+                                { label: "Profile Views", value: "1,204", trend: "+5%", color: "text-purple-500 dark:text-purple-400" },
+                                { label: "Applications", value: "12", trend: "Pending", color: "text-orange-500 dark:text-orange-400" },
+                                { label: "Interviews", value: "3", trend: "This Week", color: "text-green-500 dark:text-green-400" },
                             ].map((stat, i) => (
                                 <GlassCard key={i} className="p-6">
-                                    <p className="text-sm text-gray-500 mb-2">{stat.label}</p>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{stat.label}</p>
                                     <h3 className={`text-3xl font-bold ${stat.color} mb-1`}>{stat.value}</h3>
-                                    <p className="text-xs font-medium text-green-400 flex items-center gap-1">
+                                    <p className="text-xs font-medium text-green-500 dark:text-green-400 flex items-center gap-1">
                                         <TrendingUp size={12} /> {stat.trend}
                                     </p>
                                 </GlassCard>
@@ -177,26 +177,26 @@ export default function StudentDashboard() {
                         {/* Column 1 & 2: Charts and Activity */}
                         <div className="lg:col-span-2 space-y-8">
                             <GlassCard className="p-8 min-h-[400px]">
-                                <h3 className="text-xl font-bold mb-6">Skill Growth Analysis</h3>
-                                <div className="h-[300px] w-full bg-white/5 rounded-xl flex items-center justify-center border border-white/5 border-dashed">
-                                    <p className="text-gray-500">Interactive Chart Placeholder (Recharts)</p>
+                                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Skill Growth Analysis</h3>
+                                <div className="h-[300px] w-full bg-gray-100 dark:bg-white/5 rounded-xl flex items-center justify-center border border-gray-200 dark:border-white/5 border-dashed">
+                                    <p className="text-gray-500 dark:text-gray-400">Interactive Chart Placeholder (Recharts)</p>
                                 </div>
                             </GlassCard>
 
-                            <h3 className="text-xl font-bold">Recommended Jobs</h3>
+                            <h3 className="text-xl font-bold text-gray-900 dark:text-white">Recommended Jobs</h3>
                             <div className="space-y-4">
                                 {[1, 2, 3].map((job) => (
-                                    <GlassCard key={job} className="p-6 flex items-center justify-between group hover:bg-white/5 transition-colors cursor-pointer">
+                                    <GlassCard key={job} className="p-6 flex items-center justify-between group hover:bg-gray-100 dark:hover:bg-white/5 transition-colors cursor-pointer">
                                         <div className="flex items-center gap-4">
-                                            <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-black font-bold">
+                                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold">
                                                 {job === 1 ? "G" : job === 2 ? "F" : "A"}
                                             </div>
                                             <div>
-                                                <h4 className="font-bold text-white group-hover:text-blue-400 transition-colors">Senior React Developer</h4>
-                                                <p className="text-sm text-gray-400">Remote • $120k - $150k</p>
+                                                <h4 className="font-bold text-gray-900 dark:text-white group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">Senior React Developer</h4>
+                                                <p className="text-sm text-gray-600 dark:text-gray-400">Remote • $120k - $150k</p>
                                             </div>
                                         </div>
-                                        <ChevronRight className="text-gray-600 group-hover:text-blue-400 transition-colors" />
+                                        <ChevronRight className="text-gray-400 dark:text-gray-600 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors" />
                                     </GlassCard>
                                 ))}
                             </div>
@@ -209,15 +209,15 @@ export default function StudentDashboard() {
                                 <div className="absolute top-0 right-0 p-4 opacity-50">
                                     <Trophy size={80} className="text-yellow-500/20" />
                                 </div>
-                                <h3 className="text-lg font-bold mb-2">Profile Strength</h3>
-                                <div className="text-3xl font-bold text-green-400 mb-4">Top 5%</div>
-                                <p className="text-sm text-gray-400 mb-6">You rank higher than 95% of candidates with similar experience.</p>
+                                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Profile Strength</h3>
+                                <div className="text-3xl font-bold text-green-500 dark:text-green-400 mb-4">Top 5%</div>
+                                <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">You rank higher than 95% of candidates with similar experience.</p>
                                 <GlassButton className="w-full" variant="secondary">View Insights</GlassButton>
                             </GlassCard>
 
                             {/* Recent Activity */}
                             <GlassCard className="p-6">
-                                <h3 className="text-lg font-bold mb-6">Recent Activity</h3>
+                                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6">Recent Activity</h3>
                                 <div className="space-y-6">
                                     {[
                                         { title: "Application Viewed", time: "2h ago", color: "bg-blue-500" },
@@ -225,11 +225,11 @@ export default function StudentDashboard() {
                                         { title: "Profile Updated", time: "1d ago", color: "bg-green-500" },
                                     ].map((activity, i) => (
                                         <div key={i} className="flex gap-4 relative">
-                                            {i !== 2 && <div className="absolute top-8 left-1.5 w-0.5 h-full bg-white/10" />}
+                                            {i !== 2 && <div className="absolute top-8 left-1.5 w-0.5 h-full bg-gray-200 dark:bg-white/10" />}
                                             <div className={`w-3 h-3 rounded-full ${activity.color} mt-1.5 relative z-10 shrink-0`} />
                                             <div>
-                                                <p className="text-sm font-medium text-white">{activity.title}</p>
-                                                <p className="text-xs text-gray-500">{activity.time}</p>
+                                                <p className="text-sm font-medium text-gray-900 dark:text-white">{activity.title}</p>
+                                                <p className="text-xs text-gray-500 dark:text-gray-400">{activity.time}</p>
                                             </div>
                                         </div>
                                     ))}
@@ -246,7 +246,7 @@ export default function StudentDashboard() {
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0 }}
-                        className="bg-white text-black px-8 py-4 rounded-full font-bold shadow-2xl flex items-center gap-3 border border-white/20"
+                        className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-8 py-4 rounded-full font-bold shadow-2xl flex items-center gap-3 border border-gray-200 dark:border-white/20"
                     >
                         <Trophy className="text-yellow-500 fill-yellow-500" />
                         Dashboard Unlocked! Welcome aboard.
