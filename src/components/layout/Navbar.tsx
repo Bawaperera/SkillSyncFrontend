@@ -8,12 +8,14 @@ import { useState, useEffect } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { RoleSelectionModal } from "@/components/marketing/RoleSelectionModal";
+import { useModal } from "@/lib/context/ModalContext";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isRoleModalOpen, setIsRoleModalOpen] = useState(false);
+  const { openDemoModal } = useModal();
 
   useEffect(() => {
     const handleScroll = () => {

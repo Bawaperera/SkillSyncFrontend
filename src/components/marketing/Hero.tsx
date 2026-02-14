@@ -8,8 +8,10 @@ import Link from "next/link";
 import { useRef, useState, useEffect } from "react";
 import { RoleSelectionModal } from "./RoleSelectionModal";
 import { HeroVideo } from "./HeroVideo";
+import { useModal } from "@/lib/context/ModalContext";
 
 export function Hero() {
+    const { openDemoModal } = useModal();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     // Skill Score Animation
@@ -69,12 +71,13 @@ export function Hero() {
                                         <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                     </GlassButton>
 
-                                    <Link href="#contact">
-                                        <GlassButton className="h-14 px-8 text-lg bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/10 text-white shadow-sm hover:shadow-md transition-all">
-                                            <Play className="mr-2 w-5 h-5 fill-current opacity-70" />
-                                            Book a Free Demo
-                                        </GlassButton>
-                                    </Link>
+                                    <GlassButton
+                                        onClick={openDemoModal}
+                                        className="h-14 px-8 text-lg bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/10 text-white shadow-sm hover:shadow-md transition-all"
+                                    >
+                                        <Play className="mr-2 w-5 h-5 fill-current opacity-70" />
+                                        Book a Free Demo
+                                    </GlassButton>
                                 </div>
                             </motion.div>
                         </div>
