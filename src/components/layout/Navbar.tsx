@@ -103,7 +103,6 @@ export function Navbar() {
 
           {/* Action Zone */}
           <div className="hidden md:flex items-center gap-4 z-50 relative">
-            <ThemeToggle />
             <Link href="/login">
               <GlassButton variant="ghost" size="sm" className="text-blue-400 border-blue-500/30 hover:bg-blue-500/10">
                 Log In
@@ -136,7 +135,7 @@ export function Navbar() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={menuTransition}
-              className="absolute top-full left-0 right-0 w-full overflow-hidden bg-white dark:bg-[#0A0A0B] border-b border-gray-200 dark:border-white/5 shadow-2xl z-40"
+              className="absolute top-full left-0 right-0 w-full overflow-hidden bg-[#0A0A0B] border-b border-white/5 shadow-2xl z-40"
               onMouseEnter={() => setActiveDropdown(activeDropdown)}
               onMouseLeave={() => setActiveDropdown(null)}
             >
@@ -146,38 +145,38 @@ export function Navbar() {
                     <div className="space-y-4">
                       <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider">For Students</h3>
                       <Link href="/#students" className="group block">
-                        <div className="font-bold text-lg text-gray-900 dark:text-white group-hover:text-blue-500 transition-colors">Skill Analysis</div>
+                        <div className="font-bold text-lg text-white group-hover:text-blue-500 transition-colors">Skill Analysis</div>
                         <p className="text-sm text-gray-500 mt-1">Get AI-driven feedback on your code.</p>
                       </Link>
                       <Link href="/#students" className="group block">
-                        <div className="font-bold text-lg text-gray-900 dark:text-white group-hover:text-blue-500 transition-colors">Learning Paths</div>
+                        <div className="font-bold text-lg text-white group-hover:text-blue-500 transition-colors">Learning Paths</div>
                         <p className="text-sm text-gray-500 mt-1">Custom curriculum to close gaps.</p>
                       </Link>
                     </div>
                     <div className="space-y-4">
                       <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider">For Recruiters</h3>
                       <Link href="/#recruiters" className="group block">
-                        <div className="font-bold text-lg text-gray-900 dark:text-white group-hover:text-blue-500 transition-colors">Verified Pipeliens</div>
+                        <div className="font-bold text-lg text-white group-hover:text-blue-500 transition-colors">Verified Pipeliens</div>
                         <p className="text-sm text-gray-500 mt-1">Hire candidates with proven skills.</p>
                       </Link>
                       <Link href="/#recruiters" className="group block">
-                        <div className="font-bold text-lg text-gray-900 dark:text-white group-hover:text-blue-500 transition-colors">Smart Matching</div>
+                        <div className="font-bold text-lg text-white group-hover:text-blue-500 transition-colors">Smart Matching</div>
                         <p className="text-sm text-gray-500 mt-1">AI matches based on tech stack.</p>
                       </Link>
                     </div>
                     <div className="space-y-4">
                       <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider">For Universities</h3>
                       <Link href="/#universities" className="group block">
-                        <div className="font-bold text-lg text-gray-900 dark:text-white group-hover:text-blue-500 transition-colors">Curriculum Insights</div>
+                        <div className="font-bold text-lg text-white group-hover:text-blue-500 transition-colors">Curriculum Insights</div>
                         <p className="text-sm text-gray-500 mt-1">Align degrees with industry demand.</p>
                       </Link>
                       <Link href="/#universities" className="group block">
-                        <div className="font-bold text-lg text-gray-900 dark:text-white group-hover:text-blue-500 transition-colors">Student Tracking</div>
+                        <div className="font-bold text-lg text-white group-hover:text-blue-500 transition-colors">Student Tracking</div>
                         <p className="text-sm text-gray-500 mt-1">Monitor employablity metrics.</p>
                       </Link>
                     </div>
-                    <div className="bg-gray-50 dark:bg-white/5 rounded-2xl p-6">
-                      <h4 className="font-bold text-gray-900 dark:text-white mb-2">New to SkillSync?</h4>
+                    <div className="bg-white/5 rounded-2xl p-6">
+                      <h4 className="font-bold text-white mb-2">New to SkillSync?</h4>
                       <p className="text-sm text-gray-500 mb-4">See how we bridge the gap in 2 minutes.</p>
                       <Link href="/demo">
                         <span className="text-sm font-bold text-blue-500 hover:text-blue-400 flex items-center gap-1">
@@ -193,39 +192,39 @@ export function Navbar() {
                     <div className="space-y-4">
                       <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider">Core Tech</h3>
                       <Link href="/features/ai-matching" className="group block">
-                        <div className="font-bold text-lg text-gray-900 dark:text-white group-hover:text-blue-500 transition-colors">AI Matching Engine</div>
+                        <div className="font-bold text-lg text-white group-hover:text-blue-500 transition-colors">AI Matching Engine</div>
                         <p className="text-sm text-gray-500 mt-1">Our proprietary matching algorithm.</p>
                       </Link>
                       <Link href="/features/github-scan" className="group block">
-                        <div className="font-bold text-lg text-gray-900 dark:text-white group-hover:text-blue-500 transition-colors">GitHub Deep Scan</div>
+                        <div className="font-bold text-lg text-white group-hover:text-blue-500 transition-colors">GitHub Deep Scan</div>
                         <p className="text-sm text-gray-500 mt-1">Code quality analysis & verification.</p>
                       </Link>
                     </div>
                     <div className="space-y-4">
                       <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider">Analytics</h3>
                       <Link href="/features/market-trends" className="group block">
-                        <div className="font-bold text-lg text-gray-900 dark:text-white group-hover:text-blue-500 transition-colors">Market Trends</div>
+                        <div className="font-bold text-lg text-white group-hover:text-blue-500 transition-colors">Market Trends</div>
                         <p className="text-sm text-gray-500 mt-1">Real-time demand forecasting.</p>
                       </Link>
                       <Link href="/features/skill-gap" className="group block">
-                        <div className="font-bold text-lg text-gray-900 dark:text-white group-hover:text-blue-500 transition-colors">Skill Gap Reports</div>
+                        <div className="font-bold text-lg text-white group-hover:text-blue-500 transition-colors">Skill Gap Reports</div>
                         <p className="text-sm text-gray-500 mt-1">Personalized improvement plans.</p>
                       </Link>
                     </div>
                     <div className="space-y-4">
                       <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider">Integrations</h3>
                       <Link href="/features/lms" className="group block">
-                        <div className="font-bold text-lg text-gray-900 dark:text-white group-hover:text-blue-500 transition-colors">LMS Connect</div>
+                        <div className="font-bold text-lg text-white group-hover:text-blue-500 transition-colors">LMS Connect</div>
                         <p className="text-sm text-gray-500 mt-1">Connect with Moodle & Canvas.</p>
                       </Link>
                       <Link href="/features/api" className="group block">
-                        <div className="font-bold text-lg text-gray-900 dark:text-white group-hover:text-blue-500 transition-colors">Developers API</div>
+                        <div className="font-bold text-lg text-white group-hover:text-blue-500 transition-colors">Developers API</div>
                         <p className="text-sm text-gray-500 mt-1">Build on top of SkillSync.</p>
                       </Link>
                     </div>
-                    <div className="bg-blue-50 dark:bg-blue-900/10 rounded-2xl p-6 border border-blue-100 dark:border-blue-500/10">
-                      <h4 className="font-bold text-blue-900 dark:text-blue-100 mb-2">Enterprise Plan</h4>
-                      <p className="text-sm text-blue-700 dark:text-blue-300 mb-4">Custom solutions for large organizations.</p>
+                    <div className="bg-blue-900/10 rounded-2xl p-6 border border-blue-500/10">
+                      <h4 className="font-bold text-blue-100 mb-2">Enterprise Plan</h4>
+                      <p className="text-sm text-blue-300 mb-4">Custom solutions for large organizations.</p>
                       <Link href="/enterprise">
                         <GlassButton size="sm" variant="primary" className="w-full justify-center">Contact Sales</GlassButton>
                       </Link>
@@ -236,7 +235,7 @@ export function Navbar() {
             </motion.div>
           )}
         </AnimatePresence>
-      </motion.nav >
+      </motion.nav>
 
       {/* Background Blur Overlay (Depth Effect) */}
       <AnimatePresence>
