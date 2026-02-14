@@ -71,29 +71,44 @@ export default function LandingPage() {
                         </div>
 
                         <div className="grid md:grid-cols-3 gap-8">
-                            <GlassCard className="group hover:border-red-500/30 transition-colors bg-[#F8F7F4] dark:bg-[#F8F7F4] border-gray-100 dark:border-gray-100 shadow-sm">
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5 }}
+                                viewport={{ once: true }}
+                                className="group p-6 rounded-2xl hover:border-red-500/30 transition-colors bg-[#F8F7F4] dark:bg-[#F8F7F4] border border-gray-100 dark:border-gray-100 shadow-none">
                                 <div className="p-3 bg-red-100 rounded-xl inline-block mb-4 text-red-600 group-hover:scale-110 transition-transform">
                                     <AlertTriangle className="w-8 h-8" />
                                 </div>
                                 <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-gray-900">The Student Trap</h3>
                                 <p className="text-gray-600 dark:text-gray-600">Graduating with good grades but still getting rejected? It’s not you; it’s the <strong className="text-gray-900 dark:text-gray-900">Skill Gap</strong> between curriculum and industry.</p>
-                            </GlassCard>
+                            </motion.div>
 
-                            <GlassCard className="group hover:border-orange-500/30 transition-colors bg-[#F8F7F4] dark:bg-[#F8F7F4] border-gray-100 dark:border-gray-100 shadow-sm">
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5, delay: 0.1 }}
+                                viewport={{ once: true }}
+                                className="group p-6 rounded-2xl hover:border-orange-500/30 transition-colors bg-[#F8F7F4] dark:bg-[#F8F7F4] border border-gray-100 dark:border-gray-100 shadow-none">
                                 <div className="p-3 bg-orange-100 rounded-xl inline-block mb-4 text-orange-600 group-hover:scale-110 transition-transform">
                                     <FileSearch className="w-8 h-8" />
                                 </div>
                                 <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-gray-900">The Recruiter Fatigue</h3>
                                 <p className="text-gray-600 dark:text-gray-600">Tired of shifting through hundreds of CVs that list &apos;Java&apos; but have <strong className="text-gray-900 dark:text-gray-900">no code</strong> to back it up?</p>
-                            </GlassCard>
+                            </motion.div>
 
-                            <GlassCard className="group hover:border-yellow-500/30 transition-colors bg-[#F8F7F4] dark:bg-[#F8F7F4] border-gray-100 dark:border-gray-100 shadow-sm">
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5, delay: 0.2 }}
+                                viewport={{ once: true }}
+                                className="group p-6 rounded-2xl hover:border-yellow-500/30 transition-colors bg-[#F8F7F4] dark:bg-[#F8F7F4] border border-gray-100 dark:border-gray-100 shadow-none">
                                 <div className="p-3 bg-yellow-100 rounded-xl inline-block mb-4 text-yellow-600 group-hover:scale-110 transition-transform">
                                     <TrendingDown className="w-8 h-8" />
                                 </div>
                                 <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-gray-900">The University Blindspot</h3>
                                 <p className="text-gray-600 dark:text-gray-600">Struggling to track if your syllabus matches what companies are hiring for <strong className="text-gray-900 dark:text-gray-900">right now</strong>?</p>
-                            </GlassCard>
+                            </motion.div>
                         </div>
                     </div>
                 </section>
@@ -101,7 +116,12 @@ export default function LandingPage() {
                 {/* Solution Section (Triangle) - Off-white background */}
                 <section className="py-12 relative overflow-hidden bg-[#F8F7F4]">
                     <div className="container mx-auto px-6">
-                        <GlassCard className="p-8 md:p-12 relative overflow-hidden bg-white shadow-xl border-gray-100 rounded-[3rem]">
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.5 }}
+                            viewport={{ once: true }}
+                            className="p-8 md:p-12 relative overflow-hidden bg-white dark:bg-white shadow-xl border border-gray-100 dark:border-gray-100 rounded-[3rem]">
                             <div className="grid md:grid-cols-2 gap-12 items-center">
                                 <div className="text-left">
                                     <h2 className="text-3xl md:text-5xl font-bold mb-6 text-gray-900 leading-tight">
@@ -135,26 +155,32 @@ export default function LandingPage() {
                                     </svg>
 
                                     <div className="absolute top-0 md:top-8 left-1/2 -translate-x-1/2">
-                                        <GlassCard className="p-4 flex flex-col items-center bg-white z-10 w-40 border-gray-100 shadow-lg">
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
+                                            className="p-4 flex flex-col items-center bg-white dark:bg-white z-10 w-40 border border-gray-100 dark:border-gray-100 shadow-lg rounded-2xl">
                                             <GraduationCap className="w-8 h-8 text-blue-500 mb-2" />
-                                            <span className="font-bold text-sm text-gray-900">Student Data</span>
-                                        </GlassCard>
+                                            <span className="font-bold text-sm text-gray-900 dark:text-gray-900">Student Data</span>
+                                        </motion.div>
                                     </div>
                                     <div className="absolute bottom-0 md:bottom-8 left-0">
-                                        <GlassCard className="p-4 flex flex-col items-center bg-white z-10 w-40 border-gray-100 shadow-lg">
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
+                                            className="p-4 flex flex-col items-center bg-white dark:bg-white z-10 w-40 border border-gray-100 dark:border-gray-100 shadow-lg rounded-2xl">
                                             <Building2 className="w-8 h-8 text-purple-500 mb-2" />
-                                            <span className="font-bold text-sm text-gray-900">University</span>
-                                        </GlassCard>
+                                            <span className="font-bold text-sm text-gray-900 dark:text-gray-900">University</span>
+                                        </motion.div>
                                     </div>
                                     <div className="absolute bottom-0 md:bottom-8 right-0">
-                                        <GlassCard className="p-4 flex flex-col items-center bg-white z-10 w-40 border-gray-100 shadow-lg">
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
+                                            className="p-4 flex flex-col items-center bg-white dark:bg-white z-10 w-40 border border-gray-100 dark:border-gray-100 shadow-lg rounded-2xl">
                                             <Briefcase className="w-8 h-8 text-pink-500 mb-2" />
-                                            <span className="font-bold text-sm text-gray-900">Tech Industry</span>
-                                        </GlassCard>
+                                            <span className="font-bold text-sm text-gray-900 dark:text-gray-900">Tech Industry</span>
+                                        </motion.div>
                                     </div>
                                 </div>
                             </div>
-                        </GlassCard>
+                        </motion.div>
                     </div>
                 </section>
 
@@ -248,26 +274,30 @@ export default function LandingPage() {
                             <div>
                                 <h3 className="text-2xl font-bold mb-8 text-gray-900">What People Say</h3>
                                 <div className="space-y-6">
-                                    <GlassCard className="bg-white border-l-4 border-blue-500 p-6 shadow-md">
-                                        <p className="italic text-gray-600 mb-4">&quot;I didn&apos;t know I needed Docker until SkillSync told me. Learned it in 2 weeks and got hired.&quot;</p>
+                                    <motion.div
+                                        initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} viewport={{ once: true }}
+                                        className="bg-white dark:bg-white border-l-4 border-blue-500 p-6 shadow-md dark:shadow-md rounded-2xl">
+                                        <p className="italic text-gray-600 dark:text-gray-600 mb-4">&quot;I didn&apos;t know I needed Docker until SkillSync told me. Learned it in 2 weeks and got hired.&quot;</p>
                                         <div className="flex items-center gap-3">
                                             <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center font-bold text-white">BP</div>
                                             <div>
-                                                <p className="font-bold text-gray-900 text-sm">Bawantha P.</p>
-                                                <p className="text-xs text-gray-500">Software Engineer @ Virtusa</p>
+                                                <p className="font-bold text-gray-900 dark:text-gray-900 text-sm">Bawantha P.</p>
+                                                <p className="text-xs text-gray-500 dark:text-gray-500">Software Engineer @ Virtusa</p>
                                             </div>
                                         </div>
-                                    </GlassCard>
-                                    <GlassCard className="bg-white border-l-4 border-purple-500 p-6 shadow-md">
-                                        <p className="italic text-gray-600 mb-4">&quot;The &apos;Verified Skills&apos; badge saves us technical interview time. We hire faster now.&quot;</p>
+                                    </motion.div>
+                                    <motion.div
+                                        initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.1 }} viewport={{ once: true }}
+                                        className="bg-white dark:bg-white border-l-4 border-purple-500 p-6 shadow-md dark:shadow-md rounded-2xl">
+                                        <p className="italic text-gray-600 dark:text-gray-600 mb-4">&quot;The &apos;Verified Skills&apos; badge saves us technical interview time. We hire faster now.&quot;</p>
                                         <div className="flex items-center gap-3">
                                             <div className="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center font-bold text-white">JD</div>
                                             <div>
-                                                <p className="font-bold text-gray-900 text-sm">John Doe</p>
-                                                <p className="text-xs text-gray-500">HR Manager @ TechCorp</p>
+                                                <p className="font-bold text-gray-900 dark:text-gray-900 text-sm">John Doe</p>
+                                                <p className="text-xs text-gray-500 dark:text-gray-500">HR Manager @ TechCorp</p>
                                             </div>
                                         </div>
-                                    </GlassCard>
+                                    </motion.div>
                                 </div>
                             </div>
 
