@@ -25,9 +25,9 @@ export function Footer() {
                         </p>
                         <div className="flex gap-4">
                             {[Facebook, Twitter, Instagram, Linkedin].map((Icon, i) => (
-                                <GlassCard key={i} className="p-2 bg-white/10 hover:bg-white/20 border-white/10 cursor-pointer transition-colors w-10 h-10 flex items-center justify-center rounded-lg">
-                                    <Icon className="w-5 h-5 text-white" />
-                                </GlassCard>
+                                <button key={i} className="p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-full transition-all">
+                                    <Icon className="w-5 h-5" />
+                                </button>
                             ))}
                         </div>
                     </div>
