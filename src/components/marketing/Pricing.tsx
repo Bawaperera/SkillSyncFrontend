@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { GlassButton } from "@/components/ui/GlassButton";
 
 export function Pricing() {
     const [isYearly, setIsYearly] = useState(false);
@@ -34,8 +35,8 @@ export function Pricing() {
                     {/* Watermark: Background Logic (Behind Cards) */}
                     <div className="absolute top-0 left-0 right-0 flex justify-center -translate-y-1/2 pointer-events-none select-none z-0">
                         <h1 className="text-[10rem] md:text-[14rem] font-black tracking-widest uppercase 
-                                       text-white/5 transition-colors duration-500
-                                       whitespace-nowrap leading-none scale-y-125 opacity-80">
+                                       text-white/80 transition-colors duration-500
+                                       whitespace-nowrap leading-none scale-y-125 opacity-100">
                             Pricing
                         </h1>
                     </div>

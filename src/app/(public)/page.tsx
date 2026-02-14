@@ -158,13 +158,13 @@ export default function LandingPage() {
                     </div>
                 </section>
 
-                {/* How It Works - White background */}
-                <section className="py-16 bg-white" id="how-it-works">
+                {/* How It Works - Dark background */}
+                <section className="py-16 bg-[#0A0A0B]" id="how-it-works">
                     <div className="container mx-auto px-6">
-                        <h2 className="text-3xl md:text-5xl font-bold text-center mb-12 text-gray-900">How It Works</h2>
+                        <h2 className="text-3xl md:text-5xl font-bold text-center mb-12 text-white">How It Works</h2>
 
                         <div className="flex justify-center mb-12">
-                            <div className="p-1 bg-gray-50 rounded-full border border-gray-200 flex">
+                            <div className="p-1 bg-white/5 rounded-full border border-white/10 flex">
                                 {['student', 'recruiter', 'university'].map((tab) => (
                                     <button
                                         key={tab}
@@ -173,7 +173,7 @@ export default function LandingPage() {
                             px-6 py-2 rounded-full text-sm font-bold transition-all capitalize
                             ${activeTab === tab
                                                 ? 'bg-blue-600 text-white shadow-md'
-                                                : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100'}
+                                                : 'text-gray-400 hover:text-white hover:bg-white/5'}
                         `}
                                     >
                                         {tab}
@@ -196,12 +196,12 @@ export default function LandingPage() {
                                         { step: 2, title: 'Analyze', desc: 'AI identifies your missing skills.', icon: <CheckCircle2 className="w-6 h-6 text-purple-400" /> },
                                         { step: 3, title: 'Grow', desc: 'Follow a custom path & get hired.', icon: <CheckCircle2 className="w-6 h-6 text-green-400" /> },
                                     ].map((item) => (
-                                        <GlassCard key={item.step} className="text-center p-8 bg-[#F8F7F4] border-gray-100 shadow-sm">
-                                            <div className="w-12 h-12 mx-auto bg-blue-50 rounded-full flex items-center justify-center mb-4 border border-blue-100 font-bold text-xl text-blue-600">
+                                        <GlassCard key={item.step} className="text-center p-8 bg-white/5 backdrop-blur-[20px] border-white/10 shadow-2xl">
+                                            <div className="w-12 h-12 mx-auto bg-blue-500/20 rounded-full flex items-center justify-center mb-4 border border-blue-500/30 font-bold text-xl text-blue-400">
                                                 {item.step}
                                             </div>
-                                            <h3 className="text-xl font-bold mb-2 text-gray-900">{item.title}</h3>
-                                            <p className="text-gray-600">{item.desc}</p>
+                                            <h3 className="text-xl font-bold mb-2 text-white">{item.title}</h3>
+                                            <p className="text-gray-400">{item.desc}</p>
                                         </GlassCard>
                                     ))}
                                     {/* Recruiter and University tabs follow similar pattern */}
@@ -210,12 +210,12 @@ export default function LandingPage() {
                                         { step: 2, title: 'Filter', desc: 'See candidates by Verified Scores.', icon: <FileSearch className="w-6 h-6" /> },
                                         { step: 3, title: 'Hire', desc: 'Skip screening & interview matches.', icon: <CheckCircle2 className="w-6 h-6" /> },
                                     ].map((item) => (
-                                        <GlassCard key={item.step} className="text-center p-8 border-purple-100 bg-[#F8F7F4] shadow-sm">
-                                            <div className="w-12 h-12 mx-auto bg-purple-50 rounded-full flex items-center justify-center mb-4 border border-purple-100 font-bold text-xl text-purple-600">
+                                        <GlassCard key={item.step} className="text-center p-8 bg-white/5 backdrop-blur-[20px] border-white/10 shadow-2xl">
+                                            <div className="w-12 h-12 mx-auto bg-purple-500/20 rounded-full flex items-center justify-center mb-4 border border-purple-500/30 font-bold text-xl text-purple-400">
                                                 {item.step}
                                             </div>
-                                            <h3 className="text-xl font-bold mb-2 text-gray-900">{item.title}</h3>
-                                            <p className="text-gray-600">{item.desc}</p>
+                                            <h3 className="text-xl font-bold mb-2 text-white">{item.title}</h3>
+                                            <p className="text-gray-400">{item.desc}</p>
                                         </GlassCard>
                                     ))}
 
@@ -224,12 +224,12 @@ export default function LandingPage() {
                                         { step: 2, title: 'Insights', desc: 'View Curriculum vs. Industry Gaps.', icon: <TrendingDown className="w-6 h-6" /> },
                                         { step: 3, title: 'Adapt', desc: 'Update course modules instantly.', icon: <CheckCircle2 className="w-6 h-6" /> },
                                     ].map((item) => (
-                                        <GlassCard key={item.step} className="text-center p-8 border-pink-100 bg-[#F8F7F4] shadow-sm">
-                                            <div className="w-12 h-12 mx-auto bg-pink-50 rounded-full flex items-center justify-center mb-4 border border-pink-100 font-bold text-xl text-pink-600">
+                                        <GlassCard key={item.step} className="text-center p-8 bg-white/5 backdrop-blur-[20px] border-white/10 shadow-2xl">
+                                            <div className="w-12 h-12 mx-auto bg-pink-500/20 rounded-full flex items-center justify-center mb-4 border border-pink-500/30 font-bold text-xl text-pink-400">
                                                 {item.step}
                                             </div>
-                                            <h3 className="text-xl font-bold mb-2 text-gray-900">{item.title}</h3>
-                                            <p className="text-gray-600">{item.desc}</p>
+                                            <h3 className="text-xl font-bold mb-2 text-white">{item.title}</h3>
+                                            <p className="text-gray-400">{item.desc}</p>
                                         </GlassCard>
                                     ))}
                                 </motion.div>
