@@ -144,9 +144,11 @@ export default function UniversityContactPage() {
                         <p className="text-gray-400 mb-8">
                             Thank you for your interest. Our partnership team will review your details and contact you at <strong className="text-white">official email</strong> within 24 hours.
                         </p>
-                        <GlassButton href="/" variant="secondary" className="px-8">
-                            Return to Home
-                        </GlassButton>
+                        <Link href="/">
+                            <GlassButton variant="secondary" className="px-8">
+                                Return to Home
+                            </GlassButton>
+                        </Link>
                     </motion.div>
                 )}
             </AnimatePresence>
