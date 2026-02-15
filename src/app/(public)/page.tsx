@@ -1,13 +1,14 @@
 "use client";
 
+import { useState } from "react";
 import { Hero } from "@/components/marketing/Hero";
 import { Features } from "@/components/marketing/Features";
+import { HowItWorks } from "@/components/marketing/HowItWorks";
 import { Pricing } from "@/components/marketing/Pricing";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { GlassButton } from "@/components/ui/GlassButton";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-    Building2,
     GraduationCap,
     Briefcase,
     AlertTriangle,
@@ -15,9 +16,8 @@ import {
     TrendingDown,
     Plus,
     Minus,
-    CheckCircle2
+    Building2,
 } from "lucide-react";
-import { useState } from "react";
 import { RoleSelectionModal } from "@/components/marketing/RoleSelectionModal";
 
 const TRUSTED_LOGOS = [
@@ -33,7 +33,6 @@ const FAQS = [
 ];
 
 export default function LandingPage() {
-    const [activeTab, setActiveTab] = useState<'student' | 'recruiter' | 'university'>('student');
     const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -131,8 +130,8 @@ export default function LandingPage() {
                                     <p className="text-gray-600 text-lg leading-relaxed mb-8">
                                         We don't just list jobs. We analyze code, verify skills, and match candidates based on <strong className="text-gray-900">real data</strong>, not just claims on a CV.
                                     </p>
-                                    <GlassButton 
-                                        variant="primary" 
+                                    <GlassButton
+                                        variant="primary"
                                         className="px-8 py-3 bg-blue-600 text-white hover:bg-blue-700 font-bold border-none shadow-lg"
                                         onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
                                     >
@@ -188,85 +187,7 @@ export default function LandingPage() {
                     </div>
                 </section>
 
-                {/* How It Works - Dark background */}
-                <section className="py-16 bg-[#0A0A0B]" id="how-it-works">
-                    <div className="container mx-auto px-6">
-                        <h2 className="text-3xl md:text-5xl font-bold text-center mb-12 text-white">How It Works</h2>
-
-                        <div className="flex justify-center mb-12">
-                            <div className="p-1 bg-white/5 rounded-full border border-white/10 flex">
-                                {['student', 'recruiter', 'university'].map((tab) => (
-                                    <button
-                                        key={tab}
-                                        onClick={() => setActiveTab(tab as any)}
-                                        className={`
-                            px-6 py-2 rounded-full text-sm font-bold transition-all capitalize
-                            ${activeTab === tab
-                                                ? 'bg-blue-600 text-white shadow-md'
-                                                : 'text-gray-400 hover:text-white hover:bg-white/5'}
-                        `}
-                                    >
-                                        {tab}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-
-                        <div className="max-w-4xl mx-auto">
-                            <AnimatePresence mode="wait">
-                                <motion.div
-                                    key={activeTab}
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -10 }}
-                                    className="grid md:grid-cols-3 gap-8"
-                                >
-                                    {activeTab === 'student' && [
-                                        { step: 1, title: 'Sync', desc: 'Connect GitHub & Upload CV.', icon: <CheckCircle2 className="w-6 h-6 text-blue-400" /> },
-                                        { step: 2, title: 'Analyze', desc: 'AI identifies your missing skills.', icon: <CheckCircle2 className="w-6 h-6 text-purple-400" /> },
-                                        { step: 3, title: 'Grow', desc: 'Follow a custom path & get hired.', icon: <CheckCircle2 className="w-6 h-6 text-green-400" /> },
-                                    ].map((item) => (
-                                        <GlassCard key={item.step} className="text-center p-8 bg-white/5 backdrop-blur-[20px] border-white/10 shadow-2xl">
-                                            <div className="w-12 h-12 mx-auto bg-blue-500/20 rounded-full flex items-center justify-center mb-4 border border-blue-500/30 font-bold text-xl text-blue-400">
-                                                {item.step}
-                                            </div>
-                                            <h3 className="text-xl font-bold mb-2 text-white">{item.title}</h3>
-                                            <p className="text-gray-400">{item.desc}</p>
-                                        </GlassCard>
-                                    ))}
-                                    {/* Recruiter and University tabs follow similar pattern */}
-                                    {activeTab === 'recruiter' && [
-                                        { step: 1, title: 'Define', desc: 'Post jobs with AI-suggested skills.', icon: <Briefcase className="w-6 h-6" /> },
-                                        { step: 2, title: 'Filter', desc: 'See candidates by Verified Scores.', icon: <FileSearch className="w-6 h-6" /> },
-                                        { step: 3, title: 'Hire', desc: 'Skip screening & interview matches.', icon: <CheckCircle2 className="w-6 h-6" /> },
-                                    ].map((item) => (
-                                        <GlassCard key={item.step} className="text-center p-8 bg-white/5 backdrop-blur-[20px] border-white/10 shadow-2xl">
-                                            <div className="w-12 h-12 mx-auto bg-purple-500/20 rounded-full flex items-center justify-center mb-4 border border-purple-500/30 font-bold text-xl text-purple-400">
-                                                {item.step}
-                                            </div>
-                                            <h3 className="text-xl font-bold mb-2 text-white">{item.title}</h3>
-                                            <p className="text-gray-400">{item.desc}</p>
-                                        </GlassCard>
-                                    ))}
-
-                                    {activeTab === 'university' && [
-                                        { step: 1, title: 'Integrate', desc: 'Sync student performance data.', icon: <Building2 className="w-6 h-6" /> },
-                                        { step: 2, title: 'Insights', desc: 'View Curriculum vs. Industry Gaps.', icon: <TrendingDown className="w-6 h-6" /> },
-                                        { step: 3, title: 'Adapt', desc: 'Update course modules instantly.', icon: <CheckCircle2 className="w-6 h-6" /> },
-                                    ].map((item) => (
-                                        <GlassCard key={item.step} className="text-center p-8 bg-white/5 backdrop-blur-[20px] border-white/10 shadow-2xl">
-                                            <div className="w-12 h-12 mx-auto bg-pink-500/20 rounded-full flex items-center justify-center mb-4 border border-pink-500/30 font-bold text-xl text-pink-400">
-                                                {item.step}
-                                            </div>
-                                            <h3 className="text-xl font-bold mb-2 text-white">{item.title}</h3>
-                                            <p className="text-gray-400">{item.desc}</p>
-                                        </GlassCard>
-                                    ))}
-                                </motion.div>
-                            </AnimatePresence>
-                        </div>
-                    </div>
-                </section>
+                <HowItWorks />
 
                 <Features />
                 <Pricing />

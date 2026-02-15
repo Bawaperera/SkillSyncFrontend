@@ -68,6 +68,7 @@ export function Navbar() {
               onMouseEnter={() => setActiveDropdown('how-it-works')}
             >
               <button
+                onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
                 className={cn(
                   "text-sm font-medium transition-colors py-2",
                   activeDropdown === 'how-it-works' ? "text-blue-500" : "text-gray-300 hover:text-white"
@@ -83,6 +84,7 @@ export function Navbar() {
               onMouseEnter={() => setActiveDropdown('features')}
             >
               <button
+                onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
                 className={cn(
                   "text-sm font-medium transition-colors py-2",
                   activeDropdown === 'features' ? "text-blue-500" : "text-gray-300 hover:text-white"
