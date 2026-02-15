@@ -9,23 +9,23 @@ export function SkillBadge({ skill }: SkillBadgeProps) {
     const sourceConfig = {
         github: {
             icon: CheckCircle2,
-            bg: "bg-purple-500/10",
-            border: "border-purple-500/20",
-            text: "text-purple-400",
+            bg: "bg-purple-50",
+            border: "border-purple-100",
+            text: "text-purple-600",
             label: "GitHub Verified",
         },
         cv: {
             icon: FileText,
-            bg: "bg-blue-500/10",
-            border: "border-blue-500/20",
-            text: "text-blue-400",
+            bg: "bg-blue-50",
+            border: "border-blue-100",
+            text: "text-blue-600",
             label: "CV Extracted",
         },
         manual: {
             icon: User,
-            bg: "bg-gray-500/10",
-            border: "border-gray-500/20",
-            text: "text-gray-400",
+            bg: "bg-gray-100",
+            border: "border-gray-200",
+            text: "text-gray-600",
             label: "Self-Reported",
         },
     };
@@ -34,7 +34,7 @@ export function SkillBadge({ skill }: SkillBadgeProps) {
     const Icon = config.icon;
 
     return (
-        <div className={`relative group flex items-center gap-3 p-3 rounded-xl border bg-white/5 hover:bg-white/10 transition-colors ${config.border}`}>
+        <div className={`relative group flex items-center gap-3 p-3 rounded-xl border bg-white hover:bg-gray-50 transition-colors shadow-sm ${config.border}`}>
             {/* Icon Box */}
             <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${config.bg} ${config.text}`}>
                 {skill.icon ? (
@@ -46,15 +46,15 @@ export function SkillBadge({ skill }: SkillBadgeProps) {
 
             <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between mb-0.5">
-                    <h4 className="font-semibold text-white truncate pr-2">{skill.name}</h4>
+                    <h4 className="font-semibold text-gray-900 truncate pr-2">{skill.name}</h4>
                     {skill.verified && (
-                        <CheckCircle2 size={14} className="text-green-400 shrink-0" />
+                        <CheckCircle2 size={14} className="text-green-500 shrink-0" />
                     )}
                 </div>
                 <div className="flex items-center gap-2 text-xs">
                     <span className={config.text}>{config.label}</span>
-                    <span className="w-1 h-1 rounded-full bg-gray-600" />
-                    <span className="text-gray-400">{skill.level}</span>
+                    <span className="w-1 h-1 rounded-full bg-gray-300" />
+                    <span className="text-gray-500">{skill.level}</span>
                 </div>
             </div>
 

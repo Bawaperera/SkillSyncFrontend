@@ -35,8 +35,8 @@ export function AnalysisTabs() {
                         key={tab}
                         onClick={() => setActiveTab(tab)}
                         className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${activeTab === tab
-                            ? "bg-white text-black shadow-lg shadow-white/10"
-                            : "bg-white/5 text-gray-400 hover:text-white hover:bg-white/10"
+                            ? "bg-blue-600 text-white shadow-lg shadow-blue-500/20"
+                            : "bg-white border border-gray-200 text-gray-500 hover:text-gray-900 hover:bg-gray-50"
                             }`}
                     >
                         {tab}
@@ -48,28 +48,28 @@ export function AnalysisTabs() {
             <div className="min-h-[400px]">
                 {activeTab === "Overview" && (
                     <div className="grid md:grid-cols-2 gap-6">
-                        <GlassCard className="p-6">
-                            <h3 className="font-bold text-white mb-4">Verified Skills (High Confidence)</h3>
+                        <GlassCard className="p-6 bg-white border-gray-200">
+                            <h3 className="font-bold text-gray-900 mb-4">Verified Skills (High Confidence)</h3>
                             <div className="flex flex-wrap gap-2">
-                                <div className="flex items-center gap-2 p-2 rounded-lg bg-white/5 border border-white/10">
-                                    <span className="font-medium text-white text-sm">React</span>
+                                <div className="flex items-center gap-2 p-2 rounded-lg bg-green-50 border border-green-100">
+                                    <span className="font-medium text-green-700 text-sm">React</span>
                                     <TrustBadge type="github_verified" className="!text-[10px] !py-0.5" />
                                 </div>
-                                <div className="flex items-center gap-2 p-2 rounded-lg bg-white/5 border border-white/10">
-                                    <span className="font-medium text-white text-sm">TypeScript</span>
+                                <div className="flex items-center gap-2 p-2 rounded-lg bg-green-50 border border-green-100">
+                                    <span className="font-medium text-green-700 text-sm">TypeScript</span>
                                     <TrustBadge type="github_verified" className="!text-[10px] !py-0.5" />
                                 </div>
                             </div>
                         </GlassCard>
-                        <GlassCard className="p-6">
-                            <h3 className="font-bold text-gray-300 mb-4">Self-Reported (Medium Confidence)</h3>
+                        <GlassCard className="p-6 bg-white border-gray-200">
+                            <h3 className="font-bold text-gray-900 mb-4">Self-Reported (Medium Confidence)</h3>
                             <div className="flex flex-wrap gap-2">
-                                <div className="flex items-center gap-2 p-2 rounded-lg bg-white/5 border border-white/10 opacity-75">
-                                    <span className="font-medium text-gray-300 text-sm">Node.js</span>
+                                <div className="flex items-center gap-2 p-2 rounded-lg bg-gray-50 border border-gray-100">
+                                    <span className="font-medium text-gray-600 text-sm">Node.js</span>
                                     <TrustBadge type="self_reported" className="!text-[10px] !py-0.5" />
                                 </div>
-                                <div className="flex items-center gap-2 p-2 rounded-lg bg-white/5 border border-white/10 opacity-75">
-                                    <span className="font-medium text-gray-300 text-sm">Python</span>
+                                <div className="flex items-center gap-2 p-2 rounded-lg bg-gray-50 border border-gray-100">
+                                    <span className="font-medium text-gray-600 text-sm">Python</span>
                                     <TrustBadge type="self_reported" className="!text-[10px] !py-0.5" />
                                 </div>
                             </div>
@@ -88,19 +88,19 @@ export function AnalysisTabs() {
                 {activeTab === "Job Matches" && (
                     <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2">
                         {MATCHED_JOBS.map(job => (
-                            <div key={job.id} className="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-blue-500/30 transition-colors flex justify-between items-center group">
+                            <div key={job.id} className="p-4 rounded-xl bg-white border border-gray-200 hover:border-blue-400 hover:shadow-md transition-all flex justify-between items-center group">
                                 <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center text-xl">
+                                    <div className="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center text-xl">
                                         🏢
                                     </div>
                                     <div>
-                                        <h4 className="font-bold text-white group-hover:text-blue-400 transition-colors">{job.title}</h4>
-                                        <p className="text-sm text-gray-400">{job.company} • <span className="text-green-400">{job.matchScore}% Match</span></p>
+                                        <h4 className="font-bold text-gray-900 group-hover:text-blue-600 transition-colors">{job.title}</h4>
+                                        <p className="text-sm text-gray-500">{job.company} • <span className="text-green-600">{job.matchScore}% Match</span></p>
                                     </div>
                                 </div>
                                 <button
                                     onClick={() => setSelectedJob(job)}
-                                    className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-sm font-medium text-white transition-colors"
+                                    className="px-4 py-2 rounded-lg bg-blue-50 hover:bg-blue-100 text-sm font-medium text-blue-600 transition-colors"
                                 >
                                     Quick View
                                 </button>
@@ -111,16 +111,16 @@ export function AnalysisTabs() {
 
                 {activeTab === "Recommendations" && (
                     <div className="grid md:grid-cols-3 gap-6 animate-in fade-in slide-in-from-bottom-2">
-                        <GlassCard className="p-0 overflow-hidden group hover:border-blue-500/50 transition-colors cursor-pointer">
-                            <div className="h-32 bg-blue-900/20 relative">
+                        <GlassCard className="p-0 overflow-hidden group hover:border-blue-400 transition-colors cursor-pointer bg-white border-gray-200">
+                            <div className="h-32 bg-blue-50 relative">
                                 <div className="absolute inset-0 flex items-center justify-center">
-                                    <PlayCircle size={40} className="text-white/80 group-hover:scale-110 transition-transform" />
+                                    <PlayCircle size={40} className="text-blue-600 group-hover:scale-110 transition-transform" />
                                 </div>
                             </div>
                             <div className="p-5">
-                                <span className="text-xs font-bold text-blue-400 uppercase tracking-wider mb-2 block">Available Course</span>
-                                <h4 className="font-bold text-white mb-2">Docker for Beginners</h4>
-                                <p className="text-xs text-gray-400 mb-4">Master containers in 3 hours.</p>
+                                <span className="text-xs font-bold text-blue-600 uppercase tracking-wider mb-2 block">Available Course</span>
+                                <h4 className="font-bold text-gray-900 mb-2">Docker for Beginners</h4>
+                                <p className="text-xs text-gray-500 mb-4">Master containers in 3 hours.</p>
                                 <div className="flex items-center justify-between text-xs text-gray-500">
                                     <span>Duration: 3h 15m</span>
                                     <span>Udemy</span>

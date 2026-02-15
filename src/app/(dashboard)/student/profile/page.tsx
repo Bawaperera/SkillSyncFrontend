@@ -71,7 +71,7 @@ const MOCK_PROFILE: StudentProfile = {
 
 export default function StudentProfilePage() {
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-[#0A0A0B] pb-20">
+        <div className="h-full bg-[#F5F7FA] pb-8">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <ProfileHeader profile={MOCK_PROFILE} />
                 <ProfileTabs profile={MOCK_PROFILE} />

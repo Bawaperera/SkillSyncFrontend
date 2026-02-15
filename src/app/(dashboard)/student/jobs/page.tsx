@@ -69,12 +69,12 @@ const MOCK_MATCHES: Record<string, JobMatchAndAnalysis> = {
 
 export default function JobsPage() {
     return (
-        <div className="min-h-screen pb-20">
+        <div className="min-h-screen pb-20 bg-[#F5F7FA]">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
                     <div>
-                        <h1 className="text-3xl font-bold text-white mb-2">Find Your Next Role</h1>
-                        <p className="text-gray-400">Based on your profile, we found <span className="text-blue-400 font-bold">12</span> highly matched jobs.</p>
+                        <h1 className="text-3xl font-bold text-gray-900 mb-2">Find Your Next Role</h1>
+                        <p className="text-gray-500">Based on your profile, we found <span className="text-blue-600 font-bold">12</span> highly matched jobs.</p>
                     </div>
                 </div>
 
@@ -94,7 +94,7 @@ export default function JobsPage() {
                             ))}
                         </div>
 
-                        <button className="w-full py-4 rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 font-bold border border-white/5 transition-colors">
+                        <button className="w-full py-4 rounded-xl bg-white hover:bg-gray-50 text-gray-600 font-bold border border-gray-200 transition-colors shadow-sm">
                             Load More Jobs
                         </button>
                     </div>

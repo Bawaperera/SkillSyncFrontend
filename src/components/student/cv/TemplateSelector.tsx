@@ -39,21 +39,21 @@ export function TemplateSelector({ selectedTemplate, onSelect }: TemplateSelecto
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => onSelect(template.id)}
-                    className={`relative p-4 rounded-xl text-left transition-all duration-300 border-2 ${selectedTemplate === template.id
-                            ? "border-blue-500 bg-blue-500/10"
-                            : "border-white/5 bg-white/5 hover:border-white/10 hover:bg-white/10"
+                    className={`relative p-4 rounded-xl text-left transition-all duration-300 border-2 shadow-sm ${selectedTemplate === template.id
+                        ? "border-blue-600 bg-blue-50"
+                        : "border-gray-200 bg-white hover:border-blue-300 hover:shadow-md"
                         }`}
                 >
                     {selectedTemplate === template.id && (
-                        <div className="absolute top-2 right-2 text-blue-500">
+                        <div className="absolute top-2 right-2 text-blue-600">
                             <CheckCircle2 size={18} />
                         </div>
                     )}
 
-                    <div className={`w-full h-24 rounded-lg mb-3 ${template.color} opacity-50`} />
+                    <div className={`w-full h-24 rounded-lg mb-3 ${template.color} opacity-80`} />
 
-                    <h3 className="font-bold text-white text-sm">{template.name}</h3>
-                    <p className="text-xs text-gray-400 mt-1">{template.description}</p>
+                    <h3 className="font-bold text-gray-900 text-sm">{template.name}</h3>
+                    <p className="text-xs text-gray-500 mt-1">{template.description}</p>
                 </motion.button>
             ))}
         </div>

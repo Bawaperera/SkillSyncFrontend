@@ -133,9 +133,9 @@ const CVDocument = ({ profile, template }: CVDocumentProps) => (
 
 export function LiveCVPreview({ profile, template }: CVDocumentProps) {
     return (
-        <div className="w-full h-full bg-gray-500/50 rounded-xl overflow-hidden">
+        <div className="w-full h-full bg-gray-100 border border-gray-200 rounded-xl overflow-hidden shadow-inner">
             <PDFViewer width="100%" height="100%" showToolbar={false} className="border-none">
-                <CVDocument profile={profile} template={template} />
+                < CVDocument profile={profile} template={template} />
             </PDFViewer>
         </div>
     );

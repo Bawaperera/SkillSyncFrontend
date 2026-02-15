@@ -60,6 +60,8 @@ const config: Config = {
         'soft': '0 10px 40px -10px rgba(0, 0, 0, 0.05)',
         'glow': '0 0 20px rgba(59, 130, 246, 0.3)',
         'glass-inset': 'inset 0 0 20px rgba(255, 255, 255, 0.05)',
+        'smooth': '0 8px 30px rgb(0, 0, 0, 0.04)',
+        'smooth-hover': '0 8px 30px rgb(0, 0, 0, 0.08)',
       },
       borderRadius: {
         lg: "var(--radius)",

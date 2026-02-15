@@ -1,139 +1,134 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { FileText, Github, Target, Trophy, CheckCircle2, ChevronRight, X } from "lucide-react";
-import { useState } from "react";
-import { cn } from "@/lib/utils";
-
-interface Step {
-    id: string;
-    label: string;
-    icon: any;
-    isCompleted: boolean;
-    color: string;
-}
+import { CheckCircle2, Circle, Upload, Github, Target, Briefcase } from "lucide-react";
+import { GlassCard } from "@/components/ui/GlassCard";
+import { GlassButton } from "@/components/ui/GlassButton";
 
 interface ProfileCompletenessBannerProps {
-    progress: number;
-    steps: Step[];
-    onCompleteStep: (id: string) => void;
-    onDismiss?: () => void;
+    onComplete: () => void;
+    currentProgress: number;
+    onUpdateProgress: (newProgress: number) => void;
 }
 
-export function ProfileCompletenessBanner({ 
-    progress, 
-    steps, 
-    onCompleteStep,
-    onDismiss 
-}: ProfileCompletenessBannerProps) {
-    if (progress >= 100) return null;
+export function ProfileCompletenessBanner({ onComplete, currentProgress, onUpdateProgress }: ProfileCompletenessBannerProps) {
+    const [isVisible, setIsVisible] = useState(true);
+
+    // Steps configuration
+    const [steps, setSteps] = useState([
+        { id: "cv", label: "Example CV", icon: <Upload size={20} />, completed: false, description: "Upload your resume" },
+        { id: "github", label: "GitHub", icon: <Github size={20} />, completed: false, description: "Connect your profile" },
+        { id: "skills", label: "Skills", icon: <Briefcase size={20} />, completed: false, description: "Add key skills" },
+        { id: "role", label: "Target Role", icon: <Target size={20} />, completed: false, description: "Set your goals" },
+    ]);
+
+    // Handle updates when a step is clicked
+    const handleStepClick = (id: string) => {
+        setSteps(prev => {
+            const newSteps = prev.map(step =>
+                step.id === id ? { ...step, completed: true } : step
+            );
+            // Calculate new progress immediately
+            const completedCount = newSteps.filter(s => s.completed).length;
+            const newProgress = (completedCount / newSteps.length) * 100;
+            onUpdateProgress(newProgress);
+            return newSteps;
+        });
+    };
+
+    const handleCompleteProfile = () => {
+        if (currentProgress >= 100) {
+            setIsVisible(false);
+            onComplete();
+        }
+    };
+
+    if (!isVisible) return null;
 
     return (
-        <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, height: 0 }}
-            className="mb-8 p-6 bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl shadow-sm relative overflow-hidden"
-        >
-            {/* Background Decoration */}
-            <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
-                <Trophy size={120} />
-            </div>
-
-            <div className="relative z-10 flex flex-col md:flex-row gap-8 items-start md:items-center justify-between mb-6">
+        <GlassCard className="p-8 mb-8 border border-blue-100 bg-white/80 backdrop-blur-sm shadow-sm relative overflow-hidden">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
                 <div>
-                    <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
-                        Profile Completeness
-                    </h2>
-                    <p className="text-gray-500 dark:text-gray-400 text-sm">
-                        Complete your profile to unlock AI job matching and improved search ranking.
-                    </p>
+                    <h2 className="text-2xl font-bold text-gray-900 mb-1">Profile Completeness</h2>
+                    <p className="text-sm text-gray-500 font-medium">Complete your profile to unlock dashboard insights</p>
                 </div>
-                
-                <div className="flex items-center gap-4">
-                    <div className="text-right hidden md:block">
-                        <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{progress}%</div>
-                        <div className="text-xs text-gray-500 font-medium uppercase tracking-wider">Completed</div>
-                    </div>
-                    {/* Ring Chart could go here, but Bar is cleaner for horizontal layout */}
-                     <div className="w-16 h-16 relative flex items-center justify-center">
-                        <svg className="w-full h-full rotate-[-90deg]" viewBox="0 0 36 36">
-                            <path
-                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                                fill="none"
-                                stroke="#E5E7EB"
-                                strokeWidth="4"
-                                className="dark:stroke-gray-700"
-                            />
-                            <motion.path
-                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                                fill="none"
-                                stroke="#2563EB"
-                                strokeWidth="4"
-                                strokeDasharray={`${progress}, 100`}
-                                initial={{ strokeDasharray: "0, 100" }}
-                                animate={{ strokeDasharray: `${progress}, 100` }}
-                                transition={{ duration: 1, ease: "easeOut" }}
-                            />
-                        </svg>
-                        <div className="absolute inset-0 flex items-center justify-center md:hidden">
-                            <span className="text-xs font-bold text-blue-600 dark:text-blue-400">{progress}%</span>
-                        </div>
-                    </div>
+                <div className={`px-4 py-1.5 rounded-full font-bold text-sm border shadow-sm ${currentProgress >= 100
+                        ? "bg-green-50 text-green-600 border-green-100"
+                        : "bg-blue-50 text-blue-600 border-blue-100"
+                    }`}>
+                    {Math.round(currentProgress)}% Complete
                 </div>
             </div>
 
-            {/* Progress Bar (Visual) */}
-            <div className="h-2 w-full bg-gray-100 dark:bg-white/10 rounded-full mb-8 overflow-hidden">
-                 <motion.div 
-                    className="h-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"
+            {/* Progress Bar */}
+            <div className="w-full h-3 bg-gray-100 rounded-full mb-8 overflow-hidden relative border border-gray-200">
+                <motion.div
+                    className="absolute top-0 left-0 h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
                     initial={{ width: 0 }}
-                    animate={{ width: `${progress}%` }}
-                    transition={{ duration: 1 }}
-                 />
+                    animate={{ width: `${currentProgress}%` }}
+                    transition={{ duration: 0.5 }}
+                />
             </div>
 
-            {/* Action Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Steps Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                 {steps.map((step) => (
                     <button
                         key={step.id}
-                        onClick={() => onCompleteStep(step.id)}
-                        disabled={step.isCompleted}
-                        className={cn(
-                            "group flex items-center gap-4 p-4 rounded-xl border transition-all duration-300 text-left relative overflow-hidden",
-                            step.isCompleted 
-                                ? "bg-gray-50 border-gray-200 dark:bg-white/5 dark:border-white/10 opacity-70" 
-                                : "bg-white dark:bg-white/5 border-gray-200 dark:border-white/10 hover:border-blue-500 dark:hover:border-blue-400 hover:shadow-md"
-                        )}
+                        onClick={() => handleStepClick(step.id)}
+                        disabled={step.completed}
+                        className={`
+                            group flex items-center justify-between p-5 rounded-xl border transition-all text-left relative overflow-hidden
+                            ${step.completed
+                                ? "bg-green-50/50 border-green-100 text-green-700 shadow-sm"
+                                : "bg-white border-gray-200 hover:border-blue-300 hover:shadow-md text-gray-700 hover:bg-blue-50/30"
+                            }
+                        `}
                     >
-                        {step.isCompleted && (
-                            <div className="absolute top-2 right-2 text-green-500">
-                                <CheckCircle2 size={16} />
+                        <div className="flex items-center gap-4 relative z-10">
+                            <div className={`
+                                w-10 h-10 rounded-lg flex items-center justify-center transition-colors border
+                                ${step.completed
+                                    ? "bg-white border-green-100 text-green-600 shadow-sm"
+                                    : "bg-gray-50 border-gray-100 text-gray-500 group-hover:text-blue-600 group-hover:bg-white group-hover:border-blue-100 shadow-sm"
+                                }
+                            `}>
+                                {step.icon}
                             </div>
-                        )}
-                        
-                        <div className={cn(
-                            "w-10 h-10 rounded-lg flex items-center justify-center shadow-sm shrink-0 transition-colors",
-                            step.isCompleted ? "bg-gray-200 dark:bg-white/10 text-gray-500" : `bg-${step.color}-100 dark:bg-${step.color}-900/30 text-${step.color}-600 dark:text-${step.color}-400 group-hover:bg-${step.color}-600 group-hover:text-white`
-                        )}>
-                            <step.icon size={20} />
+                            <div>
+                                <span className="font-bold text-sm block mb-0.5">{step.label}</span>
+                                <span className="text-xs text-gray-400 font-medium">{step.description}</span>
+                            </div>
                         </div>
-                        
-                        <div>
-                            <h4 className={cn(
-                                "font-bold text-sm transition-colors",
-                                step.isCompleted ? "text-gray-500 dark:text-gray-400" : "text-gray-900 dark:text-white"
-                            )}>
-                                {step.label}
-                            </h4>
-                            <p className="text-xs text-gray-500 dark:text-gray-400">
-                                {step.isCompleted ? "Completed" : "Add details +"}
-                            </p>
+                        <div className="relative z-10 pl-2">
+                            {step.completed ? (
+                                <CheckCircle2 size={24} className="text-green-500" />
+                            ) : (
+                                <Circle size={24} className="text-gray-300 group-hover:text-blue-300 transition-colors" />
+                            )}
                         </div>
                     </button>
                 ))}
             </div>
-        </motion.div>
+
+            {/* Footer Action */}
+            <div className="flex justify-end items-center border-t border-gray-100 pt-6">
+                <GlassButton
+                    onClick={handleCompleteProfile}
+                    className={`
+                        shadow-md px-8 py-2.5 transition-all duration-300 rounded-xl
+                        ${currentProgress >= 100
+                            ? "bg-blue-600 hover:bg-blue-700 text-white translate-y-0 opacity-100"
+                            : "bg-gray-100 text-gray-400 cursor-not-allowed border-none shadow-none opacity-50"
+                        }
+                    `}
+                    disabled={currentProgress < 100}
+                >
+                    Complete Profile & Unlock Dashboard
+                </GlassButton>
+            </div>
+        </GlassCard>
     );
 }
+

@@ -16,11 +16,11 @@ export function SkillsTab({ profile }: SkillsTabProps) {
             {/* Verified Skills */}
             <section>
                 <div className="flex items-center gap-2 mb-4">
-                    <div className="p-1.5 rounded-lg bg-blue-500/10">
-                        <CheckCircle2 size={18} className="text-blue-400" />
+                    <div className="p-1.5 rounded-lg bg-blue-50">
+                        <CheckCircle2 size={18} className="text-blue-600" />
                     </div>
-                    <h3 className="text-lg font-bold text-white">Verified Skills</h3>
-                    <span className="text-sm text-gray-400 font-medium">
+                    <h3 className="text-lg font-bold text-gray-900">Verified Skills</h3>
+                    <span className="text-sm text-gray-500 font-medium">
                         ({verifiedSkills.length})
                     </span>
                 </div>
@@ -34,11 +34,11 @@ export function SkillsTab({ profile }: SkillsTabProps) {
             {/* Self-Reported Skills */}
             <section>
                 <div className="flex items-center gap-2 mb-4">
-                    <div className="p-1.5 rounded-lg bg-gray-500/10">
-                        <User size={18} className="text-gray-400" />
+                    <div className="p-1.5 rounded-lg bg-gray-100">
+                        <User size={18} className="text-gray-500" />
                     </div>
-                    <h3 className="text-lg font-bold text-white">Self-Reported</h3>
-                    <span className="text-sm text-gray-400 font-medium">
+                    <h3 className="text-lg font-bold text-gray-900">Self-Reported</h3>
+                    <span className="text-sm text-gray-500 font-medium">
                         ({manualSkills.length})
                     </span>
                 </div>
@@ -48,8 +48,8 @@ export function SkillsTab({ profile }: SkillsTabProps) {
                     ))}
 
                     {/* Add New Skill CTA */}
-                    <button className="flex items-center justify-center gap-2 p-3 rounded-xl border border-dashed border-gray-700 bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-colors group">
-                        <span className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-white/10 border border-white/5 group-hover:border-white/10 transition-colors">
+                    <button className="flex items-center justify-center gap-2 p-3 rounded-xl border border-dashed border-gray-300 bg-gray-50 hover:bg-white text-gray-500 hover:text-gray-900 transition-colors group">
+                        <span className="w-8 h-8 rounded-full bg-white flex items-center justify-center group-hover:bg-blue-50 border border-gray-200 group-hover:border-blue-100 transition-colors">
                             +
                         </span>
                         <span className="text-sm font-medium">Add Skill</span>
@@ -57,17 +57,17 @@ export function SkillsTab({ profile }: SkillsTabProps) {
                 </div>
             </section>
 
-            <GlassCard className="p-4 bg-blue-500/5 border-blue-500/20 flex items-center justify-between">
+            <GlassCard className="p-4 bg-blue-50 border-blue-100 flex items-center justify-between shadow-sm">
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center">
-                        <CheckCircle2 size={20} className="text-blue-400" />
+                    <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm">
+                        <CheckCircle2 size={20} className="text-blue-600" />
                     </div>
                     <div>
-                        <h4 className="font-bold text-white text-sm">Want to verify your self-reported skills?</h4>
-                        <p className="text-xs text-blue-200/80">Link a GitHub repository or upload a project to get verified.</p>
+                        <h4 className="font-bold text-gray-900 text-sm">Want to verify your self-reported skills?</h4>
+                        <p className="text-xs text-blue-600/80">Link a GitHub repository or upload a project to get verified.</p>
                     </div>
                 </div>
-                <button className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-colors">
+                <button className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-colors shadow-sm">
                     Verify Now
                 </button>
             </GlassCard>

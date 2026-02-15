@@ -16,7 +16,7 @@ const SKILL_DATA: SkillData[] = [
 
 export default function AnalysisPage() {
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-[#0A0A0B] pb-20">
+        <div className="min-h-screen bg-[#F5F7FA] pb-20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
                 <AnalysisHeader />
 
@@ -24,23 +24,23 @@ export default function AnalysisPage() {
                     {/* Left: Visualization */}
                     <div className="lg:col-span-5 space-y-6">
                         <div>
-                            <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4 pl-1">Visual Gap Analysis</h2>
+                            <h2 className="text-lg font-bold text-gray-900 mb-4 pl-1">Visual Gap Analysis</h2>
                             <SkillRadar data={SKILL_DATA} />
                         </div>
 
-                        <div className="p-5 rounded-xl bg-blue-500/10 border border-blue-500/20">
-                            <h4 className="font-bold text-blue-400 text-sm mb-2 flex items-center gap-2">
+                        <div className="p-5 rounded-xl bg-blue-50 border border-blue-100">
+                            <h4 className="font-bold text-blue-600 text-sm mb-2 flex items-center gap-2">
                                 <span className="text-lg">💡</span> Key Insight
                             </h4>
-                            <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
-                                Your <span className="text-gray-900 dark:text-white font-bold">Frontend</span> skills exceed market standards, but <span className="text-gray-900 dark:text-white font-bold">DevOps</span> is a critical bottleneck preventing high-tier offers.
+                            <p className="text-sm text-gray-600 leading-relaxed">
+                                Your <span className="text-gray-900 font-bold">Frontend</span> skills exceed market standards, but <span className="text-gray-900 font-bold">DevOps</span> is a critical bottleneck preventing high-tier offers.
                             </p>
                         </div>
                     </div>
 
                     {/* Right: Action & Strategy */}
                     <div className="lg:col-span-7">
-                        <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4 pl-1">Strategic Action Plan</h2>
+                        <h2 className="text-lg font-bold text-gray-900 mb-4 pl-1">Strategic Action Plan</h2>
                         <AnalysisTabs />
                     </div>
                 </div>

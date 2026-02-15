@@ -39,19 +39,19 @@ export function CVUploader({ onUpload }: CVUploaderProps) {
                         {...getRootProps()}
                         className={`
               border-2 border-dashed rounded-3xl p-10 text-center cursor-pointer transition-all duration-300
-              flex flex-col items-center justify-center gap-4 group
+              flex flex-col items-center justify-center gap-4 group bg-white
               ${isDragActive
-                                ? "border-blue-500 bg-blue-500/10"
-                                : "border-gray-700 hover:border-blue-500/50 hover:bg-white/5"
+                                ? "border-blue-500 bg-blue-50"
+                                : "border-gray-300 hover:border-blue-400 hover:bg-gray-50"
                             }
             `}
                     >
                         <input {...getInputProps()} />
-                        <div className={`p-4 rounded-full bg-white/5 group-hover:bg-blue-500/20 transition-colors duration-300 ${isDragActive ? "bg-blue-500/20" : ""}`}>
-                            <UploadCloud size={32} className={`text-gray-400 group-hover:text-blue-400 transition-colors duration-300 ${isDragActive ? "text-blue-400" : ""}`} />
+                        <div className={`p-4 rounded-full bg-gray-100 group-hover:bg-blue-50 transition-colors duration-300 ${isDragActive ? "bg-blue-100" : ""}`}>
+                            <UploadCloud size={32} className={`text-gray-400 group-hover:text-blue-500 transition-colors duration-300 ${isDragActive ? "text-blue-500" : ""}`} />
                         </div>
                         <div>
-                            <p className="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
+                            <p className="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
                                 {isDragActive ? "Drop your CV here" : "Upload your existing CV"}
                             </p>
                             <p className="text-sm text-gray-500 mt-1">
@@ -64,21 +64,21 @@ export function CVUploader({ onUpload }: CVUploaderProps) {
                         key="uploading"
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="bg-white/5 border border-white/10 rounded-2xl p-6 flex items-center justify-between"
+                        className="bg-white border border-gray-200 rounded-2xl p-6 flex items-center justify-between shadow-sm"
                     >
                         <div className="flex items-center gap-4">
-                            <div className="p-3 rounded-lg bg-red-500/10 text-red-400">
+                            <div className="p-3 rounded-lg bg-red-50 text-red-500">
                                 <FileText size={24} />
                             </div>
                             <div>
-                                <p className="font-medium text-white">{file.name}</p>
-                                <p className="text-xs text-gray-400">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                                <p className="font-medium text-gray-900">{file.name}</p>
+                                <p className="text-xs text-gray-500">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
                             </div>
                         </div>
 
                         {/* Fake progress loader */}
                         <div className="flex items-center gap-3">
-                            <div className="w-24 h-1.5 bg-gray-700 rounded-full overflow-hidden">
+                            <div className="w-24 h-1.5 bg-gray-100 rounded-full overflow-hidden">
                                 <motion.div
                                     initial={{ width: "0%" }}
                                     animate={{ width: "100%" }}
@@ -86,7 +86,7 @@ export function CVUploader({ onUpload }: CVUploaderProps) {
                                     className="h-full bg-blue-500 rounded-full"
                                 />
                             </div>
-                            <span className="text-xs text-blue-400 font-medium whitespace-nowrap">Analying...</span>
+                            <span className="text-xs text-blue-600 font-medium whitespace-nowrap">Analyzing...</span>
                         </div>
                     </motion.div>
                 )}

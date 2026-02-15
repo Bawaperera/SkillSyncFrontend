@@ -1,174 +1,142 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-    Upload, Github, Target, Lock, CheckCircle2,
-    Trophy, TrendingUp, Briefcase, ChevronRight, X
+    Briefcase,
+    CheckCircle2,
+    Lock,
+    Target,
+    Trophy,
+    AlertCircle
 } from "lucide-react";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { GlassButton } from "@/components/ui/GlassButton";
+import Link from "next/link";
+import { SkillGrowthChart } from "@/components/student/dashboard/SkillGrowthChart";
+import { ProfileCompletenessBanner } from "@/components/student/dashboard/ProfileCompletenessBanner";
 
 
 export default function StudentDashboard() {
-    // Start at 15% (Zero State)
-    const [progress, setProgress] = useState(15);
+    const [progress, setProgress] = useState(0);
+    const [isProfileComplete, setIsProfileComplete] = useState(false);
     const [showConfetti, setShowConfetti] = useState(false);
 
-    // Unlock threshold
-    const isUnlocked = progress >= 100;
-
-    // Simulate Actions
-    const handleAction = (increment: number) => {
-        const newProgress = Math.min(progress + increment, 100);
-        setProgress(newProgress);
-        if (newProgress === 100) {
-            setShowConfetti(true);
-            setTimeout(() => setShowConfetti(false), 5000);
-        }
+    const handleUnlock = () => {
+        setIsProfileComplete(true);
+        setShowConfetti(true);
+        setTimeout(() => setShowConfetti(false), 5000);
     };
 
     return (
-        <div className="relative min-h-screen bg-gray-50 dark:bg-[#0A0A0B] text-gray-900 dark:text-white overflow-x-hidden">
-            {/* 
-                ZERO STATE OVERLAY 
-                - Covers the entire screen with a high z-index
-                - Blurs the content behind it
-            */}
-            <AnimatePresence>
-                {!isUnlocked && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md"
-                    >
-                        <div className="w-full max-w-4xl relative">
-                            {/* Glow Effects */}
-                            {/* Glow Effects - Premium Mesh Alignment */}
-                            <div className="absolute top-[-50%] left-[-20%] w-[800px] h-[800px] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none" />
-                            <div className="absolute bottom-[-20%] right-[-20%] w-[800px] h-[800px] bg-purple-600/20 rounded-full blur-[120px] pointer-events-none" />
+        <div className="relative min-h-screen text-gray-900 overflow-x-hidden bg-[#F5F7FA]">
 
-                            <GlassCard className="relative z-10 p-12 text-center border-white/10 bg-black/40 shadow-2xl">
-                                <motion.div
-                                    initial={{ y: 20, opacity: 0 }}
-                                    animate={{ y: 0, opacity: 1 }}
-                                    transition={{ delay: 0.2 }}
-                                >
-                                    <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-                                        Welcome, Alex! 👋
-                                    </h1>
-                                    <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-12">
-                                        Your dashboard is currently locked. Complete these steps to unlock AI-powered job matching and skill analysis.
-                                    </p>
+            <div className="p-8 max-w-[1600px] mx-auto relative z-10 transition-all duration-700">
 
-                                    {/* Action Grid */}
-                                    <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-                                        {/* Action 1: Upload CV */}
-                                        <button
-                                            onClick={() => handleAction(50)}
-                                            className="group relative p-8 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all text-left overflow-hidden"
-                                        >
-                                            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                                            <div className="relative z-10">
-                                                <div className="w-12 h-12 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                                    <Upload size={24} />
-                                                </div>
-                                                <h3 className="text-xl font-bold text-white mb-2">Upload CV</h3>
-                                                <p className="text-sm text-gray-400 mb-4">We'll extract your skills automatically.</p>
-                                                <div className="flex items-center gap-2 text-blue-400 font-bold text-sm">
-                                                    Start Scan <ChevronRight size={16} />
-                                                </div>
-                                            </div>
-                                            <div className="absolute top-4 right-4 bg-blue-500/20 text-blue-400 text-xs font-bold px-3 py-1 rounded-full border border-blue-500/20">
-                                                +50%
-                                            </div>
-                                        </button>
+                {/* Profile Completeness Banner - Only shown if incomplete */}
+                <AnimatePresence>
+                    {!isProfileComplete && (
+                        <motion.div
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+                            transition={{ duration: 0.5 }}
+                        >
+                            <ProfileCompletenessBanner
+                                currentProgress={progress}
+                                onUpdateProgress={setProgress}
+                                onComplete={handleUnlock}
+                            />
+                        </motion.div>
+                    )}
+                </AnimatePresence>
 
-                                        {/* Action 2: Connect GitHub */}
-                                        <button
-                                            onClick={() => handleAction(35)}
-                                            className="group relative p-8 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all text-left overflow-hidden"
-                                        >
-                                            <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                                            <div className="relative z-10">
-                                                <div className="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                                    <Github size={24} />
-                                                </div>
-                                                <h3 className="text-xl font-bold text-white mb-2">Connect GitHub</h3>
-                                                <p className="text-sm text-gray-400 mb-4">Verify your code quality & projects.</p>
-                                                <div className="flex items-center gap-2 text-purple-400 font-bold text-sm">
-                                                    Connect Now <ChevronRight size={16} />
-                                                </div>
-                                            </div>
-                                            <div className="absolute top-4 right-4 bg-purple-500/20 text-purple-400 text-xs font-bold px-3 py-1 rounded-full border border-purple-500/20">
-                                                +35%
-                                            </div>
-                                        </button>
-                                    </div>
+                {/* Dashboard Content - Blurred if not complete */}
+                <div className={`relative transition-all duration-700 ${!isProfileComplete ? "filter blur-sm select-none pointer-events-none opacity-60 overflow-hidden h-[calc(100vh-400px)]" : ""}`}>
 
-                                    {/* Progress Indicator */}
-                                    <div className="mt-12 flex flex-col items-center">
-                                        <div className="flex items-center justify-between w-full max-w-md mb-2 text-sm">
-                                            <span className="text-gray-400">Profile Completion</span>
-                                            <span className="font-bold text-white">{progress}%</span>
-                                        </div>
-                                        <div className="w-full max-w-md h-2 bg-white/10 rounded-full overflow-hidden">
-                                            <motion.div
-                                                className="h-full bg-gradient-to-r from-blue-500 to-purple-500"
-                                                initial={{ width: "15%" }}
-                                                animate={{ width: `${progress}%` }}
-                                                transition={{ duration: 0.5 }}
-                                            />
-                                        </div>
-
-                                    </div>
-                                </motion.div>
-                            </GlassCard>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-
-            {/* 
-                ACTIVE CONTENT LAYER 
-                - Rendered always, but blurred when locked
-            */}
-            <div className={`transition-all duration-700 ${!isUnlocked ? "filter blur-sm grayscale-[0.5] pointer-events-none opacity-50" : ""}`}>
-
-                {/* Premium Background Mesh - Continuous & Aligned with Landing Page */}
-                <div className="fixed inset-0 pointer-events-none z-0">
-                    <div className="absolute top-[-10%] left-[-10%] w-[1200px] h-[1200px] bg-blue-500/10 rounded-full blur-[180px]" />
-                    <div className="absolute top-[40%] right-[-10%] w-[1000px] h-[1000px] bg-purple-500/10 rounded-full blur-[180px]" />
-                    <div className="absolute bottom-[-10%] left-[-10%] w-[1000px] h-[1000px] bg-cyan-500/10 rounded-full blur-[180px]" />
-                </div>
-
-                <div className="p-8 max-w-7xl mx-auto relative z-10">
-                    {/* Header: KPIs */}
-                    <header className="mb-12">
-                        <div className="flex justify-between items-end mb-8">
-                            <div>
-                                <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Dashboard Overview</h1>
-                                <p className="text-gray-600 dark:text-gray-400">Track your growth and job applications.</p>
+                    {/* Locked Overlay */}
+                    {!isProfileComplete && (
+                        <div className="absolute inset-0 z-20 flex items-center justify-center">
+                            <div className="bg-white/80 backdrop-blur-md p-6 rounded-full shadow-2xl border border-gray-200 flex items-center gap-3">
+                                <Lock size={24} className="text-gray-400" />
+                                <span className="font-bold text-gray-500">Dashboard Locked</span>
                             </div>
-                            <GlassButton size="sm">Download Report</GlassButton>
+                        </div>
+                    )}
+
+                    {/* Header: KPIs */}
+                    <header className="mb-10">
+                        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-8">
+                            <div className="max-w-xl">
+                                <h1 className="text-4xl font-extrabold text-[#111827] mb-2 tracking-tight">Dashboard Overview</h1>
+                                <p className="text-gray-500 font-medium leading-relaxed">Track your growth and job applications.</p>
+                            </div>
+                            <div className="flex gap-4 shrink-0">
+                                <div className="hidden md:flex items-center gap-2 bg-white px-4 py-2 rounded-xl shadow-sm border border-gray-100">
+                                    <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                                    <span className="text-sm font-bold text-gray-700">Live Status</span>
+                                </div>
+                                <GlassButton size="sm" className="bg-white hover:bg-gray-50 text-gray-900 border-none shadow-sm">Export Report</GlassButton>
+                            </div>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                            {[
-                                { label: "Skill Score", value: "850", trend: "+12%", color: "text-blue-500 dark:text-blue-400" },
-                                { label: "Profile Views", value: "1,204", trend: "+5%", color: "text-purple-500 dark:text-purple-400" },
-                                { label: "Applications", value: "12", trend: "Pending", color: "text-orange-500 dark:text-orange-400" },
-                                { label: "Interviews", value: "3", trend: "This Week", color: "text-green-500 dark:text-green-400" },
-                            ].map((stat, i) => (
-                                <GlassCard key={i} className="p-6">
-                                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{stat.label}</p>
-                                    <h3 className={`text-3xl font-bold ${stat.color} mb-1`}>{stat.value}</h3>
-                                    <p className="text-xs font-medium text-green-500 dark:text-green-400 flex items-center gap-1">
-                                        <TrendingUp size={12} /> {stat.trend}
-                                    </p>
-                                </GlassCard>
-                            ))}
+                            {/* Skill Score - Highlighted */}
+                            <GlassCard className="p-6 relative overflow-hidden group hover:scale-[1.02] transition-transform duration-300 border-none shadow-xl bg-blue-600">
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none" />
+                                <div className="flex justify-between items-start mb-4 relative z-10">
+                                    <div className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center text-white shadow-sm border border-white/20">
+                                        <Target size={24} />
+                                    </div>
+                                    <span className="text-xs font-bold px-2 py-1 rounded-full bg-white/20 text-white border border-white/20">
+                                        +12%
+                                    </span>
+                                </div>
+                                <h3 className="text-4xl font-extrabold text-white mb-1 tracking-tight">78</h3>
+                                <p className="text-sm font-bold text-blue-100">Skill Score</p>
+                            </GlassCard>
+
+                            {/* Skill Gaps */}
+                            <GlassCard className="p-6 relative overflow-hidden group hover:scale-[1.02] transition-transform duration-300 border-none shadow-sm bg-white">
+                                <div className="flex justify-between items-start mb-4">
+                                    <div className="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center text-orange-600">
+                                        <AlertCircle size={24} />
+                                    </div>
+                                    <span className="text-xs font-bold px-2 py-1 rounded-full bg-red-50 text-red-700">
+                                        Critical
+                                    </span>
+                                </div>
+                                <h3 className="text-4xl font-bold text-gray-900 mb-1 tracking-tight">3</h3>
+                                <p className="text-sm font-medium text-gray-500">Skills to Improve</p>
+                            </GlassCard>
+
+                            {/* Applications */}
+                            <GlassCard className="p-6 relative overflow-hidden group hover:scale-[1.02] transition-transform duration-300 border-none shadow-sm bg-white">
+                                <div className="flex justify-between items-start mb-4">
+                                    <div className="w-12 h-12 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-600">
+                                        <Briefcase size={24} />
+                                    </div>
+                                    <span className="text-xs font-bold px-2 py-1 rounded-full bg-yellow-50 text-yellow-700">
+                                        Pending
+                                    </span>
+                                </div>
+                                <h3 className="text-4xl font-bold text-gray-900 mb-1 tracking-tight">12</h3>
+                                <p className="text-sm font-medium text-gray-500">Active Applications</p>
+                            </GlassCard>
+
+                            {/* Interviews */}
+                            <GlassCard className="p-6 relative overflow-hidden group hover:scale-[1.02] transition-transform duration-300 border-none shadow-sm bg-white">
+                                <div className="flex justify-between items-start mb-4">
+                                    <div className="w-12 h-12 rounded-2xl bg-green-50 flex items-center justify-center text-green-600">
+                                        <CheckCircle2 size={24} />
+                                    </div>
+                                    <span className="text-xs font-bold px-2 py-1 rounded-full bg-blue-50 text-blue-700">
+                                        This Week
+                                    </span>
+                                </div>
+                                <h3 className="text-4xl font-bold text-gray-900 mb-1 tracking-tight">3</h3>
+                                <p className="text-sm font-medium text-gray-500">Upcoming Interviews</p>
+                            </GlassCard>
                         </div>
                     </header>
 
@@ -176,27 +144,37 @@ export default function StudentDashboard() {
                     <div className="grid lg:grid-cols-3 gap-8">
                         {/* Column 1 & 2: Charts and Activity */}
                         <div className="lg:col-span-2 space-y-8">
-                            <GlassCard className="p-8 min-h-[400px]">
-                                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Skill Growth Analysis</h3>
-                                <div className="h-[300px] w-full bg-gray-100 dark:bg-white/5 rounded-xl flex items-center justify-center border border-gray-200 dark:border-white/5 border-dashed">
-                                    <p className="text-gray-500 dark:text-gray-400">Interactive Chart Placeholder (Recharts)</p>
+                            <GlassCard className="p-8 border-none shadow-sm bg-white">
+                                <div className="flex justify-between items-center mb-8">
+                                    <h3 className="text-xl font-bold text-gray-900">Skill Growth Analysis</h3>
+                                    <select className="bg-gray-50 border-none rounded-lg text-sm font-medium text-gray-600 outline-none cursor-pointer p-2">
+                                        <option>Last 6 Months</option>
+                                        <option>Last Year</option>
+                                    </select>
+                                </div>
+                                <div className="w-full bg-white rounded-2xl flex items-center justify-center">
+                                    <SkillGrowthChart />
                                 </div>
                             </GlassCard>
 
-                            <h3 className="text-xl font-bold text-gray-900 dark:text-white">Recommended Jobs</h3>
+                            <h3 className="text-xl font-bold text-gray-900 px-1">Recommended Jobs</h3>
                             <div className="space-y-4">
                                 {[1, 2, 3].map((job) => (
-                                    <GlassCard key={job} className="p-6 flex items-center justify-between group hover:bg-gray-100 dark:hover:bg-white/5 transition-colors cursor-pointer">
-                                        <div className="flex items-center gap-4">
-                                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold">
+                                    <GlassCard key={job} className="p-6 flex items-center justify-between group hover:shadow-md transition-all cursor-pointer border border-transparent hover:border-blue-100 bg-white shadow-sm">
+                                        <div className="flex items-center gap-5">
+                                            <div className="w-14 h-14 rounded-2xl bg-gray-900 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-gray-200">
                                                 {job === 1 ? "G" : job === 2 ? "F" : "A"}
                                             </div>
                                             <div>
-                                                <h4 className="font-bold text-gray-900 dark:text-white group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">Senior React Developer</h4>
-                                                <p className="text-sm text-gray-600 dark:text-gray-400">Remote • $120k - $150k</p>
+                                                <h4 className="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors">Senior React Developer</h4>
+                                                <div className="flex items-center gap-3 text-sm text-gray-500 mt-1">
+                                                    <span className="flex items-center gap-1"><Briefcase size={14} /> Remote</span>
+                                                    <span className="w-1 h-1 rounded-full bg-gray-300" />
+                                                    <span className="font-medium text-gray-700">$120k - $150k</span>
+                                                </div>
                                             </div>
                                         </div>
-                                        <ChevronRight className="text-gray-400 dark:text-gray-600 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors" />
+                                        <GlassButton size="sm" variant="secondary" className="bg-gray-50 hover:bg-blue-600 hover:text-white group-hover:block transition-all text-gray-600">View</GlassButton>
                                     </GlassCard>
                                 ))}
                             </div>
@@ -204,32 +182,40 @@ export default function StudentDashboard() {
 
                         {/* Column 3: Sidebar Widgets */}
                         <div className="space-y-8">
-                            {/* Profile Strength */}
-                            <GlassCard className="p-6 relative overflow-hidden">
-                                <div className="absolute top-0 right-0 p-4 opacity-50">
-                                    <Trophy size={80} className="text-yellow-500/20" />
+                            {/* Profile Strength - Light Theme Version */}
+                            <GlassCard className="p-8 relative overflow-hidden bg-white border border-blue-100 shadow-xl shadow-blue-500/10">
+                                <div className="absolute top-0 right-0 p-4 opacity-10">
+                                    <Trophy size={100} className="text-blue-600" />
                                 </div>
-                                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Profile Strength</h3>
-                                <div className="text-3xl font-bold text-green-500 dark:text-green-400 mb-4">Top 5%</div>
-                                <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">You rank higher than 95% of candidates with similar experience.</p>
-                                <GlassButton className="w-full" variant="secondary">View Insights</GlassButton>
+                                <h3 className="text-lg font-bold text-gray-900 mb-2">Profile Strength</h3>
+                                <div className="text-5xl font-extrabold text-blue-600 mb-4 tracking-tight">Top 5%</div>
+                                <p className="text-sm text-gray-500 mb-8 max-w-[80%] font-medium">You rank higher than 95% of candidates with similar experience.</p>
+                                <button className="w-full py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/20">
+                                    View Insights
+                                </button>
                             </GlassCard>
 
                             {/* Recent Activity */}
-                            <GlassCard className="p-6">
-                                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6">Recent Activity</h3>
+                            <GlassCard className="p-6 border-none shadow-sm bg-white">
+                                <div className="flex justify-between items-center mb-6">
+                                    <h3 className="text-lg font-bold text-gray-900">Recent Activity</h3>
+                                    <Link href="#" className="text-sm font-bold text-blue-600 hover:underline">View All</Link>
+                                </div>
                                 <div className="space-y-6">
                                     {[
                                         { title: "Application Viewed", time: "2h ago", color: "bg-blue-500" },
                                         { title: "New Skill Badge", time: "5h ago", color: "bg-purple-500" },
                                         { title: "Profile Updated", time: "1d ago", color: "bg-green-500" },
+                                        { title: "Interview Scheduled", time: "2d ago", color: "bg-orange-500" },
                                     ].map((activity, i) => (
-                                        <div key={i} className="flex gap-4 relative">
-                                            {i !== 2 && <div className="absolute top-8 left-1.5 w-0.5 h-full bg-gray-200 dark:bg-white/10" />}
-                                            <div className={`w-3 h-3 rounded-full ${activity.color} mt-1.5 relative z-10 shrink-0`} />
+                                        <div key={i} className="flex gap-4 relative group">
+                                            {i !== 3 && <div className="absolute top-8 left-[11px] w-[2px] h-[calc(100%+8px)] bg-gray-100" />}
+                                            <div className={`w-[24px] h-[24px] rounded-full ${activity.color} bg-opacity-20 flex items-center justify-center shrink-0 mt-0.5`}>
+                                                <div className={`w-2.5 h-2.5 rounded-full ${activity.color}`} />
+                                            </div>
                                             <div>
-                                                <p className="text-sm font-medium text-gray-900 dark:text-white">{activity.title}</p>
-                                                <p className="text-xs text-gray-500 dark:text-gray-400">{activity.time}</p>
+                                                <p className="text-[15px] font-bold text-gray-900 group-hover:text-blue-600 transition-colors cursor-pointer">{activity.title}</p>
+                                                <p className="text-xs font-medium text-gray-500 mt-0.5">{activity.time}</p>
                                             </div>
                                         </div>
                                     ))}
@@ -246,7 +232,7 @@ export default function StudentDashboard() {
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0 }}
-                        className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-8 py-4 rounded-full font-bold shadow-2xl flex items-center gap-3 border border-gray-200 dark:border-white/20"
+                        className="bg-white text-gray-900 px-8 py-4 rounded-full font-bold shadow-2xl flex items-center gap-3 border border-gray-200"
                     >
                         <Trophy className="text-yellow-500 fill-yellow-500" />
                         Dashboard Unlocked! Welcome aboard.

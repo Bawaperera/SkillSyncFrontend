@@ -79,29 +79,29 @@ export default function ApplicationsPage() {
     });
 
     return (
-        <div className="min-h-screen pb-20">
+        <div className="min-h-screen pb-20 bg-[#F5F7FA]">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
                 {/* Header */}
                 <div>
-                    <h1 className="text-3xl font-bold text-white mb-2">My Applications</h1>
-                    <p className="text-gray-400">Track and manage your job applications in one place.</p>
+                    <h1 className="text-3xl font-bold text-gray-900 mb-2">My Applications</h1>
+                    <p className="text-gray-500">Track and manage your job applications in one place.</p>
                 </div>
 
                 {/* Stats */}
                 <ApplicationStats />
 
                 {/* Tabs */}
-                <div className="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar border-b border-white/10">
+                <div className="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar border-b border-gray-200">
                     {TABS.map((tab) => (
                         <button
                             key={tab}
                             onClick={() => setActiveTab(tab)}
-                            className={`px-4 py-3 text-sm font-medium transition-colors relative ${activeTab === tab ? "text-blue-400" : "text-gray-400 hover:text-white"
+                            className={`px-4 py-3 text-sm font-medium transition-colors relative ${activeTab === tab ? "text-blue-600" : "text-gray-500 hover:text-gray-900"
                                 }`}
                         >
                             {tab}
                             {activeTab === tab && (
-                                <div className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-400" />
+                                <div className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600" />
                             )}
                         </button>
                     ))}

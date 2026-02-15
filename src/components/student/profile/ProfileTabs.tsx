@@ -1,7 +1,7 @@
 "use client";
 
 import { StudentProfile } from "@/types/profile";
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SkillsTab } from "./SkillsTab";
 import { ProjectsTab } from "./ProjectsTab";
@@ -22,30 +22,11 @@ const TABS = [
 
 export function ProfileTabs({ profile }: ProfileTabsProps) {
     const [activeTab, setActiveTab] = useState("skills");
-    const [isSticky, setIsSticky] = useState(false);
-    const tabsRef = useRef<HTMLDivElement>(null);
-
-    // Sticky Tabs Logic
-    useEffect(() => {
-        const handleScroll = () => {
-            if (tabsRef.current) {
-                setIsSticky(tabsRef.current.getBoundingClientRect().top <= 80); // Adjust based on Top Nav height
-            }
-        };
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
 
     return (
         <div className="min-h-screen">
-            {/* Sticky Tab Nav */}
-            <div
-                ref={tabsRef}
-                className={`sticky top-[72px] z-40 transition-all duration-300 ${isSticky
-                        ? "py-3 bg-black/80 backdrop-blur-xl border-b border-white/10 shadow-lg -mx-6 px-6 md:-mx-8 md:px-8"
-                        : "py-6 bg-transparent"
-                    }`}
-            >
+            {/* Static Tab Nav */}
+            <div className="py-6">
                 <div className="flex items-center gap-1 overflow-x-auto no-scrollbar pb-1 md:pb-0">
                     {TABS.map((tab) => {
                         const isActive = activeTab === tab.id;
@@ -54,15 +35,16 @@ export function ProfileTabs({ profile }: ProfileTabsProps) {
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
                                 className={`relative px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 shrink-0 ${isActive
-                                        ? "text-white bg-white/10"
-                                        : "text-gray-400 hover:text-white hover:bg-white/5"
+                                    ? "text-gray-900 bg-white shadow-sm ring-1 ring-gray-200"
+                                    : "text-gray-500 hover:text-gray-900 hover:bg-white/50"
                                     }`}
                             >
                                 {tab.label}
                                 {isActive && (
                                     <motion.div
                                         layoutId="activeTabIndicator"
-                                        className="absolute inset-0 rounded-full border border-white/10"
+                                        className="absolute inset-0 rounded-full"
+                                        initial={false}
                                         transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                                     />
                                 )}

@@ -9,14 +9,14 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project }: ProjectCardProps) {
     return (
-        <GlassCard className="p-0 overflow-hidden border border-white/5 hover:border-blue-500/30 transition-all duration-300 group">
+        <GlassCard className="p-0 overflow-hidden border border-gray-100 hover:border-blue-500/30 transition-all duration-300 group shadow-sm bg-white">
             <div className="p-6">
                 <div className="flex justify-between items-start mb-6">
                     <div className="space-y-2">
-                        <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
+                        <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
                             {project.title}
                         </h3>
-                        <p className="text-sm text-gray-400 line-clamp-2 max-w-sm leading-relaxed">
+                        <p className="text-sm text-gray-500 line-clamp-2 max-w-sm leading-relaxed">
                             {project.description}
                         </p>
                     </div>
@@ -25,7 +25,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                             <Link
                                 href={project.repoUrl}
                                 target="_blank"
-                                className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
+                                className="p-2 rounded-lg bg-gray-50 hover:bg-gray-100 text-gray-400 hover:text-gray-900 transition-colors"
                             >
                                 <Github size={18} />
                             </Link>
@@ -34,7 +34,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                             <Link
                                 href={project.demoUrl}
                                 target="_blank"
-                                className="p-2 rounded-lg bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 hover:text-blue-300 transition-colors"
+                                className="p-2 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-600 hover:text-blue-700 transition-colors"
                             >
                                 <ExternalLink size={18} />
                             </Link>
@@ -46,7 +46,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                     {project.techStack.map((tech) => (
                         <span
                             key={tech}
-                            className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-medium text-gray-300"
+                            className="px-2.5 py-1 rounded-md bg-gray-50 border border-gray-200 text-xs font-medium text-gray-600"
                         >
                             {tech}
                         </span>
@@ -54,10 +54,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 </div>
 
                 {/* Project DNA */}
-                <div className="bg-black/20 rounded-xl p-4 border border-white/5">
+                <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
                     <div className="flex items-center gap-2 mb-3">
-                        <Code2 size={14} className="text-purple-400" />
-                        <span className="text-xs font-bold uppercase tracking-wider text-purple-200">
+                        <Code2 size={14} className="text-purple-600" />
+                        <span className="text-xs font-bold uppercase tracking-wider text-purple-700">
                             Project DNA (AI Analysis)
                         </span>
                     </div>
@@ -69,10 +69,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
                             </span>
                             <span
                                 className={`text-sm font-semibold ${project.dna.complexity === "High"
-                                        ? "text-red-400"
-                                        : project.dna.complexity === "Medium"
-                                            ? "text-yellow-400"
-                                            : "text-green-400"
+                                    ? "text-red-600"
+                                    : project.dna.complexity === "Medium"
+                                        ? "text-yellow-600"
+                                        : "text-green-600"
                                     }`}
                             >
                                 {project.dna.complexity}
@@ -82,7 +82,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                             <span className="text-[10px] text-gray-500 uppercase font-bold block mb-1">
                                 Code Quality
                             </span>
-                            <span className="text-sm font-semibold text-green-400">
+                            <span className="text-sm font-semibold text-green-600">
                                 Grade {project.dna.quality}
                             </span>
                         </div>
@@ -91,7 +91,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                                 Top Lang
                             </span>
                             <div className="flex items-center gap-1.5">
-                                <span className="text-sm font-semibold text-blue-400">
+                                <span className="text-sm font-semibold text-blue-600">
                                     {project.dna.topLanguage}
                                 </span>
                                 <span className="text-xs text-gray-500">
