@@ -18,7 +18,7 @@ export function RoleTabs({ activeRole, onRoleChange }: RoleTabsProps) {
     ] as const;
 
     return (
-        <div className="bg-white/5 p-1 rounded-2xl border border-white/10 flex relative mb-8">
+        <div className="bg-gray-100 p-1 rounded-2xl border border-gray-200 flex relative mb-8">
             {tabs.map((tab) => {
                 const isActive = activeRole === tab.id;
                 return (
@@ -27,18 +27,18 @@ export function RoleTabs({ activeRole, onRoleChange }: RoleTabsProps) {
                         onClick={() => onRoleChange(tab.id)}
                         className={`
                             relative z-10 flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium transition-colors duration-300
-                            ${isActive ? "text-white" : "text-gray-400 hover:text-white/70"}
+                            ${isActive ? "text-gray-900" : "text-gray-500 hover:text-gray-900"}
                         `}
                     >
                         {isActive && (
                             <motion.div
                                 layoutId="activeTab"
-                                className="absolute inset-0 bg-white/10 rounded-xl shadow-lg border border-white/5"
+                                className="absolute inset-0 bg-white rounded-xl shadow-sm border border-gray-200"
                                 transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                             />
                         )}
-                        <tab.icon size={18} />
-                        <span className="hidden sm:inline">{tab.label}</span>
+                        <tab.icon size={18} className="relative z-10" />
+                        <span className="hidden sm:inline relative z-10">{tab.label}</span>
                     </button>
                 );
             })}

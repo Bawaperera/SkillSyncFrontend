@@ -113,8 +113,8 @@ export default function LoginPage() {
     return (
         <AuthSplitLayout marketingContent={marketingContent}>
             <div className="text-center mb-8">
-                <h1 className="text-3xl font-bold text-white mb-2">Welcome Back</h1>
-                <p className="text-gray-400">
+                <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h1>
+                <p className="text-gray-500">
                     Sign in to access your {activeRole} dashboard.
                 </p>
             </div>
@@ -129,6 +129,9 @@ export default function LoginPage() {
                     icon={Mail}
                     register={register("email")}
                     error={errors.email}
+                    className="text-gray-900"
+                    labelClassName="text-gray-700 font-medium"
+                    inputClassName="h-11 py-2.5 bg-gray-50 !border-2 !border-gray-300 !text-gray-900 shadow-sm focus:bg-white focus:!border-blue-500 placeholder:text-gray-400"
                 />
 
                 <div className="space-y-1">
@@ -139,9 +142,12 @@ export default function LoginPage() {
                         icon={Lock}
                         register={register("password")}
                         error={errors.password}
+                        className="text-gray-900"
+                        labelClassName="text-gray-700 font-medium"
+                        inputClassName="h-11 py-2.5 bg-gray-50 !border-2 !border-gray-300 !text-gray-900 shadow-sm focus:bg-white focus:!border-blue-500 placeholder:text-gray-400"
                     />
                     <div className="flex justify-end">
-                        <Link href="#" className="text-sm text-blue-400 hover:text-blue-300 transition-colors">
+                        <Link href="#" className="text-sm text-blue-600 hover:text-blue-500 transition-colors font-medium">
                             Forgot password?
                         </Link>
                     </div>
@@ -150,7 +156,7 @@ export default function LoginPage() {
                 <GlassButton
                     type="submit"
                     variant="primary"
-                    className="w-full py-4 text-base font-bold bg-blue-600 hover:bg-blue-500 border-none"
+                    className="w-full py-4 text-base font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/20 border-none"
                     disabled={isLoading}
                 >
                     {isLoading ? (
@@ -174,7 +180,7 @@ export default function LoginPage() {
 
             <div className="text-center text-sm text-gray-500 mt-8">
                 Don't have an account?{" "}
-                <Link href={activeRole === "university" ? "/contact-university" : `/register/${activeRole}`} className="text-white hover:underline font-medium">
+                <Link href={activeRole === "university" ? "/contact-university" : `/register/${activeRole}`} className="text-blue-600 hover:text-blue-700 hover:underline font-bold">
                     {activeRole === "university" ? "Request Access" : "Sign up"}
                 </Link>
             </div>
