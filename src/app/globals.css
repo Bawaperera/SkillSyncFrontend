@@ -96,12 +96,11 @@
 @layer components {
 
   .glass-card {
-    @apply bg-white shadow-xl shadow-gray-200/50 border border-gray-100 dark:bg-[#121214]/60 dark:backdrop-blur-xl dark:border-white/5 dark:shadow-2xl dark:shadow-black/50 rounded-[20px] transition-all duration-500;
-
+    @apply bg-white shadow-smooth border-none dark:bg-[#121214]/60 dark:backdrop-blur-xl dark:border-white/5 dark:shadow-2xl dark:shadow-black/50 rounded-[24px] transition-all duration-300;
   }
 
   .glass-card-hover {
-    @apply hover:shadow-lg hover:-translate-y-1 dark:hover:bg-white/10 dark:hover:border-white/10;
+    @apply hover:shadow-smooth-hover hover:-translate-y-1 dark:hover:bg-white/10 dark:hover:border-white/10;
   }
 
   .glass-panel {
