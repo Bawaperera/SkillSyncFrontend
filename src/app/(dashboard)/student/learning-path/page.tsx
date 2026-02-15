@@ -68,7 +68,7 @@ const MOCK_PATH: LearningPath = {
 
 export default function LearningPathPage() {
     return (
-        <div className="min-h-screen pb-20">
+        <div className="min-h-screen pb-20 bg-[#F5F7FA]">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <CareerVelocityHeader
                     jobGoal={MOCK_PATH.jobGoal}
@@ -104,24 +104,24 @@ export default function LearningPathPage() {
                 </div>
 
                 {/* Supplemental Resources */}
-                <div className="mt-12 pt-8 border-t border-white/5">
-                    <h3 className="text-xl font-bold text-white mb-6">Supplemental Resources</h3>
+                <div className="mt-12 pt-8 border-t border-gray-200">
+                    <h3 className="text-xl font-bold text-gray-900 mb-6">Supplemental Resources</h3>
                     <div className="grid md:grid-cols-2 gap-4">
-                        <a href="#" className="block p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 transition-colors group">
+                        <a href="#" className="block p-4 rounded-xl bg-white hover:bg-gray-50 border border-gray-200 shadow-sm transition-all group">
                             <div className="flex items-start justify-between mb-2">
-                                <BookOpen size={20} className="text-blue-400" />
-                                <ExternalLink size={16} className="text-gray-500 group-hover:text-white transition-colors" />
+                                <BookOpen size={20} className="text-blue-600" />
+                                <ExternalLink size={16} className="text-gray-400 group-hover:text-blue-600 transition-colors" />
                             </div>
-                            <h4 className="font-bold text-white mb-1">System Design Primer</h4>
-                            <p className="text-sm text-gray-400">Great article on scaling distributed systems.</p>
+                            <h4 className="font-bold text-gray-900 mb-1">System Design Primer</h4>
+                            <p className="text-sm text-gray-500">Great article on scaling distributed systems.</p>
                         </a>
-                        <a href="#" className="block p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 transition-colors group">
+                        <a href="#" className="block p-4 rounded-xl bg-white hover:bg-gray-50 border border-gray-200 shadow-sm transition-all group">
                             <div className="flex items-start justify-between mb-2">
-                                <MonitorPlay size={20} className="text-red-400" />
-                                <ExternalLink size={16} className="text-gray-500 group-hover:text-white transition-colors" />
+                                <MonitorPlay size={20} className="text-red-500" />
+                                <ExternalLink size={16} className="text-gray-400 group-hover:text-blue-600 transition-colors" />
                             </div>
-                            <h4 className="font-bold text-white mb-1">React Advanced Patterns</h4>
-                            <p className="text-sm text-gray-400">YouTube crash course by FrontendMasters.</p>
+                            <h4 className="font-bold text-gray-900 mb-1">React Advanced Patterns</h4>
+                            <p className="text-sm text-gray-500">YouTube crash course by FrontendMasters.</p>
                         </a>
                     </div>
                 </div>

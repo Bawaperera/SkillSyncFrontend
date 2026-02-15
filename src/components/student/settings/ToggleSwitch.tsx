@@ -11,7 +11,7 @@ export function ToggleSwitch({ label, checked, onChange, description }: ToggleSw
     return (
         <div className="flex items-center justify-between py-3">
             <div>
-                <div className="text-sm font-medium text-gray-200">{label}</div>
+                <div className="text-sm font-medium text-gray-900">{label}</div>
                 {description && <div className="text-xs text-gray-500">{description}</div>}
             </div>
             <button

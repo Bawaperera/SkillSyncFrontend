@@ -32,10 +32,10 @@ export default function OnboardingPage() {
         <div className="max-w-3xl mx-auto py-12">
             <div className="mb-8">
                 <div className="flex items-center justify-between mb-4">
-                    <h1 className="text-3xl font-bold">Set Up Your Profile</h1>
-                    <span className="text-gray-400">Step {step} of 3</span>
+                    <h1 className="text-3xl font-bold text-gray-900">Set Up Your Profile</h1>
+                    <span className="text-gray-500">Step {step} of 3</span>
                 </div>
-                <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+                <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                     <motion.div
                         className="h-full bg-gradient-to-r from-blue-500 to-purple-500"
                         initial={{ width: 0 }}
@@ -52,34 +52,34 @@ export default function OnboardingPage() {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -20 }}
                     >
-                        <GlassCard className="p-8">
-                            <h2 className="text-2xl font-bold mb-2">Upload Your CV</h2>
-                            <p className="text-gray-400 mb-8">We&apos;ll extract your skills automatically.</p>
+                        <GlassCard className="p-8 bg-white border border-gray-200 shadow-sm">
+                            <h2 className="text-2xl font-bold mb-2 text-gray-900">Upload Your CV</h2>
+                            <p className="text-gray-500 mb-8">We&apos;ll extract your skills automatically.</p>
 
                             <div
                                 className={cn(
-                                    "border-2 border-dashed border-white/20 rounded-2xl p-12 text-center transition-colors cursor-pointer",
-                                    uploadProgress === 100 ? "border-green-500/50 bg-green-500/10" : "hover:border-blue-500/50 hover:bg-blue-500/5"
+                                    "border-2 border-dashed border-gray-300 rounded-2xl p-12 text-center transition-colors cursor-pointer",
+                                    uploadProgress === 100 ? "border-green-500/50 bg-green-50" : "hover:border-blue-400 hover:bg-blue-50"
                                 )}
                                 onClick={handleFileUpload}
                             >
                                 {uploadProgress === 100 ? (
-                                    <div className="text-green-400">
+                                    <div className="text-green-600">
                                         <CheckCircle className="w-12 h-12 mx-auto mb-4" />
                                         <p className="font-bold">CV Uploaded Successfully</p>
                                         <p className="text-sm opacity-80">skills_v1.pdf</p>
                                     </div>
                                 ) : (
-                                    <div className="text-gray-400">
-                                        <Upload className="w-12 h-12 mx-auto mb-4" />
-                                        <p className="font-bold text-white mb-2">Drag & Drop your PDF here</p>
+                                    <div className="text-gray-500">
+                                        <Upload className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+                                        <p className="font-bold text-gray-900 mb-2">Drag & Drop your PDF here</p>
                                         <p className="text-sm">or click to browse</p>
                                     </div>
                                 )}
                             </div>
 
                             {uploadProgress > 0 && uploadProgress < 100 && (
-                                <div className="mt-6 h-2 bg-white/10 rounded-full overflow-hidden">
+                                <div className="mt-6 h-2 bg-gray-200 rounded-full overflow-hidden">
                                     <motion.div
                                         className="h-full bg-blue-500"
                                         initial={{ width: 0 }}
@@ -108,29 +108,29 @@ export default function OnboardingPage() {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -20 }}
                     >
-                        <GlassCard className="p-8">
-                            <h2 className="text-2xl font-bold mb-2">Connect GitHub</h2>
-                            <p className="text-gray-400 mb-8">Verify your code quality and repositories.</p>
+                        <GlassCard className="p-8 bg-white border border-gray-200 shadow-sm">
+                            <h2 className="text-2xl font-bold mb-2 text-gray-900">Connect GitHub</h2>
+                            <p className="text-gray-500 mb-8">Verify your code quality and repositories.</p>
 
-                            <div className="flex flex-col items-center justify-center p-12 border border-white/10 rounded-2xl bg-black/20">
-                                <Github className="w-16 h-16 text-white mb-6" />
+                            <div className="flex flex-col items-center justify-center p-12 border border-gray-200 rounded-2xl bg-gray-50">
+                                <Github className="w-16 h-16 text-gray-900 mb-6" />
                                 {!isGithubConnected ? (
                                     <GlassButton onClick={handleGithubConnect} className="bg-[#24292e] hover:bg-[#2f363d] text-white border-none py-3 px-6 text-lg">
                                         Connect GitHub Account
                                     </GlassButton>
                                 ) : (
                                     <div className="text-center">
-                                        <div className="inline-flex items-center gap-2 bg-green-500/20 text-green-400 px-4 py-2 rounded-full mb-4">
+                                        <div className="inline-flex items-center gap-2 bg-green-50 text-green-600 px-4 py-2 rounded-full mb-4 border border-green-200">
                                             <CheckCircle className="w-4 h-4" />
                                             Connected as @bawanthap
                                         </div>
-                                        <p className="text-gray-400 text-sm">Found 25 Repositories</p>
+                                        <p className="text-gray-500 text-sm">Found 25 Repositories</p>
                                     </div>
                                 )}
                             </div>
 
                             <div className="mt-8 flex justify-between">
-                                <GlassButton variant="ghost" onClick={() => setStep(1)}>Back</GlassButton>
+                                <GlassButton variant="ghost" onClick={() => setStep(1)} className="text-gray-600 hover:text-gray-900">Back</GlassButton>
                                 <GlassButton
                                     disabled={!isGithubConnected}
                                     onClick={() => setStep(3)}
@@ -150,9 +150,9 @@ export default function OnboardingPage() {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -20 }}
                     >
-                        <GlassCard className="p-8">
-                            <h2 className="text-2xl font-bold mb-2">Select Target Role</h2>
-                            <p className="text-gray-400 mb-8">What job are you aiming for?</p>
+                        <GlassCard className="p-8 bg-white border border-gray-200 shadow-sm">
+                            <h2 className="text-2xl font-bold mb-2 text-gray-900">Select Target Role</h2>
+                            <p className="text-gray-500 mb-8">What job are you aiming for?</p>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {[
@@ -164,8 +164,8 @@ export default function OnboardingPage() {
                                         className={cn(
                                             "p-4 rounded-xl border cursor-pointer transition-all",
                                             selectedRole === role
-                                                ? "bg-blue-500/20 border-blue-500 text-white"
-                                                : "bg-white/5 border-white/10 hover:bg-white/10 text-gray-300"
+                                                ? "bg-blue-50 border-blue-500 text-blue-700"
+                                                : "bg-white border-gray-200 hover:bg-gray-50 text-gray-600"
                                         )}
                                         onClick={() => setSelectedRole(role)}
                                     >
@@ -174,14 +174,14 @@ export default function OnboardingPage() {
                                                 <Code className="w-5 h-5 opacity-70" />
                                                 <span className="font-medium">{role}</span>
                                             </div>
-                                            {selectedRole === role && <CheckCircle className="w-5 h-5 text-blue-400" />}
+                                            {selectedRole === role && <CheckCircle className="w-5 h-5 text-blue-600" />}
                                         </div>
                                     </div>
                                 ))}
                             </div>
 
                             <div className="mt-8 flex justify-between">
-                                <GlassButton variant="ghost" onClick={() => setStep(2)}>Back</GlassButton>
+                                <GlassButton variant="ghost" onClick={() => setStep(2)} className="text-gray-600 hover:text-gray-900">Back</GlassButton>
                                 <Link href="/dashboard">
                                     <GlassButton
                                         disabled={!selectedRole}

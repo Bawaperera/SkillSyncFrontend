@@ -61,9 +61,9 @@ export default function MessagesPage() {
     };
 
     return (
-        <div className="h-[calc(100vh-80px)] overflow-hidden bg-black flex">
+        <div className="h-[calc(100vh-80px)] overflow-hidden bg-gray-50 flex">
             {/* Sidebar - Chat List */}
-            <div className="w-full md:w-[320px] lg:w-[380px] h-full shrink-0 border-r border-white/10 hidden md:block">
+            <div className="w-full md:w-[320px] lg:w-[380px] h-full shrink-0 border-r border-gray-200 hidden md:block bg-white">
                 <ChatList
                     conversations={MOCK_CONVERSATIONS}
                     activeId={activeId}
@@ -72,7 +72,7 @@ export default function MessagesPage() {
             </div>
 
             {/* Main Chat Window */}
-            <div className="flex-1 flex flex-col h-full relative bg-[#0A0A0B]">
+            <div className="flex-1 flex flex-col h-full relative bg-gray-50">
                 {/* Context Bar */}
                 <JobContextBar
                     context={activeConversation.jobContext}
@@ -80,7 +80,7 @@ export default function MessagesPage() {
                 />
 
                 {/* Messages Area */}
-                <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4 scrollbar-thin scrollbar-thumb-gray-800">
+                <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4 scrollbar-thin scrollbar-thumb-gray-200">
                     <SafetyWarning />
 
                     {activeConversation.messages.map(msg => (
@@ -89,18 +89,18 @@ export default function MessagesPage() {
                 </div>
 
                 {/* Input Area */}
-                <div className="p-4 bg-[#0A0A0B]/80 backdrop-blur-xl border-t border-white/10">
+                <div className="p-4 bg-white/80 backdrop-blur-xl border-t border-gray-200">
                     <SmartReply onSelect={(text) => setInputText(text)} />
 
-                    <div className="flex items-end gap-2 bg-[#1A1A1C] border border-white/10 rounded-2xl p-2 focus-within:border-blue-500/50 transition-colors shadow-lg">
-                        <button className="p-2 text-gray-400 hover:text-white transition-colors rounded-lg hover:bg-white/5">
+                    <div className="flex items-end gap-2 bg-white border border-gray-200 rounded-2xl p-2 focus-within:border-blue-500 transition-colors shadow-sm">
+                        <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors rounded-lg hover:bg-gray-100">
                             <Paperclip size={20} />
                         </button>
                         <textarea
                             value={inputText}
                             onChange={(e) => setInputText(e.target.value)}
                             placeholder="Type a message..."
-                            className="flex-1 bg-transparent text-sm text-white placeholder-gray-500 focus:outline-none resize-none py-2 max-h-[120px] scrollbar-hide"
+                            className="flex-1 bg-transparent text-sm text-gray-900 placeholder-gray-400 focus:outline-none resize-none py-2 max-h-[120px] scrollbar-hide"
                             rows={1}
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter' && !e.shiftKey) {
@@ -109,7 +109,7 @@ export default function MessagesPage() {
                                 }
                             }}
                         />
-                        <button className="p-2 text-gray-400 hover:text-white transition-colors rounded-lg hover:bg-white/5">
+                        <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors rounded-lg hover:bg-gray-100">
                             <Smile size={20} />
                         </button>
                         <button

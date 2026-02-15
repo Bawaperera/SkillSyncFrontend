@@ -28,31 +28,31 @@ export function InterviewPrepModal({ isOpen, onClose, jobTitle, company }: Inter
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.95, opacity: 0 }}
                             onClick={(e) => e.stopPropagation()}
-                            className="w-full max-w-4xl max-h-[90vh] bg-[#0A0A0B] border border-white/10 rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row"
+                            className="w-full max-w-4xl max-h-[90vh] bg-white border border-gray-200 rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row"
                         >
                             {/* Left: Job Context */}
-                            <div className="md:w-1/2 p-6 border-b md:border-b-0 md:border-r border-white/10 overflow-y-auto">
-                                <h3 className="text-lg font-bold text-white mb-2">Job Context</h3>
-                                <p className="text-gray-400 text-sm mb-6">{jobTitle} at {company}</p>
+                            <div className="md:w-1/2 p-6 border-b md:border-b-0 md:border-r border-gray-200 overflow-y-auto">
+                                <h3 className="text-lg font-bold text-gray-900 mb-2">Job Context</h3>
+                                <p className="text-gray-500 text-sm mb-6">{jobTitle} at {company}</p>
 
                                 <div className="space-y-6">
                                     <div>
-                                        <h4 className="text-sm font-bold text-blue-400 uppercase mb-2">Key Requirements</h4>
+                                        <h4 className="text-sm font-bold text-blue-600 uppercase mb-2">Key Requirements</h4>
                                         <ul className="space-y-2">
-                                            <li className="flex items-start gap-2 text-sm text-gray-300">
+                                            <li className="flex items-start gap-2 text-sm text-gray-600">
                                                 <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5" />
                                                 Experience with React.js and modern frontend workflows.
                                             </li>
-                                            <li className="flex items-start gap-2 text-sm text-gray-300">
+                                            <li className="flex items-start gap-2 text-sm text-gray-600">
                                                 <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5" />
-                                                Knowledge of RESTful APIs and state management (Redux/Zustand).
+                                                Knowledge of restful APIs and state management (Redux/Zustand).
                                             </li>
                                         </ul>
                                     </div>
 
                                     <div>
-                                        <h4 className="text-sm font-bold text-purple-400 uppercase mb-2">Company Culture</h4>
-                                        <p className="text-sm text-gray-400 leading-relaxed">
+                                        <h4 className="text-sm font-bold text-purple-600 uppercase mb-2">Company Culture</h4>
+                                        <p className="text-sm text-gray-600 leading-relaxed">
                                             "We value innovation, ownership, and a growth mindset. We look for engineers who are not afraid to challenge the status quo."
                                         </p>
                                     </div>
@@ -60,34 +60,34 @@ export function InterviewPrepModal({ isOpen, onClose, jobTitle, company }: Inter
                             </div>
 
                             {/* Right: Cheat Sheet */}
-                            <div className="md:w-1/2 p-6 bg-white/5 overflow-y-auto">
+                            <div className="md:w-1/2 p-6 bg-gray-50 overflow-y-auto">
                                 <div className="flex justify-between items-center mb-6">
-                                    <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                                        <FileText size={20} className="text-green-400" /> Your Cheat Sheet
+                                    <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+                                        <FileText size={20} className="text-green-600" /> Your Cheat Sheet
                                     </h3>
-                                    <button onClick={onClose} className="p-1 rounded-full hover:bg-white/10 text-gray-400 transition-colors">
+                                    <button onClick={onClose} className="p-1 rounded-full hover:bg-gray-200 text-gray-400 transition-colors">
                                         <X size={20} />
                                     </button>
                                 </div>
 
                                 <div className="space-y-6">
-                                    <GlassCard className="p-4 border-green-500/20 bg-green-500/5">
-                                        <h4 className="text-sm font-bold text-green-400 mb-2 flex items-center gap-2">
+                                    <GlassCard className="p-4 border-green-200 bg-green-50 shadow-sm">
+                                        <h4 className="text-sm font-bold text-green-700 mb-2 flex items-center gap-2">
                                             <CheckCircle2 size={14} /> Talking Points (Strengths)
                                         </h4>
                                         <ul className="space-y-2">
-                                            <li className="text-sm text-gray-300">• Highlight your <span className="text-white font-bold">E-commerce Project</span> (React/Node).</li>
-                                            <li className="text-sm text-gray-300">• Mention your <span className="text-white font-bold">Verified React Skill</span> badge.</li>
+                                            <li className="text-sm text-gray-700">• Highlight your <span className="text-gray-900 font-bold">E-commerce Project</span> (React/Node).</li>
+                                            <li className="text-sm text-gray-700">• Mention your <span className="text-gray-900 font-bold">Verified React Skill</span> badge.</li>
                                         </ul>
                                     </GlassCard>
 
-                                    <GlassCard className="p-4 border-blue-500/20 bg-blue-500/5">
-                                        <h4 className="text-sm font-bold text-blue-400 mb-2 flex items-center gap-2">
+                                    <GlassCard className="p-4 border-blue-200 bg-blue-50 shadow-sm">
+                                        <h4 className="text-sm font-bold text-blue-700 mb-2 flex items-center gap-2">
                                             <MessageCircle size={14} /> Questions to Ask
                                         </h4>
                                         <ul className="space-y-2">
-                                            <li className="text-sm text-gray-300">• "How does the engineering team handle technical debt?"</li>
-                                            <li className="text-sm text-gray-300">• "What does the typical career path look like for this role?"</li>
+                                            <li className="text-sm text-gray-700">• "How does the engineering team handle technical debt?"</li>
+                                            <li className="text-sm text-gray-700">• "What does the typical career path look like for this role?"</li>
                                         </ul>
                                     </GlassCard>
                                 </div>

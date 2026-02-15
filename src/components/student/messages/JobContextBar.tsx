@@ -11,20 +11,20 @@ interface JobContextBarProps {
 
 export function JobContextBar({ context, onViewDetails }: JobContextBarProps) {
     return (
-        <div className="sticky top-0 z-30 mb-4">
-            <GlassCard className="rounded-none border-x-0 border-t-0 border-b border-white/10 bg-[#0A0A0B]/80 backdrop-blur-xl p-4 flex justify-between items-center">
+        <div className="sticky top-0 z-30 mb-4 px-4 pt-4">
+            <GlassCard className="rounded-xl border border-gray-200 bg-white/90 backdrop-blur-xl p-4 flex justify-between items-center shadow-sm">
                 <div>
                     <div className="flex items-center gap-2 mb-1">
-                        <Briefcase size={14} className="text-gray-400" />
-                        <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">Application Context</span>
+                        <Briefcase size={14} className="text-gray-500" />
+                        <span className="text-xs font-bold text-gray-500 uppercase tracking-widest">Application Context</span>
                     </div>
-                    <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                    <h3 className="text-sm font-bold text-gray-900 flex items-center gap-2">
                         {context.title} <span className="text-gray-500">at</span> {context.company}
                     </h3>
                     <div className="flex items-center gap-2 mt-1">
-                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${context.status === 'Interview Scheduled' ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30' :
-                                context.status === 'Applied' ? 'bg-blue-500/20 text-blue-300 border border-blue-500/30' :
-                                    'bg-gray-500/20 text-gray-300 border border-gray-500/30'
+                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${context.status === 'Interview Scheduled' ? 'bg-purple-50 text-purple-700 border border-purple-200' :
+                            context.status === 'Applied' ? 'bg-blue-50 text-blue-700 border border-blue-200' :
+                                'bg-gray-100 text-gray-600 border border-gray-200'
                             }`}>
                             {context.status}
                         </span>
@@ -33,7 +33,7 @@ export function JobContextBar({ context, onViewDetails }: JobContextBarProps) {
 
                 <button
                     onClick={onViewDetails}
-                    className="flex items-center gap-2 text-xs font-medium text-blue-400 hover:text-blue-300 transition-colors px-3 py-1.5 rounded-lg hover:bg-white/5"
+                    className="flex items-center gap-2 text-xs font-medium text-blue-600 hover:text-blue-700 transition-colors px-3 py-1.5 rounded-lg hover:bg-blue-50"
                 >
                     <ExternalLink size={14} /> View Job Details
                 </button>

@@ -15,8 +15,8 @@ const SUGGESTIONS = [
 
 export function SmartReply({ onSelect }: SmartReplyProps) {
     return (
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-2 scrollbar-thin scrollbar-thumb-gray-700">
-            <div className="flex items-center gap-1 text-yellow-400 shrink-0 px-2">
+        <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-2 scrollbar-thin scrollbar-thumb-gray-200">
+            <div className="flex items-center gap-1 text-yellow-600 shrink-0 px-2">
                 <Zap size={14} fill="currentColor" />
                 <span className="text-[10px] font-bold uppercase">Quick Reply</span>
             </div>
@@ -24,7 +24,7 @@ export function SmartReply({ onSelect }: SmartReplyProps) {
                 <button
                     key={i}
                     onClick={() => onSelect(reply)}
-                    className="whitespace-nowrap px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-gray-300 hover:text-white transition-colors"
+                    className="whitespace-nowrap px-3 py-1.5 rounded-full bg-white hover:bg-gray-50 border border-gray-200 text-xs text-gray-600 hover:text-gray-900 transition-colors shadow-sm"
                 >
                     {reply}
                 </button>

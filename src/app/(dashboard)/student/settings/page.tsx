@@ -26,14 +26,14 @@ export default function SettingsPage() {
     });
 
     return (
-        <div className="min-h-screen bg-[#0A0A0B] pb-20">
+        <div className="min-h-[calc(100vh-80px)] bg-gray-50 pb-20">
             <div className="max-w-6xl mx-auto px-4 py-8">
-                <h1 className="text-2xl font-bold text-white mb-8">Settings</h1>
+                <h1 className="text-2xl font-bold text-gray-900 mb-8">Settings</h1>
 
                 <div className="flex flex-col md:flex-row gap-8">
                     {/* Sidebar */}
                     <div className="w-full md:w-64 shrink-0">
-                        <GlassCard className="p-2">
+                        <GlassCard className="p-2 bg-white border border-gray-200 shadow-sm">
                             <SettingsSidebar activeTab={activeTab} onSelect={setActiveTab} />
                         </GlassCard>
                     </div>
@@ -44,13 +44,13 @@ export default function SettingsPage() {
                             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
                                 {/* Profile Header */}
                                 <div className="flex items-center gap-4 mb-8">
-                                    <div className="w-20 h-20 rounded-full bg-blue-600 flex items-center justify-center text-2xl font-bold text-white border-4 border-[#0A0A0B] shadow-xl">
+                                    <div className="w-20 h-20 rounded-full bg-blue-600 flex items-center justify-center text-2xl font-bold text-white border-4 border-white shadow-xl">
                                         B
                                     </div>
                                     <div>
-                                        <h2 className="text-xl font-bold text-white">Bawantha Perera</h2>
-                                        <p className="text-sm text-gray-400">bawantha@uoc.edu</p>
-                                        <button className="text-xs text-blue-400 font-medium mt-1 hover:text-blue-300">
+                                        <h2 className="text-xl font-bold text-gray-900">Bawantha Perera</h2>
+                                        <p className="text-sm text-gray-500">bawantha@uoc.edu</p>
+                                        <button className="text-xs text-blue-600 font-medium mt-1 hover:text-blue-700">
                                             Change Profile Photo
                                         </button>
                                     </div>
@@ -58,7 +58,7 @@ export default function SettingsPage() {
 
                                 {/* Connected Accounts */}
                                 <section>
-                                    <h3 className="text-lg font-bold text-white mb-4">Connected Accounts</h3>
+                                    <h3 className="text-lg font-bold text-gray-900 mb-4">Connected Accounts</h3>
                                     <div className="grid md:grid-cols-2 gap-4">
                                         <ConnectionCard
                                             provider="GitHub"
@@ -75,19 +75,19 @@ export default function SettingsPage() {
                                 </section>
 
                                 {/* Personal Details Form */}
-                                <GlassCard className="p-6 space-y-4">
+                                <GlassCard className="p-6 space-y-4 bg-white border border-gray-200 shadow-sm">
                                     <div className="grid md:grid-cols-2 gap-4">
                                         <div>
                                             <label className="text-xs font-bold text-gray-500 uppercase mb-1 block">Full Name</label>
-                                            <input type="text" defaultValue="Bawantha Perera" className="w-full bg-[#1A1A1C] border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-blue-500/50 outline-none" />
+                                            <input type="text" defaultValue="Bawantha Perera" className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all" />
                                         </div>
                                         <div>
                                             <label className="text-xs font-bold text-gray-500 uppercase mb-1 block">Email</label>
-                                            <input type="email" defaultValue="bawantha@uoc.edu" className="w-full bg-[#1A1A1C] border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-blue-500/50 outline-none" />
+                                            <input type="email" defaultValue="bawantha@uoc.edu" className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all" />
                                         </div>
                                     </div>
                                     <div className="flex justify-end">
-                                        <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-white text-xs font-bold transition-colors border border-white/5">
+                                        <button className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold transition-colors border border-gray-200">
                                             Update Details
                                         </button>
                                     </div>
@@ -99,12 +99,12 @@ export default function SettingsPage() {
 
                         {activeTab === 'notifications' && (
                             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
-                                <h2 className="text-xl font-bold text-white mb-2">Notification Preferences</h2>
-                                <p className="text-gray-400 text-sm mb-6">Manage how you receive updates and alerts.</p>
+                                <h2 className="text-xl font-bold text-gray-900 mb-2">Notification Preferences</h2>
+                                <p className="text-gray-500 text-sm mb-6">Manage how you receive updates and alerts.</p>
 
-                                <GlassCard className="p-6 divide-y divide-white/5">
+                                <GlassCard className="p-6 divide-y divide-gray-100 bg-white border border-gray-200 shadow-sm">
                                     <div className="pb-4">
-                                        <h3 className="text-sm font-bold text-blue-400 uppercase mb-4">Job Alerts</h3>
+                                        <h3 className="text-sm font-bold text-blue-600 uppercase mb-4">Job Alerts</h3>
                                         <ToggleSwitch
                                             label="Weekly Email Digest"
                                             checked={notifications.emailDigest}
@@ -119,7 +119,7 @@ export default function SettingsPage() {
                                         />
                                     </div>
                                     <div className="pt-4">
-                                        <h3 className="text-sm font-bold text-purple-400 uppercase mb-4">Application Updates</h3>
+                                        <h3 className="text-sm font-bold text-purple-600 uppercase mb-4">Application Updates</h3>
                                         <ToggleSwitch
                                             label="Immediate Email Alerts"
                                             checked={notifications.appUpdates}
@@ -139,11 +139,11 @@ export default function SettingsPage() {
 
                         {activeTab === 'privacy' && (
                             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
-                                <h2 className="text-xl font-bold text-white mb-2">Privacy & Data</h2>
-                                <p className="text-gray-400 text-sm mb-6">Control visibility and data sharing settings.</p>
+                                <h2 className="text-xl font-bold text-gray-900 mb-2">Privacy & Data</h2>
+                                <p className="text-gray-500 text-sm mb-6">Control visibility and data sharing settings.</p>
 
-                                <GlassCard className="p-6 mb-6">
-                                    <h3 className="text-sm font-bold text-green-400 uppercase mb-4 flex items-center gap-2">
+                                <GlassCard className="p-6 mb-6 bg-white border border-gray-200 shadow-sm">
+                                    <h3 className="text-sm font-bold text-green-600 uppercase mb-4 flex items-center gap-2">
                                         <ShieldCheck size={16} /> Data Sharing
                                     </h3>
                                     <ToggleSwitch
@@ -160,8 +160,8 @@ export default function SettingsPage() {
                                     />
                                 </GlassCard>
 
-                                <GlassCard className="p-6">
-                                    <h3 className="text-sm font-bold text-white mb-4">Profile Visibility</h3>
+                                <GlassCard className="p-6 bg-white border border-gray-200 shadow-sm">
+                                    <h3 className="text-sm font-bold text-gray-900 mb-4">Profile Visibility</h3>
                                     <div className="space-y-3">
                                         {[
                                             { id: 'public', label: 'Public', desc: 'Visible to all recruiters.' },
@@ -169,8 +169,8 @@ export default function SettingsPage() {
                                             { id: 'private', label: 'Private', desc: 'Only visible to you.' }
                                         ].map(opt => (
                                             <label key={opt.id} className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${privacy.visibility === opt.id
-                                                    ? "bg-blue-600/10 border-blue-500/50"
-                                                    : "border-white/5 hover:bg-white/5"
+                                                ? "bg-blue-50 border-blue-500 shadow-sm"
+                                                : "border-gray-200 hover:bg-gray-50"
                                                 }`}>
                                                 <input
                                                     type="radio"
@@ -180,7 +180,7 @@ export default function SettingsPage() {
                                                     className="mt-1"
                                                 />
                                                 <div>
-                                                    <div className={`text-sm font-bold ${privacy.visibility === opt.id ? "text-blue-400" : "text-gray-300"}`}>
+                                                    <div className={`text-sm font-bold ${privacy.visibility === opt.id ? "text-blue-600" : "text-gray-900"}`}>
                                                         {opt.label}
                                                     </div>
                                                     <div className="text-xs text-gray-500">{opt.desc}</div>
@@ -191,7 +191,7 @@ export default function SettingsPage() {
                                 </GlassCard>
 
                                 <div className="flex justify-start">
-                                    <button className="flex items-center gap-2 text-xs text-gray-400 hover:text-white transition-colors">
+                                    <button className="flex items-center gap-2 text-xs text-gray-500 hover:text-gray-900 transition-colors">
                                         <Download size={14} /> Download My Data
                                     </button>
                                 </div>

@@ -25,17 +25,17 @@ export function ProfileCompletenessBanner({ onComplete, currentProgress, onUpdat
 
     // Handle updates when a step is clicked
     const handleStepClick = (id: string) => {
-        setSteps(prev => {
-            const newSteps = prev.map(step =>
-                step.id === id ? { ...step, completed: true } : step
-            );
-            // Calculate new progress immediately
-            const completedCount = newSteps.filter(s => s.completed).length;
-            const newProgress = (completedCount / newSteps.length) * 100;
-            onUpdateProgress(newProgress);
-            return newSteps;
-        });
+        setSteps(prev => prev.map(step =>
+            step.id === id ? { ...step, completed: true } : step
+        ));
     };
+
+    // Calculate and report progress whenever steps change
+    useEffect(() => {
+        const completedCount = steps.filter(s => s.completed).length;
+        const newProgress = (completedCount / steps.length) * 100;
+        onUpdateProgress(newProgress);
+    }, [steps, onUpdateProgress]);
 
     const handleCompleteProfile = () => {
         if (currentProgress >= 100) {
@@ -54,8 +54,8 @@ export function ProfileCompletenessBanner({ onComplete, currentProgress, onUpdat
                     <p className="text-sm text-gray-500 font-medium">Complete your profile to unlock dashboard insights</p>
                 </div>
                 <div className={`px-4 py-1.5 rounded-full font-bold text-sm border shadow-sm ${currentProgress >= 100
-                        ? "bg-green-50 text-green-600 border-green-100"
-                        : "bg-blue-50 text-blue-600 border-blue-100"
+                    ? "bg-green-50 text-green-600 border-green-100"
+                    : "bg-blue-50 text-blue-600 border-blue-100"
                     }`}>
                     {Math.round(currentProgress)}% Complete
                 </div>
