@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
+
 import { RoleSelectionModal } from "@/components/marketing/RoleSelectionModal";
 import { useModal } from "@/lib/context/ModalContext";
 

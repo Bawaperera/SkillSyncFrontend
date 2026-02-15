@@ -19,7 +19,7 @@ export default function StudentLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="min-h-screen bg-black text-white selection:bg-blue-500/30">
+        <div className="min-h-screen bg-[#F5F7FA] text-gray-900 selection:bg-blue-500/20">
             <StudentSidebar />
             <main className="ml-[250px] min-h-screen relative">
                 {children}
