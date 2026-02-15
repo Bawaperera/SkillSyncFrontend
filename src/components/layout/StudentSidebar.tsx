@@ -46,7 +46,7 @@ export function StudentSidebar({ className, disabled = false }: StudentSidebarPr
 
     return (
         <aside className={cn(
-            "w-[280px] h-screen bg-white border-r border-gray-200 flex flex-col fixed left-0 top-0 z-40 transition-transform duration-300 md:translate-x-0",
+            "w-[280px] h-screen bg-white border-r border-gray-200 flex flex-col fixed left-0 top-0 z-40 transition-transform duration-300 -translate-x-full md:translate-x-0",
             disabled && "pointer-events-none opacity-50",
             className
         )}>

@@ -7,14 +7,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
 
-import { RoleSelectionModal } from "@/components/marketing/RoleSelectionModal";
+
 import { useModal } from "@/lib/context/ModalContext";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const [isRoleModalOpen, setIsRoleModalOpen] = useState(false);
   const { openDemoModal } = useModal();
 
   useEffect(() => {
@@ -112,14 +111,15 @@ export function Navbar() {
                 Log In
               </GlassButton>
             </Link>
-            <GlassButton
-              variant="primary"
-              size="sm"
-              className="bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-500/20"
-              onClick={() => setIsRoleModalOpen(true)}
-            >
-              Sign Up
-            </GlassButton>
+            <Link href="/register">
+              <GlassButton
+                variant="primary"
+                size="sm"
+                className="bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-500/20"
+              >
+                Sign Up
+              </GlassButton>
+            </Link>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -279,7 +279,6 @@ export function Navbar() {
           )
         }
       </AnimatePresence >
-      <RoleSelectionModal isOpen={isRoleModalOpen} onClose={() => setIsRoleModalOpen(false)} />
     </>
   );
 }
