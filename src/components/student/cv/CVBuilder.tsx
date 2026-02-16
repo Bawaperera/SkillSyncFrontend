@@ -155,7 +155,7 @@ export function CVBuilder() {
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-sm font-bold text-gray-400 uppercase tracking-wider">Live Preview</h2>
                     <div className="flex gap-2">
-                        <button className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white text-xs font-medium border border-white/10 flex items-center gap-2">
+                        <button className="px-3 py-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-medium border border-gray-300 flex items-center gap-2">
                             <Save size={14} /> Save Draft
                         </button>
                         <button className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center gap-2">

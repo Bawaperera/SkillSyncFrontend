@@ -75,12 +75,12 @@ export default function LandingPage() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5 }}
                                 viewport={{ once: true }}
-                                className="group p-6 rounded-2xl hover:border-red-500/30 transition-colors bg-[#F8F7F4] dark:bg-[#F8F7F4] border border-gray-100 dark:border-gray-100 shadow-none">
+                                className="group p-6 rounded-2xl hover:border-red-500/30 transition-colors bg-[#F8F7F4] border border-gray-100 shadow-none">
                                 <div className="p-3 bg-red-100 rounded-xl inline-block mb-4 text-red-600 group-hover:scale-110 transition-transform">
                                     <AlertTriangle className="w-8 h-8" />
                                 </div>
-                                <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-gray-900">The Student Trap</h3>
-                                <p className="text-gray-600 dark:text-gray-600">Graduating with good grades but still getting rejected? It’s not you; it’s the <strong className="text-gray-900 dark:text-gray-900">Skill Gap</strong> between curriculum and industry.</p>
+                                <h3 className="text-xl font-bold mb-2 text-gray-900">The Student Trap</h3>
+                                <p className="text-gray-600">Graduating with good grades but still getting rejected? It's not you; it's the <strong className="text-gray-900">Skill Gap</strong> between curriculum and industry.</p>
                             </motion.div>
 
                             <motion.div
