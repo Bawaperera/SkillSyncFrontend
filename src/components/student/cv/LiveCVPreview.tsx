@@ -1,18 +1,12 @@
 "use client";
 
-import { Document, Page, Text, View, StyleSheet, PDFViewer, Font } from "@react-pdf/renderer";
+import { Document, Page, Text, View, StyleSheet, PDFViewer } from "@react-pdf/renderer";
 import { CVProfile, CVTemplate } from "@/types/cv";
-
-// Register fonts
-Font.register({
-    family: "Inter",
-    src: "https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.ttf",
-});
 
 const styles = StyleSheet.create({
     page: {
         padding: 30,
-        fontFamily: "Inter",
+        fontFamily: "Helvetica",
         fontSize: 10,
         color: "#333",
     },
