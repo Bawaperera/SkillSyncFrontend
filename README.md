@@ -9,7 +9,7 @@ A production-ready, beautifully styled Next.js marketing and product demo site f
 - 🎭 **Framer Motion** - Smooth entrance animations and interactions
 - 🎨 **Tailwind CSS** - Fully styled with utility classes and custom design tokens
 - 📱 **Responsive Design** - Works beautifully on all devices
-- 🌙 **Dark Mode Ready** - Dark mode support built-in (toggle not implemented)
+- ☀️ **Light Theme UI** - Clean, professional light mode design throughout
 
 ## Project Structure
 
@@ -104,9 +104,9 @@ All styles are defined in `src/app/globals.css` using Tailwind's `@layer compone
 ## Notes
 
 - All data is **mock data** - no API calls are made
-- Dark mode classes are included but theme toggle is not implemented
 - All links are functional for navigation within the app
 - The design is optimized for a premium SaaS landing page feel
+- Light theme only - dark mode has been removed for clean, consistent branding
 
 ## License
 

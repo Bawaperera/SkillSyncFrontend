@@ -30,10 +30,10 @@ export function HeroCollage() {
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0 }}
             >
-                <GlassCard className="p-3 flex items-center gap-3 rounded-[20px] !bg-white/80 dark:!bg-white/10 backdrop-blur-md">
+                <GlassCard className="p-3 flex items-center gap-3 rounded-[20px] !bg-white/80 backdrop-blur-md">
                     <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold">SJ</div>
                     <div className="text-xs">
-                        <div className="font-bold text-gray-900 dark:text-white">Sarah Jenkins</div>
+                        <div className="font-bold text-gray-900">Sarah Jenkins</div>
                         <div className="text-gray-500">Product Designer</div>
                     </div>
                 </GlassCard>
@@ -45,9 +45,9 @@ export function HeroCollage() {
                 animate={{ y: [0, 10, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1 }}
             >
-                <div className="bg-white dark:bg-white/10 px-4 py-2 rounded-full shadow-lg flex items-center gap-2 border border-gray-100 dark:border-white/5">
+                <div className="bg-white px-4 py-2 rounded-full shadow-lg flex items-center gap-2 border border-gray-100">
                     <Cpu className="w-4 h-4 text-blue-500" />
-                    <span className="text-sm font-bold text-gray-800 dark:text-white">AI Analysis</span>
+                    <span className="text-sm font-bold text-gray-800">AI Analysis</span>
                 </div>
             </motion.div>
 
@@ -57,10 +57,10 @@ export function HeroCollage() {
                 animate={{ y: [0, -15, 0] }}
                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
             >
-                <GlassCard className="p-3 flex items-center gap-3 rounded-[20px] !bg-white/80 dark:!bg-white/10 backdrop-blur-md">
+                <GlassCard className="p-3 flex items-center gap-3 rounded-[20px] !bg-white/80 backdrop-blur-md">
                     <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold">MR</div>
                     <div className="text-xs">
-                        <div className="font-bold text-gray-900 dark:text-white">Mark Roberts</div>
+                        <div className="font-bold text-gray-900">Mark Roberts</div>
                         <div className="text-gray-500">Tech Recruiter</div>
                     </div>
                     <div className="bg-green-100 text-green-600 p-1 rounded-full"><CheckCircle className="w-3 h-3" /></div>
@@ -73,9 +73,9 @@ export function HeroCollage() {
                 animate={{ y: [0, 10, 0] }}
                 transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
             >
-                <div className="bg-white dark:bg-white/10 px-4 py-2 rounded-full shadow-lg flex items-center gap-2 border border-gray-100 dark:border-white/5">
-                    <Code className="w-4 h-4 text-gray-700 dark:text-gray-300" />
-                    <span className="text-sm font-bold text-gray-800 dark:text-white">GitHub Verified</span>
+                <div className="bg-white px-4 py-2 rounded-full shadow-lg flex items-center gap-2 border border-gray-100">
+                    <Code className="w-4 h-4 text-gray-700" />
+                    <span className="text-sm font-bold text-gray-800">GitHub Verified</span>
                 </div>
             </motion.div>
 

@@ -11,11 +11,11 @@ const buttonVariants = cva(
         primary:
           'text-white bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 focus:ring-primary-500',
         secondary:
-          'text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 hover:border-primary-300 dark:hover:border-primary-600 hover:bg-gray-50 dark:hover:bg-gray-700 focus:ring-primary-500',
+          'text-gray-700 bg-white border-2 border-gray-200 hover:border-primary-300 hover:bg-gray-50 focus:ring-primary-500',
         ghost:
-          'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:ring-primary-500',
+          'text-gray-700 hover:bg-gray-100 focus:ring-primary-500',
         outline:
-          'text-primary-600 dark:text-primary-400 border-2 border-primary-600 dark:border-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 focus:ring-primary-500',
+          'text-primary-600 border-2 border-primary-600 hover:bg-primary-50 focus:ring-primary-500',
       },
       size: {
         sm: 'px-4 py-2 text-xs',

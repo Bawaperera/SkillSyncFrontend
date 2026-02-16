@@ -16,12 +16,12 @@ export function AuthCheckbox({ label, register, error }: AuthCheckboxProps) {
             <label className="flex items-start gap-3 cursor-pointer group">
                 <div className="relative mt-1">
                     <input type="checkbox" className="peer sr-only" {...register} />
-                    <div className="w-5 h-5 rounded border-2 border-gray-300 dark:border-white/30 bg-gray-50 dark:bg-white/5 peer-checked:bg-blue-600 peer-checked:border-blue-600 transition-all duration-200" />
+                    <div className="w-5 h-5 rounded border-2 border-gray-300 bg-gray-50 peer-checked:bg-blue-600 peer-checked:border-blue-600 transition-all duration-200" />
                     <div className="absolute inset-0 flex items-center justify-center text-white opacity-0 peer-checked:opacity-100 transition-opacity pointer-events-none">
                         <Check size={14} strokeWidth={3} />
                     </div>
                 </div>
-                <span className="text-sm text-gray-600 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-300 transition-colors select-none">
+                <span className="text-sm text-gray-600 group-hover:text-gray-800 transition-colors select-none">
                     {label}
                 </span>
             </label>

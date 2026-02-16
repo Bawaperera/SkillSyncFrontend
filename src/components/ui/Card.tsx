@@ -14,9 +14,9 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
         className={cn(
           'rounded-2xl border p-6',
           glow
-            ? 'bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800 shadow-xl shadow-primary-500/10 dark:shadow-primary-500/20'
-            : 'bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800 shadow-lg',
-          glass && 'backdrop-blur-xl bg-white/70 dark:bg-gray-900/70 border-white/20 dark:border-gray-700/50',
+            ? 'bg-white border-gray-200 shadow-xl shadow-primary-500/10'
+            : 'bg-white border-gray-200 shadow-lg',
+          glass && 'backdrop-blur-xl bg-white/70 border-white/20',
           className
         )}
         {...props}

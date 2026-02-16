@@ -50,7 +50,7 @@ export function RoleSelectionModal({ isOpen, onClose }: RoleSelectionModalProps)
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
                             transition={{ duration: 0.3, ease: "easeOut" }}
                         >
-                            <GlassCard className="overflow-hidden border-white/10 shadow-2xl bg-[#0A0A0B]/90 dark:bg-[#0A0A0B]/90 p-0">
+                            <GlassCard className="overflow-hidden border-white/10 shadow-2xl bg-[#0A0A0B]/90 p-0">
                                 <button
                                     onClick={onClose}
                                     className="absolute top-4 right-4 p-2 text-gray-400 hover:text-white transition-colors z-20 bg-black/20 rounded-full"
