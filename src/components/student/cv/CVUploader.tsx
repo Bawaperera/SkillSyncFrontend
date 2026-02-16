@@ -36,7 +36,11 @@ export function CVUploader({ onUpload }: CVUploaderProps) {
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.95 }}
-                        {...getRootProps()}
+                        onClick={getRootProps().onClick}
+                        onDrop={getRootProps().onDrop}
+                        onDragEnter={getRootProps().onDragEnter}
+                        onDragOver={getRootProps().onDragOver}
+                        onDragLeave={getRootProps().onDragLeave}
                         className={`
               border-2 border-dashed rounded-3xl p-10 text-center cursor-pointer transition-all duration-300
               flex flex-col items-center justify-center gap-4 group bg-white
