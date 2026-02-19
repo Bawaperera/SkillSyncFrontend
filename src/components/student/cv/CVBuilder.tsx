@@ -163,7 +163,7 @@ export function CVBuilder() {
                         </button>
                     </div>
                 </div>
-                <div className="flex-1 bg-gray-800 rounded-xl overflow-hidden border border-white/10 shadow-2xl">
+                <div className="flex-1 bg-gray-100 rounded-xl overflow-hidden border border-gray-200 shadow-lg">
                     <LiveCVPreview profile={profile} template={template} />
                 </div>
             </div>

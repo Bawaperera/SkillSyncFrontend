@@ -18,13 +18,13 @@ export default function ProfilePage() {
                 <div className="px-8 pb-8">
                     <div className="flex justify-between items-end -mt-12 mb-6">
                         <div className="relative">
-                            <div className="w-24 h-24 rounded-2xl bg-black border-4 border-black text-white flex items-center justify-center text-3xl font-bold overflow-hidden">
+                            <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 border-4 border-white text-white flex items-center justify-center text-3xl font-bold overflow-hidden shadow-lg">
                                 {/* Avatar Placeholder */}
-                                <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                                <div className="w-full h-full flex items-center justify-center">
                                     {CURRENT_STUDENT.name.substring(0, 2)}
                                 </div>
                             </div>
-                            <div className="absolute bottom-0 right-0 w-6 h-6 bg-green-500 rounded-full border-4 border-black" />
+                            <div className="absolute bottom-0 right-0 w-6 h-6 bg-green-500 rounded-full border-4 border-white" />
                         </div>
                         <div className="flex gap-2">
                             <GlassButton variant="secondary" size="sm"><Share2 className="w-4 h-4 mr-2" /> Share</GlassButton>

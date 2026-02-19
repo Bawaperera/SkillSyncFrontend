@@ -111,8 +111,8 @@ export default function RecruiterRegisterPage() {
     return (
         <AuthSplitLayout marketingContent={marketingContent}>
             <div className="mb-8">
-                <h1 className="text-3xl font-bold text-white mb-2">Recruiter Sign Up</h1>
-                <p className="text-gray-400">
+                <h1 className="text-3xl font-bold text-gray-900 mb-2">Recruiter Sign Up</h1>
+                <p className="text-gray-600">
                     Step {step} of 2: {step === 1 ? "Your Identity" : "Company Details"}
                 </p>
                 {/* Progress Bar */}
@@ -168,7 +168,7 @@ export default function RecruiterRegisterPage() {
                         </div>
 
                         <div className="flex gap-4">
-                            <GlassButton type="button" onClick={() => setStep(1)} className="flex-1 py-4 text-white hover:bg-white/10">
+                            <GlassButton type="button" onClick={() => setStep(1)} className="flex-1 py-4 text-gray-700 hover:bg-gray-100 border border-gray-200">
                                 Back
                             </GlassButton>
                             <GlassButton type="submit" variant="primary" className="flex-[2] py-4 text-base font-bold bg-green-600 hover:bg-green-500 border-none" disabled={isLoading}>

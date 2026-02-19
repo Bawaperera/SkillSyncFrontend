@@ -6,33 +6,33 @@ import { Briefcase, Search } from "lucide-react";
 
 export default function RecruiterDashboard() {
     return (
-        <div className="min-h-screen bg-black text-white p-8 flex items-center justify-center relative overflow-hidden">
+        <div className="min-h-screen bg-gray-50 text-gray-900 p-8 flex items-center justify-center relative overflow-hidden">
             {/* Background Mesh */}
             <div className="fixed inset-0 pointer-events-none">
-                <div className="absolute top-[-10%] left-[-10%] w-[1000px] h-[1000px] bg-purple-600/10 rounded-full blur-[150px]" />
-                <div className="absolute bottom-[-10%] right-[-10%] w-[1000px] h-[1000px] bg-blue-600/10 rounded-full blur-[150px]" />
+                <div className="absolute top-[-10%] left-[-10%] w-[1000px] h-[1000px] bg-purple-100/30 rounded-full blur-[150px]" />
+                <div className="absolute bottom-[-10%] right-[-10%] w-[1000px] h-[1000px] bg-blue-100/30 rounded-full blur-[150px]" />
             </div>
 
             <div className="w-full max-w-4xl relative z-10 text-center">
-                <h1 className="text-4xl font-bold mb-8">Welcome to Recruiter Suite</h1>
+                <h1 className="text-4xl font-bold mb-8 text-gray-900">Welcome to Recruiter Suite</h1>
 
                 <div className="grid md:grid-cols-2 gap-8">
-                    <GlassCard className="p-12 hover:bg-white/10 transition-colors cursor-pointer group">
-                        <div className="w-16 h-16 bg-purple-500/20 rounded-2xl flex items-center justify-center text-purple-400 mx-auto mb-6 group-hover:scale-110 transition-transform">
+                    <GlassCard className="p-12 hover:shadow-lg transition-all cursor-pointer group bg-white border border-gray-200">
+                        <div className="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center text-purple-600 mx-auto mb-6 group-hover:scale-110 transition-transform">
                             <Briefcase size={32} />
                         </div>
-                        <h2 className="text-2xl font-bold mb-2">Post a Job</h2>
-                        <p className="text-gray-400 mb-6">AI will match candidates instantly.</p>
-                        <GlassButton variant="primary">Create Listing</GlassButton>
+                        <h2 className="text-2xl font-bold mb-2 text-gray-900">Post a Job</h2>
+                        <p className="text-gray-600 mb-6">AI will match candidates instantly.</p>
+                        <GlassButton variant="primary" className="bg-purple-600 hover:bg-purple-700 text-white border-none">Create Listing</GlassButton>
                     </GlassCard>
 
-                    <GlassCard className="p-12 hover:bg-white/10 transition-colors cursor-pointer group">
-                        <div className="w-16 h-16 bg-blue-500/20 rounded-2xl flex items-center justify-center text-blue-400 mx-auto mb-6 group-hover:scale-110 transition-transform">
+                    <GlassCard className="p-12 hover:shadow-lg transition-all cursor-pointer group bg-white border border-gray-200">
+                        <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 mx-auto mb-6 group-hover:scale-110 transition-transform">
                             <Search size={32} />
                         </div>
-                        <h2 className="text-2xl font-bold mb-2">Search Talent</h2>
-                        <p className="text-gray-400 mb-6">Browse verified skills & badges.</p>
-                        <GlassButton variant="secondary">Browse Pool</GlassButton>
+                        <h2 className="text-2xl font-bold mb-2 text-gray-900">Search Talent</h2>
+                        <p className="text-gray-600 mb-6">Browse verified skills & badges.</p>
+                        <GlassButton variant="secondary" className="border-gray-300 text-gray-700 hover:bg-gray-100">Browse Pool</GlassButton>
                     </GlassCard>
                 </div>
             </div>

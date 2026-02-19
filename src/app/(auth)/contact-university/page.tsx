@@ -83,8 +83,8 @@ export default function UniversityContactPage() {
     return (
         <AuthSplitLayout marketingContent={marketingContent}>
             <div className="mb-8">
-                <h1 className="text-3xl font-bold text-white mb-2">Partner with SkillSync</h1>
-                <p className="text-gray-400">
+                <h1 className="text-3xl font-bold text-gray-900 mb-2">Partner with SkillSync</h1>
+                <p className="text-gray-600">
                     Request institutional access for your university.
                 </p>
             </div>
@@ -110,10 +110,10 @@ export default function UniversityContactPage() {
                         <AuthInput label="Official Email" type="email" placeholder="dean@ucsc.cmb.ac.lk" icon={Mail} register={register("email")} error={errors.email} />
 
                         <div className="space-y-2">
-                            <label className="block text-sm font-medium text-gray-400">How can we help?</label>
+                            <label className="block text-sm font-medium text-gray-700">How can we help?</label>
                             <textarea
                                 {...register("message")}
-                                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-gray-500 outline-none focus:border-pink-500/50 focus:bg-white/10 h-32 resize-none"
+                                className="w-full bg-white border border-gray-300 rounded-xl px-4 py-3.5 text-gray-900 placeholder-gray-400 outline-none focus:border-pink-500 focus:bg-white focus:ring-4 focus:ring-pink-500/10 h-32 resize-none"
                                 placeholder="Tell us about your current placement challenges..."
                             />
                             {errors.message && <p className="text-sm text-red-400">{errors.message.message}</p>}
@@ -125,7 +125,7 @@ export default function UniversityContactPage() {
 
                         <p className="text-center text-sm text-gray-500 mt-6">
                             Already a partner?{" "}
-                            <Link href="/login" className="text-white hover:underline font-medium">
+                            <Link href="/login" className="text-blue-600 hover:underline font-medium">
                                 Sign In
                             </Link>
                         </p>
@@ -140,9 +140,9 @@ export default function UniversityContactPage() {
                         <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
                             <CheckCircle2 size={40} className="text-green-400" />
                         </div>
-                        <h2 className="text-2xl font-bold text-white mb-2">Request Received</h2>
-                        <p className="text-gray-400 mb-8">
-                            Thank you for your interest. Our partnership team will review your details and contact you at <strong className="text-white">official email</strong> within 24 hours.
+                        <h2 className="text-2xl font-bold text-gray-900 mb-2">Request Received</h2>
+                        <p className="text-gray-600 mb-8">
+                            Thank you for your interest. Our partnership team will review your details and contact you at <strong className="text-gray-900">official email</strong> within 24 hours.
                         </p>
                         <Link href="/">
                             <GlassButton variant="secondary" className="px-8">

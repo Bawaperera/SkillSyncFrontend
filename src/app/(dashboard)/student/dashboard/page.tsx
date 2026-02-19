@@ -162,7 +162,7 @@ export default function StudentDashboard() {
                                 {[1, 2, 3].map((job) => (
                                     <GlassCard key={job} className="p-6 flex items-center justify-between group hover:shadow-md transition-all cursor-pointer border border-transparent hover:border-blue-100 bg-white shadow-sm">
                                         <div className="flex items-center gap-5">
-                                            <div className="w-14 h-14 rounded-2xl bg-gray-900 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-gray-200">
+                                            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-200">
                                                 {job === 1 ? "G" : job === 2 ? "F" : "A"}
                                             </div>
                                             <div>

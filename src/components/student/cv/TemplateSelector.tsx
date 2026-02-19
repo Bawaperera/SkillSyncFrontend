@@ -15,19 +15,19 @@ export function TemplateSelector({ selectedTemplate, onSelect }: TemplateSelecto
             id: "minimalist",
             name: "Tech Minimalist",
             description: "Clean, monospaced fonts. Best for Developers.",
-            color: "bg-gray-800",
+            color: "bg-gray-600",
         },
         {
             id: "corporate",
             name: "Corporate",
             description: "Traditional serif fonts. Best for Enterprise/Banks.",
-            color: "bg-blue-900",
+            color: "bg-blue-600",
         },
         {
             id: "creative",
             name: "Creative",
             description: "Modern layout with accent colors. Best for UI/UX.",
-            color: "bg-purple-900",
+            color: "bg-purple-600",
         },
     ];
 

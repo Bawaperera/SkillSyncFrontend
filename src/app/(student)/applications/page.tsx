@@ -82,7 +82,7 @@ export default function ApplicationsPage() {
                                                         isRejected && currentStageIndex === STAGES.indexOf('Rejected') && idx === currentStageIndex ? "bg-red-500 border-red-500 text-white" :
                                                             isCompleted ? "bg-green-500 border-green-500 text-white" :
                                                                 isCurrent ? "bg-blue-500 border-blue-500 text-white scale-125 shadow-lg shadow-blue-500/50" :
-                                                                    "bg-gray-900 border-gray-700 text-gray-500"
+                                                                    "bg-gray-200 border-gray-300 text-gray-600"
                                                     )}>
                                                         {isCompleted ? <CheckCircle className="w-5 h-5" /> :
                                                             isRejected && idx === currentStageIndex ? <XCircle className="w-5 h-5" /> :
@@ -114,7 +114,7 @@ export default function ApplicationsPage() {
                                             <p className="text-sm text-gray-400 mb-3">Last updated on {app.lastUpdate}</p>
 
                                             {app.feeback && (
-                                                <div className="bg-black/30 p-3 rounded-lg border-l-2 border-blue-500 text-sm italic text-gray-300">
+                                                <div className="bg-blue-50 p-3 rounded-lg border-l-2 border-blue-500 text-sm italic text-gray-700">
                                                     &quot;{app.feeback}&quot;
                                                 </div>
                                             )}

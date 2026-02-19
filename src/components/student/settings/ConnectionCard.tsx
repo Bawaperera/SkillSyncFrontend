@@ -14,7 +14,7 @@ export function ConnectionCard({ provider, connected, username, onAction }: Conn
     return (
         <GlassCard className="p-4 flex items-center justify-between bg-white border border-gray-200 shadow-sm">
             <div className="flex items-center gap-4">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold ${provider === 'GitHub' ? "bg-gray-900 text-white" : "bg-blue-600 text-white"
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold ${provider === 'GitHub' ? "bg-gray-700 text-white" : "bg-blue-600 text-white"
                     }`}>
                     {provider === 'GitHub' ? 'G' : 'in'}
                 </div>

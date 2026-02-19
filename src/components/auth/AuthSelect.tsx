@@ -38,6 +38,7 @@ export function AuthSelect({
 
                 <select
                     {...register}
+                    defaultValue=""
                     className={`
                         w-full bg-white border border-gray-300 rounded-xl px-4 py-3.5 
                         text-gray-900 outline-none appearance-none
@@ -47,7 +48,7 @@ export function AuthSelect({
                         ${error ? "border-red-500 focus:border-red-500" : ""}
                     `}
                 >
-                    <option value="" disabled selected className="bg-white text-gray-400">Select an option</option>
+                    <option value="" disabled className="bg-white text-gray-400">Select an option</option>
                     {options.map((option) => (
                         <option key={option.value} value={option.value} className="bg-white text-gray-900">
                             {option.label}

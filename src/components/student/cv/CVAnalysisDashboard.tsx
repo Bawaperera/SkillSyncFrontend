@@ -37,16 +37,16 @@ export function CVAnalysisDashboard({ file, onReset }: CVAnalysisDashboardProps)
     return (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 h-[calc(100vh-140px)]">
             {/* Left Column: PDF Preview */}
-            <div className="lg:col-span-7 flex flex-col h-full bg-gray-900/50 rounded-3xl border border-white/10 overflow-hidden relative group">
+            <div className="lg:col-span-7 flex flex-col h-full bg-gray-100 rounded-3xl border border-gray-200 overflow-hidden relative group shadow-sm">
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                     <p className="text-gray-500 text-sm">PDF Preview for {file.name}</p>
                 </div>
                 {/* Overlay Controls */}
-                <div className="absolute bottom-0 inset-x-0 p-6 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <button onClick={onReset} className="px-4 py-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 text-sm font-bold border border-red-500/20 transition-colors">
+                <div className="absolute bottom-0 inset-x-0 p-6 bg-gradient-to-t from-white/95 to-transparent flex justify-between items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <button onClick={onReset} className="px-4 py-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 text-sm font-bold border border-red-200 transition-colors">
                         Delete & Re-upload
                     </button>
-                    <button className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-sm font-bold border border-white/10 transition-colors flex items-center gap-2">
+                    <button className="px-4 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-bold border border-gray-300 transition-colors flex items-center gap-2">
                         <Download size={16} /> Download
                     </button>
                 </div>
