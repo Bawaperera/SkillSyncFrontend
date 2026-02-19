@@ -18,7 +18,7 @@ import {
     Minus,
     Building2,
 } from "lucide-react";
-import { RoleSelectionModal } from "@/components/marketing/RoleSelectionModal";
+import Link from "next/link";
 
 const TRUSTED_LOGOS = [
     "University of Colombo", "SLIIT", "IIT", "Tech Innovations Ltd", "Virtusa", "Pearson",
@@ -34,7 +34,6 @@ const FAQS = [
 
 export default function LandingPage() {
     const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
     return (
         <div className="relative overflow-x-hidden bg-white">
@@ -266,19 +265,18 @@ export default function LandingPage() {
                     <div className="container mx-auto px-6 relative z-10 text-center">
                         <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">Your Career Can&apos;t Wait.</h2>
                         <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">Join 1000+ students bridging the gap today.</p>
-                        <GlassButton
-                            onClick={() => setIsModalOpen(true)}
-                            variant="primary"
-                            size="lg"
-                            className="mt-6 px-10 py-6 text-xl shadow-xl bg-blue-600 text-white hover:bg-blue-700 font-bold border-none"
-                        >
-                            Get Started Now
-                        </GlassButton>
+                        <Link href="/register">
+                            <GlassButton
+                                variant="primary"
+                                size="lg"
+                                className="mt-6 px-10 py-6 text-xl shadow-xl bg-blue-600 text-white hover:bg-blue-700 font-bold border-none"
+                            >
+                                Get Started Now
+                            </GlassButton>
+                        </Link>
                     </div>
                 </section>
             </div>
-
-            <RoleSelectionModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </div>
     );
 }

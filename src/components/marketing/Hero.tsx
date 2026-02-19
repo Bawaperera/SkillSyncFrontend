@@ -6,13 +6,11 @@ import { motion, useScroll, useTransform, useSpring, useInView } from "framer-mo
 import { ArrowRight, CheckCircle, Play, Code, Database, Server, Star } from "lucide-react";
 import Link from "next/link";
 import { useRef, useState, useEffect } from "react";
-import { RoleSelectionModal } from "./RoleSelectionModal";
 import { HeroVideo } from "./HeroVideo";
 import { useModal } from "@/lib/context/ModalContext";
 
 export function Hero() {
     const { openDemoModal } = useModal();
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
     // Skill Score Animation
     const [score, setScore] = useState(60);
@@ -63,13 +61,14 @@ export function Hero() {
                                 </p>
 
                                 <div className="flex flex-col sm:flex-row gap-5">
-                                    <GlassButton
-                                        onClick={() => setIsModalOpen(true)}
-                                        className="h-14 px-8 text-lg bg-blue-600 hover:bg-blue-500 text-white shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 border-none transition-all duration-300"
-                                    >
-                                        Get Started
-                                        <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                                    </GlassButton>
+                                    <Link href="/register">
+                                        <GlassButton
+                                            className="h-14 px-8 text-lg bg-blue-600 hover:bg-blue-500 text-white shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 border-none transition-all duration-300"
+                                        >
+                                            Get Started
+                                            <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                        </GlassButton>
+                                    </Link>
 
                                     <GlassButton
                                         onClick={openDemoModal}
@@ -88,9 +87,6 @@ export function Hero() {
                     </div>
                 </div>
             </section>
-
-
-            <RoleSelectionModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </>
     );
 }
