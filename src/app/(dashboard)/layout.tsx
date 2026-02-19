@@ -1,15 +1,13 @@
 "use client";
 
-import { ThemeProvider } from "@/components/theme-provider";
-
 export default function DashboardLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
     return (
-        <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light" enableSystem={false} disableTransitionOnChange>
+        <div className="min-h-screen bg-[#F3F4F6]">
             {children}
-        </ThemeProvider>
+        </div>
     );
 }

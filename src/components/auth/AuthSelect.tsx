@@ -26,12 +26,12 @@ export function AuthSelect({
 }: AuthSelectProps) {
     return (
         <div className="space-y-2 group">
-            <label className="block text-sm font-medium text-gray-400 group-focus-within:text-blue-400 transition-colors">
+            <label className="block text-sm font-medium text-gray-700 group-focus-within:text-blue-600 transition-colors">
                 {label}
             </label>
             <div className="relative">
                 {Icon && (
-                    <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-blue-500 transition-colors pointer-events-none">
+                    <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors pointer-events-none">
                         <Icon size={20} />
                     </div>
                 )}
@@ -39,17 +39,17 @@ export function AuthSelect({
                 <select
                     {...register}
                     className={`
-                        w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 
-                        text-white outline-none appearance-none
-                        focus:border-blue-500/50 focus:bg-white/10 focus:ring-4 focus:ring-blue-500/10
+                        w-full bg-white border border-gray-300 rounded-xl px-4 py-3.5 
+                        text-gray-900 outline-none appearance-none
+                        focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-500/10
                         transition-all duration-300
                         ${Icon ? "pl-12" : ""}
-                        ${error ? "border-red-500/50 focus:border-red-500/50" : ""}
+                        ${error ? "border-red-500 focus:border-red-500" : ""}
                     `}
                 >
-                    <option value="" disabled selected className="bg-gray-900 text-gray-500">Select an option</option>
+                    <option value="" disabled selected className="bg-white text-gray-400">Select an option</option>
                     {options.map((option) => (
-                        <option key={option.value} value={option.value} className="bg-gray-900 text-white">
+                        <option key={option.value} value={option.value} className="bg-white text-gray-900">
                             {option.label}
                         </option>
                     ))}
