@@ -54,9 +54,6 @@ export function RecruiterSidebar({ className, disabled = false }: RecruiterSideb
                     <span className="text-lg font-bold text-gray-900 tracking-tight">
                         SkillSync
                     </span>
-                    <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200 ml-1">
-                        B2B
-                    </span>
                 </Link>
             </div>
 
