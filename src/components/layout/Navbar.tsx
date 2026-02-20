@@ -69,11 +69,15 @@ export function Navbar() {
               <button
                 onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
                 className={cn(
-                  "text-sm font-medium transition-colors py-2",
+                  "text-sm font-medium transition-colors py-2 relative group",
                   activeDropdown === 'how-it-works' ? "text-blue-500" : "text-gray-300 hover:text-white"
                 )}
               >
                 How It Works
+                <span className={cn(
+                  "absolute -bottom-1 left-0 h-0.5 bg-blue-500 transition-all duration-300",
+                  activeDropdown === 'how-it-works' ? "w-full" : "w-0 group-hover:w-full"
+                )}></span>
               </button>
             </div>
 
@@ -85,22 +89,29 @@ export function Navbar() {
               <button
                 onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
                 className={cn(
-                  "text-sm font-medium transition-colors py-2",
+                  "text-sm font-medium transition-colors py-2 relative group",
                   activeDropdown === 'features' ? "text-blue-500" : "text-gray-300 hover:text-white"
                 )}
               >
                 Features
+                <span className={cn(
+                  "absolute -bottom-1 left-0 h-0.5 bg-blue-500 transition-all duration-300",
+                  activeDropdown === 'features' ? "w-full" : "w-0 group-hover:w-full"
+                )}></span>
               </button>
             </div>
 
-            <Link href="/#pricing" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">
+            <Link href="/#pricing" className="text-sm font-medium text-gray-300 hover:text-white transition-colors py-2 relative group" onMouseEnter={() => setActiveDropdown(null)}>
               Pricing
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
             </Link>
-            <Link href="/about" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">
+            <Link href="/about" className="text-sm font-medium text-gray-300 hover:text-white transition-colors py-2 relative group" onMouseEnter={() => setActiveDropdown(null)}>
               About
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
             </Link>
-            <Link href="/contact" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">
+            <Link href="/contact" className="text-sm font-medium text-gray-300 hover:text-white transition-colors py-2 relative group" onMouseEnter={() => setActiveDropdown(null)}>
               Contact Us
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
             </Link>
           </div>
 

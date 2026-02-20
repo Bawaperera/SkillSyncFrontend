@@ -12,9 +12,9 @@ interface ProfileHeaderProps {
 
 export function ProfileHeader({ profile }: ProfileHeaderProps) {
     return (
-        <GlassCard className="p-6 md:p-8 relative overflow-hidden group border-blue-100 shadow-md bg-gradient-to-r from-blue-100 to-white">
+        <GlassCard className="p-6 md:p-8 relative overflow-hidden group border-gray-200 shadow-md bg-white">
             {/* Background Gradient Mesh - Subtler for Light Mode */}
-            <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none group-hover:bg-blue-500/20 transition-colors duration-500" />
+            <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none group-hover:bg-blue-500/10 transition-colors duration-500" />
 
             <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start relative z-10">
                 {/* Avatar */}
@@ -43,8 +43,8 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
                                 </h1>
                                 {profile.isVerifiedStudent && <TrustBadge type="verified_student" />}
                             </div>
-                            <p className="text-lg text-gray-500 mt-1 font-medium">{profile.title}</p>
-                            <div className="flex items-center gap-2 text-sm text-gray-400 mt-1">
+                            <p className="text-lg text-gray-600 mt-1 font-medium">{profile.title}</p>
+                            <div className="flex items-center gap-2 text-sm text-gray-500 mt-1">
                                 <MapPin size={14} className="text-blue-500" />
                                 {profile.location}
                             </div>
@@ -64,7 +64,7 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
                                 <Link
                                     href={profile.socials.github}
                                     target="_blank"
-                                    className="p-2 rounded-lg bg-gray-50 hover:bg-gray-100 hover:text-blue-600 text-gray-400 border border-gray-200 transition-colors"
+                                    className="p-2 rounded-lg bg-gray-50 hover:bg-gray-100 hover:text-blue-600 text-gray-600 border border-gray-200 transition-colors"
                                 >
                                     <Github size={18} />
                                 </Link>
@@ -73,7 +73,7 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
                                 <Link
                                     href={profile.socials.linkedin}
                                     target="_blank"
-                                    className="p-2 rounded-lg bg-gray-50 hover:bg-gray-100 hover:text-blue-600 text-gray-400 border border-gray-200 transition-colors"
+                                    className="p-2 rounded-lg bg-gray-50 hover:bg-gray-100 hover:text-blue-600 text-gray-600 border border-gray-200 transition-colors"
                                 >
                                     <Linkedin size={18} />
                                 </Link>
@@ -82,7 +82,7 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
                                 <Link
                                     href={profile.socials.website}
                                     target="_blank"
-                                    className="p-2 rounded-lg bg-gray-50 hover:bg-gray-100 hover:text-blue-600 text-gray-400 border border-gray-200 transition-colors"
+                                    className="p-2 rounded-lg bg-gray-50 hover:bg-gray-100 hover:text-blue-600 text-gray-600 border border-gray-200 transition-colors"
                                 >
                                     <Globe size={18} />
                                 </Link>
@@ -95,10 +95,10 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
             </div>
 
             {/* Profile Strength Nudge */}
-            <div className="mt-8 pt-6 border-t border-gray-100">
+            <div className="mt-8 pt-6 border-t border-gray-200">
                 <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
-                        <span className="text-sm font-medium text-gray-500">Profile Strength:</span>
+                        <span className="text-sm font-medium text-gray-700">Profile Strength:</span>
                         <span className={`text-sm font-bold ${profile.profileStrength > 80 ? 'text-green-600' : profile.profileStrength > 50 ? 'text-yellow-600' : 'text-red-600'}`}>
                             {profile.profileStrength > 80 ? 'All-Star' : profile.profileStrength > 50 ? 'Intermediate' : 'Beginner'} ({profile.profileStrength}%)
                         </span>
@@ -107,7 +107,7 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
                         Add 2 Projects to reach 'All-Star' status
                     </span>
                 </div>
-                <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
+                <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
                     <motion.div
                         initial={{ width: 0 }}
                         animate={{ width: `${profile.profileStrength}%` }}
