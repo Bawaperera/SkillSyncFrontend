@@ -8,7 +8,7 @@ import {
     BookOpen,
     TrendingUp,
     Users,
-    Building2,
+    Handshake,
     Settings,
     LogOut,
     GraduationCap,
@@ -21,9 +21,9 @@ interface UniversitySidebarProps {
 const NAV_ITEMS = [
     { label: "Dashboard", href: "/university/dashboard", icon: LayoutDashboard },
     { label: "Curriculum Analysis", href: "/university/curriculum", icon: BookOpen },
+    { label: "Student Analytics", href: "/university/students", icon: Users },
     { label: "Placements", href: "/university/placements", icon: TrendingUp },
-    { label: "Industry Intelligence", href: "/university/industry", icon: Building2 },
-    { label: "Student Cohorts", href: "/university/students", icon: Users },
+    { label: "Partner Companies", href: "/university/partners", icon: Handshake },
     { label: "Settings", href: "/university/settings", icon: Settings },
 ];
 
