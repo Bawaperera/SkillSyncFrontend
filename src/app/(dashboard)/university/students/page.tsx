@@ -2,8 +2,8 @@
 
 import { useState, useMemo } from "react";
 import {
-    Users, Target, Github, FileText, TrendingUp,
-    AlertTriangle, CheckCircle, ArrowRight, Info,
+    Users, Target, Github, FileText,
+    CheckCircle, ArrowRight, Info,
     ChevronDown, Download, BookOpen,
 } from "lucide-react";
 import {
@@ -145,21 +145,20 @@ function DistTooltip({ active, payload, label }: any) {
 
 // ─── KPI Card ─────────────────────────────────────────────────────────────────
 
-function KpiCard({ label, value, sub, icon: Icon, accent = false }: {
+function KpiCard({ label, value, sub, icon: Icon }: {
     label: string; value: string; sub: string;
-    icon: React.ElementType; accent?: boolean;
+    icon: React.ElementType;
 }) {
     return (
-        <div className={`relative rounded-xl border p-5 flex flex-col gap-2.5 overflow-hidden transition-all hover:shadow-md ${accent ? "bg-blue-600 border-blue-500" : "bg-white border-gray-200 shadow-sm"}`}>
-            {accent && <div className="absolute top-0 right-0 w-28 h-28 bg-white/10 rounded-full blur-2xl -mr-8 -mt-8 pointer-events-none" />}
-            <div className="flex items-center justify-between relative z-10">
-                <p className={`text-xs font-semibold uppercase tracking-wide ${accent ? "text-blue-100" : "text-gray-500"}`}>{label}</p>
-                <div className={`w-8 h-8 rounded-md flex items-center justify-center flex-shrink-0 ${accent ? "bg-white/20" : "bg-blue-50"}`}>
-                    <Icon size={15} className={accent ? "text-white" : "text-blue-600"} />
+        <div className="relative rounded-xl border p-5 flex flex-col gap-2.5 overflow-hidden transition-all hover:shadow-md bg-white border-gray-200 shadow-sm">
+            <div className="flex items-center justify-between">
+                <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">{label}</p>
+                <div className="w-8 h-8 rounded-md flex items-center justify-center flex-shrink-0 bg-gray-100">
+                    <Icon size={15} className="text-gray-600" />
                 </div>
             </div>
-            <p className={`text-3xl font-extrabold tracking-tight ${accent ? "text-white" : "text-gray-900"}`}>{value}</p>
-            <p className={`text-[11px] leading-snug ${accent ? "text-blue-100" : "text-gray-500"}`}>{sub}</p>
+            <p className="text-3xl font-extrabold tracking-tight text-gray-900">{value}</p>
+            <p className="text-[11px] leading-snug text-gray-500">{sub}</p>
         </div>
     );
 }
@@ -246,13 +245,12 @@ export default function StudentAnalyticsPage() {
             </div>
 
             {/* ── KPI Cards ─────────────────────────────────────────────── */}
-            <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-4">
                 <KpiCard
                     label="Total Students"
                     value={TOTAL_STUDENTS.toLocaleString()}
                     sub="Enrolled across 5 programmes"
                     icon={Users}
-                    accent
                 />
                 <KpiCard
                     label="Avg Skill Score"
@@ -272,45 +270,12 @@ export default function StudentAnalyticsPage() {
                     sub="Verified GitHub accounts linked"
                     icon={Github}
                 />
-            </div>
-
-            {/* ── Engagement Metrics Row ────────────────────────────────── */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                {/* CV Upload Rate */}
-                <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-green-50 flex-shrink-0 flex items-center justify-center">
-                        <FileText size={18} className="text-green-600" />
-                    </div>
-                    <div>
-                        <p className="text-xs text-gray-500 font-semibold uppercase tracking-wider">CV Upload Rate</p>
-                        <p className="text-2xl font-extrabold text-gray-900">{AVG_CV}%</p>
-                        <p className="text-[11px] text-gray-400">AI-analysed CVs submitted</p>
-                    </div>
-                </div>
-
-                {/* At-Risk Students */}
-                <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-purple-50 flex-shrink-0 flex items-center justify-center">
-                        <AlertTriangle size={18} className="text-purple-500" />
-                    </div>
-                    <div>
-                        <p className="text-xs text-gray-500 font-semibold uppercase tracking-wider">Needs Attention</p>
-                        <p className="text-2xl font-extrabold text-gray-900">{TOTAL_AT_RISK}</p>
-                        <p className="text-[11px] text-gray-400">Students scoring below 40</p>
-                    </div>
-                </div>
-
-                {/* High Performers */}
-                <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-blue-50 flex-shrink-0 flex items-center justify-center">
-                        <TrendingUp size={18} className="text-blue-600" />
-                    </div>
-                    <div>
-                        <p className="text-xs text-gray-500 font-semibold uppercase tracking-wider">High Performers</p>
-                        <p className="text-2xl font-extrabold text-gray-900">252</p>
-                        <p className="text-[11px] text-gray-400">Scoring above 80 — placement ready</p>
-                    </div>
-                </div>
+                <KpiCard
+                    label="CV Upload Rate"
+                    value={`${AVG_CV}%`}
+                    sub="AI-analysed CVs submitted"
+                    icon={FileText}
+                />
             </div>
 
             {/* ── Skill Score Distribution ──────────────────────────────── */}
