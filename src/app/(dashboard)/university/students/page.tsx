@@ -168,7 +168,7 @@ function KpiCard({ label, value, sub, icon: Icon }: {
 function ProgrammeRow({ p, total }: { p: Programme; total: number }) {
     return (
         <tr className="border-b border-gray-50 hover:bg-stone-50/50 transition-colors">
-            <td className="py-3.5 pr-4 whitespace-nowrap">
+            <td className="py-3.5 px-4 whitespace-nowrap">
                 <p className="text-[13px] font-semibold text-gray-900">{p.name}</p>
                 <p className="text-[11px] text-gray-400">{p.students} students · {p.atRisk} under threshold</p>
             </td>
@@ -176,25 +176,25 @@ function ProgrammeRow({ p, total }: { p: Programme; total: number }) {
                 <span className={`text-sm font-bold ${scoreColor(p.avgScore)}`}>{p.avgScore}</span>
                 <span className="text-[10px] text-gray-400">/100</span>
             </td>
-            <td className="py-3.5 px-3 w-36">
+            <td className="py-3.5 px-3 w-40">
                 <div className="flex items-center gap-2">
                     <ProgressBar value={p.profileCompletion} max={100} color="#6B7280" />
                     <span className="text-[11px] font-semibold text-gray-600 w-8 text-right">{p.profileCompletion}%</span>
                 </div>
             </td>
-            <td className="py-3.5 px-3 w-36">
+            <td className="py-3.5 px-3 w-40">
                 <div className="flex items-center gap-2">
                     <ProgressBar value={p.githubRate} max={100} color="#9CA3AF" />
                     <span className="text-[11px] font-semibold text-gray-600 w-8 text-right">{p.githubRate}%</span>
                 </div>
             </td>
-            <td className="py-3.5 px-3 w-36">
+            <td className="py-3.5 px-3 w-40">
                 <div className="flex items-center gap-2">
                     <ProgressBar value={p.cvRate} max={100} color="#6B7280" />
                     <span className="text-[11px] font-semibold text-gray-600 w-8 text-right">{p.cvRate}%</span>
                 </div>
             </td>
-            <td className="py-3.5 pl-3 text-right">
+            <td className="py-3.5 px-3 text-right">
                 {p.atRisk > 35 ? (
                     <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-gray-100 text-gray-700 border border-gray-200">
                         High
@@ -360,7 +360,7 @@ export default function StudentAnalyticsPage() {
                                 <th className="text-right text-[10px] font-semibold text-gray-400 uppercase tracking-wider px-3 py-3">Risk</th>
                             </tr>
                         </thead>
-                        <tbody className="px-4">
+                        <tbody>
                             {PROGRAMMES.map(p => (
                                 <ProgrammeRow key={p.name} p={p} total={TOTAL_STUDENTS} />
                             ))}
