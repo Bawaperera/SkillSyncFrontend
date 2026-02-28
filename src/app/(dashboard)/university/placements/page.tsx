@@ -65,10 +65,10 @@ const ROLES: RoleData[] = [
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
-function getStatusIcon(rate: number) {
-    if (rate >= 80) return <span className="text-xl">🟢</span>;
-    if (rate >= 60) return <span className="text-xl">🟡</span>;
-    return <span className="text-xl">🔴</span>;
+function getStatusLabel(rate: number) {
+    if (rate >= 80) return <span className="px-2 py-0.5 text-[11px] font-semibold bg-gray-100 text-gray-600 rounded">High</span>;
+    if (rate >= 60) return <span className="px-2 py-0.5 text-[11px] font-semibold bg-gray-100 text-gray-600 rounded">Medium</span>;
+    return <span className="px-2 py-0.5 text-[11px] font-semibold bg-gray-100 text-gray-600 rounded">Low</span>;
 }
 
 // ─── Page Component ───────────────────────────────────────────────────────────
@@ -98,12 +98,12 @@ export default function PlacementsTrackingPage() {
                     <Filter size={16} /> Filters & Scope
                 </div>
 
-                <select className="bg-gray-50 border border-gray-200 text-sm text-gray-700 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500 min-w-[140px]">
+                <select className="bg-gray-50 border border-gray-200 text-sm text-gray-700 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-gray-400 min-w-[140px]">
                     <option>Academic Year: 2024/25</option>
                     <option>Academic Year: 2023/24</option>
                 </select>
 
-                <select className="bg-gray-50 border border-gray-200 text-sm text-gray-700 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500 min-w-[140px]">
+                <select className="bg-gray-50 border border-gray-200 text-sm text-gray-700 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-gray-400 min-w-[140px]">
                     <option>All Programmes</option>
                     <option>Computer Science</option>
                     <option>Information Tech</option>
@@ -111,7 +111,7 @@ export default function PlacementsTrackingPage() {
                     <option>Cybersecurity</option>
                 </select>
 
-                <select className="bg-gray-50 border border-gray-200 text-sm text-gray-700 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500 min-w-[140px]">
+                <select className="bg-gray-50 border border-gray-200 text-sm text-gray-700 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-gray-400 min-w-[140px]">
                     <option>Status: All</option>
                     <option>Secured</option>
                     <option>Seeking</option>
@@ -133,29 +133,28 @@ export default function PlacementsTrackingPage() {
                 <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
                     <div className="flex justify-between items-start mb-2">
                         <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider flex items-center gap-1.5">
-                            <Search size={14} className="text-orange-400" /> Actively Seeking
+                            <Search size={14} className="text-gray-400" /> Actively Seeking
                         </p>
                     </div>
-                    <p className="text-3xl font-bold text-orange-600">432</p>
+                    <p className="text-3xl font-bold text-gray-900">432</p>
                 </div>
 
                 <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
                     <div className="flex justify-between items-start mb-2">
                         <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider flex items-center gap-1.5">
-                            <Briefcase size={14} className="text-blue-500" /> Secured Internships
+                            <Briefcase size={14} className="text-gray-400" /> Secured Internships
                         </p>
                     </div>
-                    <p className="text-3xl font-bold text-blue-700">415</p>
+                    <p className="text-3xl font-bold text-gray-900">415</p>
                 </div>
 
-                <div className="bg-blue-600 p-5 rounded-xl border border-blue-500 shadow-sm text-white relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full blur-2xl -mr-8 -mt-8"></div>
-                    <div className="flex justify-between items-start mb-2 relative z-10">
-                        <p className="text-xs font-semibold text-blue-100 uppercase tracking-wider flex items-center gap-1.5">
-                            <TrendingUp size={14} className="text-blue-200" /> Success Rate
+                <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+                    <div className="flex justify-between items-start mb-2">
+                        <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider flex items-center gap-1.5">
+                            <TrendingUp size={14} className="text-gray-400" /> Success Rate
                         </p>
                     </div>
-                    <p className="text-3xl font-extrabold tracking-tight relative z-10">49%</p>
+                    <p className="text-3xl font-bold text-gray-900">49%</p>
                 </div>
             </div>
 
@@ -165,7 +164,7 @@ export default function PlacementsTrackingPage() {
                 {/* Visual Funnel */}
                 <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-6 flex flex-col">
                     <h2 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-6 flex items-center gap-2">
-                        📊 Internship Placement Funnel <span className="text-gray-400 normal-case font-normal">(Current Semester)</span>
+                        Internship Placement Funnel <span className="text-gray-400 normal-case font-normal">(Current Semester)</span>
                     </h2>
 
                     <div className="space-y-6 flex-1">
@@ -217,10 +216,10 @@ export default function PlacementsTrackingPage() {
                         <div className="relative border-l-2 border-dashed border-gray-200 ml-16 pl-4">
                             <div className="flex justify-between text-sm font-medium mb-1 pt-2">
                                 <span className="text-gray-900 font-bold">Secured Internship Offers</span>
-                                <span className="text-blue-600 font-black text-lg">415 (49%)</span>
+                                <span className="text-gray-900 font-bold text-lg">415 (49%)</span>
                             </div>
-                            <div className="h-5 bg-blue-50 overflow-hidden rounded-md shadow-inner border border-blue-100">
-                                <div className="h-full bg-blue-500" style={{ width: '49%' }}></div>
+                            <div className="h-5 bg-gray-100 overflow-hidden rounded-md shadow-inner border border-gray-200">
+                                <div className="h-full bg-slate-700" style={{ width: '49%' }}></div>
                             </div>
                         </div>
                     </div>
@@ -229,7 +228,7 @@ export default function PlacementsTrackingPage() {
                 {/* Success By Programme */}
                 <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
                     <h2 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-6">
-                        📊 Internship Success By Programme
+                        Internship Success By Programme
                     </h2>
 
                     <div className="overflow-x-auto">
@@ -239,7 +238,7 @@ export default function PlacementsTrackingPage() {
                                     <th className="py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">Programme</th>
                                     <th className="py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">Eligible</th>
                                     <th className="py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">Seeking</th>
-                                    <th className="py-2 text-xs font-semibold text-blue-600 uppercase tracking-wider text-right">Secured</th>
+                                    <th className="py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">Secured</th>
                                     <th className="py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">Success%</th>
                                 </tr>
                             </thead>
@@ -254,11 +253,11 @@ export default function PlacementsTrackingPage() {
                                         </td>
                                         <td className="py-4 text-sm text-gray-500 text-right">{prog.eligible}</td>
                                         <td className="py-4 text-sm text-gray-500 text-right">{prog.seeking}</td>
-                                        <td className="py-4 text-sm font-bold text-blue-700 text-right">{prog.secured}</td>
+                                        <td className="py-4 text-sm font-bold text-gray-900 text-right">{prog.secured}</td>
                                         <td className="py-4 text-right">
                                             <div className="flex items-center justify-end gap-2">
                                                 <span className="font-bold text-gray-900">{prog.rate}%</span>
-                                                {getStatusIcon(prog.rate)}
+                                                {getStatusLabel(prog.rate)}
                                             </div>
                                         </td>
                                     </tr>
@@ -276,7 +275,7 @@ export default function PlacementsTrackingPage() {
                 <div className="bg-white border border-gray-200 rounded-xl shadow-sm lg:col-span-2 flex flex-col">
                     <div className="p-6 border-b border-gray-100">
                         <h2 className="text-sm font-bold text-gray-900 uppercase tracking-wider flex items-center gap-2">
-                            🏢 Top Internship Hiring Companies
+                            Top Internship Hiring Companies
                         </h2>
                     </div>
 
@@ -304,7 +303,7 @@ export default function PlacementsTrackingPage() {
                                                 </div>
                                             )}
                                         </td>
-                                        <td className="py-3 px-6 text-right font-bold text-blue-700">{company.interns}</td>
+                                        <td className="py-3 px-6 text-right font-bold text-gray-900">{company.interns}</td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -313,7 +312,7 @@ export default function PlacementsTrackingPage() {
 
                     <div className="p-4 bg-gray-50 border-t border-gray-100 flex items-center justify-between">
                         <span className="text-xs font-medium text-gray-500">Total: 47 companies hiring</span>
-                        <button className="text-xs font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-1">
+                        <button className="text-xs font-semibold text-gray-600 hover:text-gray-800 flex items-center gap-1">
                             View All 47 Companies <ChevronRight size={14} />
                         </button>
                     </div>
@@ -322,9 +321,9 @@ export default function PlacementsTrackingPage() {
                 {/* Duration & Insights */}
                 <div className="flex flex-col gap-6">
                     {/* Duration Info */}
-                    <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-6 border-t-4 border-t-blue-500">
+                    <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
                         <h2 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-6">
-                            📊 Internship By Duration
+                            Internship By Duration
                         </h2>
 
                         <div className="space-y-5">
@@ -340,10 +339,10 @@ export default function PlacementsTrackingPage() {
                             <div>
                                 <div className="flex justify-between text-sm mb-1.5">
                                     <span className="font-medium text-gray-700">6 months</span>
-                                    <span className="font-bold text-blue-700">198 (48%)</span>
+                                    <span className="font-bold text-gray-900">198 (48%)</span>
                                 </div>
-                                <div className="h-2.5 bg-blue-50 rounded-full overflow-hidden border border-blue-100">
-                                    <div className="h-full bg-blue-500" style={{ width: '48%' }}></div>
+                                <div className="h-2.5 bg-gray-100 rounded-full overflow-hidden">
+                                    <div className="h-full bg-slate-500" style={{ width: '48%' }}></div>
                                 </div>
                             </div>
                             <div>
@@ -357,18 +356,17 @@ export default function PlacementsTrackingPage() {
                             </div>
                         </div>
 
-                        <div className="mt-6 p-3 bg-blue-50 border border-blue-100 rounded-lg">
-                            <h4 className="text-xs font-bold text-blue-900 flex items-center gap-1.5 mb-1">
-                                💡 Most common: 6 months
+                        <div className="mt-6 p-3 bg-stone-50 border border-gray-200 rounded-lg">
+                            <h4 className="text-xs font-bold text-gray-800 flex items-center gap-1.5 mb-1">
+                                Most common: 6 months
                             </h4>
-                            <p className="text-[11px] text-blue-800">Industry prefers semester-long internships. Consider adjusting 3-month practicums to 6-months.</p>
+                            <p className="text-[11px] text-gray-600">Industry prefers semester-long internships. Consider adjusting 3-month practicums to 6-months.</p>
                         </div>
                     </div>
 
                     {/* General Insight Card */}
                     <div className="bg-slate-50 border border-slate-200 rounded-xl shadow-sm p-5 flex-1 flex flex-col justify-center">
                         <div className="flex items-start gap-3">
-                            <span className="text-2xl pt-1">💡</span>
                             <div>
                                 <h4 className="text-sm font-bold text-slate-800 mb-1">Strategic Insight</h4>
                                 <p className="text-xs text-slate-600 leading-relaxed">
@@ -382,10 +380,10 @@ export default function PlacementsTrackingPage() {
             </div>
 
             {/* ── Role Types Table ───────────────────────────────────────── */}
-            <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden border-t-4 border-t-slate-700">
+            <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
                 <div className="p-6 border-b border-gray-100 flex items-center justify-between bg-slate-50/50">
                     <h2 className="text-sm font-bold text-gray-900 uppercase tracking-wider flex items-center gap-2">
-                        💼 Internship By Role Type
+                        Internship By Role Type
                     </h2>
                 </div>
 
@@ -415,8 +413,7 @@ export default function PlacementsTrackingPage() {
                         </tbody>
                     </table>
 
-                    <div className="mt-6 p-4 bg-slate-50 border border-slate-200 rounded-lg flex items-start gap-3">
-                        <span className="text-xl">💡</span>
+                    <div className="mt-6 p-4 bg-stone-50 border border-gray-200 rounded-lg flex items-start gap-3">
                         <div>
                             <h4 className="text-sm font-bold text-slate-800 mb-1">Curriculum Alignment Insight</h4>
                             <p className="text-xs text-slate-600 leading-relaxed max-w-3xl">
