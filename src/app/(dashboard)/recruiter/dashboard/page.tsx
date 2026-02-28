@@ -259,13 +259,13 @@ function MiniCalendar({ onSelectDate }: { onSelectDate: (date: Date | null) => v
                     <button
                         onClick={() => setOffset(o => o - 1)}
                         disabled={offset === 0}
-                        className="p-1 rounded hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                        className="p-1 rounded hover:bg-stone-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                     >
                         <ChevronLeft size={15} className="text-gray-600" />
                     </button>
                     <button
                         onClick={() => setOffset(o => o + 1)}
-                        className="p-1 rounded hover:bg-gray-100 transition-colors"
+                        className="p-1 rounded hover:bg-stone-100 transition-colors"
                     >
                         <ChevronRight size={15} className="text-gray-600" />
                     </button>
@@ -289,7 +289,7 @@ function MiniCalendar({ onSelectDate }: { onSelectDate: (date: Date | null) => v
                                     className={`flex flex-col items-center py-1.5 px-0.5 rounded-md transition-all text-center cursor-pointer
                                         ${isSelected ? "bg-blue-600 text-white shadow-sm" :
                                             isToday ? "bg-blue-50 text-blue-700 border border-blue-200" :
-                                                "hover:bg-gray-50 text-gray-700"}`}
+                                                "hover:bg-stone-100 text-gray-700"}`}
                                 >
                                     <span className={`text-[10px] font-medium ${isSelected ? "text-blue-100" : "text-gray-400"}`}>
                                         {DAYS[d.getDay()]}
@@ -322,7 +322,7 @@ function SchedulePanel({ date }: { date: Date }) {
 
     return (
         <div className="bg-white border border-gray-200 rounded-md shadow-sm overflow-hidden">
-            <div className="border-b border-gray-100 px-4 py-3 bg-gray-50/50 flex items-center justify-between">
+            <div className="border-b border-gray-100 px-4 py-3 bg-stone-50/50 flex items-center justify-between">
                 <h3 className="text-sm font-semibold text-gray-900">Schedule — {displayDate}</h3>
                 <span className="text-xs text-gray-400">{events.length} event{events.length !== 1 ? "s" : ""}</span>
             </div>
@@ -331,7 +331,7 @@ function SchedulePanel({ date }: { date: Date }) {
                     <div className="px-4 py-6 text-center text-sm text-gray-400">No events scheduled</div>
                 ) : (
                     events.map((ev, i) => (
-                        <div key={i} className="flex items-start gap-3 px-4 py-3 border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors">
+                        <div key={i} className="flex items-start gap-3 px-4 py-3 border-b border-gray-100 last:border-0 hover:bg-stone-50 transition-colors">
                             <div className="flex-shrink-0 mt-0.5">{typeIcon(ev.type)}</div>
                             <div className="flex-1 min-w-0">
                                 <p className="text-sm font-medium text-gray-900 truncate">{ev.title}</p>
@@ -432,7 +432,7 @@ export default function RecruiterDashboard() {
 
                     {/* Active Job Postings Table */}
                     <div className="bg-white border border-gray-200 rounded-md shadow-sm overflow-hidden">
-                        <div className="border-b border-gray-200 px-5 py-3.5 flex items-center justify-between bg-gray-50/50">
+                        <div className="border-b border-gray-200 px-5 py-3.5 flex items-center justify-between bg-stone-50/50">
                             <h2 className="text-sm font-semibold text-gray-900">Active Job Postings</h2>
                             <div className="flex items-center gap-3">
                                 <Link href="/recruiter/jobs" className="text-xs font-medium text-blue-700 hover:text-blue-800 flex items-center gap-1">
@@ -448,7 +448,7 @@ export default function RecruiterDashboard() {
                         </div>
                         <div className="overflow-x-auto">
                             <table className="w-full text-left text-sm">
-                                <thead className="bg-gray-50 text-gray-500 border-b border-gray-200 text-[11px] uppercase tracking-wider">
+                                <thead className="bg-stone-50 text-gray-500 border-b border-gray-200 text-[11px] uppercase tracking-wider">
                                     <tr>
                                         <th className="px-5 py-2.5 font-medium">Role</th>
                                         <th className="px-4 py-2.5 font-medium">Dept.</th>
@@ -463,7 +463,7 @@ export default function RecruiterDashboard() {
                                         { role: "Backend Developer", dept: "Engineering", apps: 8, hot: false, status: "Active" },
                                         { role: "Frontend Intern", dept: "Product", apps: 23, hot: true, status: "Draft" },
                                     ].map((job) => (
-                                        <tr key={job.role} className="hover:bg-gray-50 transition-colors">
+                                        <tr key={job.role} className="hover:bg-stone-50 transition-colors">
                                             <td className="px-5 py-3 font-medium text-gray-900 whitespace-nowrap">
                                                 <span className="flex items-center gap-2">
                                                     <Briefcase size={13} className="text-gray-400" /> {job.role}
@@ -483,7 +483,7 @@ export default function RecruiterDashboard() {
                                                 </span>
                                             </td>
                                             <td className="px-4 py-3 text-right whitespace-nowrap">
-                                                <button className="text-blue-700 hover:text-blue-900 text-[11px] font-medium border border-gray-300 rounded px-2 py-1 bg-white hover:bg-gray-50 transition-colors">
+                                                <button className="text-blue-700 hover:text-blue-900 text-[11px] font-medium border border-gray-300 rounded px-2 py-1 bg-white hover:bg-stone-50 transition-colors">
                                                     Review
                                                 </button>
                                             </td>
@@ -506,13 +506,13 @@ export default function RecruiterDashboard() {
                         <SchedulePanel date={selectedDate} />
                     ) : (
                         <div className="bg-white border border-gray-200 rounded-md shadow-sm">
-                            <div className="border-b border-gray-200 px-4 py-3 bg-gray-50/50 flex justify-between items-center">
+                            <div className="border-b border-gray-200 px-4 py-3 bg-stone-50/50 flex justify-between items-center">
                                 <h3 className="text-sm font-semibold text-gray-900">Top Matches</h3>
                                 <button className="text-[11px] font-medium text-blue-700 hover:underline">See all</button>
                             </div>
                             <div>
                                 {[94, 93, 92].map((score, i) => (
-                                    <div key={i} className="flex items-center gap-3 px-4 py-3 border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors cursor-pointer">
+                                    <div key={i} className="flex items-center gap-3 px-4 py-3 border-b border-gray-100 last:border-0 hover:bg-stone-50 transition-colors cursor-pointer">
                                         <div className="w-8 h-8 rounded-full bg-gray-200 flex-shrink-0" />
                                         <div className="flex-1 min-w-0">
                                             <p className="text-[13px] font-medium text-gray-900 truncate">Candidate {i + 1}</p>

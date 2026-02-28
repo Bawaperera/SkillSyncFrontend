@@ -149,8 +149,8 @@ const INTERVENTIONS: Intervention[] = [
 function cellColor(coverage: number, marketDemand: number): string {
     const gap = marketDemand - coverage;
     if (gap >= 50) return "bg-gray-200 text-gray-900 font-bold";
-    if (gap >= 30) return "bg-gray-100 text-gray-800 font-semibold";
-    if (gap >= 10) return "bg-gray-50 text-gray-700 font-medium";
+    if (gap >= 30) return "bg-stone-100 text-gray-800 font-semibold";
+    if (gap >= 10) return "bg-stone-50 text-gray-700 font-medium";
     return "bg-slate-100 text-slate-700 font-medium";
 }
 
@@ -302,7 +302,7 @@ function AddInterventionModal({ onClose }: { onClose: () => void }) {
             <div className="bg-white rounded-xl shadow-2xl w-full max-w-md">
                 <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
                     <h3 className="text-sm font-bold text-gray-900">Log New Curriculum Intervention</h3>
-                    <button onClick={onClose} className="p-1.5 rounded hover:bg-gray-100 text-gray-400"><X size={15} /></button>
+                    <button onClick={onClose} className="p-1.5 rounded hover:bg-stone-100 text-gray-400"><X size={15} /></button>
                 </div>
                 <div className="p-5 space-y-4">
                     <div>
@@ -338,7 +338,7 @@ function AddInterventionModal({ onClose }: { onClose: () => void }) {
                     </div>
                 </div>
                 <div className="flex gap-2 px-5 pb-5">
-                    <button onClick={onClose} className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition-colors">Cancel</button>
+                    <button onClick={onClose} className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-700 hover:bg-stone-50 transition-colors">Cancel</button>
                     <button
                         onClick={handleSave}
                         disabled={!title.trim()}
@@ -369,7 +369,7 @@ export default function UniversityDashboard() {
         <div className="space-y-6">
             {/* ── Greeting Banner ───────────────────────────────────────── */}
             <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl shadow-lg overflow-hidden">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 px-6 py-5">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 px-5 py-4">
                     <div className="flex-1">
                         <h1 className="text-2xl font-bold text-white mb-2">Good Morning, Dr. Perera! 👋</h1>
                         {visibleAlerts.length > 0 ? (
@@ -435,7 +435,7 @@ export default function UniversityDashboard() {
 
             {/* ── Skill Gap Heatmap Preview ──────────────────────────────── */}
             <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
-                <div className="flex items-center justify-between px-5 py-3.5 border-b border-gray-100 bg-gray-50/50">
+                <div className="flex items-center justify-between px-5 py-3.5 border-b border-gray-100 bg-stone-50/50">
                     <div>
                         <h2 className="text-sm font-semibold text-gray-900">Skill Gap Heatmap — Top 5 Critical Gaps</h2>
                         <p className="text-[11px] text-gray-500 mt-0.5">Student coverage vs. market demand, by year. Click a cell to see details.</p>
@@ -459,7 +459,7 @@ export default function UniversityDashboard() {
                         </thead>
                         <tbody className="divide-y divide-gray-50">
                             {SKILL_GAP_ROWS.map(row => (
-                                <tr key={row.skill} className="hover:bg-gray-50/50 transition-colors">
+                                <tr key={row.skill} className="hover:bg-stone-50/50 transition-colors">
                                     <td className="py-3 pr-4">
                                         <p className="text-[13px] font-semibold text-gray-800">{row.skill}</p>
                                     </td>
@@ -491,7 +491,7 @@ export default function UniversityDashboard() {
                             <span className="text-[11px] text-gray-600">● Large gap (&gt;50%)</span>
                         </div>
                         <div className="flex items-center gap-1.5">
-                            <span className="w-3 h-3 rounded bg-gray-100 border border-gray-200 inline-block" />
+                            <span className="w-3 h-3 rounded bg-stone-100 border border-gray-200 inline-block" />
                             <span className="text-[11px] text-gray-600">◐ Moderate gap (30–50%)</span>
                         </div>
                         <div className="flex items-center gap-1.5">
@@ -507,7 +507,7 @@ export default function UniversityDashboard() {
 
                 {/* LEFT: Donut + Programme Bars */}
                 <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
-                    <div className="flex items-center justify-between px-5 py-3.5 border-b border-gray-100 bg-gray-50/50">
+                    <div className="flex items-center justify-between px-5 py-3.5 border-b border-gray-100 bg-stone-50/50">
                         <h2 className="text-sm font-semibold text-gray-900">Graduate Placement Overview</h2>
                         <button className="flex items-center gap-1 text-xs font-semibold text-blue-600 hover:text-blue-800 transition-colors">
                             View Details <ArrowRight size={11} />
@@ -553,7 +553,7 @@ export default function UniversityDashboard() {
                             {PROGRAMME_PLACEMENTS.map(p => (
                                 <div key={p.programme} className="flex items-center gap-3">
                                     <p className="text-[12px] text-gray-700 w-36 flex-shrink-0 truncate">{p.programme}</p>
-                                    <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+                                    <div className="flex-1 h-2 bg-stone-100 rounded-full overflow-hidden">
                                         <div
                                             className={`h-full rounded-full transition-all ${p.rate >= 65 ? "bg-slate-600" : p.rate >= 50 ? "bg-slate-500" : "bg-slate-400"}`}
                                             style={{ width: `${p.rate}%` }}
@@ -562,7 +562,7 @@ export default function UniversityDashboard() {
                                     <span className={`text-[12px] font-bold w-9 text-right flex-shrink-0 ${p.rate >= 65 ? "text-slate-700" : p.rate >= 50 ? "text-slate-600" : "text-slate-600"}`}>
                                         {p.rate}%
                                     </span>
-                                    {p.rate < 50 && <span className="text-[10px] font-bold px-1.5 py-0.5 bg-gray-100 text-gray-700 border border-gray-200 rounded-full flex-shrink-0">↓ Low</span>}
+                                    {p.rate < 50 && <span className="text-[10px] font-bold px-1.5 py-0.5 bg-stone-100 text-gray-700 border border-gray-200 rounded-full flex-shrink-0">↓ Low</span>}
                                 </div>
                             ))}
                         </div>
@@ -571,7 +571,7 @@ export default function UniversityDashboard() {
 
                 {/* RIGHT: Top Employers */}
                 <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
-                    <div className="flex items-center justify-between px-5 py-3.5 border-b border-gray-100 bg-gray-50/50">
+                    <div className="flex items-center justify-between px-5 py-3.5 border-b border-gray-100 bg-stone-50/50">
                         <h2 className="text-sm font-semibold text-gray-900">Top Hiring Employers</h2>
                         <button className="flex items-center gap-1 text-xs font-semibold text-blue-600 hover:text-blue-800 transition-colors">
                             View All <ArrowRight size={11} />
@@ -579,7 +579,7 @@ export default function UniversityDashboard() {
                     </div>
                     <div className="p-5 space-y-1">
                         {TOP_EMPLOYERS.map((emp, i) => (
-                            <div key={emp.name} className="flex items-center gap-3.5 p-3 rounded-lg hover:bg-gray-50 transition-colors group cursor-pointer">
+                            <div key={emp.name} className="flex items-center gap-3.5 p-3 rounded-lg hover:bg-stone-50 transition-colors group cursor-pointer">
                                 {/* Rank */}
                                 <span className="text-[11px] font-bold text-gray-300 w-4 flex-shrink-0 text-center">{i + 1}</span>
 
@@ -612,7 +612,7 @@ export default function UniversityDashboard() {
 
             {/* ── Recent Curriculum Interventions ───────────────────────── */}
             <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
-                <div className="flex items-center justify-between px-5 py-3.5 border-b border-gray-100 bg-gray-50/50">
+                <div className="flex items-center justify-between px-5 py-3.5 border-b border-gray-100 bg-stone-50/50">
                     <div className="flex items-center gap-2.5">
                         <BookOpen size={14} className="text-blue-600" />
                         <h2 className="text-sm font-semibold text-gray-900">Recent Curriculum Interventions</h2>
@@ -634,7 +634,7 @@ export default function UniversityDashboard() {
                     {INTERVENTIONS.map(item => {
                         const s = statusConfig(item.status);
                         return (
-                            <div key={item.id} className="flex items-start gap-4 px-5 py-4 hover:bg-gray-50/50 transition-colors">
+                            <div key={item.id} className="flex items-start gap-4 px-5 py-4 hover:bg-stone-50/50 transition-colors">
                                 {/* Status dot */}
                                 <div className="mt-1.5 flex-shrink-0">
                                     <span className={`w-2.5 h-2.5 rounded-full block ${s.dot}`} />

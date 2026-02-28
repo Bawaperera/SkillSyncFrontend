@@ -57,7 +57,7 @@ export function RecruiterSidebar({ className }: RecruiterSidebarProps) {
                                 "flex items-center gap-3 px-3 py-2.5 rounded-md transition-all duration-150 group text-sm font-medium",
                                 isActive
                                     ? "bg-blue-600 text-white shadow-sm"
-                                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                                    : "text-gray-600 hover:text-gray-900 hover:bg-stone-100"
                             )}
                         >
                             <item.icon
@@ -76,7 +76,7 @@ export function RecruiterSidebar({ className }: RecruiterSidebarProps) {
             {/* Bottom: Company Card + Sign Out */}
             <div className="p-4 border-t border-gray-100 space-y-3">
                 {/* Company Profile Card */}
-                <div className="flex items-center gap-3 p-3 rounded-md bg-gray-50 border border-gray-100">
+                <div className="flex items-center gap-3 p-3 rounded-md bg-stone-100 border border-gray-100">
                     <div className="w-9 h-9 rounded bg-blue-700 flex items-center justify-center text-white font-bold text-xs flex-shrink-0">
                         SJ
                     </div>

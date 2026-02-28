@@ -8,7 +8,7 @@ export default function UniversityLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="min-h-screen bg-gray-50 font-sans">
+        <div className="min-h-screen bg-stone-50 font-sans">
 
             {/* ── Full-Width Top Header ─────────────────────────────────── */}
             <header className="fixed top-0 left-0 right-0 h-[76px] bg-white border-b border-gray-200 z-50 flex items-center">
@@ -33,7 +33,7 @@ export default function UniversityLayout({
                         <input
                             type="text"
                             placeholder="Search programmes, skills..."
-                            className="pl-9 pr-4 py-1.5 text-sm border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600 w-72 text-gray-900 bg-gray-50"
+                            className="pl-9 pr-4 py-1.5 text-sm border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600 w-72 text-gray-900 bg-stone-50"
                         />
                     </div>
 
