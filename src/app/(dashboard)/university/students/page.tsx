@@ -52,50 +52,50 @@ const MISSING_SKILLS: MissingSkill[] = [
     { skill: "GraphQL", studentsLacking: 415, category: "Backend", severity: "low" },
 ];
 
-// Score distribution (histogram): score range → number of students
+// Score distribution — soft blue gradient palette
 const SCORE_DISTRIBUTION_ALL = [
-    { range: "0–20", count: 62, color: "#EF4444" },
-    { range: "21–40", count: 125, color: "#F97316" },
-    { range: "41–60", count: 287, color: "#EAB308" },
-    { range: "61–80", count: 521, color: "#22C55E" },
-    { range: "81–100", count: 252, color: "#2563EB" },
+    { range: "0–20", count: 62, color: "#BFDBFE" },
+    { range: "21–40", count: 125, color: "#93C5FD" },
+    { range: "41–60", count: 287, color: "#60A5FA" },
+    { range: "61–80", count: 521, color: "#3B82F6" },
+    { range: "81–100", count: 252, color: "#1D4ED8" },
 ];
 
 const SCORE_BY_PROGRAMME: Record<string, typeof SCORE_DISTRIBUTION_ALL> = {
     "Computer Science & SE": [
-        { range: "0–20", count: 5, color: "#EF4444" },
-        { range: "21–40", count: 16, color: "#F97316" },
-        { range: "41–60", count: 62, color: "#EAB308" },
-        { range: "61–80", count: 148, color: "#22C55E" },
-        { range: "81–100", count: 111, color: "#2563EB" },
+        { range: "0–20", count: 5, color: "#BFDBFE" },
+        { range: "21–40", count: 16, color: "#93C5FD" },
+        { range: "41–60", count: 62, color: "#60A5FA" },
+        { range: "61–80", count: 148, color: "#3B82F6" },
+        { range: "81–100", count: 111, color: "#1D4ED8" },
     ],
     "Data Science": [
-        { range: "0–20", count: 10, color: "#EF4444" },
-        { range: "21–40", count: 19, color: "#F97316" },
-        { range: "41–60", count: 55, color: "#EAB308" },
-        { range: "61–80", count: 98, color: "#22C55E" },
-        { range: "81–100", count: 36, color: "#2563EB" },
+        { range: "0–20", count: 10, color: "#BFDBFE" },
+        { range: "21–40", count: 19, color: "#93C5FD" },
+        { range: "41–60", count: 55, color: "#60A5FA" },
+        { range: "61–80", count: 98, color: "#3B82F6" },
+        { range: "81–100", count: 36, color: "#1D4ED8" },
     ],
     "Information Technology": [
-        { range: "0–20", count: 20, color: "#EF4444" },
-        { range: "21–40", count: 28, color: "#F97316" },
-        { range: "41–60", count: 90, color: "#EAB308" },
-        { range: "61–80", count: 115, color: "#22C55E" },
-        { range: "81–100", count: 34, color: "#2563EB" },
+        { range: "0–20", count: 20, color: "#BFDBFE" },
+        { range: "21–40", count: 28, color: "#93C5FD" },
+        { range: "41–60", count: 90, color: "#60A5FA" },
+        { range: "61–80", count: 115, color: "#3B82F6" },
+        { range: "81–100", count: 34, color: "#1D4ED8" },
     ],
     "Software Engineering": [
-        { range: "0–20", count: 8, color: "#EF4444" },
-        { range: "21–40", count: 23, color: "#F97316" },
-        { range: "41–60", count: 48, color: "#EAB308" },
-        { range: "61–80", count: 105, color: "#22C55E" },
-        { range: "81–100", count: 40, color: "#2563EB" },
+        { range: "0–20", count: 8, color: "#BFDBFE" },
+        { range: "21–40", count: 23, color: "#93C5FD" },
+        { range: "41–60", count: 48, color: "#60A5FA" },
+        { range: "61–80", count: 105, color: "#3B82F6" },
+        { range: "81–100", count: 40, color: "#1D4ED8" },
     ],
     "Cybersecurity": [
-        { range: "0–20", count: 19, color: "#EF4444" },
-        { range: "21–40", count: 39, color: "#F97316" },
-        { range: "41–60", count: 32, color: "#EAB308" },
-        { range: "61–80", count: 55, color: "#22C55E" },
-        { range: "81–100", count: 31, color: "#2563EB" },
+        { range: "0–20", count: 19, color: "#BFDBFE" },
+        { range: "21–40", count: 39, color: "#93C5FD" },
+        { range: "41–60", count: 32, color: "#60A5FA" },
+        { range: "61–80", count: 55, color: "#3B82F6" },
+        { range: "81–100", count: 31, color: "#1D4ED8" },
     ],
 };
 
@@ -109,15 +109,15 @@ const TOTAL_AT_RISK = PROGRAMMES.reduce((a, p) => a + p.atRisk, 0);
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function scoreColor(score: number) {
-    if (score >= 75) return "text-green-600";
-    if (score >= 60) return "text-amber-600";
-    return "text-red-500";
+    if (score >= 75) return "text-blue-700";
+    if (score >= 60) return "text-blue-500";
+    return "text-slate-500";
 }
 
 function severityColor(s: MissingSkill["severity"]) {
-    if (s === "critical") return "bg-red-100 text-red-700 border-red-200";
-    if (s === "moderate") return "bg-amber-50 text-amber-700 border-amber-200";
-    return "bg-blue-50 text-blue-700 border-blue-200";
+    if (s === "critical") return "bg-blue-50 text-blue-700 border-blue-200";
+    if (s === "moderate") return "bg-purple-50 text-purple-700 border-purple-100";
+    return "bg-slate-50 text-slate-600 border-slate-200";
 }
 
 function ProgressBar({ value, max, color }: { value: number; max: number; color: string }) {
@@ -171,7 +171,7 @@ function ProgrammeRow({ p, total }: { p: Programme; total: number }) {
         <tr className="border-b border-gray-50 hover:bg-blue-50/30 transition-colors">
             <td className="py-3.5 pr-4 whitespace-nowrap">
                 <p className="text-[13px] font-semibold text-gray-900">{p.name}</p>
-                <p className="text-[11px] text-gray-400">{p.students} students · {p.atRisk} at risk</p>
+                <p className="text-[11px] text-gray-400">{p.students} students · {p.atRisk} under threshold</p>
             </td>
             <td className="py-3.5 px-3 text-center">
                 <span className={`text-sm font-bold ${scoreColor(p.avgScore)}`}>{p.avgScore}</span>
@@ -179,34 +179,34 @@ function ProgrammeRow({ p, total }: { p: Programme; total: number }) {
             </td>
             <td className="py-3.5 px-3 w-36">
                 <div className="flex items-center gap-2">
-                    <ProgressBar value={p.profileCompletion} max={100} color="#2563EB" />
+                    <ProgressBar value={p.profileCompletion} max={100} color="#3B82F6" />
                     <span className="text-[11px] font-semibold text-gray-600 w-8 text-right">{p.profileCompletion}%</span>
                 </div>
             </td>
             <td className="py-3.5 px-3 w-36">
                 <div className="flex items-center gap-2">
-                    <ProgressBar value={p.githubRate} max={100} color="#6366F1" />
+                    <ProgressBar value={p.githubRate} max={100} color="#8B5CF6" />
                     <span className="text-[11px] font-semibold text-gray-600 w-8 text-right">{p.githubRate}%</span>
                 </div>
             </td>
             <td className="py-3.5 px-3 w-36">
                 <div className="flex items-center gap-2">
-                    <ProgressBar value={p.cvRate} max={100} color="#10B981" />
+                    <ProgressBar value={p.cvRate} max={100} color="#22C55E" />
                     <span className="text-[11px] font-semibold text-gray-600 w-8 text-right">{p.cvRate}%</span>
                 </div>
             </td>
             <td className="py-3.5 pl-3 text-right">
                 {p.atRisk > 35 ? (
-                    <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-50 text-red-700 border border-red-200">
-                        <AlertTriangle size={9} /> High
+                    <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-200">
+                        High
                     </span>
                 ) : p.atRisk > 20 ? (
-                    <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
-                        Med
+                    <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-600 border border-blue-200">
+                        Medium
                     </span>
                 ) : (
                     <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-green-50 text-green-700 border border-green-200">
-                        <CheckCircle size={9} /> Good
+                        Good
                     </span>
                 )}
             </td>
@@ -278,8 +278,8 @@ export default function StudentAnalyticsPage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {/* CV Upload Rate */}
                 <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-emerald-50 flex-shrink-0 flex items-center justify-center">
-                        <FileText size={18} className="text-emerald-600" />
+                    <div className="w-10 h-10 rounded-xl bg-green-50 flex-shrink-0 flex items-center justify-center">
+                        <FileText size={18} className="text-green-600" />
                     </div>
                     <div>
                         <p className="text-xs text-gray-500 font-semibold uppercase tracking-wider">CV Upload Rate</p>
@@ -289,25 +289,25 @@ export default function StudentAnalyticsPage() {
                 </div>
 
                 {/* At-Risk Students */}
-                <div className="bg-white border border-red-100 rounded-xl p-4 shadow-sm flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-red-50 flex-shrink-0 flex items-center justify-center">
-                        <AlertTriangle size={18} className="text-red-500" />
+                <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-purple-50 flex-shrink-0 flex items-center justify-center">
+                        <AlertTriangle size={18} className="text-purple-500" />
                     </div>
                     <div>
-                        <p className="text-xs text-gray-500 font-semibold uppercase tracking-wider">At-Risk Students</p>
-                        <p className="text-2xl font-extrabold text-red-600">{TOTAL_AT_RISK}</p>
-                        <p className="text-[11px] text-gray-400">Scoring below 40 — need intervention</p>
+                        <p className="text-xs text-gray-500 font-semibold uppercase tracking-wider">Needs Attention</p>
+                        <p className="text-2xl font-extrabold text-gray-900">{TOTAL_AT_RISK}</p>
+                        <p className="text-[11px] text-gray-400">Students scoring below 40</p>
                     </div>
                 </div>
 
                 {/* High Performers */}
-                <div className="bg-white border border-blue-100 rounded-xl p-4 shadow-sm flex items-center gap-4">
+                <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm flex items-center gap-4">
                     <div className="w-10 h-10 rounded-xl bg-blue-50 flex-shrink-0 flex items-center justify-center">
                         <TrendingUp size={18} className="text-blue-600" />
                     </div>
                     <div>
                         <p className="text-xs text-gray-500 font-semibold uppercase tracking-wider">High Performers</p>
-                        <p className="text-2xl font-extrabold text-blue-700">252</p>
+                        <p className="text-2xl font-extrabold text-gray-900">252</p>
                         <p className="text-[11px] text-gray-400">Scoring above 80 — placement ready</p>
                     </div>
                 </div>
@@ -317,7 +317,7 @@ export default function StudentAnalyticsPage() {
             <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-5 py-3.5 border-b border-gray-100 bg-stone-50/50">
                     <div>
-                        <h2 className="text-sm font-semibold text-gray-900">📊 Skill Score Distribution</h2>
+                        <h2 className="text-sm font-semibold text-gray-900">Skill Score Distribution</h2>
                         <p className="text-[11px] text-gray-500 mt-0.5">How scores spread across your student cohort</p>
                     </div>
                     <div className="flex items-center gap-2">
@@ -350,25 +350,25 @@ export default function StudentAnalyticsPage() {
 
                     {/* Distribution analysis */}
                     <div className="mt-4 pt-4 border-t border-gray-100 grid grid-cols-3 gap-3">
-                        <div className="flex items-start gap-2.5 p-3 rounded-lg bg-red-50 border border-red-100">
-                            <span className="text-base mt-0.5">🔴</span>
-                            <div>
-                                <p className="text-xs font-bold text-red-700">{atRiskPct}% At-Risk</p>
-                                <p className="text-[10px] text-red-500 mt-0.5">Scoring &lt;40 — need immediate curriculum support or personal guidance</p>
-                            </div>
-                        </div>
-                        <div className="flex items-start gap-2.5 p-3 rounded-lg bg-amber-50 border border-amber-100">
-                            <span className="text-base mt-0.5">🟡</span>
-                            <div>
-                                <p className="text-xs font-bold text-amber-700">{avgPct}% Developing</p>
-                                <p className="text-[10px] text-amber-600 mt-0.5">Scoring 40–80 — average cohort, room for structured improvement</p>
-                            </div>
-                        </div>
                         <div className="flex items-start gap-2.5 p-3 rounded-lg bg-blue-50 border border-blue-100">
-                            <span className="text-base mt-0.5">🔵</span>
+                            <div className="w-2 h-2 rounded-full bg-blue-200 mt-1.5 flex-shrink-0" />
                             <div>
-                                <p className="text-xs font-bold text-blue-700">{highPct}% High Performers</p>
-                                <p className="text-[10px] text-blue-600 mt-0.5">Scoring &gt;80 — placement-ready, strong employer interest expected</p>
+                                <p className="text-xs font-bold text-blue-800">{atRiskPct}% Needs Support</p>
+                                <p className="text-[10px] text-blue-600 mt-0.5">Scoring &lt;40 — curriculum support or personal guidance recommended</p>
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-2.5 p-3 rounded-lg bg-purple-50 border border-purple-100">
+                            <div className="w-2 h-2 rounded-full bg-purple-300 mt-1.5 flex-shrink-0" />
+                            <div>
+                                <p className="text-xs font-bold text-purple-800">{avgPct}% Developing</p>
+                                <p className="text-[10px] text-purple-600 mt-0.5">Scoring 40–80 — average cohort with room for structured improvement</p>
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-2.5 p-3 rounded-lg bg-green-50 border border-green-100">
+                            <div className="w-2 h-2 rounded-full bg-green-400 mt-1.5 flex-shrink-0" />
+                            <div>
+                                <p className="text-xs font-bold text-green-800">{highPct}% High Performers</p>
+                                <p className="text-[10px] text-green-700 mt-0.5">Scoring &gt;80 — placement-ready, strong employer interest expected</p>
                             </div>
                         </div>
                     </div>
@@ -417,7 +417,7 @@ export default function StudentAnalyticsPage() {
             <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
                 <div className="flex items-center justify-between px-5 py-3.5 border-b border-gray-100 bg-stone-50/50">
                     <div>
-                        <h2 className="text-sm font-semibold text-gray-900">🎯 Top Missing Skills</h2>
+                        <h2 className="text-sm font-semibold text-gray-900">Top Missing Skills</h2>
                         <p className="text-[11px] text-gray-500 mt-0.5">Most common skill gaps across all students — aggregated from profile assessments</p>
                     </div>
                     <Link href="/university/curriculum" className="flex items-center gap-1 text-xs font-semibold text-blue-600 hover:text-blue-800 transition-colors">
@@ -439,15 +439,13 @@ export default function StudentAnalyticsPage() {
                                     </div>
                                     <div className="flex items-center gap-3 text-right">
                                         <span className="text-[12px] font-bold text-gray-700">{sk.studentsLacking.toLocaleString()} students</span>
-                                        <span className="text-[12px] font-extrabold text-red-600 w-10">{pct}%</span>
+                                        <span className="text-[12px] font-extrabold text-blue-700 w-10">{pct}%</span>
                                     </div>
                                 </div>
                                 {/* Progress bar */}
                                 <div className="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden">
                                     <div
-                                        className={`h-full rounded-full transition-all duration-700 ${sk.severity === "critical" ? "bg-red-400" :
-                                                sk.severity === "moderate" ? "bg-amber-400" : "bg-blue-400"
-                                            }`}
+                                        className="h-full rounded-full bg-blue-400 transition-all duration-700"
                                         style={{ width: `${pct}%` }}
                                     />
                                 </div>
@@ -471,11 +469,11 @@ export default function StudentAnalyticsPage() {
                 </div>
 
                 {/* Insight banner */}
-                <div className="mx-5 mb-5 p-4 bg-amber-50 border border-amber-200 rounded-xl flex gap-3 items-start">
-                    <Info size={16} className="text-amber-600 flex-shrink-0 mt-0.5" />
+                <div className="mx-5 mb-5 p-4 bg-blue-50 border border-blue-200 rounded-xl flex gap-3 items-start">
+                    <Info size={16} className="text-blue-500 flex-shrink-0 mt-0.5" />
                     <div>
-                        <p className="text-xs font-bold text-amber-800 mb-0.5">Curriculum Intervention Recommended</p>
-                        <p className="text-[11px] text-amber-700 leading-relaxed">
+                        <p className="text-xs font-bold text-blue-900 mb-0.5">Curriculum Intervention Recommended</p>
+                        <p className="text-[11px] text-blue-700 leading-relaxed">
                             <b>TypeScript, Docker, and AWS</b> are missing in over 60% of all students — these are the highest-impact curriculum additions.
                             Even a single practical module per skill could significantly close the gap before students enter the job market.
                         </p>
