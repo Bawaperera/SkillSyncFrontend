@@ -1,14 +1,16 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import {
-    Target, TrendingUp, TrendingDown, AlertCircle, CheckCircle2,
-    Users, Sparkles, ArrowRight, X, ChevronRight,
-    Building2, Plus, Clock, BookOpen, BarChart3,
+    Target, TrendingUp, CheckCircle2,
+    Users, ArrowRight, X,
+    Plus, Clock, BookOpen, BarChart3,
     Download, RefreshCw, Bell,
 } from "lucide-react";
 import {
-    PieChart, Pie, Cell, ResponsiveContainer, Tooltip,
+    PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend,
+    RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
+    BarChart, Bar, XAxis, YAxis, CartesianGrid,
 } from "recharts";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -25,14 +27,6 @@ interface DashboardAlert {
     actionHref: string;
 }
 
-interface SkillGapRow {
-    skill: string;
-    year1: number;
-    year2: number;
-    year3: number;
-    year4: number;
-    marketDemand: number;
-}
 
 interface ProgrammePlacement {
     programme: string;
@@ -87,12 +81,28 @@ const ALERTS: DashboardAlert[] = [
     },
 ];
 
-const SKILL_GAP_ROWS: SkillGapRow[] = [
-    { skill: "TypeScript", year1: 12, year2: 18, year3: 15, year4: 24, marketDemand: 87 },
-    { skill: "Docker / Containers", year1: 8, year2: 15, year3: 32, year4: 45, marketDemand: 85 },
-    { skill: "AWS / Cloud", year1: 5, year2: 10, year3: 28, year4: 41, marketDemand: 78 },
-    { skill: "Testing / TDD", year1: 15, year2: 22, year3: 35, year4: 48, marketDemand: 71 },
-    { skill: "System Design", year1: 10, year2: 18, year3: 42, year4: 65, marketDemand: 82 },
+// Radar chart: Curriculum vs Industry per category
+const RADAR_DATA = [
+    { category: "Frontend", curriculum: 52, industry: 78 },
+    { category: "Backend", curriculum: 61, industry: 85 },
+    { category: "DevOps", curriculum: 28, industry: 72 },
+    { category: "Cloud", curriculum: 24, industry: 74 },
+    { category: "Architecture", curriculum: 45, industry: 80 },
+    { category: "Quality", curriculum: 55, industry: 70 },
+];
+
+// Horizontal bar chart: Student coverage vs market demand per skill
+const SKILL_BAR_DATA = [
+    { skill: "TypeScript", coverage: 24, demand: 87 },
+    { skill: "Docker", coverage: 38, demand: 85 },
+    { skill: "AWS Cloud", coverage: 31, demand: 78 },
+    { skill: "CI/CD Practices", coverage: 22, demand: 75 },
+    { skill: "Kubernetes", coverage: 18, demand: 68 },
+    { skill: "System Design", coverage: 58, demand: 82 },
+    { skill: "Testing/TDD", coverage: 42, demand: 71 },
+    { skill: "React", coverage: 65, demand: 80 },
+    { skill: "Microservices", coverage: 30, demand: 64 },
+    { skill: "Node.js", coverage: 55, demand: 69 },
 ];
 
 const PLACEMENT_DONUT = [
@@ -194,82 +204,28 @@ function statusConfig(status: InterventionStatus) {
     return configs[status];
 }
 
-function alertConfig(severity: AlertSeverity) {
-    const configs = {
-        critical: {
-            border: "border-gray-300",
-            bg: "bg-gray-50",
-            iconBg: "bg-gray-200",
-            iconColor: "text-gray-700",
-            badgeBg: "bg-gray-200",
-            badgeText: "text-gray-800",
-            badgeLabel: "High Priority",
-            actionBg: "bg-gray-700 hover:bg-gray-800",
-        },
-        warning: {
-            border: "border-gray-200",
-            bg: "bg-slate-50",
-            iconBg: "bg-slate-100",
-            iconColor: "text-slate-600",
-            badgeBg: "bg-slate-100",
-            badgeText: "text-slate-700",
-            badgeLabel: "Review Needed",
-            actionBg: "bg-slate-600 hover:bg-slate-700",
-        },
-        info: {
-            border: "border-gray-200",
-            bg: "bg-gray-50",
-            iconBg: "bg-gray-100",
-            iconColor: "text-gray-600",
-            badgeBg: "bg-gray-100",
-            badgeText: "text-gray-700",
-            badgeLabel: "Update",
-            actionBg: "bg-gray-600 hover:bg-gray-700",
-        },
-    };
-    return configs[severity];
-}
+
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
 function KpiCard({
-    label, value, subtitle, delta, deltaPositive, icon: Icon, highlight,
+    label, value, subtitle, icon: Icon,
 }: {
     label: string;
     value: string;
     subtitle: string;
-    delta: string;
-    deltaPositive: boolean | null;
     icon: React.ElementType;
-    highlight?: boolean;
 }) {
-    const chipCls = deltaPositive === null
-        ? "bg-gray-100 text-gray-500"
-        : deltaPositive
-            ? "bg-green-50 text-green-700"
-            : "bg-red-50 text-red-600";
-
     return (
-        <div className={`relative rounded-xl border p-5 flex flex-col gap-3 overflow-hidden transition-all hover:shadow-md ${highlight ? "bg-blue-600 border-blue-500 text-white" : "bg-white border-gray-200 shadow-sm"}`}>
-            {highlight && <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-12 -mt-12 pointer-events-none" />}
-            <div className="flex items-center justify-between relative z-10">
-                <p className={`text-xs font-semibold uppercase tracking-wide leading-tight ${highlight ? "text-blue-100" : "text-gray-500"}`}>{label}</p>
-                <div className={`w-8 h-8 rounded-md flex items-center justify-center flex-shrink-0 ${highlight ? "bg-white/20" : "bg-blue-50"}`}>
-                    <Icon size={15} className={highlight ? "text-white" : "text-blue-600"} />
+        <div className="relative rounded-xl border p-5 flex flex-col gap-3 overflow-hidden transition-all hover:shadow-md bg-white border-gray-200 shadow-sm">
+            <div className="flex items-center justify-between">
+                <p className="text-xs font-semibold uppercase tracking-wide leading-tight text-gray-500">{label}</p>
+                <div className="w-8 h-8 rounded-md flex items-center justify-center flex-shrink-0 bg-gray-100">
+                    <Icon size={15} className="text-gray-600" />
                 </div>
             </div>
-            <p className={`text-3xl font-extrabold tracking-tight ${highlight ? "text-white" : "text-gray-900"}`}>{value}</p>
-            <div className="flex items-center justify-between gap-2">
-                <p className={`text-[11px] ${highlight ? "text-blue-100" : "text-gray-500"}`}>{subtitle}</p>
-                {deltaPositive !== null ? (
-                    <span className={`inline-flex items-center gap-0.5 text-[10px] font-bold px-2 py-0.5 rounded-full flex-shrink-0 ${highlight ? "bg-white/20 text-white" : chipCls}`}>
-                        {deltaPositive ? <TrendingUp size={9} /> : <TrendingDown size={9} />}
-                        {delta}
-                    </span>
-                ) : (
-                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${highlight ? "bg-white/20 text-white" : chipCls}`}>{delta}</span>
-                )}
-            </div>
+            <p className="text-3xl font-extrabold tracking-tight text-gray-900">{value}</p>
+            <p className="text-[11px] text-gray-500">{subtitle}</p>
         </div>
     );
 }
@@ -362,8 +318,8 @@ export default function UniversityDashboard() {
     const visibleAlerts = ALERTS.filter(a => !dismissedAlerts.has(a.id));
     const dismissAlert = (id: string) => setDismissedAlerts(prev => new Set([...prev, id]));
 
-    // Gap counts for reference
-    const criticalGaps = SKILL_GAP_ROWS.filter(r => (r.marketDemand - r.year4) >= 50).length;
+    // Count skills where market demand is significantly higher than student coverage
+    const criticalGaps = SKILL_BAR_DATA.filter(s => (s.demand - s.coverage) >= 50).length;
 
     return (
         <div className="space-y-6">
@@ -403,101 +359,126 @@ export default function UniversityDashboard() {
                     label="Student Readiness"
                     value="72%"
                     subtitle="Avg skill gap score across all students"
-                    delta="+5% vs last sem"
-                    deltaPositive={true}
-                    icon={Target}
+                    icon={Users}
                 />
                 <KpiCard
-                    label="Placement Rate"
-                    value="61%"
+                    label="Students Placed"
+                    value="761"
                     subtitle="Graduates hired within 6 months"
-                    delta="-8% vs last year"
-                    deltaPositive={false}
                     icon={TrendingUp}
                 />
                 <KpiCard
-                    label="Critical Skill Gaps"
-                    value={String(criticalGaps)}
-                    subtitle="Skills with >50% industry mismatch"
-                    delta="Needs action"
-                    deltaPositive={null}
-                    icon={AlertCircle}
+                    label="Avg Match Score"
+                    value="72%"
+                    subtitle="Student-to-market skill alignment"
+                    icon={Target}
                 />
                 <KpiCard
-                    label="Programme Health"
-                    value="4 / 5"
-                    subtitle="Programmes improving vs. last year"
-                    delta="Improving ↑"
-                    deltaPositive={true}
+                    label="Partner Companies"
+                    value="47"
+                    subtitle="Companies actively hiring graduates"
                     icon={BarChart3}
                 />
             </div>
 
-            {/* ── Skill Gap Heatmap Preview ──────────────────────────────── */}
+            {/* ── Skill Gap Analysis Charts ──────────────────────────────── */}
             <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
                 <div className="flex items-center justify-between px-5 py-3.5 border-b border-gray-100 bg-stone-50/50">
-                    <div>
-                        <h2 className="text-sm font-semibold text-gray-900">Skill Gap Heatmap — Top 5 Critical Gaps</h2>
-                        <p className="text-[11px] text-gray-500 mt-0.5">Student coverage vs. market demand, by year. Click a cell to see details.</p>
+                    <div className="flex items-center gap-2">
+                        <span className="text-amber-500">⚠</span>
+                        <h2 className="text-sm font-semibold text-gray-900">Skill Gap Analysis</h2>
                     </div>
-                    <button className="flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-800 transition-colors">
+                    <a href="/university/curriculum" className="flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-800 transition-colors">
                         Full Analysis <ArrowRight size={12} />
-                    </button>
+                    </a>
                 </div>
 
-                <div className="p-5 overflow-x-auto">
-                    <table className="w-full">
-                        <thead>
-                            <tr>
-                                <th className="text-left text-[11px] font-semibold text-gray-500 uppercase tracking-wider pb-3 w-44">Skill</th>
-                                {["Year 1", "Year 2", "Year 3", "Year 4"].map(y => (
-                                    <th key={y} className="text-center text-[11px] font-semibold text-gray-500 uppercase tracking-wider pb-3 w-24">{y}</th>
-                                ))}
-                                <th className="text-center text-[11px] font-semibold text-gray-500 uppercase tracking-wider pb-3 w-28">Market Demand</th>
-                                <th className="text-center text-[11px] font-semibold text-gray-500 uppercase tracking-wider pb-3 w-16">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-50">
-                            {SKILL_GAP_ROWS.map(row => (
-                                <tr key={row.skill} className="hover:bg-stone-50/50 transition-colors">
-                                    <td className="py-3 pr-4">
-                                        <p className="text-[13px] font-semibold text-gray-800">{row.skill}</p>
-                                    </td>
-                                    {[row.year1, row.year2, row.year3, row.year4].map((val, i) => (
-                                        <td key={i} className="py-3 px-2 text-center">
-                                            <span className={`inline-block text-[12px] px-2.5 py-1 rounded-md cursor-pointer hover:opacity-80 transition-opacity ${cellColor(val, row.marketDemand)}`}>
-                                                {val}%
-                                            </span>
-                                        </td>
-                                    ))}
-                                    <td className="py-3 px-2 text-center">
-                                        <span className={`inline-block text-[12px] px-2.5 py-1 rounded-md ${demandCellColor(row.marketDemand)}`}>
-                                            {row.marketDemand}%
-                                        </span>
-                                    </td>
-                                    <td className="py-3 text-center text-base">
-                                        {gapIcon(row.year4, row.marketDemand)}
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 divide-y lg:divide-y-0 lg:divide-x divide-gray-100">
+                    {/* LEFT: Radar Chart */}
+                    <div className="p-5">
+                        <p className="text-xs font-semibold text-gray-500 mb-4">Curriculum vs Industry (by Category)</p>
+                        <ResponsiveContainer width="100%" height={280}>
+                            <RadarChart data={RADAR_DATA}>
+                                <PolarGrid stroke="#E5E7EB" />
+                                <PolarAngleAxis
+                                    dataKey="category"
+                                    tick={{ fontSize: 11, fill: "#6B7280", fontWeight: 500 }}
+                                />
+                                <PolarRadiusAxis
+                                    angle={90}
+                                    domain={[0, 100]}
+                                    tick={{ fontSize: 9, fill: "#9CA3AF" }}
+                                    tickCount={4}
+                                />
+                                <Radar
+                                    name="Industry"
+                                    dataKey="industry"
+                                    stroke="#EF4444"
+                                    fill="#EF4444"
+                                    fillOpacity={0.12}
+                                    strokeDasharray="5 4"
+                                    strokeWidth={1.5}
+                                />
+                                <Radar
+                                    name="Curriculum"
+                                    dataKey="curriculum"
+                                    stroke="#2563EB"
+                                    fill="#2563EB"
+                                    fillOpacity={0.3}
+                                    strokeWidth={2}
+                                />
+                                <Legend
+                                    iconType="circle"
+                                    iconSize={8}
+                                    wrapperStyle={{ fontSize: 11, paddingTop: 8 }}
+                                />
+                                <Tooltip
+                                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                    formatter={(val: any, name: any) => [`${val ?? 0}%`, name ?? ""]}
+                                    contentStyle={{ fontSize: 11, borderRadius: 8 }}
+                                />
+                            </RadarChart>
+                        </ResponsiveContainer>
+                    </div>
 
-                    {/* Legend */}
-                    <div className="flex items-center gap-5 mt-4 pt-4 border-t border-gray-100">
-                        <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Coverage legend:</span>
-                        <div className="flex items-center gap-1.5">
-                            <span className="w-3 h-3 rounded bg-gray-200 border border-gray-300 inline-block" />
-                            <span className="text-[11px] text-gray-600">● Large gap (&gt;50%)</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                            <span className="w-3 h-3 rounded bg-stone-100 border border-gray-200 inline-block" />
-                            <span className="text-[11px] text-gray-600">◐ Moderate gap (30–50%)</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                            <span className="w-3 h-3 rounded bg-slate-100 border border-slate-200 inline-block" />
-                            <span className="text-[11px] text-gray-600">○ On track (&lt;30% gap)</span>
-                        </div>
+                    {/* RIGHT: Horizontal Bar Chart */}
+                    <div className="p-5">
+                        <p className="text-xs font-semibold text-gray-500 mb-4">Gap Size by Skill</p>
+                        <ResponsiveContainer width="100%" height={280}>
+                            <BarChart
+                                data={SKILL_BAR_DATA}
+                                layout="vertical"
+                                margin={{ top: 0, right: 10, bottom: 0, left: 80 }}
+                                barSize={7}
+                                barCategoryGap="30%"
+                            >
+                                <CartesianGrid strokeDasharray="3 3" stroke="#F3F4F6" horizontal={false} />
+                                <XAxis
+                                    type="number"
+                                    domain={[0, 100]}
+                                    tick={{ fontSize: 9, fill: "#9CA3AF" }}
+                                    tickFormatter={(v) => `${v}`}
+                                />
+                                <YAxis
+                                    type="category"
+                                    dataKey="skill"
+                                    tick={{ fontSize: 10, fill: "#374151", fontWeight: 500 }}
+                                    width={78}
+                                />
+                                <Tooltip
+                                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                    formatter={(val: any, name: any) => [`${val ?? 0}%`, name ?? ""]}
+                                    contentStyle={{ fontSize: 11, borderRadius: 8 }}
+                                />
+                                <Legend
+                                    iconType="circle"
+                                    iconSize={8}
+                                    wrapperStyle={{ fontSize: 11, paddingTop: 8 }}
+                                />
+                                <Bar dataKey="demand" name="Market Demand %" fill="#FECACA" radius={[0, 3, 3, 0]} />
+                                <Bar dataKey="coverage" name="Student Coverage %" fill="#2563EB" radius={[0, 3, 3, 0]} />
+                            </BarChart>
+                        </ResponsiveContainer>
                     </div>
                 </div>
             </div>
