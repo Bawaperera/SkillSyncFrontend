@@ -5,9 +5,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
     Sparkles, Upload, Github, Linkedin, Target,
     CheckCircle2, ArrowRight, ArrowLeft, SkipForward,
-    FileText, Code2, Briefcase, X, Loader2
+    FileText, Code2, Briefcase, X, Loader2, GraduationCap
 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import { GlassButton } from "@/components/ui/GlassButton";
 import { useAuth } from "@/lib/auth/AuthContext";
@@ -278,10 +279,11 @@ export default function OnboardingPage() {
                     {/* What was completed */}
                     {completedSteps.length > 0 && (
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 15 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.4 }}
-                            className="bg-white border border-gray-200 rounded-2xl p-6 space-y-3 text-left"
+                            exit={{ opacity: 0, y: -15 }}
+                            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                            className="bg-white/80 backdrop-blur-2xl border border-white/60 rounded-[2rem] p-8 md:p-12 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] ring-1 ring-slate-900/5 relative overflow-hidden text-left"
                         >
                             <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Profile Summary</h3>
                             {completedSteps.map((step, i) => (
@@ -320,83 +322,83 @@ export default function OnboardingPage() {
     const progressPercent = ((currentStep) / STEPS.length) * 100;
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
-            {/* Top progress bar */}
-            <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-gray-200">
-                <motion.div
-                    className="h-full bg-gradient-to-r from-blue-500 to-purple-500"
-                    initial={{ width: 0 }}
-                    animate={{ width: `${progressPercent}%` }}
-                    transition={{ duration: 0.3 }}
-                />
-            </div>
+        <div className="h-screen bg-[#FAFBFF] relative overflow-hidden flex flex-col items-center">
+            {/* Ambient Background Elements */}
+            <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-blue-100/40 rounded-full blur-[120px] pointer-events-none" />
+            <div className="absolute top-[30%] left-[-10%] w-[500px] h-[500px] bg-purple-100/40 rounded-full blur-[120px] pointer-events-none" />
 
-            {/* Header */}
-            <div className="max-w-3xl mx-auto px-4 pt-8 pb-4">
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                        {/* Step indicators */}
-                        <div className="flex items-center gap-2">
-                            {STEPS.map((step, i) => {
-                                const Icon = step.icon;
-                                const isActive = i === currentStep;
-                                const isCompleted = i < currentStep || (
-                                    (step.id === "cv" && !!cvData) ||
-                                    (step.id === "github" && !!githubData) ||
-                                    (step.id === "linkedin" && !!linkedinData) ||
-                                    (step.id === "target-role" && !!selectedRole)
-                                );
-                                return (
-                                    <div key={step.id} className="flex items-center gap-1">
-                                        <button
-                                            onClick={() => {
-                                                setDirection(i > currentStep ? 1 : -1);
-                                                setCurrentStep(i);
-                                            }}
-                                            className={cn(
-                                                "w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200",
-                                                isActive && "bg-blue-600 text-white shadow-md shadow-blue-500/30 scale-110",
-                                                !isActive && isCompleted && "bg-green-100 text-green-600",
-                                                !isActive && !isCompleted && "bg-gray-100 text-gray-400 hover:bg-gray-200"
-                                            )}
-                                            title={step.label}
-                                        >
-                                            {isCompleted && !isActive ? (
-                                                <CheckCircle2 size={16} />
-                                            ) : (
-                                                <Icon size={16} />
-                                            )}
-                                        </button>
-                                        {i < STEPS.length - 1 && (
-                                            <div className={cn(
-                                                "w-6 h-0.5 rounded",
-                                                i < currentStep ? "bg-green-300" : "bg-gray-200"
-                                            )} />
-                                        )}
-                                    </div>
-                                );
-                            })}
+            {/* Stepper Header (Floating Pill Design) */}
+            <div className="w-full max-w-5xl mx-auto px-4 mt-8 mb-4 relative z-10 shrink-0">
+                <div className="bg-white/70 backdrop-blur-xl border border-white/80 rounded-3xl p-4 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col md:flex-row items-center gap-4 relative">
+                    {/* Logo */}
+                    <Link href="/" className="flex items-center gap-2 font-bold text-xl tracking-tight text-slate-900 ml-2">
+                        <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
+                            <GraduationCap size={16} strokeWidth={2.5} />
                         </div>
+                        SkillSync
+                    </Link>
+
+                    {/* Progress Fill (Subtle background progress) */}
+                    <div className="absolute inset-x-0 bottom-0 h-1 bg-slate-100 rounded-b-3xl overflow-hidden">
+                        <motion.div
+                            className="h-full bg-gradient-to-r from-blue-500 to-indigo-500"
+                            initial={{ width: 0 }}
+                            animate={{ width: `${((currentStep + 1) / STEPS.length) * 100}%` }}
+                            transition={{ duration: 0.5, ease: "easeInOut" }}
+                        />
                     </div>
 
+                    {/* Desktop Stepper */}
+                    <div className="hidden md:flex items-center gap-1 flex-1 justify-center">
+                        {STEPS.map((step, idx) => {
+                            const isCompleted = idx < currentStep;
+                            const isCurrent = idx === currentStep;
+
+                            return (
+                                <div key={step.id} className="flex items-center">
+                                    <div className={cn(
+                                        "flex items-center justify-center w-9 h-9 rounded-full text-sm font-semibold transition-all duration-300",
+                                        isCompleted ? "bg-indigo-50 text-indigo-600 border border-indigo-200" :
+                                            isCurrent ? "bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/25 border-none scale-110 relative z-10" :
+                                                "bg-white border border-slate-200 text-slate-400"
+                                    )}>
+                                        {isCompleted ? <CheckCircle2 size={16} /> : idx + 1}
+                                    </div>
+
+                                    <span className={cn(
+                                        "ml-2 text-[13px] font-medium transition-colors duration-300 whitespace-nowrap",
+                                        isCurrent ? "text-slate-900 font-bold" :
+                                            isCompleted ? "text-slate-600" : "text-slate-400"
+                                    )}>
+                                        {step.label}
+                                    </span>
+
+                                    {idx < STEPS.length - 1 && (
+                                        <div className="w-8 h-px bg-slate-200 mx-2 shrink-0" />
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
                     {/* Skip button */}
                     <button
                         onClick={skipToDashboard}
                         disabled={isFinishing}
-                        className="text-sm text-gray-400 hover:text-gray-600 transition-colors flex items-center gap-1"
+                        className="text-sm text-gray-400 hover:text-gray-600 transition-colors flex items-center gap-1 whitespace-nowrap shrink-0"
                     >
                         <SkipForward size={14} />
                         Skip to Dashboard
                     </button>
-                </div>
-
-                <div className="mt-4 text-sm text-gray-400">
-                    Step {currentStep + 1} of {STEPS.length} &mdash; <span className="text-gray-600 font-medium">{currentStepConfig.label}</span>
+                    {/* Mobile Stepper */}
+                    <div className="md:hidden flex items-center justify-between w-full px-2">
+                        <span className="text-sm font-semibold text-slate-900 tracking-tight">Step {currentStep + 1} of {STEPS.length}</span>
+                        <span className="text-sm text-slate-500 font-medium">{STEPS[currentStep].label}</span>
+                    </div>
                 </div>
             </div>
 
-            {/* Step Content */}
-            <div className="max-w-3xl mx-auto px-4 pb-12">
+            {/* Main Content Area */}
+            <main className="w-full max-w-4xl mx-auto px-4 relative z-10 flex-1 flex flex-col justify-center overflow-y-auto min-h-0">
                 <AnimatePresence mode="wait" custom={direction}>
                     <motion.div
                         key={currentStepConfig.id}
@@ -470,7 +472,7 @@ export default function OnboardingPage() {
                         )}
                     </motion.div>
                 </AnimatePresence>
-            </div>
+            </main>
         </div>
     );
 }
@@ -491,7 +493,7 @@ function StepNav({
     onBack,
     onNext,
     nextLabel = "Continue",
-    nextDisabled = false,
+    nextDisabled: disabled = false,
     showSkip = true,
     onSkipLabel = "Skip this step",
 }: {
@@ -503,33 +505,31 @@ function StepNav({
     onSkipLabel?: string;
 }) {
     return (
-        <div className="flex items-center justify-between mt-8">
-            {onBack ? (
-                <button
-                    onClick={onBack}
-                    className="flex items-center gap-2 text-gray-500 hover:text-gray-700 transition-colors text-sm font-medium"
-                >
-                    <ArrowLeft size={16} /> Back
-                </button>
-            ) : (
-                <div />
-            )}
+        <div className="flex items-center justify-between mt-10">
+            <button
+                onClick={onBack}
+                className="flex items-center gap-2 text-slate-500 hover:text-slate-900 transition-colors text-sm font-semibold px-4 py-2 rounded-xl hover:bg-slate-100"
+            >
+                <ArrowLeft size={16} /> Back
+            </button>
+
             <div className="flex items-center gap-4">
                 {showSkip && (
                     <button
                         onClick={onNext}
-                        className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
+                        className="text-sm font-semibold text-slate-400 hover:text-slate-600 transition-colors px-4 py-2"
                     >
-                        {onSkipLabel}
+                        Skip
                     </button>
                 )}
                 <GlassButton
                     variant="primary"
                     onClick={onNext}
-                    disabled={nextDisabled}
-                    className="py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white border-none font-bold inline-flex items-center gap-2"
+                    disabled={disabled}
+                    className="py-3 px-8 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-[0_8px_16px_-6px_rgba(79,70,229,0.4)] hover:shadow-[0_12px_20px_-8px_rgba(79,70,229,0.5)] border-none font-bold inline-flex flex-row-reverse items-center gap-2 rounded-xl transition-all"
                 >
-                    {nextLabel} <ArrowRight size={16} />
+                    <ArrowRight size={18} />
+                    {nextLabel}
                 </GlassButton>
             </div>
         </div>
@@ -549,62 +549,59 @@ function WelcomeStep({ userName, onNext, onSkip }: { userName: string; onNext: (
 
     return (
         <div className="space-y-8">
-            <StepCard className="text-center py-12">
-                <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                    className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-blue-500/30"
-                >
-                    <Sparkles className="w-10 h-10 text-white" />
-                </motion.div>
+            <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-white/80 backdrop-blur-2xl border border-white/60 rounded-[2rem] p-8 md:p-12 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] ring-1 ring-slate-900/5 relative overflow-hidden text-center"
+            >
+                {/* Decorative Elements */}
+                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-50 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
-                <h1 className="text-3xl font-bold text-gray-900 mb-3">
-                    Welcome, {userName}! 🎉
+                <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-inner border border-white relative z-10">
+                    <Sparkles className="w-10 h-10 text-blue-600" />
+                </div>
+
+                <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 mb-4 relative z-10">
+                    Welcome to <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">SkillSync</span>
                 </h1>
-                <p className="text-gray-500 text-lg max-w-md mx-auto">
-                    Let&apos;s set up your profile in a few quick steps. Every step is <strong className="text-gray-700">optional</strong> — you can always come back later.
+
+                <p className="text-slate-500 text-lg max-w-lg mx-auto mb-10 leading-relaxed relative z-10 font-medium">
+                    Let&apos;s build your dynamic skill profile. We&apos;ll analyze your background to match you with top tech employers based on actual capabilities, not just keywords.
                 </p>
-            </StepCard>
 
-            <div className="grid grid-cols-2 gap-4">
-                {quickActions.map((action, i) => (
-                    <motion.div
-                        key={action.label}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 * i }}
-                        className="bg-white border border-gray-200 rounded-xl p-5 flex items-start gap-4"
-                    >
-                        <div className={cn(
-                            "w-10 h-10 rounded-lg flex items-center justify-center shrink-0",
-                            action.color === "blue" && "bg-blue-100 text-blue-600",
-                            action.color === "gray" && "bg-gray-100 text-gray-600",
-                            action.color === "purple" && "bg-purple-100 text-purple-600",
-                        )}>
-                            <action.icon size={20} />
-                        </div>
-                        <div>
-                            <p className="font-semibold text-gray-900 text-sm">{action.label}</p>
-                            <p className="text-xs text-gray-400 mt-0.5">{action.desc}</p>
-                        </div>
-                    </motion.div>
-                ))}
-            </div>
+                <div className="grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto relative z-10 text-left">
+                    {[
+                        { icon: FileText, title: "Resume Parsing", desc: "Automated skill extraction" },
+                        { icon: Code2, title: "GitHub Sync", desc: "Verify coding capabilities" },
+                        { icon: Briefcase, title: "LinkedIn Import", desc: "Sync professional history" },
+                        { icon: Target, title: "Role Matching", desc: "Personalized job alerts" },
+                    ].map((feature, i) => (
+                        <motion.div
+                            key={i}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2 + (i * 0.1) }}
+                            className="flex items-start gap-4 p-5 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-md hover:border-blue-100 transition-all group"
+                        >
+                            <div className="w-10 h-10 rounded-xl bg-blue-50/50 flex items-center justify-center shrink-0 group-hover:bg-blue-100 group-hover:text-blue-700 transition-colors text-blue-600">
+                                <feature.icon size={20} />
+                            </div>
+                            <div>
+                                <h3 className="font-semibold text-slate-900 mb-0.5">{feature.title}</h3>
+                                <p className="text-sm text-slate-500">{feature.desc}</p>
+                            </div>
+                        </motion.div>
+                    ))}
+                </div>
+            </motion.div>
 
-            <div className="flex items-center justify-between">
-                <button
-                    onClick={onSkip}
-                    className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
-                >
-                    Skip for now
-                </button>
+            <div className="flex items-center justify-center mt-10">
                 <GlassButton
                     variant="primary"
                     onClick={onNext}
-                    className="py-3 px-8 bg-blue-600 hover:bg-blue-700 text-white border-none font-bold inline-flex items-center gap-2"
+                    className="py-4 px-10 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-[0_8px_16px_-6px_rgba(79,70,229,0.4)] hover:shadow-[0_12px_20px_-8px_rgba(79,70,229,0.5)] border-none font-bold inline-flex items-center gap-3 rounded-xl text-lg transition-all"
                 >
-                    Let&apos;s Go <ArrowRight size={16} />
+                    Get Started <ArrowRight size={20} />
                 </GlassButton>
             </div>
         </div>
@@ -640,50 +637,60 @@ function CVUploadStep({
     return (
         <div className="space-y-6">
             <StepCard>
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">Upload Your CV</h2>
-                <p className="text-gray-500 mb-8">
-                    We&apos;ll automatically extract your skills, experience, and projects.
-                </p>
+                <div className="mb-8">
+                    <h2 className="text-2xl font-bold tracking-tight text-slate-900 mb-2">Upload your Resume/CV</h2>
+                    <p className="text-slate-500 font-medium">
+                        We&apos;ll automatically extract your skills, education, and experience to build your profile base.
+                    </p>
+                </div>
 
                 {!cvData ? (
-                    <>
-                        <div
-                            onDragOver={onDragOver}
-                            onDragLeave={onDragLeave}
-                            onDrop={onDrop}
-                            onClick={() => fileInputRef.current?.click()}
-                            className={cn(
-                                "border-2 border-dashed rounded-2xl p-12 text-center transition-all cursor-pointer",
-                                dragActive && "border-blue-400 bg-blue-50 scale-[1.01]",
-                                !dragActive && !isUploading && "border-gray-300 hover:border-blue-400 hover:bg-blue-50/50",
-                                isUploading && "border-blue-300 bg-blue-50 pointer-events-none"
-                            )}
-                        >
-                            {isUploading ? (
-                                <div className="space-y-4">
-                                    <Loader2 className="w-12 h-12 text-blue-500 animate-spin mx-auto" />
-                                    <p className="font-medium text-gray-700">Analyzing your CV...</p>
-                                    <p className="text-sm text-gray-400">Extracting skills, experience & projects</p>
-                                </div>
-                            ) : (
-                                <div className="space-y-3">
-                                    <Upload className="w-12 h-12 text-gray-400 mx-auto" />
-                                    <p className="font-bold text-gray-900">Drag & Drop your CV here</p>
-                                    <p className="text-sm text-gray-400">or click to browse &middot; PDF, DOC, DOCX</p>
-                                </div>
-                            )}
+                    <div
+                        onDragOver={onDragOver}
+                        onDragLeave={onDragLeave}
+                        onDrop={onDrop}
+                        className={cn(
+                            "relative border-2 border-dashed rounded-3xl p-12 text-center transition-all duration-300 group cursor-pointer overflow-hidden",
+                            dragActive
+                                ? "border-blue-500 bg-blue-50/80"
+                                : "border-slate-200 bg-slate-50/50 hover:bg-slate-50 hover:border-slate-300"
+                        )}
+                        onClick={() => fileInputRef.current?.click()}
+                    >
+                        {/* Interactive Background Glow on Hover */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                        <div className="relative z-10 flex flex-col items-center">
+                            <div className={cn(
+                                "w-20 h-20 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 shadow-sm",
+                                dragActive ? "bg-blue-100 text-blue-600 scale-110" : "bg-white text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-600"
+                            )}>
+                                {isUploading ? (
+                                    <Loader2 className="w-10 h-10 animate-spin" />
+                                ) : (
+                                    <Upload className="w-10 h-10" />
+                                )}
+                            </div>
+
+                            <p className="text-lg font-bold text-slate-700 mb-2">
+                                {dragActive ? "Drop your CV here" : "Click or drag your CV here"}
+                            </p>
+                            <p className="text-sm text-slate-500 font-medium">
+                                Supports PDF, DOCX (Max 5MB)
+                            </p>
                         </div>
                         <input
-                            ref={fileInputRef}
                             type="file"
-                            accept=".pdf,.doc,.docx"
                             className="hidden"
+                            accept=".pdf,.doc,.docx"
+                            ref={fileInputRef as any}
                             onChange={(e) => {
                                 const file = e.target.files?.[0];
                                 if (file) onFileSelect(file);
                             }}
+                            disabled={isUploading}
                         />
-                    </>
+                    </div>
                 ) : (
                     <div className="space-y-6">
                         {/* Success Banner */}
@@ -758,22 +765,25 @@ function GitHubStep({
     return (
         <div className="space-y-6">
             <StepCard>
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">Connect GitHub</h2>
-                <p className="text-gray-500 mb-8">
-                    Show recruiters your real projects and coding activity.
-                </p>
+                <div className="mb-8">
+                    <h2 className="text-2xl font-bold tracking-tight text-slate-900 mb-2">Connect GitHub</h2>
+                    <p className="text-slate-500 font-medium">
+                        Verify your coding skills by linking your GitHub account. We&apos;ll analyze your repositories and commit history.
+                    </p>
+                </div>
 
                 {!githubData ? (
-                    <div className="text-center space-y-6">
-                        <div className="w-20 h-20 bg-gray-900 rounded-2xl flex items-center justify-center mx-auto">
-                            <Github className="w-10 h-10 text-white" />
+                    <div className="text-center space-y-6 p-8 border border-slate-100 rounded-3xl bg-slate-50/50">
+                        <div className="w-24 h-24 bg-slate-900 rounded-[2rem] flex items-center justify-center mx-auto shadow-xl shadow-slate-900/10 border border-slate-800 relative group overflow-hidden">
+                            <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                            <Github className="w-12 h-12 text-white relative z-10" />
                         </div>
 
-                        <div className="space-y-2">
-                            <p className="text-gray-600 font-medium">What we&apos;ll analyze:</p>
+                        <div className="space-y-3">
+                            <p className="text-slate-600 font-medium">What we&apos;ll analyze:</p>
                             <div className="flex flex-wrap justify-center gap-3">
-                                {["Public repos", "Commit history", "Languages used", "Project complexity"].map((item) => (
-                                    <span key={item} className="px-3 py-1.5 bg-gray-100 text-gray-600 rounded-lg text-sm">
+                                {["Languages used", "Commit frequency", "Repository topics", "Code complexity"].map((item) => (
+                                    <span key={item} className="px-4 py-2 bg-white border border-slate-200 text-slate-600 rounded-xl text-sm font-medium shadow-sm">
                                         {item}
                                     </span>
                                 ))}
@@ -783,42 +793,46 @@ function GitHubStep({
                         <GlassButton
                             onClick={onConnect}
                             disabled={isConnecting}
-                            className="py-3 px-8 bg-gray-900 hover:bg-gray-800 text-white border-none font-bold inline-flex items-center gap-2 mx-auto"
+                            className="py-3.5 px-8 bg-slate-900 hover:bg-slate-800 text-white shadow-lg shadow-slate-900/20 border-none font-bold inline-flex items-center gap-3 mx-auto mt-4 rounded-xl transition-all"
                         >
                             {isConnecting ? (
                                 <Loader2 className="w-5 h-5 animate-spin" />
                             ) : (
-                                <Github size={18} />
+                                <Github size={20} />
                             )}
                             {isConnecting ? "Connecting..." : "Connect GitHub"}
                         </GlassButton>
                     </div>
                 ) : (
                     <div className="space-y-6">
-                        <div className="flex items-center gap-4 p-4 bg-green-50 border border-green-200 rounded-xl">
-                            <CheckCircle2 className="text-green-500 shrink-0" size={24} />
+                        <div className="flex items-center gap-4 p-5 bg-emerald-50/50 border border-emerald-200 rounded-2xl">
+                            <div className="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center shrink-0">
+                                <CheckCircle2 className="text-emerald-600" size={24} />
+                            </div>
                             <div>
-                                <p className="font-semibold text-green-800">GitHub Connected</p>
-                                <p className="text-sm text-green-600">@{githubData.githubUsername} &middot; {githubData.reposCount} repos &middot; {githubData.commitsLast6Months} commits (6m)</p>
+                                <p className="font-bold text-emerald-900">GitHub Connected Successfully</p>
+                                <p className="text-sm font-medium text-emerald-700 mt-1">
+                                    @{githubData.githubUsername} &middot; {githubData.reposCount} repos &middot; {githubData.commitsLast6Months} commits (6m)
+                                </p>
                             </div>
                         </div>
 
                         {githubData.detectedSkills.length > 0 && (
-                            <div>
-                                <h4 className="text-sm font-semibold text-gray-500 uppercase mb-3 tracking-wider">Detected Skills</h4>
-                                <div className="space-y-2">
+                            <div className="pt-4 border-t border-slate-100">
+                                <h4 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Detected Technical Skills</h4>
+                                <div className="space-y-3">
                                     {githubData.detectedSkills.map((item) => (
-                                        <div key={item.skill} className="flex items-center gap-3">
-                                            <span className="text-sm font-medium text-gray-700 w-24">{item.skill}</span>
-                                            <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+                                        <div key={item.skill} className="flex items-center gap-4">
+                                            <span className="text-sm font-semibold text-slate-700 w-28">{item.skill}</span>
+                                            <div className="flex-1 h-2.5 bg-slate-100 rounded-full overflow-hidden">
                                                 <motion.div
-                                                    className="h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
+                                                    className="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full"
                                                     initial={{ width: 0 }}
                                                     animate={{ width: `${item.confidence * 100}%` }}
-                                                    transition={{ delay: 0.1, duration: 0.5 }}
+                                                    transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
                                                 />
                                             </div>
-                                            <span className="text-xs text-gray-400 w-12 text-right">{Math.round(item.confidence * 100)}%</span>
+                                            <span className="text-xs font-bold text-slate-400 w-12 text-right">{Math.round(item.confidence * 100)}%</span>
                                         </div>
                                     ))}
                                 </div>
@@ -857,22 +871,25 @@ function LinkedInStep({
     return (
         <div className="space-y-6">
             <StepCard>
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">Connect LinkedIn</h2>
-                <p className="text-gray-500 mb-8">
-                    Import your professional experience and certifications.
-                </p>
+                <div className="mb-8">
+                    <h2 className="text-2xl font-bold tracking-tight text-slate-900 mb-2">Connect LinkedIn</h2>
+                    <p className="text-slate-500 font-medium">
+                        Import your professional experience and certifications to complete your profile context.
+                    </p>
+                </div>
 
                 {!linkedinData ? (
-                    <div className="text-center space-y-6">
-                        <div className="w-20 h-20 bg-[#0A66C2] rounded-2xl flex items-center justify-center mx-auto">
-                            <Linkedin className="w-10 h-10 text-white" />
+                    <div className="text-center space-y-6 p-8 border border-slate-100 rounded-3xl bg-slate-50/50">
+                        <div className="w-24 h-24 bg-[#0A66C2] rounded-[2rem] flex items-center justify-center mx-auto shadow-xl shadow-[#0A66C2]/20 border border-[#0A66C2] relative group overflow-hidden">
+                            <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                            <Linkedin className="w-12 h-12 text-white relative z-10" />
                         </div>
 
-                        <div className="space-y-2">
-                            <p className="text-gray-600 font-medium">What we&apos;ll import:</p>
+                        <div className="space-y-3">
+                            <p className="text-slate-600 font-medium">What we&apos;ll import:</p>
                             <div className="flex flex-wrap justify-center gap-3">
                                 {["Work experience", "Certifications", "Education", "Skills endorsements"].map((item) => (
-                                    <span key={item} className="px-3 py-1.5 bg-gray-100 text-gray-600 rounded-lg text-sm">
+                                    <span key={item} className="px-4 py-2 bg-white border border-slate-200 text-slate-600 rounded-xl text-sm font-medium shadow-sm">
                                         {item}
                                     </span>
                                 ))}
@@ -882,36 +899,40 @@ function LinkedInStep({
                         <GlassButton
                             onClick={onConnect}
                             disabled={isConnecting}
-                            className="py-3 px-8 bg-[#0A66C2] hover:bg-[#004182] text-white border-none font-bold inline-flex items-center gap-2 mx-auto"
+                            className="py-3.5 px-8 bg-[#0A66C2] hover:bg-[#004182] text-white shadow-lg shadow-[#0A66C2]/20 border-none font-bold inline-flex items-center gap-3 mx-auto mt-4 rounded-xl transition-all"
                         >
                             {isConnecting ? (
                                 <Loader2 className="w-5 h-5 animate-spin" />
                             ) : (
-                                <Linkedin size={18} />
+                                <Linkedin size={20} />
                             )}
                             {isConnecting ? "Connecting..." : "Connect LinkedIn"}
                         </GlassButton>
                     </div>
                 ) : (
                     <div className="space-y-6">
-                        <div className="flex items-center gap-4 p-4 bg-green-50 border border-green-200 rounded-xl">
-                            <CheckCircle2 className="text-green-500 shrink-0" size={24} />
+                        <div className="flex items-center gap-4 p-5 bg-emerald-50/50 border border-emerald-200 rounded-2xl">
+                            <div className="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center shrink-0">
+                                <CheckCircle2 className="text-emerald-600" size={24} />
+                            </div>
                             <div>
-                                <p className="font-semibold text-green-800">LinkedIn Connected</p>
-                                <p className="text-sm text-green-600">Profile imported successfully</p>
+                                <p className="font-bold text-emerald-900">LinkedIn Connected Successfully</p>
+                                <p className="text-sm font-medium text-emerald-700 mt-1">Profile imported and verified</p>
                             </div>
                         </div>
 
                         {linkedinData.importedData.experience.length > 0 && (
-                            <div>
-                                <h4 className="text-sm font-semibold text-gray-500 uppercase mb-3 tracking-wider">Experience</h4>
-                                <div className="space-y-2">
+                            <div className="pt-4 border-t border-slate-100">
+                                <h4 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Professional Experience</h4>
+                                <div className="space-y-3">
                                     {linkedinData.importedData.experience.map((exp, i) => (
-                                        <div key={i} className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
-                                            <Briefcase size={16} className="text-gray-400 mt-0.5 shrink-0" />
+                                        <div key={i} className="flex items-start gap-4 p-4 bg-white border border-slate-100 rounded-xl shadow-sm">
+                                            <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center shrink-0 mt-0.5">
+                                                <Briefcase size={18} className="text-blue-500" />
+                                            </div>
                                             <div>
-                                                <p className="text-sm font-medium text-gray-900">{exp.title}</p>
-                                                <p className="text-xs text-gray-500">{exp.company} &middot; {exp.duration}</p>
+                                                <p className="text-base font-bold text-slate-900">{exp.title}</p>
+                                                <p className="text-sm font-medium text-slate-500 mt-0.5">{exp.company} &middot; {exp.duration}</p>
                                             </div>
                                         </div>
                                     ))}
@@ -920,11 +941,11 @@ function LinkedInStep({
                         )}
 
                         {linkedinData.importedData.certifications.length > 0 && (
-                            <div>
-                                <h4 className="text-sm font-semibold text-gray-500 uppercase mb-3 tracking-wider">Certifications</h4>
-                                <div className="flex flex-wrap gap-2">
+                            <div className="pt-4 border-t border-slate-100">
+                                <h4 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Certifications</h4>
+                                <div className="flex flex-wrap gap-2.5">
                                     {linkedinData.importedData.certifications.map((cert) => (
-                                        <span key={cert} className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg text-sm font-medium border border-blue-100">
+                                        <span key={cert} className="px-4 py-2 bg-blue-50 text-blue-700 rounded-xl text-sm font-bold border border-blue-100/50">
                                             {cert}
                                         </span>
                                     ))}
@@ -972,24 +993,26 @@ function TargetRoleStep({
     return (
         <div className="space-y-6">
             <StepCard>
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">What Role Are You Targeting?</h2>
-                <p className="text-gray-500 mb-6">
-                    This helps us personalize your job recommendations and skill analysis.
-                </p>
+                <div className="mb-8">
+                    <h2 className="text-2xl font-bold tracking-tight text-slate-900 mb-2">What Role Are You Targeting?</h2>
+                    <p className="text-slate-500 font-medium">
+                        This helps us personalize your job recommendations and calculate your skill gap accurately.
+                    </p>
+                </div>
 
                 {/* Search */}
-                <div className="relative mb-6">
+                <div className="relative mb-8">
                     <input
                         type="text"
-                        placeholder="Search roles..."
+                        placeholder="Search for roles (e.g. Frontend Developer)..."
                         value={searchQuery}
                         onChange={(e) => onSearch(e.target.value)}
-                        className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-300 rounded-xl text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-blue-500 focus:bg-white transition-colors"
+                        className="w-full h-14 px-5 bg-white border-2 border-slate-200 rounded-2xl text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm font-medium"
                     />
                     {searchQuery && (
                         <button
                             onClick={() => onSearch("")}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                            className="absolute right-4 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-400 hover:text-slate-600 hover:bg-slate-200 transition-colors"
                         >
                             <X size={16} />
                         </button>
@@ -997,7 +1020,7 @@ function TargetRoleStep({
                 </div>
 
                 {/* Role Grid */}
-                <div className="grid grid-cols-2 gap-3 max-h-[320px] overflow-y-auto pr-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[380px] overflow-y-auto custom-scrollbar pr-2 pb-2">
                     {filteredRoles.map((role) => {
                         const isSelected = selectedRole === role;
                         return (
@@ -1006,15 +1029,19 @@ function TargetRoleStep({
                                 onClick={() => onSelect(role)}
                                 disabled={isSaving}
                                 className={cn(
-                                    "p-4 rounded-xl border-2 text-left transition-all text-sm font-medium",
+                                    "p-4 rounded-2xl border-2 text-left transition-all text-[13px] font-bold group",
                                     isSelected
-                                        ? "border-blue-500 bg-blue-50 text-blue-700 shadow-md shadow-blue-500/10"
-                                        : "border-gray-200 bg-white text-gray-700 hover:border-blue-300 hover:bg-blue-50/50"
+                                        ? "border-blue-500 bg-blue-50/80 text-blue-700 shadow-[0_4px_12px_-2px_rgba(59,130,246,0.2)]"
+                                        : "border-slate-200 bg-white text-slate-700 hover:border-blue-300 hover:bg-blue-50/30 hover:shadow-md"
                                 )}
                             >
                                 <div className="flex items-center justify-between">
-                                    <span>{role}</span>
-                                    {isSelected && <CheckCircle2 size={16} className="text-blue-500" />}
+                                    <span className="line-clamp-2 pr-2">{role}</span>
+                                    {isSelected ? (
+                                        <CheckCircle2 size={18} className="text-blue-500 shrink-0" />
+                                    ) : (
+                                        <div className="w-4 h-4 rounded-full border-2 border-slate-200 group-hover:border-blue-300 shrink-0 transition-colors" />
+                                    )}
                                 </div>
                             </button>
                         );
@@ -1022,15 +1049,19 @@ function TargetRoleStep({
                 </div>
 
                 {filteredRoles.length === 0 && (
-                    <p className="text-center text-gray-400 py-8">No matching roles found.</p>
+                    <div className="text-center py-12 px-4 border-2 border-dashed border-slate-200 rounded-2xl">
+                        <Target className="w-10 h-10 text-slate-300 mx-auto mb-3" />
+                        <p className="text-slate-500 font-medium">No matching roles found.</p>
+                        <p className="text-sm text-slate-400 mt-1">Try searching for a different keyword.</p>
+                    </div>
                 )}
             </StepCard>
 
             {/* Final step: Finish button instead of Continue */}
-            <div className="flex items-center justify-between mt-8">
+            <div className="flex items-center justify-between mt-10">
                 <button
                     onClick={onBack}
-                    className="flex items-center gap-2 text-gray-500 hover:text-gray-700 transition-colors text-sm font-medium"
+                    className="flex items-center gap-2 text-slate-500 hover:text-slate-900 transition-colors text-sm font-semibold px-4 py-2 rounded-xl hover:bg-slate-100"
                 >
                     <ArrowLeft size={16} /> Back
                 </button>
@@ -1039,22 +1070,22 @@ function TargetRoleStep({
                         <button
                             onClick={onFinish}
                             disabled={isFinishing}
-                            className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
+                            className="text-sm font-semibold text-slate-400 hover:text-slate-600 transition-colors px-4 py-2"
                         >
-                            Skip this step
+                            Skip & Finish
                         </button>
                     )}
                     <GlassButton
                         variant="primary"
                         onClick={onFinish}
                         disabled={isFinishing}
-                        className="py-3 px-8 bg-blue-600 hover:bg-blue-700 text-white border-none font-bold inline-flex items-center gap-2"
+                        className="py-3.5 px-8 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-[0_8px_16px_-6px_rgba(16,185,129,0.4)] hover:shadow-[0_12px_20px_-8px_rgba(16,185,129,0.5)] border-none font-bold inline-flex items-center gap-3 rounded-xl transition-all"
                     >
                         {isFinishing ? (
                             <Loader2 className="w-5 h-5 animate-spin" />
                         ) : (
                             <>
-                                Finish Setup <CheckCircle2 size={16} />
+                                Complete Setup <CheckCircle2 size={18} />
                             </>
                         )}
                     </GlassButton>
