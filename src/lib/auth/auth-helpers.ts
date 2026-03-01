@@ -1,53 +1,33 @@
 // ============================================================
-// Auth Helpers — Thin utility layer
-// Heavy logic is in @/lib/api/auth-api.ts
+// Auth Helpers — Utility functions for auth state checks
 // ============================================================
 
-import { User, UserRole } from '@/lib/types/user'
+import { User, UserRole } from '@/types/user'
+import { getToken } from '@/lib/api/client'
 
-const TOKEN_KEY = 'skillsync_token'
-const USER_KEY = 'skillsync_user'
-
-/** Check if user has an active session */
+/** Check if user has an active session token */
 export function isAuthenticated(): boolean {
-  if (typeof window === 'undefined') return false
-  return !!(localStorage.getItem(TOKEN_KEY) || sessionStorage.getItem(TOKEN_KEY))
+  return !!getToken()
 }
 
-/** Get stored user role */
-export function getUserRole(): UserRole | null {
-  if (typeof window === 'undefined') return null
-  const user = getUser()
+/** Get role from a user object */
+export function getUserRole(user: User | null): UserRole | null {
   return user?.role ?? null
 }
 
-/** Read user from localStorage */
-export function getUser(): User | null {
-  if (typeof window === 'undefined') return null
-  const userStr = localStorage.getItem(USER_KEY)
-  if (!userStr) return null
-  try {
-    return JSON.parse(userStr) as User
-  } catch {
-    return null
-  }
+/** Check if a student user still needs to complete onboarding */
+export function needsOnboarding(user: User | null): boolean {
+  if (!user) return false
+  if (user.role !== 'student') return false
+  return !user.onboarding.onboardingCompleted
 }
 
-/** Check if a user needs onboarding (pass user directly or read from storage) */
-export function needsOnboarding(user?: User | null): boolean {
-  const u = user ?? getUser()
-  if (!u) return false
-  if (u.role !== 'student') return false
-  return !u.onboarding.onboardingCompleted
-}
-
-/** Get redirect path based on user state */
+/** Get the correct redirect path based on user state */
 export function getAuthRedirect(user: User): string {
   if (user.role === 'student') {
-    if (!user.onboarding.onboardingCompleted) {
-      return '/onboarding'
-    }
-    return '/student/dashboard'
+    return user.onboarding.onboardingCompleted
+      ? '/student/dashboard'
+      : '/onboarding'
   }
   if (user.role === 'recruiter') return '/recruiter/dashboard'
   if (user.role === 'university') return '/university/dashboard'

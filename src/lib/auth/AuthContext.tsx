@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react'
-import { User, UserRole, SignUpRequest, SignInRequest } from '@/lib/types/user'
+import { User, SignUpRequest, SignInRequest } from '@/types/user'
 import {
   signUp as apiSignUp,
   signIn as apiSignIn,
