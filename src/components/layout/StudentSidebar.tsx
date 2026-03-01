@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/lib/auth/AuthContext";
 
 import {
     LayoutDashboard,
@@ -38,11 +39,17 @@ const NAV_ITEMS = [
 export function StudentSidebar({ className, disabled = false }: StudentSidebarProps) {
     const pathname = usePathname();
     const router = useRouter();
+    const { user, logout } = useAuth();
 
     const handleLogout = () => {
-        // Clear any local storage or session state here if needed
+        logout();
         router.push('/login');
     };
+
+    // Derive initials from user name
+    const initials = user?.fullName
+        ? user.fullName.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2)
+        : 'SS';
 
     return (
         <aside className={cn(
@@ -97,11 +104,11 @@ export function StudentSidebar({ className, disabled = false }: StudentSidebarPr
                 {/* Mini User Profile */}
                 <div className="flex items-center gap-4 p-3 rounded-2xl bg-gray-50 border border-gray-100">
                     <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-sm">
-                        BP
+                        {initials}
                     </div>
                     <div className="flex-1 min-w-0">
-                        <p className="text-sm font-bold text-gray-900 truncate">Bawantha Perera</p>
-                        <p className="text-xs text-gray-500 truncate">Student Account</p>
+                        <p className="text-sm font-bold text-gray-900 truncate">{user?.fullName || 'Student'}</p>
+                        <p className="text-xs text-gray-500 truncate">{user?.email || 'Student Account'}</p>
                     </div>
                 </div>
             </div>

@@ -1,83 +1,112 @@
 'use client'
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
-import { User, UserRole } from '@/lib/types/user'
+import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react'
+import { User, UserRole, SignUpRequest, SignInRequest } from '@/lib/types/user'
 import {
-  getUser,
-  setUser,
-  logout as logoutHelper,
-  mockLogin,
-  mockSignup,
-} from './auth-helpers'
+  signUp as apiSignUp,
+  signIn as apiSignIn,
+  logoutApi,
+  getCurrentUser,
+  updateUserProfile,
+  forgotPassword as apiForgotPassword,
+  resetPassword as apiResetPassword,
+  completeOnboarding as apiCompleteOnboarding,
+} from '@/lib/api/auth-api'
 
 interface AuthContextType {
   user: User | null
   isLoading: boolean
   isAuthenticated: boolean
-  login: (email: string, password: string, role: UserRole) => Promise<User>
-  signup: (userData: {
-    name: string
-    email: string
-    password: string
-    role: UserRole
-    [key: string]: any
-  }) => Promise<User>
+
+  // Auth actions
+  signUp: (data: SignUpRequest) => Promise<{ userId: string; email: string }>
+  signIn: (data: SignInRequest) => Promise<{ user: User; redirect: string }>
   logout: () => void
-  updateUser: (updates: Partial<User>) => void
+  forgotPassword: (email: string) => Promise<void>
+  resetPassword: (token: string, newPassword: string) => Promise<void>
+
+  // User update
+  updateUser: (updates: Partial<User>) => Promise<void>
+  completeOnboarding: () => Promise<void>
+  refreshUser: () => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUserState] = useState<User | null>(null)
+  const [user, setUser] = useState<User | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
+  // Load user session on mount
   useEffect(() => {
-    // Load user from localStorage on mount
-    const storedUser = getUser()
-    setUserState(storedUser)
-    setIsLoading(false)
+    const loadSession = async () => {
+      try {
+        const currentUser = await getCurrentUser()
+        setUser(currentUser)
+      } catch {
+        setUser(null)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    loadSession()
   }, [])
 
-  const login = async (email: string, password: string, role: UserRole) => {
+  const refreshUser = useCallback(async () => {
+    try {
+      const currentUser = await getCurrentUser()
+      setUser(currentUser)
+    } catch {
+      setUser(null)
+    }
+  }, [])
+
+  const signUp = useCallback(async (data: SignUpRequest) => {
     setIsLoading(true)
     try {
-      const loggedInUser = await mockLogin(email, password, role)
-      setUserState(loggedInUser)
-      return loggedInUser
+      const response = await apiSignUp(data)
+      // Auto-login: load the newly created user into state
+      const currentUser = await getCurrentUser()
+      setUser(currentUser)
+      return { userId: response.userId, email: response.email }
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [])
 
-  const signup = async (userData: {
-    name: string
-    email: string
-    password: string
-    role: UserRole
-    [key: string]: any
-  }) => {
+  const signIn = useCallback(async (data: SignInRequest) => {
     setIsLoading(true)
     try {
-      const newUser = await mockSignup(userData)
-      setUserState(newUser)
-      return newUser
+      const response = await apiSignIn(data)
+      setUser(response.user)
+      return { user: response.user, redirect: response.redirect }
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [])
 
-  const logout = () => {
-    logoutHelper()
-    setUserState(null)
-  }
+  const logout = useCallback(() => {
+    logoutApi()
+    setUser(null)
+  }, [])
 
-  const updateUser = (updates: Partial<User>) => {
-    if (!user) return
-    const updatedUser = { ...user, ...updates }
-    setUserState(updatedUser)
+  const forgotPassword = useCallback(async (email: string) => {
+    await apiForgotPassword({ email })
+  }, [])
+
+  const resetPassword = useCallback(async (token: string, newPassword: string) => {
+    await apiResetPassword({ token, newPassword })
+  }, [])
+
+  const updateUser = useCallback(async (updates: Partial<User>) => {
+    const updatedUser = await updateUserProfile(updates)
     setUser(updatedUser)
-  }
+  }, [])
+
+  const completeOnboarding = useCallback(async () => {
+    await apiCompleteOnboarding()
+    await refreshUser()
+  }, [refreshUser])
 
   return (
     <AuthContext.Provider
@@ -85,10 +114,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         user,
         isLoading,
         isAuthenticated: !!user,
-        login,
-        signup,
+        signUp,
+        signIn,
         logout,
+        forgotPassword,
+        resetPassword,
         updateUser,
+        completeOnboarding,
+        refreshUser,
       }}
     >
       {children}

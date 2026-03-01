@@ -1,11 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
     Briefcase,
     CheckCircle2,
-    Lock,
     Target,
     Trophy,
     AlertCircle
@@ -15,60 +13,30 @@ import { GlassButton } from "@/components/ui/GlassButton";
 import Link from "next/link";
 import { SkillGrowthChart } from "@/components/student/dashboard/SkillGrowthChart";
 import { ProfileCompletenessBanner } from "@/components/student/dashboard/ProfileCompletenessBanner";
+import { useAuth } from "@/lib/auth/AuthContext";
 
 
 export default function StudentDashboard() {
-    const [progress, setProgress] = useState(0);
-    const [isProfileComplete, setIsProfileComplete] = useState(false);
-    const [showConfetti, setShowConfetti] = useState(false);
-
-    const handleUnlock = () => {
-        setIsProfileComplete(true);
-        setShowConfetti(true);
-        setTimeout(() => setShowConfetti(false), 5000);
-    };
+    const { user } = useAuth();
 
     return (
         <div className="relative min-h-screen text-gray-900 overflow-x-hidden bg-[#F5F7FA]">
 
             <div className="p-8 max-w-[1600px] mx-auto relative z-10 transition-all duration-700">
 
-                {/* Profile Completeness Banner - Only shown if incomplete */}
-                <AnimatePresence>
-                    {!isProfileComplete && (
-                        <motion.div
-                            initial={{ opacity: 0, y: -20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, height: 0, marginBottom: 0 }}
-                            transition={{ duration: 0.5 }}
-                        >
-                            <ProfileCompletenessBanner
-                                currentProgress={progress}
-                                onUpdateProgress={setProgress}
-                                onComplete={handleUnlock}
-                            />
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                {/* Profile Completeness Banner — only shows when profile is incomplete (self-aware) */}
+                <ProfileCompletenessBanner />
 
-                {/* Dashboard Content - Blurred if not complete */}
-                <div className={`relative transition-all duration-700 ${!isProfileComplete ? "filter blur-sm select-none pointer-events-none opacity-60 overflow-hidden h-[calc(100vh-400px)]" : ""}`}>
-
-                    {/* Locked Overlay */}
-                    {!isProfileComplete && (
-                        <div className="absolute inset-0 z-20 flex items-center justify-center">
-                            <div className="bg-white/80 backdrop-blur-md p-6 rounded-full shadow-2xl border border-gray-200 flex items-center gap-3">
-                                <Lock size={24} className="text-gray-400" />
-                                <span className="font-bold text-gray-500">Dashboard Locked</span>
-                            </div>
-                        </div>
-                    )}
+                {/* Dashboard Content — always accessible */}
+                <div>
 
                     {/* Header: KPIs */}
                     <header className="mb-10">
                         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-8">
                             <div className="max-w-xl">
-                                <h1 className="text-4xl font-extrabold text-[#111827] mb-2 tracking-tight">Dashboard Overview</h1>
+                                <h1 className="text-4xl font-extrabold text-[#111827] mb-2 tracking-tight">
+                                    {user ? `Welcome back, ${user.fullName.split(' ')[0]}` : 'Dashboard Overview'}
+                                </h1>
                                 <p className="text-gray-500 font-medium leading-relaxed">Track your growth and job applications.</p>
                             </div>
                             <div className="flex gap-4 shrink-0">
@@ -225,20 +193,6 @@ export default function StudentDashboard() {
                     </div>
                 </div>
             </div>
-
-            {showConfetti && (
-                <div className="fixed top-10 left-1/2 -translate-x-1/2 z-[100] pointer-events-none">
-                    <motion.div
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0 }}
-                        className="bg-white text-gray-900 px-8 py-4 rounded-full font-bold shadow-2xl flex items-center gap-3 border border-gray-200"
-                    >
-                        <Trophy className="text-yellow-500 fill-yellow-500" />
-                        Dashboard Unlocked! Welcome aboard.
-                    </motion.div>
-                </div>
-            )}
         </div>
     );
 }

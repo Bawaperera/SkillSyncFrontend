@@ -1,19 +1,171 @@
+// ============================================================
+// User & Authentication Types — Production-Ready
+// ============================================================
+
 export type UserRole = 'student' | 'recruiter' | 'university'
 
+// Onboarding step completion tracking
+export interface OnboardingStatus {
+  cvUploaded: boolean
+  githubConnected: boolean
+  linkedinConnected: boolean
+  targetRoleSelected: boolean
+  onboardingCompleted: boolean // true after finishing or skipping all steps
+}
+
+// Core user record returned by API
 export interface User {
   id: string
-  name: string
+  fullName: string
   email: string
   role: UserRole
   avatar?: string
-  githubConnected?: boolean
+
+  // Account status
+  emailVerified: boolean
+  createdAt: string
+  updatedAt: string
+
+  // Student-specific fields
+  university?: string
+  programme?: string
+  graduationYear?: number
+
+  // Onboarding / profile status
+  onboarding: OnboardingStatus
+  profileCompletion: number // 0-100
+
+  // Connected services
   githubUsername?: string
+  linkedinId?: string
+
+  // Preferences
+  targetRole?: string
+
+  // CV
+  cvId?: string
+  cvFileName?: string
+
+  // Recruiter-specific
   companyId?: string
+  companyName?: string
+
+  // University-specific
   universityId?: string
 }
 
+// Auth state for context provider
 export interface AuthState {
   user: User | null
+  token: string | null
   isLoading: boolean
   isAuthenticated: boolean
+}
+
+// ============================================================
+// API Request / Response Types
+// ============================================================
+
+// Sign Up
+export interface SignUpRequest {
+  fullName: string
+  email: string
+  password: string
+  role: UserRole
+  university?: string
+  programme?: string
+  graduationYear?: number
+  termsAccepted: boolean
+}
+
+export interface SignUpResponse {
+  success: boolean
+  message: string
+  userId: string
+  email: string
+  verificationEmailSent: boolean
+}
+
+// Sign In
+export interface SignInRequest {
+  email: string
+  password: string
+  rememberMe: boolean
+}
+
+export interface SignInResponse {
+  success: boolean
+  token: string
+  user: User
+  redirect: string
+}
+
+// Email Verification
+export interface VerifyEmailResponse {
+  success: boolean
+  message: string
+  user?: User
+  token?: string
+}
+
+// Password Reset
+export interface ForgotPasswordRequest {
+  email: string
+}
+
+export interface ForgotPasswordResponse {
+  success: boolean
+  message: string
+}
+
+export interface ResetPasswordRequest {
+  token: string
+  newPassword: string
+}
+
+export interface ResetPasswordResponse {
+  success: boolean
+  message: string
+}
+
+// Onboarding
+export interface CVUploadResponse {
+  success: boolean
+  cvId: string
+  fileName: string
+  extractedData: {
+    skills: string[]
+    experience: { title: string; company: string; duration: string }[]
+    education: { degree: string; institution: string }[]
+    projects: { name: string; description: string }[]
+  }
+}
+
+export interface GitHubConnectResponse {
+  success: boolean
+  githubUsername: string
+  reposCount: number
+  commitsLast6Months: number
+  detectedSkills: { skill: string; confidence: number }[]
+}
+
+export interface LinkedInConnectResponse {
+  success: boolean
+  linkedinId: string
+  importedData: {
+    experience: { title: string; company: string; duration: string }[]
+    certifications: string[]
+  }
+}
+
+export interface SelectTargetRoleRequest {
+  role: string
+}
+
+// API Error
+export interface ApiError {
+  success: false
+  error: string
+  code: number
+  details?: Record<string, string>
 }

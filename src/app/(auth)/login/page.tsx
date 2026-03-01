@@ -4,20 +4,24 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { Mail, Lock, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Mail, Lock, CheckCircle2, AlertCircle } from "lucide-react";
 import Link from "next/link";
 
 import { AuthSplitLayout } from "@/components/auth/AuthSplitLayout";
 import { AuthInput } from "@/components/auth/AuthInput";
+import { AuthCheckbox } from "@/components/auth/AuthCheckbox";
 import { RoleTabs, UserRole } from "@/components/auth/RoleTabs";
 import { SocialLogin } from "@/components/auth/SocialLogin";
 import { GlassButton } from "@/components/ui/GlassButton";
+import { useAuth } from "@/lib/auth/AuthContext";
+import { needsOnboarding, getAuthRedirect } from "@/lib/auth/auth-helpers";
 
 const loginSchema = z.object({
     email: z.string().email("Please enter a valid email address"),
     password: z.string().min(1, "Password is required"),
+    rememberMe: z.boolean().optional(),
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
@@ -25,7 +29,9 @@ type LoginFormData = z.infer<typeof loginSchema>;
 export default function LoginPage() {
     const [activeRole, setActiveRole] = useState<UserRole>("student");
     const [isLoading, setIsLoading] = useState(false);
+    const [apiError, setApiError] = useState<string | null>(null);
     const router = useRouter();
+    const { signIn } = useAuth();
 
     const {
         register,
@@ -33,15 +39,40 @@ export default function LoginPage() {
         formState: { errors },
     } = useForm<LoginFormData>({
         resolver: zodResolver(loginSchema),
+        defaultValues: { rememberMe: false },
     });
 
     const onSubmit = async (data: LoginFormData) => {
         setIsLoading(true);
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 1500));
+        setApiError(null);
 
-        // Redirect based on role
-        router.push(`/${activeRole}/dashboard`);
+        try {
+            const response = await signIn({
+                email: data.email,
+                password: data.password,
+                rememberMe: data.rememberMe,
+            });
+
+            // Redirect based on onboarding status
+            const user = response.user;
+            if (needsOnboarding(user)) {
+                router.push("/onboarding");
+            } else {
+                router.push(getAuthRedirect(user));
+            }
+        } catch (error: unknown) {
+            // Handle API error objects or standard Error instances
+            let message = "Invalid email or password. Please try again.";
+            if (error instanceof Error) {
+                message = error.message;
+            } else if (typeof error === 'object' && error !== null && 'error' in error) {
+                message = (error as { error: string }).error;
+            }
+
+            setApiError(message);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     // Dynamic Marketing Content for Left Panel
@@ -65,7 +96,7 @@ export default function LoginPage() {
                             </div>
                         </div>
                         <p className="text-lg text-gray-300 italic mb-4">
-                            "I skipped 3 rounds of technical interviews because my SkillSync profile proved I could actually code."
+                            &quot;I skipped 3 rounds of technical interviews because my SkillSync profile proved I could actually code.&quot;
                         </p>
                         <p className="font-bold text-white">— Sarah J., Hired at Virtusa</p>
                     </div>
@@ -83,7 +114,7 @@ export default function LoginPage() {
                             </div>
                         </div>
                         <p className="text-lg text-gray-300 italic mb-4">
-                            "We stopped filtering CVs manually. The AI matches are 90% accurate to our job descriptions."
+                            &quot;We stopped filtering CVs manually. The AI matches are 90% accurate to our job descriptions.&quot;
                         </p>
                         <p className="font-bold text-white">— James L., Tech Lead @ Sysco</p>
                     </div>
@@ -101,7 +132,7 @@ export default function LoginPage() {
                             </div>
                         </div>
                         <p className="text-lg text-gray-300 italic mb-4">
-                            "SkillSync showed us exactly where our syllabus was lagging behind industry trends. We updated it in weeks."
+                            &quot;SkillSync showed us exactly where our syllabus was lagging behind industry trends. We updated it in weeks.&quot;
                         </p>
                         <p className="font-bold text-white">— Dr. Perera, Dean of Computing</p>
                     </div>
@@ -120,6 +151,20 @@ export default function LoginPage() {
             </div>
 
             <RoleTabs activeRole={activeRole} onRoleChange={(role) => setActiveRole(role)} />
+
+            {/* API Error Banner */}
+            {apiError && (
+                <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex items-start gap-3 p-4 bg-red-50 border border-red-200 rounded-xl"
+                >
+                    <AlertCircle size={20} className="text-red-500 shrink-0 mt-0.5" />
+                    <div className="text-sm text-red-700">
+                        <p>{apiError}</p>
+                    </div>
+                </motion.div>
+            )}
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 <AuthInput
@@ -146,8 +191,12 @@ export default function LoginPage() {
                         labelClassName="text-gray-700 font-medium"
                         inputClassName="h-11 py-2.5 bg-gray-50 !border-2 !border-gray-300 !text-gray-900 shadow-sm focus:bg-white focus:!border-blue-500 placeholder:text-gray-400"
                     />
-                    <div className="flex justify-end">
-                        <Link href="#" className="text-sm text-blue-600 hover:text-blue-500 transition-colors font-medium">
+                    <div className="flex items-center justify-between">
+                        <AuthCheckbox
+                            label="Remember me"
+                            register={register("rememberMe")}
+                        />
+                        <Link href="/forgot-password" className="text-sm text-blue-600 hover:text-blue-500 transition-colors font-medium">
                             Forgot password?
                         </Link>
                     </div>
@@ -179,7 +228,7 @@ export default function LoginPage() {
             )}
 
             <div className="text-center text-sm text-gray-500 mt-8">
-                Don't have an account?{" "}
+                Don&apos;t have an account?{" "}
                 <Link href={activeRole === "university" ? "/contact-university" : `/register/${activeRole}`} className="text-blue-600 hover:text-blue-700 hover:underline font-bold">
                     {activeRole === "university" ? "Request Access" : "Sign up"}
                 </Link>
