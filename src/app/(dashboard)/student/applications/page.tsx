@@ -2,75 +2,19 @@
 
 import { ApplicationStats } from "@/components/student/applications/ApplicationStats";
 import { ApplicationCard } from "@/components/student/applications/ApplicationCard";
-import { Application } from "@/types/applications";
 import { useState } from "react";
-
-// Mock Data
-const APPLICATIONS: Application[] = [
-    {
-        id: "1",
-        jobId: "j1",
-        jobTitle: "Senior Full-Stack Developer",
-        company: "TechCorp LK",
-        location: "Colombo (Hybrid)",
-        appliedDate: "15 Jan 2024",
-        status: "Interview",
-        matchScore: 92,
-        steps: [
-            { label: "Applied", status: "completed", date: "Jan 15" },
-            { label: "Screening", status: "completed", date: "Jan 20" },
-            { label: "Interview", status: "current", date: "Jan 25" },
-            { label: "Offer", status: "pending" },
-        ],
-        nextAction: {
-            type: "interview",
-            date: "Jan 25, 2024 @ 10:00 AM",
-            link: "https://meet.google.com/abc-defg-hij",
-        },
-    },
-    {
-        id: "2",
-        jobId: "j2",
-        jobTitle: "Frontend Engineer",
-        company: "StartupXYZ",
-        location: "Remote",
-        appliedDate: "10 Jan 2024",
-        status: "Screening",
-        matchScore: 85,
-        steps: [
-            { label: "Applied", status: "completed", date: "Jan 10" },
-            { label: "Screening", status: "current", date: "Jan 12" },
-            { label: "Interview", status: "pending" },
-            { label: "Offer", status: "pending" },
-        ],
-    },
-    {
-        id: "3",
-        jobId: "j3",
-        jobTitle: "Backend Developer",
-        company: "Enterprise Solutions",
-        location: "Kandy",
-        appliedDate: "05 Jan 2024",
-        status: "Rejected",
-        matchScore: 60,
-        steps: [
-            { label: "Applied", status: "completed", date: "Jan 05" },
-            { label: "Screening", status: "completed", date: "Jan 08" },
-            { label: "Rejected", status: "current", date: "Jan 09" },
-        ],
-        feedback: {
-            reason: "Experience Mismatch",
-            gap: "Java (3+ years)",
-        },
-    },
-];
+import { useApi } from "@/lib/hooks/useApi";
+import { getApplications } from "@/lib/api/student-api";
 
 const TABS = ["All Applications", "Active", "Interview", "Archived"];
 
 export default function ApplicationsPage() {
     const [activeTab, setActiveTab] = useState("All Applications");
+    const { data, loading, error } = useApi(() => getApplications(), []);
 
-    const filteredApps = APPLICATIONS.filter(app => {
+    const applications = data?.applications ?? [];
+
+    const filteredApps = applications.filter(app => {
         if (activeTab === "All Applications") return true;
         if (activeTab === "Active") return ["Applied", "Screening", "Interview"].includes(app.status);
         if (activeTab === "Interview") return app.status === "Interview";
@@ -109,6 +53,8 @@ export default function ApplicationsPage() {
 
                 {/* List */}
                 <div className="space-y-6">
+                    {loading && <div className="text-center py-12 text-gray-500">Loading applications...</div>}
+                    {error && <div className="text-center py-12 text-red-500">Failed to load applications.</div>}
                     {filteredApps.map(app => (
                         <ApplicationCard key={app.id} app={app} />
                     ))}

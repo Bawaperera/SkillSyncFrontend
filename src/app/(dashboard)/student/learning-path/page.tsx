@@ -4,83 +4,33 @@ import { CareerVelocityHeader } from "@/components/student/learning-path/CareerV
 import { TimelineNode } from "@/components/student/learning-path/TimelineNode";
 import { CourseCard } from "@/components/student/learning-path/CourseCard";
 import { CapstoneCard } from "@/components/student/learning-path/CapstoneCard";
-import { LearningNode, LearningPath } from "@/types/learning-path";
 import { ExternalLink, BookOpen, MonitorPlay } from "lucide-react";
-
-// Mock Data
-const MOCK_NODES: LearningNode[] = [
-    {
-        id: "1",
-        title: "Docker Fundamentals",
-        provider: "SkillSync Academy",
-        duration: "4 Hours",
-        status: "completed",
-        type: "course",
-        matchBoost: 5,
-        resources: [
-            { label: "Cheat Sheet", url: "#", type: "documentation" }
-        ]
-    },
-    {
-        id: "2",
-        title: "Kubernetes Orchestration",
-        provider: "Udemy",
-        duration: "12 Hours",
-        status: "in-progress",
-        progress: 45,
-        type: "course",
-        matchBoost: 8,
-        resources: [
-            { label: "K8s Documentation", url: "https://kubernetes.io/docs/home/", type: "documentation" },
-            { label: "Interactive Tutorial", url: "#", type: "article" }
-        ]
-    },
-    {
-        id: "3",
-        title: "Build a Microservice API",
-        provider: "Project",
-        duration: "2 Days",
-        status: "active", // Using 'active' for Capstone status logic reuse
-        type: "project",
-        matchBoost: 15,
-    } as any, // Cast for CapstoneCard usage
-    {
-        id: "4",
-        title: "AWS Cloud Deployment",
-        provider: "AWS Certified",
-        duration: "8 Hours",
-        status: "locked",
-        type: "course",
-        matchBoost: 10,
-        prerequisites: ["Kubernetes Orchestration"],
-    }
-];
-
-const MOCK_PATH: LearningPath = {
-    id: "path-1",
-    jobGoal: "Full-Stack Developer",
-    companyTarget: "Tech Innovations Ltd",
-    progress: 35,
-    totalCourses: 10,
-    completedCourses: 1, // Only 1 completed in nodes list for demo
-    nodes: MOCK_NODES
-};
+import { useApi } from "@/lib/hooks/useApi";
+import { getLearningPaths } from "@/lib/api/student-api";
 
 export default function LearningPathPage() {
+    const { data: paths, loading, error } = useApi(() => getLearningPaths(), []);
+
+    const path = paths?.[0];
+    const nodes = path?.nodes ?? [];
+
+    if (loading) return <div className="flex items-center justify-center h-64 text-gray-500">Loading learning path...</div>;
+    if (error || !path) return <div className="flex items-center justify-center h-64 text-red-500">Failed to load learning path.</div>;
+
     return (
         <div className="min-h-screen pb-20 bg-[#F5F7FA]">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <CareerVelocityHeader
-                    jobGoal={MOCK_PATH.jobGoal}
-                    progress={MOCK_PATH.progress}
-                    totalCourses={MOCK_PATH.totalCourses}
-                    completedCourses={MOCK_PATH.completedCourses}
-                    companyTarget={MOCK_PATH.companyTarget}
+                    jobGoal={path.jobGoal}
+                    progress={path.progress}
+                    totalCourses={path.totalCourses}
+                    completedCourses={path.completedCourses}
+                    companyTarget={path.companyTarget}
                 />
 
                 <div className="relative">
-                    {MOCK_NODES.map((node, index) => {
-                        const isLast = index === MOCK_NODES.length - 1;
+                    {nodes.map((node, index) => {
+                        const isLast = index === nodes.length - 1;
                         return (
                             <div key={node.id} className="flex">
                                 <div className="shrink-0">

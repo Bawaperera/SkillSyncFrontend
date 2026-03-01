@@ -14,10 +14,13 @@ import Link from "next/link";
 import { SkillGrowthChart } from "@/components/student/dashboard/SkillGrowthChart";
 import { ProfileCompletenessBanner } from "@/components/student/dashboard/ProfileCompletenessBanner";
 import { useAuth } from "@/lib/auth/AuthContext";
+import { useApi } from "@/lib/hooks/useApi";
+import { getStudentDashboard } from "@/lib/api/student-api";
 
 
 export default function StudentDashboard() {
     const { user } = useAuth();
+    const { data: dashboard, loading } = useApi(() => getStudentDashboard(), []);
 
     return (
         <div className="relative min-h-screen text-gray-900 overflow-x-hidden bg-[#F5F7FA]">
@@ -60,7 +63,7 @@ export default function StudentDashboard() {
                                         +12%
                                     </span>
                                 </div>
-                                <h3 className="text-4xl font-extrabold text-white mb-1 tracking-tight">78</h3>
+                                <h3 className="text-4xl font-extrabold text-white mb-1 tracking-tight">{dashboard?.matchScore ?? "—"}</h3>
                                 <p className="text-sm font-bold text-blue-100">Skill Score</p>
                             </GlassCard>
 
@@ -74,7 +77,7 @@ export default function StudentDashboard() {
                                         Critical
                                     </span>
                                 </div>
-                                <h3 className="text-4xl font-bold text-gray-900 mb-1 tracking-tight">3</h3>
+                                <h3 className="text-4xl font-bold text-gray-900 mb-1 tracking-tight">{"—"}</h3>
                                 <p className="text-sm font-medium text-gray-500">Skills to Improve</p>
                             </GlassCard>
 
@@ -88,7 +91,7 @@ export default function StudentDashboard() {
                                         Pending
                                     </span>
                                 </div>
-                                <h3 className="text-4xl font-bold text-gray-900 mb-1 tracking-tight">12</h3>
+                                <h3 className="text-4xl font-bold text-gray-900 mb-1 tracking-tight">{dashboard?.appliedCount ?? "—"}</h3>
                                 <p className="text-sm font-medium text-gray-500">Active Applications</p>
                             </GlassCard>
 
@@ -102,7 +105,7 @@ export default function StudentDashboard() {
                                         This Week
                                     </span>
                                 </div>
-                                <h3 className="text-4xl font-bold text-gray-900 mb-1 tracking-tight">3</h3>
+                                <h3 className="text-4xl font-bold text-gray-900 mb-1 tracking-tight">{dashboard?.interviewCount ?? "—"}</h3>
                                 <p className="text-sm font-medium text-gray-500">Upcoming Interviews</p>
                             </GlassCard>
                         </div>

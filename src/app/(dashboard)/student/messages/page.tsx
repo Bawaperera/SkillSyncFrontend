@@ -6,67 +6,41 @@ import { JobContextBar } from "@/components/student/messages/JobContextBar";
 import { MessageBubble } from "@/components/student/messages/MessageBubble";
 import { SmartReply } from "@/components/student/messages/SmartReply";
 import { SafetyWarning } from "@/components/student/messages/SafetyWarning";
-import { Conversation, Message } from "@/types/messages";
+import { Message } from "@/types/messages";
 import { Send, Paperclip, Smile } from "lucide-react";
-import { GlassCard } from "@/components/ui/GlassCard";
-
-// Mock Data
-const MOCK_CONVERSATIONS: Conversation[] = [
-    {
-        id: "1",
-        recruiterId: "r1",
-        recruiterName: "Sarah Jenkins",
-        jobContext: {
-            id: "j1",
-            title: "Full-Stack Developer",
-            company: "Tech Innovations Ltd",
-            status: "Interview Scheduled"
-        },
-        unreadCount: 1,
-        lastMessageAt: new Date().toISOString(),
-        messages: [
-            { id: "m1", text: "Application Viewed", sender: "system", type: "system_event", timestamp: new Date(Date.now() - 86400000 * 2).toISOString(), isRead: true },
-            { id: "m2", text: "Hi Bawantha, thanks for applying. Your GitHub profile is impressive.", sender: "recruiter", type: "text", timestamp: new Date(Date.now() - 86400000).toISOString(), isRead: true },
-            { id: "m3", text: "Are you free for a quick call tomorrow at 10 AM?", sender: "recruiter", type: "text", timestamp: new Date().toISOString(), isRead: false },
-        ]
-    },
-    {
-        id: "2",
-        recruiterId: "r2",
-        recruiterName: "Mike Donovan",
-        jobContext: {
-            id: "j2",
-            title: "Frontend Engineer",
-            company: "Virtusa",
-            status: "Applied"
-        },
-        unreadCount: 0,
-        lastMessageAt: new Date(Date.now() - 86400000 * 5).toISOString(),
-        messages: [
-            { id: "m5", text: "Application Submitted", sender: "system", type: "system_event", timestamp: new Date(Date.now() - 86400000 * 5).toISOString(), isRead: true },
-        ]
-    }
-];
+import { useApi } from "@/lib/hooks/useApi";
+import { getConversations, sendMessage as sendMessageApi } from "@/lib/api/student-api";
 
 export default function MessagesPage() {
-    const [activeId, setActiveId] = useState<string>(MOCK_CONVERSATIONS[0].id);
+    const { data: conversations, loading, error } = useApi(() => getConversations(), []);
+    const [activeId, setActiveId] = useState<string>("");
     const [inputText, setInputText] = useState("");
 
-    const activeConversation = MOCK_CONVERSATIONS.find(c => c.id === activeId) || MOCK_CONVERSATIONS[0];
+    const convoList = conversations ?? [];
+    const effectiveActiveId = activeId || convoList[0]?.id || "";
+    const activeConversation = convoList.find(c => c.id === effectiveActiveId) || convoList[0];
 
-    const handleSend = () => {
-        if (!inputText.trim()) return;
-        // Mock send logic would go here
-        setInputText("");
+    const handleSend = async () => {
+        if (!inputText.trim() || !activeConversation) return;
+        try {
+            await sendMessageApi(activeConversation.id, inputText.trim());
+            setInputText("");
+        } catch {
+            // Handle error silently for now
+        }
     };
+
+    if (loading) return <div className="flex items-center justify-center h-[calc(100vh-80px)] text-gray-500">Loading messages...</div>;
+    if (error) return <div className="flex items-center justify-center h-[calc(100vh-80px)] text-red-500">Failed to load messages.</div>;
+    if (!activeConversation) return <div className="flex items-center justify-center h-[calc(100vh-80px)] text-gray-400">No conversations yet.</div>;
 
     return (
         <div className="h-[calc(100vh-80px)] overflow-hidden bg-gray-50 flex">
             {/* Sidebar - Chat List */}
             <div className="w-full md:w-[320px] lg:w-[380px] h-full shrink-0 border-r border-gray-200 hidden md:block bg-white">
                 <ChatList
-                    conversations={MOCK_CONVERSATIONS}
-                    activeId={activeId}
+                    conversations={convoList}
+                    activeId={effectiveActiveId}
                     onSelect={setActiveId}
                 />
             </div>

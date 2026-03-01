@@ -7,11 +7,14 @@ import { ConnectionCard } from "@/components/student/settings/ConnectionCard";
 import { DangerZone } from "@/components/student/settings/DangerZone";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { ChevronLeft, User, Github, Linkedin, ShieldCheck, Download } from "lucide-react";
+import { useAuth } from "@/lib/auth/AuthContext";
+import { useApi } from "@/lib/hooks/useApi";
+import { getStudentSettings, updateStudentSettings } from "@/lib/api/student-api";
 
 export default function SettingsPage() {
+    const { user } = useAuth();
     const [activeTab, setActiveTab] = useState("account");
 
-    // Mock State
     const [notifications, setNotifications] = useState({
         emailDigest: true,
         inApp: true,
@@ -45,11 +48,11 @@ export default function SettingsPage() {
                                 {/* Profile Header */}
                                 <div className="flex items-center gap-4 mb-8">
                                     <div className="w-20 h-20 rounded-full bg-blue-600 flex items-center justify-center text-2xl font-bold text-white border-4 border-white shadow-xl">
-                                        B
+                                        {user?.fullName?.charAt(0) ?? "?"}
                                     </div>
                                     <div>
-                                        <h2 className="text-xl font-bold text-gray-900">Bawantha Perera</h2>
-                                        <p className="text-sm text-gray-500">bawantha@uoc.edu</p>
+                                        <h2 className="text-xl font-bold text-gray-900">{user?.fullName ?? "—"}</h2>
+                                        <p className="text-sm text-gray-500">{user?.email ?? "—"}</p>
                                         <button className="text-xs text-blue-600 font-medium mt-1 hover:text-blue-700">
                                             Change Profile Photo
                                         </button>
@@ -79,11 +82,11 @@ export default function SettingsPage() {
                                     <div className="grid md:grid-cols-2 gap-4">
                                         <div>
                                             <label className="text-xs font-bold text-gray-500 uppercase mb-1 block">Full Name</label>
-                                            <input type="text" defaultValue="Bawantha Perera" className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all" />
+                                            <input type="text" defaultValue={user?.fullName ?? ""} className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all" />
                                         </div>
                                         <div>
                                             <label className="text-xs font-bold text-gray-500 uppercase mb-1 block">Email</label>
-                                            <input type="email" defaultValue="bawantha@uoc.edu" className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all" />
+                                            <input type="email" defaultValue={user?.email ?? ""} className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all" />
                                         </div>
                                     </div>
                                     <div className="flex justify-end">

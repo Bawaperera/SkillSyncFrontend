@@ -3,18 +3,17 @@
 import { AnalysisHeader } from "@/components/student/analysis/AnalysisHeader";
 import { SkillRadar } from "@/components/student/analysis/SkillRadar";
 import { AnalysisTabs } from "@/components/student/analysis/AnalysisTabs";
-import { SkillData } from "@/types/analysis";
-
-// Mock Data for Radar Chart
-const SKILL_DATA: SkillData[] = [
-    { subject: 'Frontend', A: 90, B: 85, fullMark: 100 }, // You are stronger
-    { subject: 'Backend', A: 75, B: 85, fullMark: 100 },  // Gap
-    { subject: 'DevOps', A: 30, B: 80, fullMark: 100 },   // Critical Gap
-    { subject: 'Database', A: 65, B: 70, fullMark: 100 }, // Small Gap
-    { subject: 'Soft Skills', A: 80, B: 60, fullMark: 100 }, // You are stronger
-];
+import { useApi } from "@/lib/hooks/useApi";
+import { getAnalysisOverview } from "@/lib/api/student-api";
 
 export default function AnalysisPage() {
+    const { data, loading, error } = useApi(() => getAnalysisOverview(), []);
+
+    if (loading) return <div className="flex items-center justify-center h-64 text-gray-500">Loading analysis...</div>;
+    if (error) return <div className="flex items-center justify-center h-64 text-red-500">Failed to load analysis.</div>;
+
+    const radarData = data?.radarData ?? [];
+
     return (
         <div className="min-h-screen bg-[#F5F7FA] pb-20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
@@ -25,7 +24,7 @@ export default function AnalysisPage() {
                     <div className="lg:col-span-5 space-y-6">
                         <div>
                             <h2 className="text-lg font-bold text-gray-900 mb-4 pl-1">Visual Gap Analysis</h2>
-                            <SkillRadar data={SKILL_DATA} />
+                            <SkillRadar data={radarData} />
                         </div>
 
                         <div className="p-5 rounded-xl bg-blue-50 border border-blue-100">
