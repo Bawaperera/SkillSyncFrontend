@@ -50,7 +50,7 @@ export default function LoginPage() {
             const response = await signIn({
                 email: data.email,
                 password: data.password,
-                rememberMe: data.rememberMe,
+                rememberMe: data.rememberMe ?? false,
             });
 
             // Redirect based on onboarding status
