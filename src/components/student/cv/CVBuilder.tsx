@@ -1,44 +1,32 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CVProfile, CVTemplate } from "@/types/cv";
 import { TemplateSelector } from "./TemplateSelector";
 import { LiveCVPreview } from "./LiveCVPreview";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Sparkles, Save, Download } from "lucide-react";
+import { useApi } from "@/lib/hooks/useApi";
+import { getCVProfile } from "@/lib/api/student-api";
 
-const INITIAL_PROFILE: CVProfile = {
-    fullName: "Bawantha Perera",
-    title: "Full Stack Developer",
-    summary: "Passionate Full-Stack Developer with a strong foundation in React and Node.js. Experienced in building scalable web applications and optimizing user experiences.",
-    contact: {
-        email: "bawantha@example.com",
-        phone: "+94 77 123 4567",
-        location: "Colombo, Sri Lanka",
-        linkedin: "linkedin.com/in/bawantha",
-        github: "github.com/bawantha",
-        website: "bawantha.dev",
-    },
-    experience: [
-        {
-            id: "exp1",
-            role: "Software Engineering Intern",
-            company: "Tech Solutions Ltd",
-            duration: "Jan 2024 - Present",
-            description: "Developed responsive UI components using React.js. Collaborated with backend team to integrate RESTful APIs.",
-            bullets: [],
-        }
-    ],
+const EMPTY_PROFILE: CVProfile = {
+    fullName: "",
+    title: "",
+    summary: "",
+    contact: { email: "", phone: "", location: "", linkedin: "", github: "", website: "" },
+    experience: [],
     education: [],
-    skills: [
-        { category: "Frontend", items: ["React", "TypeScript", "Tailwind CSS"] },
-        { category: "Backend", items: ["Node.js", "Express", "MongoDB"] }
-    ],
+    skills: [],
     projects: []
 };
 
 export function CVBuilder() {
-    const [profile, setProfile] = useState<CVProfile>(INITIAL_PROFILE);
+    const { data: savedProfile } = useApi<CVProfile>(() => getCVProfile());
+    const [profile, setProfile] = useState<CVProfile>(EMPTY_PROFILE);
+
+    useEffect(() => {
+        if (savedProfile) setProfile(savedProfile);
+    }, [savedProfile]);
     const [template, setTemplate] = useState<CVTemplate>("minimalist");
     const [activeSection, setActiveSection] = useState("experience");
 

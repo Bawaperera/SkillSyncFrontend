@@ -93,7 +93,7 @@ export default function CurriculumGapAnalysisPage() {
     }, [SKILLS_DATA, selectedCategory, selectedSeverity]);
 
     // Summary calculations (based on filtered data)
-    const totalAnalyzed = 42; // mock total
+    const totalAnalyzed = curriculumData?.stats?.totalAnalyzed ?? SKILLS_DATA.length;
     const critical = filteredSkills.filter(s => getSeverity(getGap(s)) === "critical").length;
     const moderate = filteredSkills.filter(s => getSeverity(getGap(s)) === "moderate").length;
     const good = filteredSkills.filter(s => getSeverity(getGap(s)) === "good").length;

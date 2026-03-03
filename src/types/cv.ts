@@ -54,6 +54,7 @@ export interface CVAnalysis {
     score: number;
     atsCompatibility: "High" | "Medium" | "Low";
     criticalIssues: string[];
+    foundKeywords: string[];
     missingKeywords: string[];
     formattingScore: number;
 }

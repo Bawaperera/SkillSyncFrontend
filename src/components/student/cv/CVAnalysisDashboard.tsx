@@ -4,21 +4,9 @@ import { useState } from "react";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { ScoreGauge } from "./ScoreGauge";
 import { AlertTriangle, CheckCircle2, XCircle, Sparkles, Download } from "lucide-react";
-import { motion } from "framer-motion";
-
-// Mock analysis data
-const MOCK_ANALYSIS = {
-    score: 72,
-    atsCompatibility: "Medium",
-    criticalIssues: [
-        "Missing 'GitHub Link' in contact info",
-        "Layout is not mobile-friendly (columns too narrow)",
-        "3 Spelling errors detected"
-    ],
-    missingKeywords: ["Docker", "AWS", "CI/CD", "TypeScript"],
-    foundKeywords: ["React", "Node.js", "SQL", "Tailwind CSS"],
-    formattingScore: 65,
-};
+import { CVAnalysis } from "@/types/cv";
+import { useApi } from "@/lib/hooks/useApi";
+import { getCVAnalysis } from "@/lib/api/student-api";
 
 interface CVAnalysisDashboardProps {
     file: File;
@@ -27,6 +15,12 @@ interface CVAnalysisDashboardProps {
 
 export function CVAnalysisDashboard({ file, onReset }: CVAnalysisDashboardProps) {
     const [isFixing, setIsFixing] = useState(false);
+    const { data: analysis } = useApi<CVAnalysis>(() => getCVAnalysis());
+
+    const score = analysis?.score ?? 0;
+    const criticalIssues = analysis?.criticalIssues ?? [];
+    const foundKeywords = analysis?.foundKeywords ?? [];
+    const missingKeywords = analysis?.missingKeywords ?? [];
 
     const handleAutoFix = () => {
         setIsFixing(true);
@@ -61,7 +55,7 @@ export function CVAnalysisDashboard({ file, onReset }: CVAnalysisDashboardProps)
                         <h3 className="text-lg font-bold text-gray-900 mb-1">ATS Compatibility Score</h3>
                         <p className="text-sm text-gray-500">Based on industry standards</p>
                     </div>
-                    <ScoreGauge score={MOCK_ANALYSIS.score} />
+                    <ScoreGauge score={score} />
                 </GlassCard>
 
                 {/* Critical Issues */}
@@ -71,7 +65,7 @@ export function CVAnalysisDashboard({ file, onReset }: CVAnalysisDashboardProps)
                         <h3 className="font-bold text-gray-900">Critical Issues Found</h3>
                     </div>
                     <ul className="space-y-3">
-                        {MOCK_ANALYSIS.criticalIssues.map((issue, i) => (
+                        {criticalIssues.map((issue, i) => (
                             <li key={i} className="flex items-start gap-3 text-sm text-gray-600">
                                 <span className="w-1.5 h-1.5 mt-1.5 rounded-full bg-orange-500 shrink-0" />
                                 {issue}
@@ -105,7 +99,7 @@ export function CVAnalysisDashboard({ file, onReset }: CVAnalysisDashboardProps)
                                 <span className="text-xs font-bold uppercase tracking-wider text-green-600">Found Keywords</span>
                             </div>
                             <div className="flex flex-wrap gap-2">
-                                {MOCK_ANALYSIS.foundKeywords.map(k => (
+                                {foundKeywords.map(k => (
                                     <span key={k} className="px-2 py-1 rounded bg-green-50 border border-green-100 text-xs text-green-700 font-medium">
                                         {k}
                                     </span>
@@ -119,7 +113,7 @@ export function CVAnalysisDashboard({ file, onReset }: CVAnalysisDashboardProps)
                                 <span className="text-xs font-bold uppercase tracking-wider text-red-600">Missing Keywords</span>
                             </div>
                             <div className="flex flex-wrap gap-2">
-                                {MOCK_ANALYSIS.missingKeywords.map(k => (
+                                {missingKeywords.map(k => (
                                     <span key={k} className="px-2 py-1 rounded bg-red-50 border border-red-100 text-xs text-red-700 font-medium">
                                         {k}
                                     </span>

@@ -7,24 +7,19 @@ import { TrustBadge } from "@/components/student/profile/TrustBadge";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { SkillGap, JobMatch } from "@/types/analysis";
 import { ArrowRight, PlayCircle, BookOpen } from "lucide-react";
+import { useApi } from "@/lib/hooks/useApi";
+import { getSkillGaps, getJobMatches } from "@/lib/api/student-api";
 
 const TABS = ["Overview", "Skill Gaps", "Job Matches", "Recommendations"];
-
-// Mock Data
-const CRITICAL_GAPS: SkillGap[] = [
-    { id: "1", name: "Docker & Containers", category: "DevOps", priority: "Critical", impact: "Appears in 78% of your target jobs. Mastery ensures you pass the ATS filter.", missingPercent: 40 },
-    { id: "2", name: "AWS Cloud Basics", category: "Cloud", priority: "High", impact: "Increases average salary potential by ~20% for Full-Stack roles.", missingPercent: 35 },
-];
-
-const MATCHED_JOBS: JobMatch[] = [
-    { id: "j1", title: "Junior Full Stack Engineer", company: "TechCorp", matchScore: 85, salary: "LKR 180k", description: "Looking for a developer proficient in React, Node.js, and Cloud basics..." },
-    { id: "j2", title: "React Developer", company: "Creative Solutions", matchScore: 92, salary: "LKR 150k", description: "Join our creative team to build stunning UI experiences..." },
-    { id: "j3", title: "Software Engineer Intern", company: "Cinnamon Digital", matchScore: 78, salary: "LKR 65k", description: "Great opportunity for undergraduates to learn enterprise development..." },
-];
 
 export function AnalysisTabs() {
     const [activeTab, setActiveTab] = useState("Skill Gaps");
     const [selectedJob, setSelectedJob] = useState<JobMatch | null>(null);
+
+    const { data: gapsData } = useApi<SkillGap[]>(() => getSkillGaps());
+    const { data: jobsData } = useApi<JobMatch[]>(() => getJobMatches());
+    const CRITICAL_GAPS = gapsData ?? [];
+    const MATCHED_JOBS = jobsData ?? [];
 
     return (
         <div className="mt-8">

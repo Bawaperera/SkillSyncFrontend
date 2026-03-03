@@ -2,16 +2,16 @@
 
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-const data = [
-    { name: 'Jan', score: 65 },
-    { name: 'Feb', score: 68 },
-    { name: 'Mar', score: 75 },
-    { name: 'Apr', score: 72 },
-    { name: 'May', score: 80 },
-    { name: 'Jun', score: 85 },
-];
+interface SkillGrowthPoint {
+    name: string;
+    score: number;
+}
 
-export function SkillGrowthChart() {
+interface SkillGrowthChartProps {
+    data?: SkillGrowthPoint[];
+}
+
+export function SkillGrowthChart({ data = [] }: SkillGrowthChartProps) {
     return (
         <div className="h-[300px] w-full -ml-2">
             <ResponsiveContainer width="100%" height="100%">
