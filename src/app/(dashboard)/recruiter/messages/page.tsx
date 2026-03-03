@@ -6,119 +6,15 @@ import {
     User, Briefcase, Calendar, FileText, ExternalLink,
     Archive, Clock, Filter,
 } from "lucide-react";
+import { RecruiterConversation, RecruiterMessage, RecruiterFilterTab } from "@/types/recruiter";
+import { useApi } from "@/lib/hooks/useApi";
+import { getRecruiterConversations, sendRecruiterMessage } from "@/lib/api/recruiter-api";
 
-// ─── Types ─────────────────────────────────────────────────────────────────────
+// ─── Local type aliases ────────────────────────────────────────────────────────
 
-type FilterTab = "all" | "unread" | "archived";
-
-interface Message {
-    id: string;
-    sender: "recruiter" | "candidate";
-    text: string;
-    timestamp: string;            // display string
-    timestampMs: number;          // for sorting
-    read: boolean;
-}
-
-interface Conversation {
-    id: string;
-    candidateId: string;
-    candidateName: string;
-    initials: string;
-    avatarColor: string;
-    jobTitle: string;
-    messages: Message[];
-    archived: boolean;
-    lastMessageAt: number;        // ms timestamp
-}
-
-// ─── Mock data ─────────────────────────────────────────────────────────────────
-
-const MOCK_CONVERSATIONS: Conversation[] = [
-    {
-        id: "cv1",
-        candidateId: "c1",
-        candidateName: "Bawantha Perera",
-        initials: "BP",
-        avatarColor: "#2563EB",
-        jobTitle: "Full-Stack Developer",
-        archived: false,
-        lastMessageAt: Date.now() - 1000 * 60 * 40,
-        messages: [
-            {
-                id: "m1", sender: "candidate",
-                text: "Thank you for considering my application. I'm very excited about the opportunity and would love to discuss how my skills in React and Node.js align with what your team is building.",
-                timestamp: "Yesterday, 2:45 PM", timestampMs: Date.now() - 1000 * 60 * 60 * 21, read: true,
-            },
-            {
-                id: "m2", sender: "recruiter",
-                text: "Hi Bawantha, thank you for your interest! We reviewed your profile and we're impressed with your GitHub activity. We'd like to schedule a technical interview. Are you available next week?",
-                timestamp: "Yesterday, 3:12 PM", timestampMs: Date.now() - 1000 * 60 * 60 * 20, read: true,
-            },
-            {
-                id: "m3", sender: "candidate",
-                text: "That's great to hear! I'm available Monday through Wednesday any time after 2 PM. Would any of those days work for you?",
-                timestamp: "Today, 10:23 AM", timestampMs: Date.now() - 1000 * 60 * 40, read: false,
-            },
-        ],
-    },
-    {
-        id: "cv2",
-        candidateId: "c2",
-        candidateName: "Kasun Silva",
-        initials: "KS",
-        avatarColor: "#7C3AED",
-        jobTitle: "Backend Developer",
-        archived: false,
-        lastMessageAt: Date.now() - 1000 * 60 * 60 * 26,
-        messages: [
-            {
-                id: "m4", sender: "recruiter",
-                text: "Hi Kasun, we came across your profile on SkillSync and think you'd be an excellent fit for our Backend Developer opening. Would you be open to a quick chat?",
-                timestamp: "Yesterday, 10:00 AM", timestampMs: Date.now() - 1000 * 60 * 60 * 26, read: true,
-            },
-            {
-                id: "m5", sender: "candidate",
-                text: "Hi Sarah, I'd be happy to learn more about the role. Could you share more details about the tech stack and team size?",
-                timestamp: "Yesterday, 11:30 AM", timestampMs: Date.now() - 1000 * 60 * 60 * 24, read: false,
-            },
-        ],
-    },
-    {
-        id: "cv3",
-        candidateId: "c3",
-        candidateName: "Dilani Wijesinghe",
-        initials: "DW",
-        avatarColor: "#0891B2",
-        jobTitle: "Full-Stack Developer",
-        archived: false,
-        lastMessageAt: Date.now() - 1000 * 60 * 60 * 72,
-        messages: [
-            {
-                id: "m6", sender: "recruiter",
-                text: "Hi Dilani, we'd love to move forward with your application. Are you available for a 30-minute screening call this week?",
-                timestamp: "3 days ago", timestampMs: Date.now() - 1000 * 60 * 60 * 72, read: true,
-            },
-        ],
-    },
-    {
-        id: "cv4",
-        candidateId: "c4",
-        candidateName: "Asanka Fernando",
-        initials: "AF",
-        avatarColor: "#059669",
-        jobTitle: "Data Science Intern",
-        archived: true,
-        lastMessageAt: Date.now() - 1000 * 60 * 60 * 200,
-        messages: [
-            {
-                id: "m7", sender: "recruiter",
-                text: "Thank you for applying, Asanka. After careful consideration we have decided to move forward with other candidates at this time. We'll keep your profile for future openings.",
-                timestamp: "8 days ago", timestampMs: Date.now() - 1000 * 60 * 60 * 200, read: true,
-            },
-        ],
-    },
-];
+type FilterTab = RecruiterFilterTab;
+type Message = RecruiterMessage;
+type Conversation = RecruiterConversation;
 
 // ─── Message templates ─────────────────────────────────────────────────────────
 
@@ -334,8 +230,9 @@ function NewMessageModal({ onClose, candidates }: { onClose: () => void; candida
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function MessagesPage() {
-    const [conversations, setConversations] = useState<Conversation[]>(MOCK_CONVERSATIONS);
-    const [activeId, setActiveId] = useState<string>("cv1");
+    const { data: fetchedConversations, loading, error, refetch } = useApi<Conversation[]>(() => getRecruiterConversations(), []);
+    const [conversations, setConversations] = useState<Conversation[]>([]);
+    const [activeId, setActiveId] = useState<string>("");
     const [filter, setFilter] = useState<FilterTab>("all");
     const [search, setSearch] = useState("");
     const [draft, setDraft] = useState("");
@@ -344,7 +241,14 @@ export default function MessagesPage() {
     const threadRef = useRef<HTMLDivElement>(null);
     const templateRef = useRef<HTMLDivElement>(null);
 
-    const active = conversations.find((c) => c.id === activeId)!;
+    useEffect(() => {
+        if (fetchedConversations) {
+            setConversations(fetchedConversations);
+            if (!activeId && fetchedConversations.length > 0) setActiveId(fetchedConversations[0].id);
+        }
+    }, [fetchedConversations]);
+
+    const active = conversations.find((c) => c.id === activeId);
 
     // Scroll thread to bottom when conversation changes or new message arrives
     useEffect(() => {
@@ -363,6 +267,10 @@ export default function MessagesPage() {
         document.addEventListener("mousedown", handler);
         return () => document.removeEventListener("mousedown", handler);
     }, []);
+
+    // Loading / error guards
+    if (loading) return <div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600" /></div>;
+    if (error) return <div className="text-center py-12 text-red-500">Failed to load messages. <button onClick={refetch} className="underline">Retry</button></div>;
 
     // Mark messages as read when conversation opened
     const openConversation = (id: string) => {
@@ -399,6 +307,7 @@ export default function MessagesPage() {
 
     // Apply template
     const applyTemplate = (tpl: typeof TEMPLATES[0]) => {
+        if (!active) return;
         const text = tpl.text
             .replace("{name}", active.candidateName.split(" ")[0])
             .replace("{role}", active.jobTitle)

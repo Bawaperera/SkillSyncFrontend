@@ -104,7 +104,7 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
                         </span>
                     </div>
                     <span className="text-xs text-blue-500 font-medium hidden md:block">
-                        Add 2 Projects to reach 'All-Star' status
+                        Add 2 Projects to reach &apos;All-Star&apos; status
                     </span>
                 </div>
                 <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
@@ -119,7 +119,7 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
                     />
                 </div>
                 <span className="text-xs text-blue-500 font-medium mt-2 block md:hidden">
-                    Add 2 Projects to reach 'All-Star' status
+                    Add 2 Projects to reach &apos;All-Star&apos; status
                 </span>
             </div>
         </GlassCard>

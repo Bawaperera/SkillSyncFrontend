@@ -53,7 +53,7 @@ export function InterviewPrepModal({ isOpen, onClose, jobTitle, company }: Inter
                                     <div>
                                         <h4 className="text-sm font-bold text-purple-600 uppercase mb-2">Company Culture</h4>
                                         <p className="text-sm text-gray-600 leading-relaxed">
-                                            "We value innovation, ownership, and a growth mindset. We look for engineers who are not afraid to challenge the status quo."
+                                            &quot;We value innovation, ownership, and a growth mindset. We look for engineers who are not afraid to challenge the status quo.&quot;
                                         </p>
                                     </div>
                                 </div>
@@ -86,14 +86,14 @@ export function InterviewPrepModal({ isOpen, onClose, jobTitle, company }: Inter
                                             <MessageCircle size={14} /> Questions to Ask
                                         </h4>
                                         <ul className="space-y-2">
-                                            <li className="text-sm text-gray-700">• "How does the engineering team handle technical debt?"</li>
-                                            <li className="text-sm text-gray-700">• "What does the typical career path look like for this role?"</li>
+                                            <li className="text-sm text-gray-700">• &quot;How does the engineering team handle technical debt?&quot;</li>
+                                            <li className="text-sm text-gray-700">• &quot;What does the typical career path look like for this role?&quot;</li>
                                         </ul>
                                     </GlassCard>
                                 </div>
 
                                 <button className="w-full mt-8 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-lg shadow-blue-500/20 transition-all">
-                                    Got it, I'm Ready!
+                                    Got it, I&apos;m Ready!
                                 </button>
                             </div>
                         </motion.div>

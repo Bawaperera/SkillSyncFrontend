@@ -41,7 +41,7 @@ export function JobDrawer({ job, onClose }: JobDrawerProps) {
 
                             <div className="mt-8">
                                 <div className="w-16 h-16 rounded-xl bg-gray-50 border border-gray-200 flex items-center justify-center mb-4 text-2xl">
-                                    {job.logo ? <img src={job.logo} className="w-full h-full object-cover rounded-xl" /> : "🏢"}
+                                    {job.logo ? <img src={job.logo} alt={job.company} className="w-full h-full object-cover rounded-xl" /> : "🏢"}
                                 </div>
 
                                 <h2 className="text-2xl font-bold text-gray-900 mb-1">{job.title}</h2>
@@ -71,7 +71,7 @@ export function JobDrawer({ job, onClose }: JobDrawerProps) {
                                     </div>
 
                                     <div className="p-4 rounded-xl bg-blue-50 border border-blue-100">
-                                        <h4 className="font-bold text-blue-600 mb-2 text-sm">Why you're a match ({job.matchScore}%)</h4>
+                                        <h4 className="font-bold text-blue-600 mb-2 text-sm">Why you&apos;re a match ({job.matchScore}%)</h4>
                                         <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden mb-2">
                                             <div className="h-full bg-blue-600 w-[85%]" />
                                         </div>

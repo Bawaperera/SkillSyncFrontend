@@ -54,8 +54,8 @@ export function CareerVelocityHeader({ jobGoal, progress, totalCourses, complete
                 </div>
 
                 <p className="text-gray-600 text-sm md:text-base">
-                    "You are <span className="text-gray-900 font-bold">{remainingCourses} courses</span> away from qualifying for
-                    {companyTarget ? ` roles at ${companyTarget} and similar companies` : " 15+ new job opportunities"}."
+                    &quot;You are <span className="text-gray-900 font-bold">{remainingCourses} courses</span> away from qualifying for
+                    {companyTarget ? ` roles at ${companyTarget} and similar companies` : " 15+ new job opportunities"}.&quot;
                 </p>
             </div>
         </GlassCard>

@@ -7,146 +7,15 @@ import {
     SlidersHorizontal, ChevronDown, Users, Filter, RotateCcw,
     Bookmark, CheckCircle,
 } from "lucide-react";
+import { Candidate, CandidateSkill } from "@/types/recruiter";
+import { useApi } from "@/lib/hooks/useApi";
+import { searchTalent, TalentSearchResponse } from "@/lib/api/recruiter-api";
 
-// ─── Types ─────────────────────────────────────────────────────────────────────
-
-interface Skill {
-    name: string;
-    score: number; // out of 10
-    source: "CV" | "GitHub" | "Both";
-}
-
-interface Candidate {
-    id: string;
-    name: string;
-    degree: string;
-    major: string;
-    university: string;
-    graduatingYear: number;
-    graduatingMonth: string;
-    location: string;
-    availableFor: "Remote" | "Office" | "Any";
-    experience: "Fresh" | "<2yr" | "2-5yr" | "5+yr";
-    skills: Skill[];
-    github: { repos: number; commits6mo: number; active: boolean } | null;
-    overallScore: number; // 0-100
-    matchScore: number;   // 0-100 (changes with filters)
-    availabilityStatus: "Immediate" | "1 month notice" | "2+ months notice";
-    salaryMin: number;
-    salaryMax: number;
-    saved: boolean;
-}
-
-// ─── Mock data ─────────────────────────────────────────────────────────────────
+// ─── Constants ─────────────────────────────────────────────────────────────────
 
 const UNIVERSITIES = ["University of Colombo", "University of Moratuwa", "SLIIT", "NSBM", "IIT", "Other"];
 const ALL_SKILLS = ["Python", "React", "Node.js", "MongoDB", "Docker", "AWS", "Django", "PostgreSQL",
     "TypeScript", "Kubernetes", "Git", "Java", "Go", "Next.js", "Redis", "GraphQL"];
-
-const MOCK_CANDIDATES: Candidate[] = [
-    {
-        id: "c1", name: "Bawantha Perera",
-        degree: "BSc", major: "Computer Science", university: "University of Colombo",
-        graduatingYear: 2025, graduatingMonth: "May", location: "Colombo",
-        availableFor: "Any", experience: "Fresh",
-        skills: [
-            { name: "Python", score: 9.2, source: "Both" },
-            { name: "React", score: 8.5, source: "Both" },
-            { name: "Node.js", score: 8.3, source: "GitHub" },
-            { name: "MongoDB", score: 7.8, source: "CV" },
-            { name: "Git", score: 9.0, source: "GitHub" },
-        ],
-        github: { repos: 25, commits6mo: 156, active: true },
-        overallScore: 85, matchScore: 92,
-        availabilityStatus: "Immediate",
-        salaryMin: 60, salaryMax: 80, saved: false,
-    },
-    {
-        id: "c2", name: "Kasun Silva",
-        degree: "BEng", major: "Software Engineering", university: "SLIIT",
-        graduatingYear: 2025, graduatingMonth: "June", location: "Kandy",
-        availableFor: "Remote", experience: "<2yr",
-        skills: [
-            { name: "Python", score: 9.0, source: "Both" },
-            { name: "Django", score: 8.7, source: "Both" },
-            { name: "React", score: 8.2, source: "CV" },
-            { name: "Docker", score: 7.5, source: "GitHub" },
-            { name: "AWS", score: 7.2, source: "CV" },
-        ],
-        github: { repos: 18, commits6mo: 98, active: true },
-        overallScore: 83, matchScore: 89,
-        availabilityStatus: "1 month notice",
-        salaryMin: 70, salaryMax: 90, saved: false,
-    },
-    {
-        id: "c3", name: "Dilani Wijesinghe",
-        degree: "BSc", major: "Information Technology", university: "University of Moratuwa",
-        graduatingYear: 2025, graduatingMonth: "August", location: "Colombo",
-        availableFor: "Any", experience: "Fresh",
-        skills: [
-            { name: "React", score: 9.1, source: "Both" },
-            { name: "TypeScript", score: 8.8, source: "Both" },
-            { name: "Node.js", score: 8.4, source: "GitHub" },
-            { name: "MongoDB", score: 8.0, source: "CV" },
-            { name: "Next.js", score: 8.6, source: "Both" },
-        ],
-        github: { repos: 31, commits6mo: 212, active: true },
-        overallScore: 88, matchScore: 87,
-        availabilityStatus: "Immediate",
-        salaryMin: 65, salaryMax: 85, saved: true,
-    },
-    {
-        id: "c4", name: "Tharanga Madushanka",
-        degree: "BSc", major: "Computer Engineering", university: "NSBM",
-        graduatingYear: 2024, graduatingMonth: "December", location: "Galle",
-        availableFor: "Office", experience: "<2yr",
-        skills: [
-            { name: "Java", score: 8.9, source: "Both" },
-            { name: "Python", score: 8.1, source: "CV" },
-            { name: "PostgreSQL", score: 7.8, source: "CV" },
-            { name: "Docker", score: 7.2, source: "GitHub" },
-            { name: "Git", score: 8.5, source: "GitHub" },
-        ],
-        github: { repos: 12, commits6mo: 55, active: false },
-        overallScore: 78, matchScore: 81,
-        availabilityStatus: "Immediate",
-        salaryMin: 55, salaryMax: 75, saved: false,
-    },
-    {
-        id: "c5", name: "Nimali Rathnayake",
-        degree: "BEng", major: "Electronic & Telecom", university: "University of Moratuwa",
-        graduatingYear: 2026, graduatingMonth: "May", location: "Colombo",
-        availableFor: "Any", experience: "Fresh",
-        skills: [
-            { name: "Python", score: 7.9, source: "CV" },
-            { name: "Go", score: 7.5, source: "GitHub" },
-            { name: "Kubernetes", score: 7.0, source: "CV" },
-            { name: "AWS", score: 8.2, source: "Both" },
-            { name: "Docker", score: 8.0, source: "Both" },
-        ],
-        github: { repos: 9, commits6mo: 34, active: true },
-        overallScore: 76, matchScore: 75,
-        availabilityStatus: "2+ months notice",
-        salaryMin: 50, salaryMax: 70, saved: false,
-    },
-    {
-        id: "c6", name: "Asanka Fernando",
-        degree: "BSc", major: "Data Science", university: "IIT",
-        graduatingYear: 2025, graduatingMonth: "March", location: "Colombo",
-        availableFor: "Remote", experience: "2-5yr",
-        skills: [
-            { name: "Python", score: 9.5, source: "Both" },
-            { name: "React", score: 8.0, source: "CV" },
-            { name: "Node.js", score: 7.9, source: "GitHub" },
-            { name: "GraphQL", score: 8.3, source: "Both" },
-            { name: "Redis", score: 7.6, source: "CV" },
-        ],
-        github: { repos: 42, commits6mo: 310, active: true },
-        overallScore: 90, matchScore: 93,
-        availabilityStatus: "1 month notice",
-        salaryMin: 90, salaryMax: 120, saved: false,
-    },
-];
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -374,6 +243,8 @@ function MessageModal({ candidateName, onClose }: { candidateName: string; onClo
 // ─── Page ──────────────────────────────────────────────────────────────────────
 
 export default function FindTalentPage() {
+    const { data: fetchedData, loading, error, refetch } = useApi<TalentSearchResponse>(() => searchTalent(), []);
+
     // Search bar
     const [searchInput, setSearchInput] = useState("");
     const [searchSkills, setSearchSkills] = useState<string[]>(["Python", "React"]);
@@ -393,11 +264,15 @@ export default function FindTalentPage() {
     const [sortBy, setSortBy] = useState<"match" | "score" | "recent">("match");
 
     // UI state
-    const [candidates, setCandidates] = useState(MOCK_CANDIDATES);
+    const [candidates, setCandidates] = useState<Candidate[]>([]);
     const [showSaveModal, setShowSaveModal] = useState(false);
     const [messageTarget, setMessageTarget] = useState<string | null>(null);
     const [toast, setToast] = useState<string | null>(null);
     const [savedSearches, setSavedSearches] = useState<string[]>([]);
+
+    useEffect(() => {
+        if (fetchedData) setCandidates(fetchedData.candidates);
+    }, [fetchedData]);
 
     const showToast = (msg: string) => { setToast(msg); setTimeout(() => setToast(null), 3000); };
 
@@ -486,6 +361,9 @@ export default function FindTalentPage() {
 
     return (
         <div className="flex flex-col gap-4 h-full">
+            {loading && <div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600" /></div>}
+            {error && <div className="text-center py-12 text-red-500">Failed to load talent. <button onClick={refetch} className="underline">Retry</button></div>}
+            {!loading && !error && (<>
             {/* ── Page Header ── */}
             <div className="flex items-center justify-between">
                 <div>
@@ -766,6 +644,7 @@ export default function FindTalentPage() {
                     {toast}
                 </div>
             )}
+            </>)}
         </div>
     );
 }

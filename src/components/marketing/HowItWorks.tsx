@@ -25,7 +25,7 @@ const NanoCodeVisual = () => (
                 <div className="ml-auto text-[8px] text-gray-500 font-mono">sync_v2.tsx</div>
             </div>
             <div className="p-3 space-y-1.5 font-mono text-[8px] leading-relaxed text-gray-500">
-                <div className="flex gap-2"><span className="text-blue-500">import</span> <span className="text-white">Profile</span> <span className="text-blue-500">from</span> <span className="text-green-400">'@/github'</span>;</div>
+                <div className="flex gap-2"><span className="text-blue-500">import</span> <span className="text-white">Profile</span> <span className="text-blue-500">from</span> <span className="text-green-400">&apos;@/github&apos;</span>;</div>
                 <div className="flex gap-2"><span className="text-purple-500">const</span> <span className="text-yellow-400">syncData</span> = <span className="text-blue-500">await</span> fetch();</div>
                 <div className="h-px w-full bg-blue-500/20 my-2" />
                 <div className="flex items-center justify-between text-[8px] text-blue-400 bg-blue-500/10 p-1 rounded">

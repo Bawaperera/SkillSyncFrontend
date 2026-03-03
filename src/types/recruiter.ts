@@ -65,6 +65,7 @@ export interface RecruiterApplication {
   availabilityStatus: string;
   tags: AppTag[];
   note?: string;
+  recruiterRating: number;
 }
 
 // ── Talent / Candidate types ───────────────────────────────
@@ -222,7 +223,10 @@ export interface CompanyProfile {
 
 // ── Dashboard types ────────────────────────────────────────
 export interface RecruiterDashboardStats {
+  recruiterName: string;
   activeJobs: number;
+  totalCandidates: number;
+  newApplicants: number;
   totalApplicants: number;
   interviews: number;
   hires: number;

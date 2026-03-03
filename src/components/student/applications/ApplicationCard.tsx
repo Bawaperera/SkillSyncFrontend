@@ -25,7 +25,7 @@ export function ApplicationCard({ app }: ApplicationCardProps) {
                 <div className="flex justify-between items-start mb-6">
                     <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center text-lg font-bold text-gray-700">
-                            {app.logo ? <img src={app.logo} className="w-full h-full object-cover rounded-xl" /> : app.company.charAt(0)}
+                            {app.logo ? <img src={app.logo} alt={app.company} className="w-full h-full object-cover rounded-xl" /> : app.company.charAt(0)}
                         </div>
                         <div>
                             <h3 className="text-lg font-bold text-gray-900 hover:text-blue-600 transition-colors cursor-pointer">{app.jobTitle}</h3>

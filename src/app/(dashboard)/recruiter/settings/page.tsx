@@ -1,52 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
     User, Bell, Users, CreditCard, Check, X, Plus,
     ChevronRight, Eye, EyeOff, Shield, Trash2,
     Mail, Send, Crown,
 } from "lucide-react";
+import { RecruiterTeamMember, RecruiterPendingInvite, RecruiterPlan } from "@/types/recruiter";
+import { useApi } from "@/lib/hooks/useApi";
+import { getRecruiterAccount, getTeamMembers, getPlans } from "@/lib/api/recruiter-api";
 
-// ─── Types ─────────────────────────────────────────────────────────────────────
+// ─── Local type aliases ────────────────────────────────────────────────────────
 
 type Tab = "account" | "notifications" | "team" | "billing";
-
-interface TeamMember {
-    id: string;
-    name: string;
-    email: string;
-    role: "Admin" | "Recruiter" | "HR Manager" | "Viewer";
-    isYou?: boolean;
-    avatar: string;
-    avatarColor: string;
-    joinedDate: string;
-}
-
-interface PendingInvite {
-    id: string;
-    email: string;
-    role: string;
-    sentDate: string;
-}
-
-// ─── Mock data ─────────────────────────────────────────────────────────────────
-
-const TEAM_MEMBERS: TeamMember[] = [
-    { id: "u1", name: "Sarah Jenkins", email: "sarah@techinnovations.lk", role: "Admin", isYou: true, avatar: "SJ", avatarColor: "#2563EB", joinedDate: "Jan 2024" },
-    { id: "u2", name: "John Smith", email: "john@techinnovations.lk", role: "Recruiter", avatar: "JS", avatarColor: "#7C3AED", joinedDate: "Mar 2024" },
-    { id: "u3", name: "Emma Williams", email: "emma@techinnovations.lk", role: "HR Manager", avatar: "EW", avatarColor: "#0891B2", joinedDate: "Jun 2024" },
-];
-
-const PENDING_INVITES: PendingInvite[] = [
-    { id: "i1", email: "mike@techinnovations.lk", role: "Recruiter", sentDate: "3 days ago" },
-];
-
-const PLANS = [
-    { id: "starter", name: "Starter", price: 0, jobs: 2, users: 1, ats: false, analytics: false },
-    { id: "growth", name: "Growth", price: 49, jobs: 10, users: 5, ats: true, analytics: false },
-    { id: "pro", name: "Pro", price: 99, jobs: 25, users: 15, ats: true, analytics: true },
-    { id: "enterprise", name: "Enterprise", price: null, jobs: 999, users: 999, ats: true, analytics: true },
-];
+type TeamMember = RecruiterTeamMember;
+type PendingInvite = RecruiterPendingInvite;
 
 // ─── Toggle switch ─────────────────────────────────────────────────────────────
 
@@ -118,7 +86,7 @@ function InviteModal({ onClose }: { onClose: () => void }) {
                             {["Recruiter", "HR Manager", "Viewer"].map((r) => <option key={r}>{r}</option>)}
                         </select>
                     </div>
-                    <p className="text-[11px] text-gray-400">They'll receive an email invitation to join your recruiter workspace.</p>
+                    <p className="text-[11px] text-gray-400">They&apos;ll receive an email invitation to join your recruiter workspace.</p>
                 </div>
                 <div className="flex gap-2 px-5 pb-5">
                     <button onClick={onClose} className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-700 hover:bg-gray-50">Cancel</button>
@@ -284,19 +252,20 @@ function NotificationsTab() {
 }
 
 function TeamTab() {
-    const [members] = useState<TeamMember[]>(TEAM_MEMBERS);
-    const [invites] = useState<PendingInvite[]>(PENDING_INVITES);
+    const { data: teamData } = useApi<{ members: TeamMember[]; invites: PendingInvite[] }>(() => getTeamMembers(), []);
+    const members = teamData?.members ?? [];
+    const invites = teamData?.invites ?? [];
     const [showInvite, setShowInvite] = useState(false);
 
     return (
         <>
             <div className="space-y-4">
                 <Card
-                    title={`Team Members (${members.length})`}
+                    title={`Team Members (${(members ?? []).length})`}
                     desc="People who can access the recruiter workspace"
                 >
                     <div className="divide-y divide-gray-50">
-                        {members.map((m) => (
+                        {(members ?? []).map((m) => (
                             <div key={m.id} className="flex items-center gap-3 py-3.5 first:pt-0 last:pb-0">
                                 <div className="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0" style={{ background: m.avatarColor }}>
                                     {m.avatar}
@@ -378,6 +347,7 @@ function TeamTab() {
 
 function BillingTab() {
     const [currentPlan] = useState("growth");
+    const { data: plans } = useApi<RecruiterPlan[]>(() => getPlans(), []);
 
     return (
         <div className="space-y-4">
@@ -419,7 +389,7 @@ function BillingTab() {
             {/* Plan comparison */}
             <Card title="Available Plans" desc="Compare plans and upgrade anytime">
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                    {PLANS.map((plan) => {
+                    {(plans ?? []).map((plan) => {
                         const isCurrent = plan.id === currentPlan;
                         return (
                             <div key={plan.id} className={`border rounded-lg p-4 flex flex-col gap-3 ${isCurrent ? "border-blue-400 bg-blue-50/60" : "border-gray-200"}`}>

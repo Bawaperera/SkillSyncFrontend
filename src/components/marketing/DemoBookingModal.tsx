@@ -87,7 +87,7 @@ export function DemoBookingModal() {
 
                                     <div className="mt-8 p-4 bg-blue-50 rounded-xl border border-blue-100">
                                         <p className="text-sm text-blue-800 leading-relaxed">
-                                            "See how SkillSync bridges the gap between your curriculum and industry demands."
+                                            &quot;See how SkillSync bridges the gap between your curriculum and industry demands.&quot;
                                         </p>
                                     </div>
                                 </div>

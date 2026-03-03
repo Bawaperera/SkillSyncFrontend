@@ -7,12 +7,13 @@ import Link from "next/link";
 
 interface JobCardProps {
     job: JobPosting;
-    match: JobMatchAndAnalysis;
+    match?: JobMatchAndAnalysis;
 }
 
 export function JobCard({ job, match }: JobCardProps) {
     // Determine badge color based on match score
-    const isHighMatch = match.matchScore >= 80;
+    const matchScore = match?.matchScore ?? 0;
+    const isHighMatch = matchScore >= 80;
     const matchColor = isHighMatch ? "bg-green-50 text-green-700 border-green-200" : "bg-yellow-50 text-yellow-700 border-yellow-200";
 
     return (
@@ -33,7 +34,7 @@ export function JobCard({ job, match }: JobCardProps) {
                     </div>
 
                     <div className={`px-3 py-1 rounded-full border text-xs font-bold ${matchColor}`}>
-                        {match.matchScore}% Match
+                        {matchScore}% Match
                     </div>
                 </div>
 

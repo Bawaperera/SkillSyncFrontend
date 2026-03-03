@@ -10,33 +10,11 @@ import {
     ScatterChart, Scatter, XAxis, YAxis, CartesianGrid,
     Tooltip, Legend, ResponsiveContainer, Cell, ZAxis
 } from "recharts";
+import { CurriculumSkillData, GapSeverity } from "@/types/university";
+import { useApi } from "@/lib/hooks/useApi";
+import { getCurriculumOverview, CurriculumOverviewData } from "@/lib/api/university-api";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-
-type GapSeverity = "critical" | "moderate" | "good";
-
-interface SkillData {
-    id: string;
-    name: string;
-    category: string;
-    studentCompetency: number;
-    marketDemand: number;
-}
-
-// ─── Mock Data ────────────────────────────────────────────────────────────────
-
-const SKILLS_DATA: SkillData[] = [
-    { id: "s1", name: "TypeScript", category: "Frontend", studentCompetency: 24, marketDemand: 87 },
-    { id: "s2", name: "Docker", category: "DevOps", studentCompetency: 45, marketDemand: 85 },
-    { id: "s3", name: "AWS Cloud", category: "Cloud", studentCompetency: 41, marketDemand: 78 },
-    { id: "s4", name: "Kubernetes", category: "DevOps", studentCompetency: 18, marketDemand: 58 },
-    { id: "s5", name: "CI/CD Practices", category: "DevOps", studentCompetency: 35, marketDemand: 71 },
-    { id: "s6", name: "GraphQL", category: "Backend", studentCompetency: 28, marketDemand: 42 },
-    { id: "s7", name: "System Design", category: "Architecture", studentCompetency: 65, marketDemand: 82 },
-    // A few well-covered ones for contrast
-    { id: "s8", name: "Java", category: "Backend", studentCompetency: 95, marketDemand: 75 },
-    { id: "s9", name: "SQL", category: "Database", studentCompetency: 90, marketDemand: 88 },
-];
+type SkillData = CurriculumSkillData;
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -91,6 +69,9 @@ export default function CurriculumGapAnalysisPage() {
     const [selectedSeverity, setSelectedSeverity] = useState("All Severities");
     const [selectedCategory, setSelectedCategory] = useState("All Categories");
 
+    const { data: curriculumData } = useApi<CurriculumOverviewData>(() => getCurriculumOverview());
+    const SKILLS_DATA = curriculumData?.skills ?? [];
+
     // Filtered data
     const filteredSkills = useMemo(() => {
         return SKILLS_DATA.filter(skill => {
@@ -109,7 +90,7 @@ export default function CurriculumGapAnalysisPage() {
             
             return true;
         });
-    }, [selectedCategory, selectedSeverity]);
+    }, [SKILLS_DATA, selectedCategory, selectedSeverity]);
 
     // Summary calculations (based on filtered data)
     const totalAnalyzed = 42; // mock total
@@ -627,7 +608,7 @@ function SkillDetailPanel({ skill, gap, severity }: { skill: SkillData, gap: num
                         <ul className="space-y-2 mb-0">
                             <li className="text-[13px] text-gray-700 flex gap-2"><span className="text-gray-400 mt-0.5">•</span> <b>Expected Impact:</b> Increase competency to ~65% next cohort</li>
                             <li className="text-[13px] text-gray-700 flex gap-2"><span className="text-gray-400 mt-0.5">•</span> <b>Effort Level:</b> Low (Replace 3 weeks of legacy framework content)</li>
-                            <li className="text-[13px] text-gray-700 flex gap-2"><span className="text-gray-400 mt-0.5">•</span> <b>Similar to:</b> SLIIT's successful Y3 curriculum revision</li>
+                            <li className="text-[13px] text-gray-700 flex gap-2"><span className="text-gray-400 mt-0.5">•</span> <b>Similar to:</b> SLIIT&apos;s successful Y3 curriculum revision</li>
                         </ul>
                     </div>
 

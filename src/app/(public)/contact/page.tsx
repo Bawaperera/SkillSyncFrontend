@@ -50,7 +50,7 @@ export default function ContactPage() {
                             Message Sent!
                         </h2>
                         <p className="text-gray-600 mb-6">
-                            Thank you for contacting us. We'll get back to you soon.
+                            Thank you for contacting us. We&apos;ll get back to you soon.
                         </p>
                         <button
                             onClick={() => {
@@ -72,7 +72,7 @@ export default function ContactPage() {
                         <div className="text-center mb-8">
                             <h1 className="text-3xl font-bold text-gray-900 mb-2">Get in Touch</h1>
                             <p className="text-gray-500">
-                                Have questions about SkillSync? We'd love to hear from you.
+                                Have questions about SkillSync? We&apos;d love to hear from you.
                             </p>
                         </div>
 

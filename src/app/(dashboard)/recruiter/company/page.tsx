@@ -1,53 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
     Globe, Mail, MapPin, Users, Pencil, Check, X,
     Plus, Building2, Calendar, Briefcase, Phone,
     ChevronRight, Star, Award, Heart,
 } from "lucide-react";
-
-// ─── Mock company data ─────────────────────────────────────────────────────────
-
-const COMPANY = {
-    name: "Tech Innovations (Pvt) Ltd",
-    tagline: "Pioneering the Future of Software",
-    website: "www.techinnovations.lk",
-    careersEmail: "careers@techinnovations.lk",
-    location: "Colombo 03, Sri Lanka",
-    size: "50–100 employees",
-    industry: "Information Technology & Services",
-    founded: "2018",
-    specialties: ["Web Development", "Mobile Apps", "Cloud Solutions", "AI / ML", "DevOps", "UI/UX Design"],
-    about: `Tech Innovations is a leading software development company based in Colombo, Sri Lanka. We build high-impact digital products for clients across Southeast Asia, the Middle East, and Europe. Our teams work with the latest technologies — React, Node.js, Go, Kubernetes, and LLM APIs — to deliver products that scale.
-
-We believe the best software is built by happy, autonomous teams. That's why we invest heavily in our people: structured growth tracks, generous L&D budgets, and a culture that prizes craftsmanship over crunch.
-
-We are currently scaling our engineering and product teams and are actively looking for passionate technologists who want to solve real problems at scale.`,
-    benefits: [
-        { icon: "💰", label: "Competitive Salary", note: "Market-leading + annual reviews" },
-        { icon: "🏥", label: "Health Insurance", note: "Full family coverage" },
-        { icon: "🕐", label: "Flexible Hours", note: "Core hours 10 AM – 4 PM only" },
-        { icon: "🏠", label: "Remote-Friendly", note: "3 days WFH per week" },
-        { icon: "📚", label: "L&D Budget", note: "LKR 150k per year per person" },
-        { icon: "🏢", label: "Modern Office", note: "Standing desks, snack bar, rooftop" },
-        { icon: "🎉", label: "Team Events", note: "Quarterly retreats and Friday lunches" },
-        { icon: "📈", label: "Stock Options", note: "For senior roles and above" },
-    ],
-    contact: {
-        primaryContact: "Sarah Jenkins",
-        role: "HR Manager",
-        email: "sarah@techinnovations.lk",
-        phone: "+94 11 234 5678",
-        address: "Level 5, Tech Tower\n123 Galle Road, Colombo 03\nSri Lanka",
-    },
-    stats: [
-        { label: "Active Jobs", value: "4" },
-        { label: "Hires This Year", value: "23" },
-        { label: "Team Members", value: "87" },
-        { label: "Avg Time to Hire", value: "15d" },
-    ],
-};
+import { CompanyProfile } from "@/types/recruiter";
+import { useApi } from "@/lib/hooks/useApi";
+import { getCompanyProfile, updateCompanyProfile } from "@/lib/api/recruiter-api";
 
 // ─── Inline editable field ─────────────────────────────────────────────────────
 
@@ -92,12 +53,20 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function CompanyProfilePage() {
+    const { data: fetchedProfile, loading, error, refetch } = useApi<CompanyProfile>(() => getCompanyProfile(), []);
     const [editing, setEditing] = useState(false);
-    const [data, setData] = useState(COMPANY);
-    const [draft, setDraft] = useState(COMPANY);
+    const [data, setData] = useState<CompanyProfile | null>(null);
+    const [draft, setDraft] = useState<CompanyProfile | null>(null);
+
+    useEffect(() => {
+        if (fetchedProfile) {
+            setData(fetchedProfile);
+            setDraft(fetchedProfile);
+        }
+    }, [fetchedProfile]);
 
     const saveEdits = () => {
-        setData(draft);
+        if (draft) setData(draft);
         setEditing(false);
     };
     const cancelEdits = () => {
@@ -105,8 +74,11 @@ export default function CompanyProfilePage() {
         setEditing(false);
     };
 
+    if (loading || !data || !draft) return <div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600" /></div>;
+    if (error) return <div className="text-center py-12 text-red-500">Failed to load company profile. <button onClick={refetch} className="underline">Retry</button></div>;
+
     const d = editing ? draft : data;
-    const update = (key: string, value: any) => setDraft((prev) => ({ ...prev, [key]: value }));
+    const update = (key: string, value: any) => setDraft((prev) => prev ? { ...prev, [key]: value } : prev);
 
     return (
         <div className="space-y-5">

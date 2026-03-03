@@ -18,7 +18,7 @@ export function JobDescription({ job }: JobDescriptionProps) {
                         We are looking for a passionate {job.title} to join our growing team. You will be responsible for building scalable web applications and collaborating with cross-functional teams to define, design, and ship new features.
                     </p>
                     <p className="mt-4">
-                        If you love writing clean, efficient, and reusable code, we'd love to meet you!
+                        If you love writing clean, efficient, and reusable code, we&apos;d love to meet you!
                     </p>
                 </div>
 

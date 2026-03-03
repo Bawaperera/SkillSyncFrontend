@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
     Target, TrendingUp, CheckCircle2,
     Users, ArrowRight, X,
@@ -12,147 +12,9 @@ import {
     RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
     BarChart, Bar, XAxis, YAxis, CartesianGrid,
 } from "recharts";
-
-// ─── Types ────────────────────────────────────────────────────────────────────
-
-type AlertSeverity = "critical" | "warning" | "info";
-type InterventionStatus = "implemented" | "pending" | "under-review";
-
-interface DashboardAlert {
-    id: string;
-    severity: AlertSeverity;
-    title: string;
-    detail: string;
-    action: string;
-    actionHref: string;
-}
-
-
-interface ProgrammePlacement {
-    programme: string;
-    rate: number;
-}
-
-interface TopEmployer {
-    name: string;
-    hires: number;
-    percentage: number;
-    avgSalary: string;
-    topRole: string;
-    initials: string;
-    color: string;
-}
-
-interface Intervention {
-    id: string;
-    title: string;
-    status: InterventionStatus;
-    date: string;
-    impact: string;
-    programme: string;
-}
-
-// ─── Mock Data ────────────────────────────────────────────────────────────────
-
-const ALERTS: DashboardAlert[] = [
-    {
-        id: "a1",
-        severity: "critical",
-        title: "TypeScript coverage critical — 3 programmes affected",
-        detail: "Market demand sits at 87% but average student coverage is only 14%. This is the #1 skill gap across all CS-related programmes.",
-        action: "Review Curriculum Gaps",
-        actionHref: "/university/curriculum",
-    },
-    {
-        id: "a2",
-        severity: "warning",
-        title: "Cybersecurity placement rate dropped 8% year-over-year",
-        detail: "Cybersecurity graduates placed within 6 months fell from 51% to 43%. Peer institutions average 58% for similar programmes.",
-        action: "View Placement Analysis",
-        actionHref: "/university/placements",
-    },
-    {
-        id: "a3",
-        severity: "info",
-        title: "4 new in-demand skills entered the top 20 this semester",
-        detail: "LLM/Prompt Engineering, Go, Rust, and Apache Kafka have entered employer top-20 demand lists. None are currently covered in curriculum.",
-        action: "Explore Industry Trends",
-        actionHref: "/university/industry",
-    },
-];
-
-// Radar chart: Curriculum vs Industry per category
-const RADAR_DATA = [
-    { category: "Frontend", curriculum: 52, industry: 78 },
-    { category: "Backend", curriculum: 61, industry: 85 },
-    { category: "DevOps", curriculum: 28, industry: 72 },
-    { category: "Cloud", curriculum: 24, industry: 74 },
-    { category: "Architecture", curriculum: 45, industry: 80 },
-    { category: "Quality", curriculum: 55, industry: 70 },
-];
-
-// Horizontal bar chart: Student coverage vs market demand per skill
-const SKILL_BAR_DATA = [
-    { skill: "TypeScript", coverage: 24, demand: 87 },
-    { skill: "Docker", coverage: 38, demand: 85 },
-    { skill: "AWS Cloud", coverage: 31, demand: 78 },
-    { skill: "CI/CD Practices", coverage: 22, demand: 75 },
-    { skill: "Kubernetes", coverage: 18, demand: 68 },
-    { skill: "System Design", coverage: 58, demand: 82 },
-    { skill: "Testing/TDD", coverage: 42, demand: 71 },
-    { skill: "React", coverage: 65, demand: 80 },
-    { skill: "Microservices", coverage: 30, demand: 64 },
-    { skill: "Node.js", coverage: 55, demand: 69 },
-];
-
-const PLACEMENT_DONUT = [
-    { name: "Placed", value: 61, color: "#2563EB" },
-    { name: "Delayed", value: 24, color: "#F59E0B" },
-    { name: "Seeking", value: 15, color: "#F97316" },
-];
-
-const PROGRAMME_PLACEMENTS: ProgrammePlacement[] = [
-    { programme: "Data Science", rate: 71 },
-    { programme: "Computer Science", rate: 67 },
-    { programme: "Information Technology", rate: 58 },
-    { programme: "Software Engineering", rate: 55 },
-    { programme: "Cybersecurity", rate: 43 },
-];
-
-const TOP_EMPLOYERS: TopEmployer[] = [
-    { name: "99X Technology", hires: 24, percentage: 19, avgSalary: "LKR 125k", topRole: "Full-Stack Dev", initials: "99", color: "#2563EB" },
-    { name: "Virtusa", hires: 18, percentage: 14, avgSalary: "LKR 110k", topRole: "Backend Dev", initials: "V", color: "#4F46E5" },
-    { name: "WSO2", hires: 16, percentage: 12, avgSalary: "LKR 135k", topRole: "Software Engineer", initials: "W", color: "#0891B2" },
-    { name: "Dialog Axiata", hires: 12, percentage: 9, avgSalary: "LKR 105k", topRole: "Systems Analyst", initials: "DA", color: "#059669" },
-    { name: "hSenid Mobile", hires: 10, percentage: 8, avgSalary: "LKR 98k", topRole: "Mobile Dev", initials: "HS", color: "#7C3AED" },
-];
-
-const INTERVENTIONS: Intervention[] = [
-    {
-        id: "i1",
-        title: "TypeScript module added to Year 3 CS",
-        status: "implemented",
-        date: "Jan 15, 2025",
-        impact: "Expected to close 42% coverage gap by next semester",
-        programme: "Computer Science",
-    },
-    {
-        id: "i2",
-        title: "Docker workshop series planned for Year 4",
-        status: "pending",
-        date: "Feb 1, 2025",
-        impact: "Targets improvement from 45% to 65% coverage",
-        programme: "All CS Programmes",
-    },
-    {
-        id: "i3",
-        title: "Cloud Computing elective proposal submitted",
-        status: "under-review",
-        date: "Jan 28, 2025",
-        impact: "Addresses AWS/Azure gap (currently 28% in Year 3)",
-        programme: "IT & Data Science",
-    },
-];
+import { DashboardAlert, ProgrammePlacement, TopEmployer, Intervention, AlertSeverity, InterventionStatus, RadarDataPoint, SkillBarDataPoint, PlacementDonutSegment, UniversityDashboardStats } from "@/types/university";
+import { useApi } from "@/lib/hooks/useApi";
+import { getUniversityDashboard, getAlerts, UniversityDashboardData } from "@/lib/api/university-api";
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -315,6 +177,17 @@ export default function UniversityDashboard() {
     const [showAddIntervention, setShowAddIntervention] = useState(false);
     const [lastUpdated] = useState("2 hours ago");
 
+    const { data: dashboard } = useApi<UniversityDashboardData>(() => getUniversityDashboard());
+    const { data: alertsData } = useApi<DashboardAlert[]>(() => getAlerts());
+
+    const ALERTS = alertsData ?? [];
+    const RADAR_DATA: RadarDataPoint[] = dashboard?.radarData ?? [];
+    const SKILL_BAR_DATA: SkillBarDataPoint[] = dashboard?.skillBarData ?? [];
+    const PLACEMENT_DONUT: PlacementDonutSegment[] = dashboard?.placementDonut ?? [];
+    const PROGRAMME_PLACEMENTS: ProgrammePlacement[] = dashboard?.programmePlacements ?? [];
+    const TOP_EMPLOYERS: TopEmployer[] = dashboard?.topEmployers ?? [];
+    const INTERVENTIONS: Intervention[] = dashboard?.interventions ?? [];
+
     const visibleAlerts = ALERTS.filter(a => !dismissedAlerts.has(a.id));
     const dismissAlert = (id: string) => setDismissedAlerts(prev => new Set([...prev, id]));
 
@@ -330,7 +203,7 @@ export default function UniversityDashboard() {
                         <h1 className="text-2xl font-bold text-white mb-2">Good Morning, Dr. Perera! 👋</h1>
                         {visibleAlerts.length > 0 ? (
                             <p className="text-sm text-blue-50">
-                                You have <span className="font-semibold text-white">{visibleAlerts.length} Recommendation{visibleAlerts.length > 1 ? 's' : ''} for Improvement</span>. Let's review them and take action to enhance student outcomes!
+                                You have <span className="font-semibold text-white">{visibleAlerts.length} Recommendation{visibleAlerts.length > 1 ? 's' : ''} for Improvement</span>. Let&apos;s review them and take action to enhance student outcomes!
                             </p>
                         ) : (
                             <p className="text-sm text-blue-50">
@@ -357,25 +230,25 @@ export default function UniversityDashboard() {
             <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
                 <KpiCard
                     label="Student Readiness"
-                    value="72%"
+                    value={`${dashboard?.stats?.studentReadiness ?? 0}%`}
                     subtitle="Avg skill gap score across all students"
                     icon={Users}
                 />
                 <KpiCard
                     label="Students Placed"
-                    value="761"
+                    value={`${dashboard?.stats?.studentsPlaced ?? 0}`}
                     subtitle="Graduates hired within 6 months"
                     icon={TrendingUp}
                 />
                 <KpiCard
                     label="Avg Match Score"
-                    value="72%"
+                    value={`${dashboard?.stats?.avgMatchScore ?? 0}%`}
                     subtitle="Student-to-market skill alignment"
                     icon={Target}
                 />
                 <KpiCard
                     label="Partner Companies"
-                    value="47"
+                    value={`${dashboard?.stats?.partnerCompanies ?? 0}`}
                     subtitle="Companies actively hiring graduates"
                     icon={BarChart3}
                 />
@@ -433,8 +306,7 @@ export default function UniversityDashboard() {
                                     wrapperStyle={{ fontSize: 11, paddingTop: 8 }}
                                 />
                                 <Tooltip
-                                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                    formatter={(val: any, name: any) => [`${val ?? 0}%`, name ?? ""]}
+                                    formatter={(val: unknown, name: unknown) => [`${val ?? 0}%`, (name as string) ?? ""]}
                                     contentStyle={{ fontSize: 11, borderRadius: 8 }}
                                 />
                             </RadarChart>
@@ -466,8 +338,7 @@ export default function UniversityDashboard() {
                                     width={78}
                                 />
                                 <Tooltip
-                                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                    formatter={(val: any, name: any) => [`${val ?? 0}%`, name ?? ""]}
+                                    formatter={(val: unknown, name: unknown) => [`${val ?? 0}%`, (name as string) ?? ""]}
                                     contentStyle={{ fontSize: 11, borderRadius: 8 }}
                                 />
                                 <Legend

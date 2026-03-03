@@ -11,100 +11,9 @@ import {
     ResponsiveContainer, Cell,
 } from "recharts";
 import Link from "next/link";
-
-// ─── Types ────────────────────────────────────────────────────────────────────
-
-interface Programme {
-    name: string;
-    students: number;
-    avgScore: number;
-    profileCompletion: number;
-    githubRate: number;
-    cvRate: number;
-    atRisk: number; // count of students scoring <40
-}
-
-interface MissingSkill {
-    skill: string;
-    studentsLacking: number;
-    category: string;
-    severity: "critical" | "moderate" | "low";
-}
-
-// ─── Mock Data ────────────────────────────────────────────────────────────────
-
-const PROGRAMMES: Programme[] = [
-    { name: "Computer Science & SE", students: 342, avgScore: 79, profileCompletion: 91, githubRate: 88, cvRate: 82, atRisk: 21 },
-    { name: "Data Science", students: 218, avgScore: 74, profileCompletion: 89, githubRate: 71, cvRate: 90, atRisk: 29 },
-    { name: "Information Technology", students: 287, avgScore: 68, profileCompletion: 82, githubRate: 63, cvRate: 74, atRisk: 48 },
-    { name: "Software Engineering", students: 224, avgScore: 76, profileCompletion: 87, githubRate: 82, cvRate: 79, atRisk: 31 },
-    { name: "Cybersecurity", students: 176, avgScore: 61, profileCompletion: 78, githubRate: 55, cvRate: 67, atRisk: 52 },
-];
-
-const MISSING_SKILLS: MissingSkill[] = [
-    { skill: "TypeScript", studentsLacking: 968, category: "Frontend", severity: "critical" },
-    { skill: "Docker", studentsLacking: 847, category: "DevOps", severity: "critical" },
-    { skill: "AWS / Cloud", studentsLacking: 765, category: "Cloud", severity: "critical" },
-    { skill: "Kubernetes", studentsLacking: 682, category: "DevOps", severity: "moderate" },
-    { skill: "System Design", studentsLacking: 598, category: "Architecture", severity: "moderate" },
-    { skill: "CI/CD Practices", studentsLacking: 541, category: "DevOps", severity: "moderate" },
-    { skill: "React / Next.js", studentsLacking: 487, category: "Frontend", severity: "moderate" },
-    { skill: "GraphQL", studentsLacking: 415, category: "Backend", severity: "low" },
-];
-
-// Score distribution — soft blue gradient palette
-const SCORE_DISTRIBUTION_ALL = [
-    { range: "0–20", count: 62, color: "#BFDBFE" },
-    { range: "21–40", count: 125, color: "#93C5FD" },
-    { range: "41–60", count: 287, color: "#60A5FA" },
-    { range: "61–80", count: 521, color: "#3B82F6" },
-    { range: "81–100", count: 252, color: "#1D4ED8" },
-];
-
-const SCORE_BY_PROGRAMME: Record<string, typeof SCORE_DISTRIBUTION_ALL> = {
-    "Computer Science & SE": [
-        { range: "0–20", count: 5, color: "#BFDBFE" },
-        { range: "21–40", count: 16, color: "#93C5FD" },
-        { range: "41–60", count: 62, color: "#60A5FA" },
-        { range: "61–80", count: 148, color: "#3B82F6" },
-        { range: "81–100", count: 111, color: "#1D4ED8" },
-    ],
-    "Data Science": [
-        { range: "0–20", count: 10, color: "#BFDBFE" },
-        { range: "21–40", count: 19, color: "#93C5FD" },
-        { range: "41–60", count: 55, color: "#60A5FA" },
-        { range: "61–80", count: 98, color: "#3B82F6" },
-        { range: "81–100", count: 36, color: "#1D4ED8" },
-    ],
-    "Information Technology": [
-        { range: "0–20", count: 20, color: "#BFDBFE" },
-        { range: "21–40", count: 28, color: "#93C5FD" },
-        { range: "41–60", count: 90, color: "#60A5FA" },
-        { range: "61–80", count: 115, color: "#3B82F6" },
-        { range: "81–100", count: 34, color: "#1D4ED8" },
-    ],
-    "Software Engineering": [
-        { range: "0–20", count: 8, color: "#BFDBFE" },
-        { range: "21–40", count: 23, color: "#93C5FD" },
-        { range: "41–60", count: 48, color: "#60A5FA" },
-        { range: "61–80", count: 105, color: "#3B82F6" },
-        { range: "81–100", count: 40, color: "#1D4ED8" },
-    ],
-    "Cybersecurity": [
-        { range: "0–20", count: 19, color: "#BFDBFE" },
-        { range: "21–40", count: 39, color: "#93C5FD" },
-        { range: "41–60", count: 32, color: "#60A5FA" },
-        { range: "61–80", count: 55, color: "#3B82F6" },
-        { range: "81–100", count: 31, color: "#1D4ED8" },
-    ],
-};
-
-const TOTAL_STUDENTS = PROGRAMMES.reduce((a, p) => a + p.students, 0);
-const AVG_SCORE = Math.round(PROGRAMMES.reduce((a, p) => a + p.avgScore * p.students, 0) / TOTAL_STUDENTS);
-const AVG_PROFILE = Math.round(PROGRAMMES.reduce((a, p) => a + p.profileCompletion * p.students, 0) / TOTAL_STUDENTS);
-const AVG_GITHUB = Math.round(PROGRAMMES.reduce((a, p) => a + p.githubRate * p.students, 0) / TOTAL_STUDENTS);
-const AVG_CV = Math.round(PROGRAMMES.reduce((a, p) => a + p.cvRate * p.students, 0) / TOTAL_STUDENTS);
-const TOTAL_AT_RISK = PROGRAMMES.reduce((a, p) => a + p.atRisk, 0);
+import { Programme, MissingSkill, ScoreDistributionBin, StudentStats } from "@/types/university";
+import { useApi } from "@/lib/hooks/useApi";
+import { getProgrammes, getMissingSkills, getScoreDistribution, getStudentStats } from "@/lib/api/university-api";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -219,14 +128,29 @@ export default function StudentAnalyticsPage() {
     const [selectedProgramme, setSelectedProgramme] = useState("All Programmes");
     const [showAllSkills, setShowAllSkills] = useState(false);
 
+    const { data: stats } = useApi<StudentStats>(() => getStudentStats());
+    const { data: programmesData } = useApi<Programme[]>(() => getProgrammes());
+    const { data: missingSkillsData } = useApi<MissingSkill[]>(() => getMissingSkills());
+    const { data: scoreData } = useApi<ScoreDistributionBin[]>(() => getScoreDistribution());
+
+    const PROGRAMMES = programmesData ?? [];
+    const MISSING_SKILLS = missingSkillsData ?? [];
+    const SCORE_DISTRIBUTION_ALL = scoreData ?? [];
+
+    const TOTAL_STUDENTS = stats?.totalStudents ?? 0;
+    const AVG_SCORE = stats?.avgScore ?? 0;
+    const AVG_PROFILE = stats?.avgProfile ?? 0;
+    const AVG_GITHUB = stats?.avgGithub ?? 0;
+    const AVG_CV = stats?.avgCv ?? 0;
+
     const chartData = selectedProgramme === "All Programmes"
         ? SCORE_DISTRIBUTION_ALL
-        : SCORE_BY_PROGRAMME[selectedProgramme] ?? SCORE_DISTRIBUTION_ALL;
+        : SCORE_DISTRIBUTION_ALL; // TODO: fetch per-programme distribution via getScoreDistribution(programme)
 
-    const totalInChart = chartData.reduce((a, b) => a + b.count, 0);
-    const atRiskPct = Math.round(((chartData[0].count + chartData[1].count) / totalInChart) * 100);
-    const avgPct = Math.round(((chartData[2].count + chartData[3].count) / totalInChart) * 100);
-    const highPct = Math.round((chartData[4].count / totalInChart) * 100);
+    const totalInChart = chartData.reduce((a, b) => a + b.count, 0) || 1;
+    const atRiskPct = Math.round((((chartData[0]?.count ?? 0) + (chartData[1]?.count ?? 0)) / totalInChart) * 100);
+    const avgPct = Math.round((((chartData[2]?.count ?? 0) + (chartData[3]?.count ?? 0)) / totalInChart) * 100);
+    const highPct = Math.round(((chartData[4]?.count ?? 0) / totalInChart) * 100);
 
     const visibleSkills = showAllSkills ? MISSING_SKILLS : MISSING_SKILLS.slice(0, 5);
 
@@ -383,7 +307,7 @@ export default function StudentAnalyticsPage() {
 
                 <div className="p-5 space-y-4">
                     {visibleSkills.map((sk) => {
-                        const pct = Math.round((sk.studentsLacking / TOTAL_STUDENTS) * 100);
+                        const pct = TOTAL_STUDENTS > 0 ? Math.round((sk.studentsLacking / TOTAL_STUDENTS) * 100) : 0;
                         return (
                             <div key={sk.skill}>
                                 <div className="flex items-center justify-between mb-1.5">

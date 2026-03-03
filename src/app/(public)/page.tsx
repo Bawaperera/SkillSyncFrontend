@@ -79,7 +79,7 @@ export default function LandingPage() {
                                     <AlertTriangle className="w-8 h-8" />
                                 </div>
                                 <h3 className="text-xl font-bold mb-2 text-gray-900">The Student Trap</h3>
-                                <p className="text-gray-600">Graduating with good grades but still getting rejected? It's not you; it's the <strong className="text-gray-900">Skill Gap</strong> between curriculum and industry.</p>
+                                <p className="text-gray-600">Graduating with good grades but still getting rejected? It&apos;s not you; it&apos;s the <strong className="text-gray-900">Skill Gap</strong> between curriculum and industry.</p>
                             </motion.div>
 
                             <motion.div
@@ -127,7 +127,7 @@ export default function LandingPage() {
                                         The <span className="text-blue-600">AI-Bridge</span>
                                     </h2>
                                     <p className="text-gray-600 text-lg leading-relaxed mb-8">
-                                        We don't just list jobs. We analyze code, verify skills, and match candidates based on <strong className="text-gray-900">real data</strong>, not just claims on a CV.
+                                        We don&apos;t just list jobs. We analyze code, verify skills, and match candidates based on <strong className="text-gray-900">real data</strong>, not just claims on a CV.
                                     </p>
                                     <GlassButton
                                         variant="primary"

@@ -58,6 +58,12 @@ export interface UniversityDashboardStats {
   studentsPlaced: number;
   avgMatchScore: number;
   partnerCompanies: number;
+  radarData: RadarDataPoint[];
+  skillBarData: SkillBarDataPoint[];
+  placementDonut: PlacementDonutSegment[];
+  programmePlacements: ProgrammePlacement[];
+  topEmployers: TopEmployer[];
+  interventions: Intervention[];
 }
 
 // ── Students types ──────────────────────────────────────────

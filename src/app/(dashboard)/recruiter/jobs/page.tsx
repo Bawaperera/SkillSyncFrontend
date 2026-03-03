@@ -8,135 +8,11 @@ import {
     Archive, Trash2, MoreHorizontal, ChevronDown,
     Users, Star, TrendingUp, Target, Filter,
 } from "lucide-react";
+import { RecruiterJob, JobStatus } from "@/types/recruiter";
+import { useApi } from "@/lib/hooks/useApi";
+import { getRecruiterJobs } from "@/lib/api/recruiter-api";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-
-type JobStatus = "Active" | "Draft" | "Closed";
-
-interface Job {
-    id: string;
-    title: string;
-    company: string;
-    location: string;
-    workType: "Office" | "Remote" | "Hybrid";
-    salaryMin: number;
-    salaryMax: number;
-    postedDaysAgo: number;
-    deadline: string;
-    status: JobStatus;
-    stats: {
-        total: number;
-        new: number;
-        shortlisted: number;
-        interview: number;
-        views: number;
-        avgMatch: number;
-    };
-    topCandidate: { name: string; match: number } | null;
-    skills: string[];
-    department: string;
-}
-
-// ─── Mock Data ─────────────────────────────────────────────────────────────────
-
-const MOCK_JOBS: Job[] = [
-    {
-        id: "1",
-        title: "Full-Stack Developer",
-        company: "Tech Innovations (Pvt) Ltd",
-        location: "Colombo",
-        workType: "Hybrid",
-        salaryMin: 80,
-        salaryMax: 120,
-        postedDaysAgo: 5,
-        deadline: "Mar 15, 2026",
-        status: "Active",
-        stats: { total: 15, new: 5, shortlisted: 3, interview: 2, views: 234, avgMatch: 82 },
-        topCandidate: { name: "Bawantha P.", match: 92 },
-        skills: ["React", "Node.js", "MongoDB", "Docker", "Python"],
-        department: "Engineering",
-    },
-    {
-        id: "2",
-        title: "Backend Developer",
-        company: "Tech Innovations (Pvt) Ltd",
-        location: "Remote",
-        workType: "Remote",
-        salaryMin: 60,
-        salaryMax: 90,
-        postedDaysAgo: 3,
-        deadline: "Mar 20, 2026",
-        status: "Active",
-        stats: { total: 8, new: 2, shortlisted: 2, interview: 1, views: 156, avgMatch: 75 },
-        topCandidate: { name: "Kasun S.", match: 88 },
-        skills: ["Python", "Django", "PostgreSQL", "Docker", "AWS"],
-        department: "Engineering",
-    },
-    {
-        id: "3",
-        title: "Frontend Intern",
-        company: "Tech Innovations (Pvt) Ltd",
-        location: "Colombo",
-        workType: "Office",
-        salaryMin: 30,
-        salaryMax: 50,
-        postedDaysAgo: 3,
-        deadline: "Mar 10, 2026",
-        status: "Active",
-        stats: { total: 23, new: 8, shortlisted: 5, interview: 3, views: 412, avgMatch: 88 },
-        topCandidate: { name: "Nimali R.", match: 95 },
-        skills: ["React", "TypeScript", "CSS", "Figma", "Git"],
-        department: "Product",
-    },
-    {
-        id: "4",
-        title: "DevOps Engineer",
-        company: "Tech Innovations (Pvt) Ltd",
-        location: "Remote",
-        workType: "Remote",
-        salaryMin: 100,
-        salaryMax: 150,
-        postedDaysAgo: 14,
-        deadline: "Mar 25, 2026",
-        status: "Active",
-        stats: { total: 5, new: 1, shortlisted: 1, interview: 0, views: 89, avgMatch: 65 },
-        topCandidate: { name: "Dinuka A.", match: 78 },
-        skills: ["Docker", "Kubernetes", "AWS", "CI/CD", "Terraform"],
-        department: "Engineering",
-    },
-    {
-        id: "5",
-        title: "UI/UX Designer",
-        company: "Tech Innovations (Pvt) Ltd",
-        location: "Colombo",
-        workType: "Hybrid",
-        salaryMin: 55,
-        salaryMax: 80,
-        postedDaysAgo: 2,
-        deadline: "Apr 1, 2026",
-        status: "Draft",
-        stats: { total: 0, new: 0, shortlisted: 0, interview: 0, views: 0, avgMatch: 0 },
-        topCandidate: null,
-        skills: ["Figma", "Sketch", "Prototyping", "User Research"],
-        department: "Product",
-    },
-    {
-        id: "6",
-        title: "Data Analyst",
-        company: "Tech Innovations (Pvt) Ltd",
-        location: "Kandy",
-        workType: "Office",
-        salaryMin: 50,
-        salaryMax: 80,
-        postedDaysAgo: 30,
-        deadline: "Closed",
-        status: "Closed",
-        stats: { total: 12, new: 0, shortlisted: 4, interview: 2, views: 198, avgMatch: 78 },
-        topCandidate: { name: "Tharanga M.", match: 85 },
-        skills: ["Python", "SQL", "Tableau", "Excel", "Power BI"],
-        department: "Analytics",
-    },
-];
+type Job = RecruiterJob;
 
 // ─── Sub-components ────────────────────────────────────────────────────────────
 
@@ -379,6 +255,9 @@ function JobRow({ job, onAction }: { job: Job; onAction: (action: string, id: st
 // ─── Page ──────────────────────────────────────────────────────────────────────
 
 export default function MyJobsPage() {
+    const { data: jobsData, loading, error } = useApi(() => getRecruiterJobs(), []);
+    const allJobs: Job[] = jobsData?.jobs ?? [];
+
     const [activeTab, setActiveTab] = useState<"All" | JobStatus>("All");
     const [search, setSearch] = useState("");
     const [sortBy, setSortBy] = useState<"recent" | "applications" | "deadline">("recent");
@@ -390,7 +269,7 @@ export default function MyJobsPage() {
     };
 
     const handleAction = (action: string, id: string) => {
-        const job = MOCK_JOBS.find(j => j.id === id);
+        const job = allJobs.find(j => j.id === id);
         const messages: Record<string, string> = {
             duplicate: `"${job?.title}" duplicated successfully.`,
             close: `Applications closed for "${job?.title}".`,
@@ -403,20 +282,20 @@ export default function MyJobsPage() {
     };
 
     // Compute summary stats
-    const jobsWithMatch = MOCK_JOBS.filter(j => j.stats.avgMatch > 0);
+    const jobsWithMatch = allJobs.filter(j => j.stats.avgMatch > 0);
     const summary = {
-        active: MOCK_JOBS.filter(j => j.status === "Active").length,
-        draft: MOCK_JOBS.filter(j => j.status === "Draft").length,
-        closed: MOCK_JOBS.filter(j => j.status === "Closed").length,
-        totalApps: MOCK_JOBS.reduce((s, j) => s + j.stats.total, 0),
+        active: allJobs.filter(j => j.status === "Active").length,
+        draft: allJobs.filter(j => j.status === "Draft").length,
+        closed: allJobs.filter(j => j.status === "Closed").length,
+        totalApps: allJobs.reduce((s, j) => s + j.stats.total, 0),
         avgMatch: jobsWithMatch.length > 0 
             ? Math.round(jobsWithMatch.reduce((s, j) => s + j.stats.avgMatch, 0) / jobsWithMatch.length)
             : 0,
-        totalViews: MOCK_JOBS.reduce((s, j) => s + j.stats.views, 0),
+        totalViews: allJobs.reduce((s, j) => s + j.stats.views, 0),
     };
 
     // Filter + search + sort
-    const filtered = MOCK_JOBS
+    const filtered = allJobs
         .filter(j => activeTab === "All" || j.status === activeTab)
         .filter(j => j.title.toLowerCase().includes(search.toLowerCase()))
         .sort((a, b) => {

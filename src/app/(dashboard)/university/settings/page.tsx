@@ -7,42 +7,13 @@ import {
     Mail, Send, Crown, Database,
     Download, GraduationCap, Building2,
 } from "lucide-react";
-
-// ─── Types ─────────────────────────────────────────────────────────────────────
+import { UniTeamMember, UniPendingInvite } from "@/types/university";
+import { useApi } from "@/lib/hooks/useApi";
+import { getUniversityTeam } from "@/lib/api/university-api";
 
 type Tab = "account" | "team" | "notifications" | "data";
-
-interface TeamMember {
-    id: string;
-    name: string;
-    email: string;
-    role: "Owner" | "Admin" | "Department Head" | "View Only";
-    isYou?: boolean;
-    avatar: string;
-    avatarColor: string;
-    department: string;
-    joinedDate: string;
-}
-
-interface PendingInvite {
-    id: string;
-    email: string;
-    role: string;
-    sentDate: string;
-}
-
-// ─── Mock Data ─────────────────────────────────────────────────────────────────
-
-const TEAM_MEMBERS: TeamMember[] = [
-    { id: "u1", name: "Dr. Amal Perera", email: "amal.perera@colombo.ac.lk", role: "Owner", isYou: true, avatar: "AP", avatarColor: "#2563EB", department: "Analytics", joinedDate: "Sep 2023" },
-    { id: "u2", name: "Dr. Nimal Silva", email: "nimal.silva@colombo.ac.lk", role: "Admin", avatar: "NS", avatarColor: "#7C3AED", department: "Computer Science", joinedDate: "Oct 2023" },
-    { id: "u3", name: "Prof. Anura Jayasena", email: "anura.j@colombo.ac.lk", role: "View Only", avatar: "AJ", avatarColor: "#0891B2", department: "Associate Dean", joinedDate: "Jan 2024" },
-    { id: "u4", name: "Ms. Chamari Fernando", email: "chamari.f@colombo.ac.lk", role: "View Only", avatar: "CF", avatarColor: "#059669", department: "Career Services", joinedDate: "Mar 2024" },
-];
-
-const PENDING_INVITES: PendingInvite[] = [
-    { id: "i1", email: "registrar@colombo.ac.lk", role: "View Only", sentDate: "5 days ago" },
-];
+type TeamMember = UniTeamMember;
+type PendingInvite = UniPendingInvite;
 
 // ─── Shared UI ─────────────────────────────────────────────────────────────────
 
@@ -243,8 +214,9 @@ function AccountTab() {
 // ─── Tab: Team ─────────────────────────────────────────────────────────────────
 
 function TeamTab() {
-    const [members] = useState<TeamMember[]>(TEAM_MEMBERS);
-    const [invites] = useState<PendingInvite[]>(PENDING_INVITES);
+    const { data: teamData } = useApi<{ members: TeamMember[]; invites: PendingInvite[] }>(getUniversityTeam);
+    const members = teamData?.members ?? [];
+    const invites = teamData?.invites ?? [];
     const [showInvite, setShowInvite] = useState(false);
 
     return (

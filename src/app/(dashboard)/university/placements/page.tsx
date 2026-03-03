@@ -4,64 +4,9 @@ import React, { useState } from "react";
 import {
     Filter, Download, Share2, Target, TrendingUp, Search, UserCheck, Users, Briefcase, ChevronRight, Award
 } from "lucide-react";
-
-// ─── Types ────────────────────────────────────────────────────────────────────
-
-interface ProgrammeData {
-    name: string;
-    eligible: number;
-    seeking: number;
-    secured: number;
-    rate: number;
-    trend: number;
-}
-
-interface CompanyData {
-    id: string;
-    rank: number;
-    name: string;
-    interns: number;
-    roles: { role: string; count: number }[];
-}
-
-interface RoleData {
-    name: string;
-    students: number;
-    percent: number;
-    duration: number; // in months
-}
-
-// ─── Mock Data ────────────────────────────────────────────────────────────────
-
-const PROGRAMMES: ProgrammeData[] = [
-    { name: "Computer Science & SE", eligible: 398, seeking: 198, secured: 187, rate: 94, trend: 1 },
-    { name: "Data Science", eligible: 187, seeking: 89, secured: 78, rate: 88, trend: 1 },
-    { name: "IT Management", eligible: 168, seeking: 98, secured: 82, rate: 84, trend: 0 },
-    { name: "Cybersecurity", eligible: 94, seeking: 47, secured: 32, rate: 68, trend: -1 },
-];
-
-const COMPANIES: CompanyData[] = [
-    { id: "c1", rank: 1, name: "99X Technology", interns: 87, roles: [{ role: "Full-Stack", count: 42 }, { role: "Backend", count: 28 }, { role: "QA/Testing", count: 17 }] },
-    { id: "c2", rank: 2, name: "Virtusa", interns: 68, roles: [{ role: "Backend", count: 35 }, { role: "Full-Stack", count: 24 }, { role: "DevOps", count: 9 }] },
-    { id: "c3", rank: 3, name: "WSO2", interns: 54, roles: [{ role: "Java Dev", count: 32 }, { role: "QA", count: 22 }] },
-    { id: "c4", rank: 4, name: "IFS", interns: 47, roles: [{ role: "C#/.NET", count: 28 }, { role: "Support", count: 19 }] },
-    { id: "c5", rank: 5, name: "Sysco Labs", interns: 42, roles: [{ role: "Full-Stack", count: 24 }, { role: "Data", count: 18 }] },
-    { id: "c6", rank: 6, name: "Dialog Axiata", interns: 38, roles: [] },
-    { id: "c7", rank: 7, name: "Brandix", interns: 32, roles: [] },
-    { id: "c8", rank: 8, name: "John Keells", interns: 28, roles: [] },
-    { id: "c9", rank: 9, name: "hSenid", interns: 24, roles: [] },
-    { id: "c10", rank: 10, name: "Pearson Lanka", interns: 21, roles: [] },
-];
-
-const ROLES: RoleData[] = [
-    { name: "Full-Stack Developer", students: 145, percent: 35, duration: 5.8 },
-    { name: "Backend Developer", students: 98, percent: 24, duration: 5.2 },
-    { name: "QA / Testing", students: 67, percent: 16, duration: 4.5 },
-    { name: "Frontend Developer", students: 48, percent: 12, duration: 4.8 },
-    { name: "Data Analyst/Science", students: 32, percent: 8, duration: 6.2 },
-    { name: "DevOps / Cloud", students: 15, percent: 4, duration: 5.5 },
-    { name: "Mobile Developer", students: 10, percent: 2, duration: 4.2 },
-];
+import { ProgrammeData, CompanyData, RoleData } from "@/types/university";
+import { useApi } from "@/lib/hooks/useApi";
+import { getPlacementsByRole, getPlacementsByProgramme, getTopCompanies } from "@/lib/api/university-api";
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -74,6 +19,14 @@ function getStatusLabel(rate: number) {
 // ─── Page Component ───────────────────────────────────────────────────────────
 
 export default function PlacementsTrackingPage() {
+    const { data: programmesData } = useApi<ProgrammeData[]>(() => getPlacementsByProgramme());
+    const { data: companiesData } = useApi<CompanyData[]>(() => getTopCompanies());
+    const { data: rolesData } = useApi<RoleData[]>(() => getPlacementsByRole());
+
+    const PROGRAMMES = programmesData ?? [];
+    const COMPANIES = companiesData ?? [];
+    const ROLES = rolesData ?? [];
+
     return (
         <div className="space-y-6 pb-20">
             {/* ── Header ────────────────────────────────────────────────── */}

@@ -5,90 +5,11 @@ import {
     Search, Filter, Handshake, Users, Briefcase, Building2, Mail,
     Star, TrendingUp, Plus, ChevronRight, ExternalLink, BadgeCheck
 } from "lucide-react";
+import { PartnerCompany, PartnerStatus, PartnerStats } from "@/types/university";
+import { useApi } from "@/lib/hooks/useApi";
+import { getPartners } from "@/lib/api/university-api";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-
-type PartnerStatus = "Active" | "Partner" | "New" | "Inactive";
-
-interface Company {
-    id: string;
-    name: string;
-    industry: string;
-    size: string;
-    status: PartnerStatus;
-    studentsHired: number;
-    activeJobs: number;
-    rating: number; // 1-5
-    email: string;
-    topRoles: string[];
-    since: number; // year they became a partner
-    logoColor: string; // tailwind gradient class
-}
-
-// ─── Mock Data ────────────────────────────────────────────────────────────────
-
-const COMPANIES: Company[] = [
-    {
-        id: "c1", name: "99X Technology", industry: "Software Development", size: "200-500",
-        status: "Active", studentsHired: 87, activeJobs: 8, rating: 5,
-        email: "campus@99x.io", topRoles: ["Full-Stack", "Backend", "QA"],
-        since: 2018, logoColor: "from-blue-500 to-indigo-600"
-    },
-    {
-        id: "c2", name: "Virtusa", industry: "Technology Services", size: "500+",
-        status: "Active", studentsHired: 68, activeJobs: 6, rating: 4,
-        email: "campus@virtusa.com", topRoles: ["Backend", "Full-Stack", "DevOps"],
-        since: 2019, logoColor: "from-purple-500 to-violet-700"
-    },
-    {
-        id: "c3", name: "WSO2", industry: "Open-Source Middleware", size: "200-500",
-        status: "Partner", studentsHired: 54, activeJobs: 4, rating: 5,
-        email: "campus@wso2.com", topRoles: ["Java Dev", "QA", "Cloud"],
-        since: 2020, logoColor: "from-orange-500 to-red-600"
-    },
-    {
-        id: "c4", name: "IFS", industry: "Enterprise Software", size: "500+",
-        status: "Active", studentsHired: 47, activeJobs: 5, rating: 4,
-        email: "talent@ifsworld.com", topRoles: ["C#/.NET", "QA", "Support"],
-        since: 2019, logoColor: "from-green-500 to-emerald-700"
-    },
-    {
-        id: "c5", name: "Sysco Labs", industry: "Food Tech", size: "50-200",
-        status: "Partner", studentsHired: 42, activeJobs: 3, rating: 4,
-        email: "campus@syscolabs.com", topRoles: ["Full-Stack", "Data Science"],
-        since: 2021, logoColor: "from-cyan-500 to-blue-600"
-    },
-    {
-        id: "c6", name: "Dialog Axiata", industry: "Telecommunications", size: "500+",
-        status: "Active", studentsHired: 38, activeJobs: 5, rating: 4,
-        email: "campus@dialog.lk", topRoles: ["Network Eng.", "Data Analyst"],
-        since: 2020, logoColor: "from-red-500 to-pink-600"
-    },
-    {
-        id: "c7", name: "hSenid Business Solutions", industry: "HRM Software", size: "50-200",
-        status: "Partner", studentsHired: 24, activeJobs: 2, rating: 3,
-        email: "campus@hsenid.lk", topRoles: ["Java Dev", "QA"],
-        since: 2022, logoColor: "from-teal-500 to-green-600"
-    },
-    {
-        id: "c8", name: "Pearson Lanka", industry: "EdTech", size: "50-200",
-        status: "New", studentsHired: 21, activeJobs: 3, rating: 4,
-        email: "campus@pearson.com", topRoles: ["Frontend", "Content Dev"],
-        since: 2024, logoColor: "from-blue-400 to-sky-600"
-    },
-    {
-        id: "c9", name: "Cinnamon Hotels", industry: "Hospitality Tech", size: "500+",
-        status: "New", studentsHired: 12, activeJobs: 2, rating: 3,
-        email: "campus@cinnamon.lk", topRoles: ["Data Analyst", "IT Support"],
-        since: 2025, logoColor: "from-amber-500 to-yellow-600"
-    },
-    {
-        id: "c10", name: "DFCC Bank", industry: "FinTech / Banking", size: "200-500",
-        status: "Inactive", studentsHired: 8, activeJobs: 0, rating: 2,
-        email: "campus@dfcc.lk", topRoles: ["IT Support"],
-        since: 2021, logoColor: "from-slate-400 to-gray-500"
-    },
-];
+type Company = PartnerCompany;
 
 // ─── Status Config ────────────────────────────────────────────────────────────
 
@@ -190,6 +111,9 @@ export default function PartnerCompaniesPage() {
     const [statusFilter, setStatusFilter] = useState<PartnerStatus | "All">("All");
     const [industryFilter, setIndustryFilter] = useState("All");
     const [sizeFilter, setSizeFilter] = useState("All");
+
+    const { data: partnersData } = useApi<{ companies: Company[]; stats: PartnerStats }>(() => getPartners());
+    const COMPANIES = partnersData?.companies ?? [];
 
     const industries = ["All", ...Array.from(new Set(COMPANIES.map(c => c.industry)))];
 

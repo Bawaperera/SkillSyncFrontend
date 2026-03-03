@@ -7,44 +7,18 @@ import {
     MessageSquare, Eye, MoreHorizontal, Users, Sparkles,
     ChevronRight, Mail, X, ArrowUpDown, Tag, Clock,
 } from "lucide-react";
+import { RecruiterStage, AppTag, RecruiterApplication } from "@/types/recruiter";
+import { useApi } from "@/lib/hooks/useApi";
+import { getRecruiterApplications, RecruiterApplicationsResponse } from "@/lib/api/recruiter-api";
 
-// ─── Types ─────────────────────────────────────────────────────────────────────
+// ─── Local type aliases ────────────────────────────────────────────────────────
 
-type Stage = "New" | "Screening" | "Shortlisted" | "Interview" | "Offer" | "Hired" | "Rejected";
-type AppTag = "Top Tier" | "On Hold" | "Referral" | "Needs Review" | "Culture Fit";
-
-interface Application {
-    id: string;
-    candidateName: string;
-    candidateInitials: string;
-    avatarColor: string;
-    university: string;
-    degree: string;
-    major: string;
-    location: string;
-    jobId: string;
-    jobTitle: string;
-    department: string;
-    source: "Direct" | "Referral" | "LinkedIn";
-    appliedOn: string;        // "2026-02-24"
-    appliedDaysAgo: number;
-    stage: Stage;
-    matchScore: number;
-    skills: string[];
-    github: { repos: number; commits6mo: number } | null;
-    availabilityStatus: string;
-    tags: AppTag[];
-    note?: string;
-}
+type Stage = RecruiterStage;
+type Application = RecruiterApplication;
 
 // ─── Constants ──────────────────────────────────────────────────────────────────
 
-const JOBS = [
-    { id: "j1", title: "Full-Stack Developer", department: "Engineering" },
-    { id: "j2", title: "Backend Developer", department: "Engineering" },
-    { id: "j3", title: "Frontend Intern", department: "Product" },
-    { id: "j4", title: "DevOps Engineer", department: "Infrastructure" },
-];
+
 
 const STAGES: Stage[] = ["New", "Screening", "Shortlisted", "Interview", "Offer", "Hired", "Rejected"];
 
@@ -67,92 +41,6 @@ const TAG_CFG: Record<AppTag, string> = {
 };
 
 const ALL_TAGS: AppTag[] = ["Top Tier", "On Hold", "Referral", "Needs Review", "Culture Fit"];
-
-// ─── Mock Data ──────────────────────────────────────────────────────────────────
-
-const MOCK: Application[] = [
-    {
-        id: "a1", candidateName: "Bawantha Perera", candidateInitials: "BP", avatarColor: "bg-blue-600",
-        university: "University of Colombo", degree: "BSc", major: "Computer Science",
-        location: "Colombo", jobId: "j1", jobTitle: "Full-Stack Developer", department: "Engineering",
-        source: "Direct", appliedOn: "2026-02-24", appliedDaysAgo: 1, stage: "Shortlisted",
-        matchScore: 92, skills: ["Python", "React", "Node.js", "MongoDB"],
-        github: { repos: 25, commits6mo: 156 }, availabilityStatus: "Immediate",
-        tags: ["Top Tier"], note: "Outstanding GitHub portfolio.",
-    },
-    {
-        id: "a2", candidateName: "Kasun Silva", candidateInitials: "KS", avatarColor: "bg-indigo-600",
-        university: "SLIIT", degree: "BEng", major: "Software Engineering",
-        location: "Kandy", jobId: "j2", jobTitle: "Backend Developer", department: "Engineering",
-        source: "LinkedIn", appliedOn: "2026-02-23", appliedDaysAgo: 2, stage: "New",
-        matchScore: 89, skills: ["Python", "Django", "PostgreSQL", "Docker"],
-        github: { repos: 18, commits6mo: 98 }, availabilityStatus: "1 month notice",
-        tags: ["Needs Review"],
-    },
-    {
-        id: "a3", candidateName: "Dilani Wijesinghe", candidateInitials: "DW", avatarColor: "bg-violet-600",
-        university: "University of Moratuwa", degree: "BSc", major: "IT",
-        location: "Colombo", jobId: "j1", jobTitle: "Full-Stack Developer", department: "Engineering",
-        source: "Referral", appliedOn: "2026-02-23", appliedDaysAgo: 2, stage: "Interview",
-        matchScore: 87, skills: ["React", "TypeScript", "Node.js", "Next.js"],
-        github: { repos: 31, commits6mo: 212 }, availabilityStatus: "Immediate",
-        tags: ["Referral", "Culture Fit"], note: "Referred by the CTO. Scheduled for technical round.",
-    },
-    {
-        id: "a4", candidateName: "Tharanga Madushanka", candidateInitials: "TM", avatarColor: "bg-teal-600",
-        university: "NSBM", degree: "BSc", major: "Computer Engineering",
-        location: "Galle", jobId: "j1", jobTitle: "Full-Stack Developer", department: "Engineering",
-        source: "Direct", appliedOn: "2026-02-20", appliedDaysAgo: 5, stage: "Screening",
-        matchScore: 81, skills: ["Java", "Python", "Git", "Docker"],
-        github: { repos: 12, commits6mo: 55 }, availabilityStatus: "Immediate",
-        tags: [],
-    },
-    {
-        id: "a5", candidateName: "Nimali Rathnayake", candidateInitials: "NR", avatarColor: "bg-rose-500",
-        university: "University of Moratuwa", degree: "BEng", major: "Elec & Telecom",
-        location: "Colombo", jobId: "j4", jobTitle: "DevOps Engineer", department: "Infrastructure",
-        source: "LinkedIn", appliedOn: "2026-02-22", appliedDaysAgo: 3, stage: "New",
-        matchScore: 75, skills: ["AWS", "Docker", "Kubernetes", "Go"],
-        github: { repos: 9, commits6mo: 34 }, availabilityStatus: "2+ months notice",
-        tags: ["On Hold"],
-    },
-    {
-        id: "a6", candidateName: "Asanka Fernando", candidateInitials: "AF", avatarColor: "bg-amber-600",
-        university: "IIT", degree: "BSc", major: "Data Science",
-        location: "Colombo", jobId: "j2", jobTitle: "Backend Developer", department: "Engineering",
-        source: "Referral", appliedOn: "2026-02-24", appliedDaysAgo: 1, stage: "Offer",
-        matchScore: 93, skills: ["Python", "GraphQL", "Redis", "Node.js"],
-        github: { repos: 42, commits6mo: 310 }, availabilityStatus: "1 month notice",
-        tags: ["Top Tier"], note: "Offer letter sent. Awaiting response.",
-    },
-    {
-        id: "a7", candidateName: "Lahiru Perera", candidateInitials: "LP", avatarColor: "bg-cyan-600",
-        university: "SLIIT", degree: "BSc", major: "IT",
-        location: "Colombo", jobId: "j3", jobTitle: "Frontend Intern", department: "Product",
-        source: "Direct", appliedOn: "2026-02-21", appliedDaysAgo: 4, stage: "Hired",
-        matchScore: 88, skills: ["React", "CSS", "TypeScript", "Figma"],
-        github: { repos: 8, commits6mo: 67 }, availabilityStatus: "Immediate",
-        tags: ["Culture Fit"],
-    },
-    {
-        id: "a8", candidateName: "Priya Jayasinghe", candidateInitials: "PJ", avatarColor: "bg-pink-500",
-        university: "University of Colombo", degree: "BSc", major: "Computer Science",
-        location: "Kandy", jobId: "j4", jobTitle: "DevOps Engineer", department: "Infrastructure",
-        source: "Direct", appliedOn: "2026-02-18", appliedDaysAgo: 7, stage: "Rejected",
-        matchScore: 58, skills: ["Linux", "Bash", "Python"],
-        github: null, availabilityStatus: "Immediate",
-        tags: [],
-    },
-    {
-        id: "a9", candidateName: "Chamath De Silva", candidateInitials: "CD", avatarColor: "bg-green-600",
-        university: "University of Moratuwa", degree: "BEng", major: "CS & Eng",
-        location: "Colombo", jobId: "j3", jobTitle: "Frontend Intern", department: "Product",
-        source: "LinkedIn", appliedOn: "2026-02-23", appliedDaysAgo: 2, stage: "New",
-        matchScore: 84, skills: ["React", "TypeScript", "Next.js", "CSS"],
-        github: { repos: 14, commits6mo: 88 }, availabilityStatus: "Immediate",
-        tags: [],
-    },
-];
 
 // ─── Helpers ────────────────────────────────────────────────────────────────────
 
@@ -473,7 +361,18 @@ function MessageModal({ app, onClose }: { app: Application; onClose: () => void 
 // ─── Page ──────────────────────────────────────────────────────────────────────
 
 export default function RecruiterApplicationsPage() {
-    const [apps, setApps] = useState(MOCK);
+    const { data: fetchedData, loading, error, refetch } = useApi<RecruiterApplicationsResponse>(() => getRecruiterApplications(), []);
+    const [apps, setApps] = useState<Application[]>([]);
+
+    useEffect(() => {
+        if (fetchedData) setApps(fetchedData.applications);
+    }, [fetchedData]);
+
+    const JOBS = useMemo(() => {
+        const map = new Map<string, { id: string; title: string; department: string }>();
+        apps.forEach(a => { if (!map.has(a.jobId)) map.set(a.jobId, { id: a.jobId, title: a.jobTitle, department: a.department }); });
+        return Array.from(map.values());
+    }, [apps]);
     const [search, setSearch] = useState("");
     const [filterJob, setFilterJob] = useState("all");
     const [filterStage, setFilterStage] = useState<Stage | "all">("all");
@@ -531,6 +430,9 @@ export default function RecruiterApplicationsPage() {
     const toggleSort = (col: typeof sortBy) => { if (sortBy === col) setSortDir(d => d === "asc" ? "desc" : "asc"); else { setSortBy(col); setSortDir("desc"); } };
 
     const totalVisible = apps.filter(a => filterJob === "all" || a.jobId === filterJob).length;
+
+    if (loading) return <div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600" /></div>;
+    if (error) return <div className="text-center py-12 text-red-500">Failed to load applications. <button onClick={refetch} className="underline">Retry</button></div>;
 
     return (
         <div className="space-y-5">

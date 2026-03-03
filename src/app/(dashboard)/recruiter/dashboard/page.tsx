@@ -11,6 +11,8 @@ import {
     BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
     Legend, ResponsiveContainer
 } from "recharts";
+import { useApi } from "@/lib/hooks/useApi";
+import { getRecruiterDashboard, getRecruiterStats, getSchedule as fetchSchedule } from "@/lib/api/recruiter-api";
 
 const DISMISS_KEY = "recruiter_greeting_dismissed";
 
@@ -180,17 +182,10 @@ function HiringPipelineChart() {
     );
 }
 
-// Mock schedule data keyed by ISO date string
-// Using a function to avoid server/client mismatch
-function getSchedule(): Record<string, { time: string; title: string; type: "zoom" | "office" | "call"; detail: string }[]> {
-    const todayKey = new Date().toISOString().split("T")[0];
-    return {
-        [todayKey]: [
-            { time: "9:00 AM", title: "Candidate Interview", type: "zoom", detail: "Full-Stack Developer role" },
-            { time: "11:30 AM", title: "Team Sync", type: "office", detail: "Weekly hiring update" },
-            { time: "2:00 PM", title: "HR Review Call", type: "call", detail: "Shortlist discussion" },
-        ],
-    };
+// Using a function to generate schedule from API data
+function getScheduleData(): Record<string, { time: string; title: string; type: "zoom" | "office" | "call"; detail: string }[]> {
+    // This will be replaced by real API data in the component
+    return {};
 }
 
 function GreetingBanner({ onDismiss }: { onDismiss: () => void }) {
@@ -204,7 +199,7 @@ function GreetingBanner({ onDismiss }: { onDismiss: () => void }) {
             <div className="relative z-10">
                 <h2 className="text-2xl font-bold text-white mb-1" suppressHydrationWarning>{getGreeting()}, Sarah! 👋</h2>
                 <p className="text-blue-100 text-sm leading-relaxed mb-4">
-                    You have <span className="font-bold text-white">6 new applications</span>. It is a lot of work for today! So let's start.
+                    You have <span className="font-bold text-white">6 new applications</span>. It is a lot of work for today! So let&apos;s start.
                 </p>
                 <button onClick={handleReview} className="px-5 py-2 bg-white text-blue-700 text-sm font-semibold rounded-md hover:bg-blue-50 transition-colors shadow-sm">
                     Review it
@@ -222,7 +217,7 @@ function GreetingBanner({ onDismiss }: { onDismiss: () => void }) {
 function MiniCalendar({ onSelectDate }: { onSelectDate: (date: Date | null) => void }) {
     const [offset, setOffset] = useState(0); // offset in 5-day pages
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-    const schedule = getSchedule();
+    const schedule = getScheduleData();
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
@@ -309,7 +304,7 @@ function MiniCalendar({ onSelectDate }: { onSelectDate: (date: Date | null) => v
 }
 
 function SchedulePanel({ date }: { date: Date }) {
-    const schedule = getSchedule();
+    const schedule = getScheduleData();
     const isoKey = date.toISOString().split("T")[0];
     const events = schedule[isoKey] || [];
     const displayDate = `${DAYS[date.getDay()]}, ${date.getDate()} ${MONTHS[date.getMonth()]}`;
@@ -349,6 +344,7 @@ function SchedulePanel({ date }: { date: Date }) {
 export default function RecruiterDashboard() {
     const [showBanner, setShowBanner] = useState(false);
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+    const { data: dashboard } = useApi(() => getRecruiterDashboard(), []);
 
     useEffect(() => {
         const dismissed = sessionStorage.getItem(DISMISS_KEY);
@@ -366,7 +362,7 @@ export default function RecruiterDashboard() {
             {showBanner ? (
                 <GreetingBanner onDismiss={handleDismiss} />
             ) : (
-                <h1 className="text-xl font-bold text-gray-900" suppressHydrationWarning>{getGreeting()}, Sarah 👋</h1>
+                <h1 className="text-xl font-bold text-gray-900" suppressHydrationWarning>{getGreeting()}, {dashboard?.stats?.recruiterName ?? "there"} 👋</h1>
             )}
 
             {/* Main 2-Column Layout */}
@@ -383,7 +379,7 @@ export default function RecruiterDashboard() {
                                 <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">Active Jobs</p>
                                 <Briefcase size={14} className="text-blue-600" />
                             </div>
-                            <p className="text-2xl font-bold text-gray-900">5</p>
+                            <p className="text-2xl font-bold text-gray-900">{dashboard?.stats?.activeJobs ?? 0}</p>
                             <span className="text-[11px] font-medium text-green-700 bg-green-50 px-1.5 py-0.5 rounded border border-green-200">+1 this week</span>
                         </div>
 
@@ -393,7 +389,7 @@ export default function RecruiterDashboard() {
                                 <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">Candidates</p>
                                 <Users size={14} className="text-indigo-600" />
                             </div>
-                            <p className="text-2xl font-bold text-gray-900">127</p>
+                            <p className="text-2xl font-bold text-gray-900">{dashboard?.stats?.totalCandidates ?? 0}</p>
                             <span className="text-[11px] font-medium text-green-700 bg-green-50 px-1.5 py-0.5 rounded border border-green-200">+12 this week</span>
                         </div>
 
@@ -403,7 +399,7 @@ export default function RecruiterDashboard() {
                                 <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">New Applicants</p>
                                 <MailOpen size={14} className="text-amber-600" />
                             </div>
-                            <p className="text-2xl font-bold text-gray-900">23</p>
+                            <p className="text-2xl font-bold text-gray-900">{dashboard?.stats?.newApplicants ?? 0}</p>
                             <span className="text-[11px] font-medium text-gray-600 bg-gray-100 px-1.5 py-0.5 rounded border border-gray-200">Needs review</span>
                         </div>
 
