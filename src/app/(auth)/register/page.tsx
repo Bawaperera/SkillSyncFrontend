@@ -17,7 +17,7 @@ export default function RegisterPage() {
                     Join the <span className="text-blue-200">Future of Hiring</span>
                 </h1>
                 <p className="text-lg text-blue-100/90 leading-relaxed max-w-md">
-                    Whether you're a student building a career, or a company building a team — SkillSync bridges the gap.
+                    Whether you&apos;re a student building a career, or a company building a team — SkillSync bridges the gap.
                 </p>
             </div>
 
