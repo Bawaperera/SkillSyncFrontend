@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
     ResponsiveContainer, BarChart, Bar, Cell,
@@ -10,71 +10,11 @@ import {
     Download, TrendingUp, TrendingDown, Users, Clock,
     CheckCircle, Target, Zap, ChevronDown, AlertTriangle, Minus,
 } from "lucide-react";
+import { DateRange, TrendDataPoint, SourceDataPoint, SkillDemandPoint, FunnelDataPoint, JobPerformance } from "@/types/recruiter";
+import { useApi } from "@/lib/hooks/useApi";
+import { getRecruiterAnalytics, getAnalyticsTrends, getSourceBreakdown, getSkillDemand, getFunnel, getJobPerformance } from "@/lib/api/recruiter-api";
 
-// ─── Types ─────────────────────────────────────────────────────────────────────
-
-type DateRange = "7d" | "30d" | "90d";
-
-// ─── Mock data ─────────────────────────────────────────────────────────────────
-
-const TREND_DATA: Record<DateRange, { label: string; apps: number; interviews: number; offers: number }[]> = {
-    "7d": [
-        { label: "Mon", apps: 12, interviews: 2, offers: 0 },
-        { label: "Tue", apps: 18, interviews: 3, offers: 1 },
-        { label: "Wed", apps: 9, interviews: 1, offers: 0 },
-        { label: "Thu", apps: 24, interviews: 4, offers: 1 },
-        { label: "Fri", apps: 31, interviews: 5, offers: 2 },
-        { label: "Sat", apps: 7, interviews: 1, offers: 0 },
-        { label: "Sun", apps: 4, interviews: 0, offers: 0 },
-    ],
-    "30d": [
-        { label: "Week 1", apps: 28, interviews: 5, offers: 1 },
-        { label: "Week 2", apps: 42, interviews: 8, offers: 2 },
-        { label: "Week 3", apps: 35, interviews: 6, offers: 2 },
-        { label: "Week 4", apps: 52, interviews: 10, offers: 3 },
-    ],
-    "90d": [
-        { label: "Jan", apps: 92, interviews: 17, offers: 5 },
-        { label: "Feb", apps: 115, interviews: 22, offers: 8 },
-        { label: "Mar", apps: 127, interviews: 28, offers: 9 },
-    ],
-};
-
-// Donut chart — composition of a whole
-const SOURCE_DATA = [
-    { name: "Univ. of Colombo", value: 38 },
-    { name: "SLIIT", value: 22 },
-    { name: "Univ. of Moratuwa", value: 18 },
-    { name: "IIT", value: 12 },
-    { name: "Others", value: 10 },
-];
 const SOURCE_COLORS = ["#2563EB", "#4F46E5", "#7C3AED", "#A855F7", "#D1D5DB"];
-
-// Horizontal ranked bar — quantity comparison
-const SKILL_DEMAND = [
-    { skill: "React", jobs: 23 },
-    { skill: "Python", jobs: 21 },
-    { skill: "Node.js", jobs: 19 },
-    { skill: "TypeScript", jobs: 17 },
-    { skill: "Docker", jobs: 15 },
-];
-
-// Funnel chart data — pipeline drop-off
-const FUNNEL_DATA = [
-    { name: "Applications", value: 127, fill: "#2563EB" },
-    { name: "Reviewed", value: 98, fill: "#4F46E5" },
-    { name: "Shortlisted", value: 42, fill: "#7C3AED" },
-    { name: "Interviewed", value: 15, fill: "#9333EA" },
-    { name: "Offer Extended", value: 6, fill: "#16A34A" },
-    { name: "Hired", value: 4, fill: "#15803D" },
-];
-
-const JOB_PERFORMANCE = [
-    { title: "Full-Stack Developer", apps: 47, match: 82, days: 15, warn: false },
-    { title: "Backend Developer", apps: 31, match: 78, days: 12, warn: false },
-    { title: "Frontend Intern", apps: 89, match: 72, days: 18, warn: false },
-    { title: "DevOps Engineer", apps: 12, match: 85, days: 28, warn: true },
-];
 
 // ─── Shared tooltip ────────────────────────────────────────────────────────────
 
@@ -156,15 +96,33 @@ function Section({ title, children, action }: { title: string; children: React.R
 export default function AnalyticsPage() {
     const [range, setRange] = useState<DateRange>("30d");
     const [activeSourceIndex, setActiveSourceIndex] = useState(0);
-    const trendData = TREND_DATA[range];
 
-    const overallConversion = ((FUNNEL_DATA[FUNNEL_DATA.length - 1].value / FUNNEL_DATA[0].value) * 100).toFixed(1);
+    const { data: analytics, loading, error, refetch } = useApi(() => getRecruiterAnalytics(range), [range]);
+    const { data: trendDataMap } = useApi(() => getAnalyticsTrends(range), [range]);
+    const { data: SOURCE_DATA } = useApi(() => getSourceBreakdown(), []);
+    const { data: SKILL_DEMAND } = useApi(() => getSkillDemand(), []);
+    const { data: FUNNEL_DATA } = useApi(() => getFunnel(), []);
+    const { data: JOB_PERFORMANCE } = useApi(() => getJobPerformance(), []);
+
+    const TREND_DATA = trendDataMap as Record<DateRange, { label: string; apps: number; interviews: number; offers: number }[]> | null;
+    const trendData = TREND_DATA?.[range] ?? [];
+    const funnelData = FUNNEL_DATA ?? [];
+    const sourceData = SOURCE_DATA ?? [];
+    const skillDemand = SKILL_DEMAND ?? [];
+    const jobPerformance = JOB_PERFORMANCE ?? [];
+
+    const overallConversion = funnelData.length > 0
+        ? ((funnelData[funnelData.length - 1].value / funnelData[0].value) * 100).toFixed(1)
+        : "0";
 
     const RANGE_OPTIONS: { value: DateRange; label: string }[] = [
         { value: "7d", label: "Last 7 Days" },
         { value: "30d", label: "Last 30 Days" },
         { value: "90d", label: "Last 90 Days" },
     ];
+
+    if (loading) return <div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600" /></div>;
+    if (error) return <div className="text-center py-12 text-red-500">Failed to load analytics. <button onClick={refetch} className="underline">Retry</button></div>;
 
     return (
         <div className="space-y-5">
@@ -247,25 +205,26 @@ export default function AnalyticsPage() {
                         <div className="flex-shrink-0">
                             <PieChart width={180} height={180}>
                                 <Pie
-                                    data={SOURCE_DATA}
+                                    data={sourceData}
                                     cx={88}
                                     cy={88}
                                     innerRadius={54}
                                     outerRadius={80}
                                     dataKey="value"
+                                    // @ts-expect-error recharts v3 supports activeIndex but types lag
                                     activeIndex={activeSourceIndex}
                                     activeShape={ActiveShape}
                                     onMouseEnter={(_, idx) => setActiveSourceIndex(idx)}
                                     strokeWidth={0}
                                 >
-                                    {SOURCE_DATA.map((_, i) => (
+                                    {sourceData.map((_, i) => (
                                         <Cell key={i} fill={SOURCE_COLORS[i]} />
                                     ))}
                                 </Pie>
                             </PieChart>
                         </div>
                         <div className="flex-1 space-y-2.5 min-w-0">
-                            {SOURCE_DATA.map((src, i) => (
+                            {sourceData.map((src, i) => (
                                 <button
                                     key={src.name}
                                     className="flex items-center gap-2 w-full text-left group"
@@ -291,7 +250,7 @@ export default function AnalyticsPage() {
                     <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-4">Most Required Skills</p>
                     <ResponsiveContainer width="100%" height={160}>
                         <BarChart
-                            data={SKILL_DEMAND}
+                            data={skillDemand}
                             layout="vertical"
                             margin={{ top: 0, right: 36, left: 0, bottom: 0 }}
                             barSize={10}
@@ -311,7 +270,7 @@ export default function AnalyticsPage() {
                                 }}
                             />
                             <Bar dataKey="jobs" radius={[0, 4, 4, 0]}>
-                                {SKILL_DEMAND.map((_, i) => {
+                                {skillDemand.map((_, i) => {
                                     const intensity = 1 - i * 0.15;
                                     return <Cell key={i} fill={`rgba(37,99,235,${intensity})`} />;
                                 })}
@@ -364,7 +323,7 @@ export default function AnalyticsPage() {
                                     content={({ active, payload }) => {
                                         if (!active || !payload?.length) return null;
                                         const d = payload[0].payload;
-                                        const pct = ((d.value / FUNNEL_DATA[0].value) * 100).toFixed(0);
+                                        const pct = ((d.value / funnelData[0].value) * 100).toFixed(0);
                                         return (
                                             <div className="bg-gray-900 text-white rounded-lg px-3 py-2.5 shadow-xl text-[11px]">
                                                 <p className="font-bold text-white">{d.name}</p>
@@ -373,13 +332,13 @@ export default function AnalyticsPage() {
                                         );
                                     }}
                                 />
-                                <Funnel dataKey="value" data={FUNNEL_DATA} isAnimationActive>
+                                <Funnel dataKey="value" data={funnelData} isAnimationActive>
                                     <LabelList
                                         position="right"
                                         content={({ value, x, y, width, height }: any) => {
-                                            const item = FUNNEL_DATA.find((f) => f.value === value);
+                                            const item = funnelData.find((f) => f.value === value);
                                             if (!item) return null;
-                                            const pct = ((item.value / FUNNEL_DATA[0].value) * 100).toFixed(0);
+                                            const pct = ((item.value / funnelData[0].value) * 100).toFixed(0);
                                             return (
                                                 <text
                                                     x={Number(x) + Number(width) + 8}
@@ -400,9 +359,9 @@ export default function AnalyticsPage() {
 
                     {/* Stage legend + drop-off detail */}
                     <div className="flex-1 space-y-3 min-w-0">
-                        {FUNNEL_DATA.map((step, i) => {
+                        {funnelData.map((step, i) => {
                             const dropPct = i > 0
-                                ? (((FUNNEL_DATA[i - 1].value - step.value) / FUNNEL_DATA[i - 1].value) * 100).toFixed(0)
+                                ? (((funnelData[i - 1].value - step.value) / funnelData[i - 1].value) * 100).toFixed(0)
                                 : null;
                             return (
                                 <div key={step.name} className="flex items-center gap-3">
@@ -433,7 +392,7 @@ export default function AnalyticsPage() {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-50">
-                            {JOB_PERFORMANCE.map((job) => (
+                            {jobPerformance.map((job) => (
                                 <tr key={job.title} className="hover:bg-gray-50 transition-colors">
                                     <td className="py-3 font-medium text-gray-900">{job.title}</td>
                                     <td className="py-3 text-right text-gray-700">{job.apps}</td>
