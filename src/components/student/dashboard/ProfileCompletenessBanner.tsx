@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckCircle2, Circle, Upload, Github, Linkedin, Target, ArrowRight, X } from "lucide-react";
+import { CheckCircle2, Upload, Github, Linkedin, Target, ArrowRight, X } from "lucide-react";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { useAuth } from "@/lib/auth/AuthContext";
 import Link from "next/link";
@@ -11,9 +11,8 @@ export function ProfileCompletenessBanner() {
     const { user } = useAuth();
     const [isDismissed, setIsDismissed] = useState(false);
 
-    // Don't render for non-students, fully complete profiles, or when dismissed
+    // Don't render for non-students or when dismissed
     if (!user || user.role !== "student") return null;
-    if (user.profileCompletion >= 100) return null;
     if (isDismissed) return null;
 
     const steps = [
@@ -52,7 +51,11 @@ export function ProfileCompletenessBanner() {
     ];
 
     const completedCount = steps.filter((s) => s.completed).length;
-    const progressPercent = user.profileCompletion;
+    const totalSteps = steps.length;
+    const progressPercent = Math.round((completedCount / totalSteps) * 100);
+
+    // All onboarding steps done → no banner needed
+    if (completedCount === totalSteps) return null;
 
     return (
         <GlassCard className="p-8 mb-8 border border-blue-100 bg-white/80 backdrop-blur-sm shadow-sm relative overflow-hidden">
@@ -69,7 +72,9 @@ export function ProfileCompletenessBanner() {
                 <div>
                     <h2 className="text-2xl font-bold text-gray-900 mb-1">Profile Completeness</h2>
                     <p className="text-sm text-gray-500 font-medium">
-                        Complete your profile to get better job matches and recruiter visibility.
+                        {completedCount === 0
+                            ? "Complete the steps below to get better job matches and recruiter visibility."
+                            : `${completedCount} of ${totalSteps} steps done — finish the remaining to unlock full matching.`}
                     </p>
                 </div>
                 <div
