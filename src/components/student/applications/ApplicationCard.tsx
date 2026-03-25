@@ -24,8 +24,8 @@ export function ApplicationCard({ app }: ApplicationCardProps) {
                 {/* Header */}
                 <div className="flex justify-between items-start mb-6">
                     <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center text-lg font-bold text-gray-700">
-                            {app.logo ? <img src={app.logo} alt={app.company} className="w-full h-full object-cover rounded-xl" /> : app.company.charAt(0)}
+                        <div className="w-12 h-12 rounded-lg bg-gray-100 border border-gray-200 flex items-center justify-center text-lg font-bold text-gray-700">
+                            {app.logo ? <img src={app.logo} alt={app.company} className="w-full h-full object-cover rounded-lg" /> : app.company.charAt(0)}
                         </div>
                         <div>
                             <h3 className="text-lg font-bold text-gray-900 hover:text-blue-600 transition-colors cursor-pointer">{app.jobTitle}</h3>
@@ -38,7 +38,7 @@ export function ApplicationCard({ app }: ApplicationCardProps) {
                     </div>
 
                     <div className="relative">
-                        <button className="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors">
+                        <button className="p-2 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors">
                             <MoreHorizontal size={20} />
                         </button>
                     </div>
@@ -63,7 +63,7 @@ export function ApplicationCard({ app }: ApplicationCardProps) {
                 </div>
 
                 {/* Context Aware Action Area */}
-                <div className="bg-gray-50 rounded-xl p-4 border border-gray-100">
+                <div className="bg-gray-50 rounded-lg p-4 border border-gray-100">
                     {isInterview && (
                         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                             <div className="flex items-start gap-3">

@@ -89,7 +89,7 @@ function FilterPill({
                 {!active && <ChevronDown size={11} />}
             </button>
             {open && children && (
-                <div className="absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-xl shadow-lg z-30 py-1 min-w-[160px]">
+                <div className="absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded shadow-lg z-30 py-1 min-w-[160px]">
                     {children}
                 </div>
             )}
@@ -127,7 +127,7 @@ function StageDropdown({ current, onChange }: { current: Stage; onChange: (s: St
                 <ChevronDown size={10} className="text-gray-400" />
             </button>
             {open && (
-                <div className="absolute left-0 top-full mt-1 bg-white border border-gray-200 rounded-xl shadow-lg z-40 py-1.5 min-w-[150px]">
+                <div className="absolute left-0 top-full mt-1 bg-white border border-gray-200 rounded shadow-lg z-40 py-1.5 min-w-[150px]">
                     {STAGES.map(s => (
                         <button
                             key={s}
@@ -591,7 +591,7 @@ export default function RecruiterApplicationsPage() {
 
             {/* Bulk bar */}
             {selected.size > 0 && (
-                <div className="flex items-center gap-3 bg-blue-700 text-white px-5 py-3 rounded-xl text-sm font-medium">
+                <div className="flex items-center gap-3 bg-blue-700 text-white px-5 py-3 rounded-lg text-sm font-medium">
                     <CheckCircle size={14} />
                     <span>{selected.size} selected —</span>
                     <div className="flex gap-2">

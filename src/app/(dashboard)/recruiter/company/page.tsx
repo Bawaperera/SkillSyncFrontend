@@ -123,7 +123,7 @@ export default function CompanyProfilePage() {
                     {/* Logo + basic info row */}
                     <div className="flex items-end gap-5 -mt-10 mb-5">
                         {/* Company logo */}
-                        <div className={`w-20 h-20 rounded-xl bg-white border-4 border-white shadow-lg flex items-center justify-center flex-shrink-0 ${editing ? "ring-2 ring-blue-400 cursor-pointer" : ""}`}>
+                        <div className={`w-20 h-20 rounded bg-white border-4 border-white shadow-lg flex items-center justify-center flex-shrink-0 ${editing ? "ring-2 ring-blue-400 cursor-pointer" : ""}`}>
                             <div className="w-16 h-16 rounded-lg bg-blue-700 flex items-center justify-center">
                                 <span className="text-white font-black text-xl tracking-tight">TI</span>
                             </div>

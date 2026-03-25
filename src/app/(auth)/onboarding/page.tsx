@@ -329,7 +329,7 @@ export default function OnboardingPage() {
 
             {/* Stepper Header (Floating Pill Design) */}
             <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 mt-4 mb-4 relative z-10">
-                <div className="bg-white/70 backdrop-blur-xl border border-white/80 rounded-3xl px-5 py-3.5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative overflow-hidden">
+                <div className="bg-white/70 backdrop-blur-xl border border-white/80 rounded px-5 py-3.5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative overflow-hidden">
                     {/* Progress Fill (Subtle background progress) */}
                     <div className="absolute inset-x-0 bottom-0 h-1 bg-slate-100 rounded-b-3xl overflow-hidden">
                         <motion.div
@@ -344,7 +344,7 @@ export default function OnboardingPage() {
                     <div className="hidden md:flex items-center">
                         {/* Logo — fixed width */}
                         <Link href="/" className="flex items-center gap-2 font-bold text-xl tracking-tight text-slate-900 shrink-0 mr-6">
-                            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
+                            <div className="w-8 h-8 rounded bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
                                 <GraduationCap size={16} strokeWidth={2.5} />
                             </div>
                             SkillSync
@@ -549,7 +549,7 @@ function StepNav({
                     variant="primary"
                     onClick={onNext}
                     disabled={disabled}
-                    className="py-2.5 px-6 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-[0_8px_16px_-6px_rgba(79,70,229,0.4)] hover:shadow-[0_12px_20px_-8px_rgba(79,70,229,0.5)] border-none font-bold inline-flex flex-row-reverse items-center gap-2 rounded-xl transition-all"
+                    className="py-2.5 px-6 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-[0_8px_16px_-6px_rgba(79,70,229,0.4)] hover:shadow-[0_12px_20px_-8px_rgba(79,70,229,0.5)] border-none font-bold inline-flex flex-row-reverse items-center gap-2 rounded transition-all"
                 >
                     <ArrowRight size={18} />
                     {nextLabel}
@@ -604,7 +604,7 @@ function WelcomeStep({ userName, onNext, onSkip }: { userName: string; onNext: (
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.2 + (i * 0.1) }}
-                            className="flex items-start gap-3 p-3.5 bg-white border border-slate-100 rounded-xl shadow-sm hover:shadow-md hover:border-blue-100 transition-all group"
+                            className="flex items-start gap-3 p-3.5 bg-white border border-slate-100 rounded shadow-sm hover:shadow-md hover:border-blue-100 transition-all group"
                         >
                             <div className="w-9 h-9 rounded-lg bg-blue-50/50 flex items-center justify-center shrink-0 group-hover:bg-blue-100 group-hover:text-blue-700 transition-colors text-blue-600">
                                 <feature.icon size={18} />
@@ -622,7 +622,7 @@ function WelcomeStep({ userName, onNext, onSkip }: { userName: string; onNext: (
                 <GlassButton
                     variant="primary"
                     onClick={onNext}
-                    className="py-3 px-8 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-[0_8px_16px_-6px_rgba(79,70,229,0.4)] hover:shadow-[0_12px_20px_-8px_rgba(79,70,229,0.5)] border-none font-bold inline-flex items-center gap-2 rounded-xl text-base transition-all"
+                    className="py-3 px-8 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-[0_8px_16px_-6px_rgba(79,70,229,0.4)] hover:shadow-[0_12px_20px_-8px_rgba(79,70,229,0.5)] border-none font-bold inline-flex items-center gap-2 rounded text-base transition-all"
                 >
                     Get Started <ArrowRight size={18} />
                 </GlassButton>
@@ -685,7 +685,7 @@ function CVUploadStep({
 
                         <div className="relative z-10 flex flex-col items-center">
                             <div className={cn(
-                                "w-14 h-14 rounded-xl flex items-center justify-center mb-4 transition-all duration-300 shadow-sm",
+                                "w-14 h-14 rounded flex items-center justify-center mb-4 transition-all duration-300 shadow-sm",
                                 dragActive ? "bg-blue-100 text-blue-600 scale-110" : "bg-white text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-600"
                             )}>
                                 {isUploading ? (
@@ -717,7 +717,7 @@ function CVUploadStep({
                 ) : (
                     <div className="space-y-6">
                         {/* Success Banner */}
-                        <div className="flex items-center gap-4 p-4 bg-green-50 border border-green-200 rounded-xl">
+                        <div className="flex items-center gap-4 p-4 bg-green-50 border border-green-200 rounded">
                             <CheckCircle2 className="text-green-500 shrink-0" size={24} />
                             <div>
                                 <p className="font-semibold text-green-800">CV Uploaded Successfully</p>
@@ -816,7 +816,7 @@ function GitHubStep({
                         <GlassButton
                             onClick={onConnect}
                             disabled={isConnecting}
-                            className="py-3.5 px-8 bg-slate-900 hover:bg-slate-800 text-white shadow-lg shadow-slate-900/20 border-none font-bold inline-flex items-center gap-3 mx-auto mt-4 rounded-xl transition-all"
+                            className="py-3.5 px-8 bg-slate-900 hover:bg-slate-800 text-white shadow-lg shadow-slate-900/20 border-none font-bold inline-flex items-center gap-3 mx-auto mt-4 rounded transition-all"
                         >
                             {isConnecting ? (
                                 <Loader2 className="w-5 h-5 animate-spin" />

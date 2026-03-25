@@ -19,7 +19,7 @@ export function CourseCard({ node }: CourseCardProps) {
     return (
         <GlassCard className={`relative transition-all duration-300 ${isActive ? "border-l-4 border-l-blue-500 shadow-md translate-x-1 bg-white" :
             isLocked ? "bg-gray-50 border border-gray-200 opacity-60" : "border-l-4 border-l-green-500 bg-white"
-            } p-5 mb-8 w-full border-y border-r border-gray-200 shadow-sm`}>
+            } p-5 mb-8 w-full border-y border-r border-gray-200 shadow-sm rounded-lg`}>
 
             {/* Locked Overlay */}
             {isLocked && (
@@ -46,8 +46,8 @@ export function CourseCard({ node }: CourseCardProps) {
 
                     {/* Match Boost Badge */}
                     {node.matchBoost && !isCompleted && (
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50 text-orange-600 border border-orange-100 text-xs font-medium mb-4">
-                            <div className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-orange-50 text-orange-600 border border-orange-100 text-xs font-medium mb-4">
+                            <div className="w-1.5 h-1.5 rounded bg-orange-500 animate-pulse" />
                             Completing this boosts match score by +{node.matchBoost}%
                         </div>
                     )}
@@ -67,8 +67,8 @@ export function CourseCard({ node }: CourseCardProps) {
                                 <span>Progress</span>
                                 <span>{node.progress}%</span>
                             </div>
-                            <div className="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
-                                <div style={{ width: `${node.progress}%` }} className="h-full bg-blue-600 rounded-full" />
+                            <div className="h-1.5 w-full bg-gray-100 rounded overflow-hidden">
+                                <div style={{ width: `${node.progress}%` }} className="h-full bg-blue-600 rounded" />
                             </div>
                         </div>
                     )}
@@ -81,11 +81,11 @@ export function CourseCard({ node }: CourseCardProps) {
                             <Play size={16} fill="white" /> Resume
                         </button>
                     ) : isCompleted ? (
-                        <button className="w-full py-2 rounded-lg bg-green-50 text-green-600 font-medium border border-green-200 flex items-center justify-center gap-2 cursor-default">
+                        <button className="w-full py-2 rounded-lg bg-green-50 text-green-600 font-medium border border-green-200 flex items-center justify-center gap-2 cursor-default">>
                             <CheckCircle2 size={16} /> Completed
                         </button>
                     ) : (
-                        <button disabled className="w-full py-2 rounded-lg bg-gray-50 text-gray-400 font-medium border border-gray-200 flex items-center justify-center gap-2 cursor-not-allowed">
+                        <button disabled className="w-full py-2 rounded-lg bg-gray-50 text-gray-400 font-medium border border-gray-200 flex items-center justify-center gap-2 cursor-not-allowed">>
                             <Lock size={16} /> Locked
                         </button>
                     )}
@@ -95,7 +95,7 @@ export function CourseCard({ node }: CourseCardProps) {
                         <div className="relative w-full">
                             <button
                                 onClick={() => setShowResources(!showResources)}
-                                className="w-full py-2 rounded-lg bg-white border border-gray-200 hover:bg-gray-50 text-xs text-gray-500 hover:text-gray-900 transition-colors flex items-center justify-center gap-1 shadow-sm"
+                        <div className="w-full py-2 rounded-lg bg-white border border-gray-200 hover:bg-gray-50 text-xs text-gray-500 hover:text-gray-900 transition-colors flex items-center justify-center gap-1 shadow-sm">
                             >
                                 Resources <ChevronDown size={14} className={`transition-transform ${showResources ? "rotate-180" : ""}`} />
                             </button>

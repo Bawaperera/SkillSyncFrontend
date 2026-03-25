@@ -22,9 +22,9 @@ function Toggle({ checked, onChange }: { checked: boolean; onChange: (v: boolean
     return (
         <button
             onClick={() => onChange(!checked)}
-            className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors flex-shrink-0 ${checked ? "bg-blue-600" : "bg-gray-200"}`}
+            className={`relative inline-flex h-5 w-9 items-center rounded transition-colors flex-shrink-0 ${checked ? "bg-blue-600" : "bg-gray-200"}`}"
         >
-            <span className={`inline-block h-3.5 w-3.5 rounded-full bg-white shadow transition-transform ${checked ? "translate-x-4" : "translate-x-1"}`} />
+            <span className={`inline-block h-3.5 w-3.5 rounded bg-white shadow transition-transform ${checked ? "translate-x-4" : "translate-x-1"}`} />
         </button>
     );
 }
@@ -40,7 +40,7 @@ const ROLE_COLORS: Record<string, string> = {
 
 function RoleBadge({ role }: { role: string }) {
     return (
-        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${ROLE_COLORS[role] ?? "bg-gray-100 text-gray-600 border-gray-200"}`}>
+        <span className={`text-[10px] font-bold px-2 py-0.5 rounded border ${ROLE_COLORS[role] ?? "bg-gray-100 text-gray-600 border-gray-200"}`}>
             {role}
         </span>
     );
@@ -50,7 +50,7 @@ function RoleBadge({ role }: { role: string }) {
 
 function Card({ title, desc, children }: { title: string; desc?: string; children: React.ReactNode }) {
     return (
-        <div className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
+        <div className="bg-white border border-gray-200 rounded shadow-sm overflow-hidden">
             <div className="px-5 py-4 border-b border-gray-100 bg-gray-50/40">
                 <h3 className="text-sm font-semibold text-gray-900">{title}</h3>
                 {desc && <p className="text-[11px] text-gray-500 mt-0.5">{desc}</p>}
@@ -77,20 +77,20 @@ function InviteModal({ onClose }: { onClose: () => void }) {
                         <label className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-1.5 block">Email Address</label>
                         <div className="relative">
                             <Mail size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                            <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="colleague@company.lk" className="w-full pl-8 pr-3 py-2 border border-gray-200 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500" />
+                            <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="colleague@company.lk" className="w-full pl-8 pr-3 py-2 border border-gray-200 rounded text-sm outline-none focus:ring-2 focus:ring-blue-500" />
                         </div>
                     </div>
                     <div>
                         <label className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-1.5 block">Role</label>
-                        <select value={role} onChange={(e) => setRole(e.target.value)} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                        <select value={role} onChange={(e) => setRole(e.target.value)} className="w-full border border-gray-200 rounded px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-white">
                             {["Recruiter", "HR Manager", "Viewer"].map((r) => <option key={r}>{r}</option>)}
                         </select>
                     </div>
                     <p className="text-[11px] text-gray-400">They&apos;ll receive an email invitation to join your recruiter workspace.</p>
                 </div>
                 <div className="flex gap-2 px-5 pb-5">
-                    <button onClick={onClose} className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-700 hover:bg-gray-50">Cancel</button>
-                    <button onClick={onClose} disabled={!email.trim()} className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-lg text-sm font-semibold disabled:opacity-40">
+                    <button onClick={onClose} className="flex-1 px-3 py-2 border border-gray-200 rounded text-sm text-gray-700 hover:bg-gray-50">Cancel</button>
+                    <button onClick={onClose} disabled={!email.trim()} className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded text-sm font-semibold disabled:opacity-40">
                         <Send size={12} /> Send Invite
                     </button>
                 </div>
@@ -125,7 +125,7 @@ function AccountTab() {
                         <div key={f.label}>
                             <label className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-1.5 block">{f.label}</label>
                             <input defaultValue={f.value} placeholder={f.placeholder}
-                                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-800" />
+                                className="w-full border border-gray-200 rounded px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-800" />
                         </div>
                     ))}
                 </div>
@@ -134,8 +134,8 @@ function AccountTab() {
             {/* Email */}
             <Card title="Email Address" desc="Used for login and notifications">
                 <div className="flex items-center gap-3">
-                    <input defaultValue="sarah@techinnovations.lk" className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 text-gray-800" />
-                    <button className="flex-shrink-0 px-3 py-2 bg-white border border-gray-200 rounded-lg text-xs font-semibold text-gray-700 hover:bg-gray-50 transition-colors">
+                    <input defaultValue="sarah@techinnovations.lk" className="flex-1 border border-gray-200 rounded px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 text-gray-800" />
+                    <button className="flex-shrink-0 px-3 py-2 bg-white border border-gray-200 rounded text-xs font-semibold text-gray-700 hover:bg-gray-50 transition-colors">
                         Verify &amp; Update
                     </button>
                 </div>
@@ -149,7 +149,7 @@ function AccountTab() {
                             <label className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-1.5 block">{l}</label>
                             <div className="relative">
                                 <input type={showPw ? "text" : "password"} placeholder="••••••••"
-                                    className="w-full border border-gray-200 rounded-lg px-3 py-2 pr-10 text-sm outline-none focus:ring-2 focus:ring-blue-500" />
+                                    className="w-full border border-gray-200 rounded px-3 py-2 pr-10 text-sm outline-none focus:ring-2 focus:ring-blue-500" />
                                 <button onClick={() => setShowPw((v) => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
                                     {showPw ? <EyeOff size={14} /> : <Eye size={14} />}
                                 </button>
@@ -166,14 +166,14 @@ function AccountTab() {
                         <p className="text-sm font-semibold text-red-700">Delete Account</p>
                         <p className="text-xs text-gray-500 mt-0.5">Permanently remove your account and all company data.</p>
                     </div>
-                    <button className="flex items-center gap-1.5 px-3 py-1.5 border border-red-200 text-red-700 hover:bg-red-50 rounded-lg text-xs font-semibold transition-colors">
+                    <button className="flex items-center gap-1.5 px-3 py-1.5 border border-red-200 text-red-700 hover:bg-red-50 rounded text-xs font-semibold transition-colors">
                         <Trash2 size={12} /> Delete Account
                     </button>
                 </div>
             </Card>
 
             <div className="flex justify-end">
-                <button onClick={handleSave} className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${saved ? "bg-green-600 text-white" : "bg-blue-700 hover:bg-blue-800 text-white shadow-sm"}`}>
+                <button onClick={handleSave} className={`flex items-center gap-1.5 px-4 py-2 rounded text-sm font-semibold transition-colors ${saved ? "bg-green-600 text-white" : "bg-blue-700 hover:bg-blue-800 text-white shadow-sm"}`}>
                     {saved ? <><Check size={13} /> Saved!</> : "Save Changes"}
                 </button>
             </div>
@@ -243,7 +243,7 @@ function NotificationsTab() {
             </Card>
 
             <div className="flex justify-end">
-                <button onClick={save} className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${saved ? "bg-green-600 text-white" : "bg-blue-700 hover:bg-blue-800 text-white shadow-sm"}`}>
+                <button onClick={save} className={`flex items-center gap-1.5 px-4 py-2 rounded text-sm font-semibold transition-colors ${saved ? "bg-green-600 text-white" : "bg-blue-700 hover:bg-blue-800 text-white shadow-sm"}`}>
                     {saved ? <><Check size={13} /> Saved!</> : "Save Preferences"}
                 </button>
             </div>
@@ -325,7 +325,7 @@ function TeamTab() {
                             { role: "Recruiter", can: ["Post & edit jobs", "Review applications", "Message candidates"], color: "border-violet-200 bg-violet-50/50" },
                             { role: "HR Manager", can: ["View all jobs", "Manage interviews", "Access analytics"], color: "border-cyan-200 bg-cyan-50/50" },
                         ].map((p) => (
-                            <div key={p.role} className={`border rounded-lg p-3.5 ${p.color}`}>
+                            <div key={p.role} className={`border rounded p-3.5 ${p.color}`}>
                                 <p className="text-xs font-bold text-gray-900 mb-2"><RoleBadge role={p.role} /></p>
                                 <ul className="space-y-1 mt-2">
                                     {p.can.map((c) => (
@@ -353,8 +353,8 @@ function BillingTab() {
         <div className="space-y-4">
             {/* Current plan */}
             <Card title="Current Plan" desc="Your workspace is on the Growth plan">
-                <div className="flex items-center gap-4 p-3 rounded-lg border border-blue-200 bg-blue-50/40 mb-4">
-                    <div className="w-10 h-10 rounded-lg bg-blue-700 flex items-center justify-center flex-shrink-0">
+                <div className="flex items-center gap-4 p-3 rounded border border-blue-200 bg-blue-50/40 mb-4">
+                    <div className="w-10 h-10 rounded bg-blue-700 flex items-center justify-center flex-shrink-0">
                         <Crown size={18} className="text-white" />
                     </div>
                     <div>
@@ -373,7 +373,7 @@ function BillingTab() {
                         { label: "Team Members", used: 3, max: 5 },
                         { label: "Candidates/mo", used: 127, max: 500 },
                     ].map((u) => (
-                        <div key={u.label} className="border border-gray-100 rounded-lg p-3">
+                        <div key={u.label} className="border border-gray-100 rounded p-3">
                             <div className="flex justify-between mb-1.5">
                                 <span className="text-[11px] font-semibold text-gray-600">{u.label}</span>
                                 <span className="text-[11px] text-gray-400">{u.used}/{u.max}</span>
@@ -392,7 +392,7 @@ function BillingTab() {
                     {(plans ?? []).map((plan) => {
                         const isCurrent = plan.id === currentPlan;
                         return (
-                            <div key={plan.id} className={`border rounded-lg p-4 flex flex-col gap-3 ${isCurrent ? "border-blue-400 bg-blue-50/60" : "border-gray-200"}`}>
+                            <div key={plan.id} className={`border rounded p-4 flex flex-col gap-3 ${isCurrent ? "border-blue-400 bg-blue-50/60" : "border-gray-200"}`}>
                                 <div className="flex items-start justify-between">
                                     <div>
                                         <p className="text-sm font-bold text-gray-900">{plan.name}</p>

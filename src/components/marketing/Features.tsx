@@ -74,8 +74,8 @@ function FeatureMarquee({ items, direction = "left", speed = 30 }: { items: type
                         key={`${feature.title}-${i}`}
                         className="w-[300px] flex-shrink-0"
                     >
-                        <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all h-full flex flex-col items-start gap-4 group">
-                            <div className={`p-3 rounded-xl ${feature.bg} text-white group-hover:scale-110 transition-transform duration-300`}>
+                        <div className="bg-white p-6 rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-all h-full flex flex-col items-start gap-4 group">
+                            <div className={`p-3 rounded-lg ${feature.bg} text-white group-hover:scale-110 transition-transform duration-300`}>
                                 <feature.icon className={`w-6 h-6 ${feature.color}`} />
                             </div>
                             <div>

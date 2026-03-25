@@ -69,7 +69,7 @@ export function Navbar() {
               <button
                 onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
                 className={cn(
-                  "text-sm font-medium transition-colors py-2 relative group",
+                  "text-base font-medium transition-colors py-2 relative group",
                   activeDropdown === 'how-it-works' ? "text-blue-500" : "text-gray-300 hover:text-white"
                 )}
               >
@@ -89,7 +89,7 @@ export function Navbar() {
               <button
                 onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
                 className={cn(
-                  "text-sm font-medium transition-colors py-2 relative group",
+                  "text-base font-medium transition-colors py-2 relative group",
                   activeDropdown === 'features' ? "text-blue-500" : "text-gray-300 hover:text-white"
                 )}
               >
@@ -101,15 +101,15 @@ export function Navbar() {
               </button>
             </div>
 
-            <Link href="/#pricing" className="text-sm font-medium text-gray-300 hover:text-white transition-colors py-2 relative group" onMouseEnter={() => setActiveDropdown(null)}>
+            <Link href="/#pricing" className="text-base font-medium text-gray-300 hover:text-white transition-colors py-2 relative group" onMouseEnter={() => setActiveDropdown(null)}>
               Pricing
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
             </Link>
-            <Link href="/about" className="text-sm font-medium text-gray-300 hover:text-white transition-colors py-2 relative group" onMouseEnter={() => setActiveDropdown(null)}>
+            <Link href="/about" className="text-base font-medium text-gray-300 hover:text-white transition-colors py-2 relative group" onMouseEnter={() => setActiveDropdown(null)}>
               About
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
             </Link>
-            <Link href="/contact" className="text-sm font-medium text-gray-300 hover:text-white transition-colors py-2 relative group" onMouseEnter={() => setActiveDropdown(null)}>
+            <Link href="/contact" className="text-base font-medium text-gray-300 hover:text-white transition-colors py-2 relative group" onMouseEnter={() => setActiveDropdown(null)}>
               Contact Us
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
             </Link>
@@ -118,14 +118,14 @@ export function Navbar() {
           {/* Action Zone */}
           <div className="hidden md:flex items-center gap-4 z-50 relative">
             <Link href="/login">
-              <GlassButton variant="ghost" size="sm" className="text-blue-400 border-blue-500/30 hover:bg-blue-500/10">
+              <GlassButton variant="ghost" size="md" className="text-blue-400 border-blue-500/30 hover:bg-blue-500/10">
                 Log In
               </GlassButton>
             </Link>
             <Link href="/register">
               <GlassButton
                 variant="primary"
-                size="sm"
+                size="md"
                 className="bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-500/20"
               >
                 Sign Up
@@ -190,7 +190,7 @@ export function Navbar() {
                         <p className="text-sm text-gray-500 mt-1">Monitor employablity metrics.</p>
                       </Link>
                     </div>
-                    <div className="bg-white/5 rounded-2xl p-6">
+                    <div className="bg-white/5 rounded p-6">
                       <h4 className="font-bold text-white mb-2">New to SkillSync?</h4>
                       <p className="text-sm text-gray-500 mb-4">See how we bridge the gap in 2 minutes.</p>
                       <Link href="/demo">
@@ -237,7 +237,7 @@ export function Navbar() {
                         <p className="text-sm text-gray-500 mt-1">Build on top of SkillSync.</p>
                       </Link>
                     </div>
-                    <div className="bg-blue-900/10 rounded-2xl p-6 border border-blue-500/10">
+                    <div className="bg-blue-900/10 rounded p-6 border border-blue-500/10">
                       <h4 className="font-bold text-blue-100 mb-2">Enterprise Plan</h4>
                       <p className="text-sm text-blue-300 mb-4">Custom solutions for large organizations.</p>
                       <Link href="/enterprise">
@@ -283,8 +283,8 @@ export function Navbar() {
                 <Link href="/#recruiters" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-white">For Recruiters</Link>
                 <Link href="/#universities" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-white">For Universities</Link>
                 <div className="h-px bg-white/10 my-2" />
-                <Link href="/login" onClick={() => setIsMobileMenuOpen(false)} className="text-blue-400">Log In</Link>
-                <Link href="/register" onClick={() => setIsMobileMenuOpen(false)} className="text-white font-bold">Sign Up</Link>
+                <Link href="/login" onClick={() => setIsMobileMenuOpen(false)} className="text-blue-400 text-lg font-semibold py-2">Log In</Link>
+                <Link href="/register" onClick={() => setIsMobileMenuOpen(false)} className="text-white font-bold text-lg py-2">Sign Up</Link>
               </div>
             </motion.div>
           )

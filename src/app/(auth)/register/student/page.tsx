@@ -114,7 +114,7 @@ export default function StudentRegisterPage() {
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
-                className="w-full max-w-7xl h-full max-h-[900px] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col lg:flex-row border border-gray-300"
+                className="w-full max-w-7xl h-full max-h-[900px] bg-white rounded shadow-2xl overflow-hidden flex flex-col lg:flex-row border border-gray-300"
             >
                 {/* LEFT SIDE - Visual & Context */}
                 <div className="hidden lg:flex lg:w-[35%] bg-gradient-to-br from-blue-700 via-blue-800 to-blue-900 p-10 text-white flex-col justify-between relative overflow-hidden border-r border-white/10">
@@ -186,9 +186,10 @@ export default function StudentRegisterPage() {
                             <motion.div
                                 initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-sm text-red-700 font-medium"
                             >
-                                {apiError}
+                                <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded text-sm text-red-700 font-medium">
+                                    {apiError}
+                                </div>
                             </motion.div>
                         )}
 
@@ -224,7 +225,7 @@ export default function StudentRegisterPage() {
                                     <div className="relative">
                                         <select
                                             {...register("university")}
-                                            className="w-full h-11 bg-gray-50 border-2 border-gray-300 rounded-xl px-4 py-2.5 pl-10 text-sm text-gray-900 placeholder-gray-500 outline-none focus:border-blue-500 focus:bg-white transition-all appearance-none shadow-sm"
+                                            className="w-full h-11 bg-gray-50 border-2 border-gray-300 rounded px-4 py-2.5 pl-10 text-sm text-gray-900 placeholder-gray-500 outline-none focus:border-blue-500 focus:bg-white transition-all appearance-none shadow-sm"
                                         >
                                             <option value="" className="bg-white text-gray-900">Select University</option>
                                             {UNIVERSITIES.map(u => (

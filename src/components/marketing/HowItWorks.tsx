@@ -365,7 +365,7 @@ export function HowItWorks() {
                             {STEPS[activeTab].map((item, index) => (
                                 <div
                                     key={item.step}
-                                    className="group relative h-[360px] bg-[#0F1115] border border-white/5 rounded-2xl overflow-hidden hover:border-white/10 transition-all hover:shadow-2xl"
+                                    className="group relative h-[360px] bg-[#0F1115] border border-white/5 rounded overflow-hidden hover:border-white/10 transition-all hover:shadow-2xl"
                                 >
                                     {/* Nano Visual Area (60%) */}
                                     <div className="h-[60%] relative group-hover:opacity-100 transition-opacity">

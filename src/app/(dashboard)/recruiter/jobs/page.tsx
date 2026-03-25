@@ -214,7 +214,7 @@ function JobRow({ job, onAction }: { job: Job; onAction: (action: string, id: st
                             <div className="mb-4">
                                 <p className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-2">Top Candidate</p>
                                 <div className="flex items-center gap-3 bg-white border border-gray-200 rounded-lg px-3 py-2.5">
-                                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 font-bold text-sm flex-shrink-0">
+                                    <div className="w-8 h-8 rounded-md bg-gray-100 flex items-center justify-center text-gray-700 font-bold text-sm flex-shrink-0">
                                         {job.topCandidate.name[0]}
                                     </div>
                                     <div className="flex-1 min-w-0">
@@ -340,7 +340,7 @@ export default function MyJobsPage() {
             {/* ── Filter Bar ── */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
                 {/* Status tabs */}
-                <div className="flex bg-gray-100 rounded-lg p-1 gap-1">
+                <div className="flex bg-gray-100 rounded-lg p-1 gap-1">>
                     {TABS.map(tab => (
                         <button
                             key={tab}
@@ -352,7 +352,7 @@ export default function MyJobsPage() {
                         >
                             {tab}
                             {tab !== "All" && (
-                                <span className={`ml-1.5 text-[10px] font-bold px-1.5 py-0.5 rounded-full ${activeTab === tab ? "bg-gray-200 text-gray-700" : "bg-gray-200 text-gray-500"
+                                <span className={`ml-1.5 text-[10px] font-bold px-1.5 py-0.5 rounded-md ${activeTab === tab ? "bg-gray-200 text-gray-700" : "bg-gray-200 text-gray-500"
                                     }`}>
                                     {tab === "Active" ? summary.active : tab === "Draft" ? summary.draft : summary.closed}
                                 </span>
@@ -363,7 +363,7 @@ export default function MyJobsPage() {
 
                 <div className="flex-1 flex items-center gap-2 sm:justify-end">
                     {/* Sort */}
-                    <div className="relative flex items-center gap-1.5 border border-gray-200 bg-white rounded-md px-3 py-2 text-xs text-gray-600 cursor-pointer hover:border-gray-300 transition-colors">
+                    <div className="relative flex items-center gap-1.5 border border-gray-200 bg-white rounded-md px-3 py-2 text-xs text-gray-600 cursor-pointer hover:border-gray-300 transition-colors">>
                         <Filter size={12} className="text-gray-400" />
                         <select
                             value={sortBy}

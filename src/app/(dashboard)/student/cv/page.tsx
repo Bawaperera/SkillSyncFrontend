@@ -63,7 +63,7 @@ export default function CVPage() {
                             </div>
                             <button
                                 onClick={() => setMode("architect")}
-                                className="px-8 py-4 rounded-2xl bg-white border border-gray-200 text-gray-900 font-bold shadow-sm hover:shadow-md hover:border-blue-300 transition-all transform hover:scale-[1.01]"
+                                className="px-8 py-4 rounded bg-white border border-gray-200 text-gray-900 font-bold shadow-sm hover:shadow-md hover:border-blue-300 transition-all transform hover:scale-[1.01]"
                             >
                                 <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Create CV from Scratch</span>
                             </button>

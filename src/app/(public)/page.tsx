@@ -74,8 +74,8 @@ export default function LandingPage() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5 }}
                                 viewport={{ once: true }}
-                                className="group p-6 rounded-2xl hover:border-red-500/30 transition-colors bg-[#F8F7F4] border border-gray-100 shadow-none">
-                                <div className="p-3 bg-red-100 rounded-xl inline-block mb-4 text-red-600 group-hover:scale-110 transition-transform">
+                                className="group p-6 rounded hover:border-red-500/30 transition-colors bg-[#F8F7F4] border border-gray-100 shadow-none">
+                                <div className="p-3 bg-red-100 rounded inline-block mb-4 text-red-600 group-hover:scale-110 transition-transform">
                                     <AlertTriangle className="w-8 h-8" />
                                 </div>
                                 <h3 className="text-xl font-bold mb-2 text-gray-900">The Student Trap</h3>
@@ -87,8 +87,8 @@ export default function LandingPage() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: 0.1 }}
                                 viewport={{ once: true }}
-                                className="group p-6 rounded-2xl hover:border-orange-500/30 transition-colors bg-[#F8F7F4] border border-gray-100 shadow-none">
-                                <div className="p-3 bg-orange-100 rounded-xl inline-block mb-4 text-orange-600 group-hover:scale-110 transition-transform">
+                                className="group p-6 rounded hover:border-orange-500/30 transition-colors bg-[#F8F7F4] border border-gray-100 shadow-none">
+                                <div className="p-3 bg-orange-100 rounded inline-block mb-4 text-orange-600 group-hover:scale-110 transition-transform">
                                     <FileSearch className="w-8 h-8" />
                                 </div>
                                 <h3 className="text-xl font-bold mb-2 text-gray-900">The Recruiter Fatigue</h3>
@@ -100,8 +100,8 @@ export default function LandingPage() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: 0.2 }}
                                 viewport={{ once: true }}
-                                className="group p-6 rounded-2xl hover:border-yellow-500/30 transition-colors bg-[#F8F7F4] border border-gray-100 shadow-none">
-                                <div className="p-3 bg-yellow-100 rounded-xl inline-block mb-4 text-yellow-600 group-hover:scale-110 transition-transform">
+                                className="group p-6 rounded hover:border-yellow-500/30 transition-colors bg-[#F8F7F4] border border-gray-100 shadow-none">
+                                <div className="p-3 bg-yellow-100 rounded inline-block mb-4 text-yellow-600 group-hover:scale-110 transition-transform">
                                     <TrendingDown className="w-8 h-8" />
                                 </div>
                                 <h3 className="text-xl font-bold mb-2 text-gray-900">The University Blindspot</h3>
@@ -119,7 +119,7 @@ export default function LandingPage() {
                             whileInView={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.5 }}
                             viewport={{ once: true }}
-                            className="p-8 md:p-12 relative overflow-hidden bg-white shadow-xl border border-gray-100 rounded-[3rem]">
+                            className="p-8 md:p-12 relative overflow-hidden bg-white shadow-xl border border-gray-100 rounded">
                             <div className="grid md:grid-cols-2 gap-12 items-center">
                                 <div className="text-left">
                                     <h2 className="text-3xl md:text-5xl font-bold mb-6 text-gray-900 leading-tight">
@@ -200,10 +200,10 @@ export default function LandingPage() {
                                 <div className="space-y-6">
                                     <motion.div
                                         initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} viewport={{ once: true }}
-                                        className="bg-white border-l-4 border-blue-500 p-6 shadow-md rounded-2xl">
+                                        className="bg-white border-l-4 border-blue-500 p-6 shadow-md rounded">
                                         <p className="italic text-gray-600 mb-4">&quot;I didn&apos;t know I needed Docker until SkillSync told me. Learned it in 2 weeks and got hired.&quot;</p>
                                         <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center font-bold text-white">BP</div>
+                                            <div className="w-10 h-10 rounded bg-blue-500 flex items-center justify-center font-bold text-white">BP</div>
                                             <div>
                                                 <p className="font-bold text-gray-900 text-sm">Bawantha P.</p>
                                                 <p className="text-xs text-gray-500">Software Engineer @ Virtusa</p>
@@ -212,10 +212,10 @@ export default function LandingPage() {
                                     </motion.div>
                                     <motion.div
                                         initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.1 }} viewport={{ once: true }}
-                                        className="bg-white border-l-4 border-purple-500 p-6 shadow-md rounded-2xl">
+                                        className="bg-white border-l-4 border-purple-500 p-6 shadow-md rounded">
                                         <p className="italic text-gray-600 mb-4">&quot;The &apos;Verified Skills&apos; badge saves us technical interview time. We hire faster now.&quot;</p>
                                         <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center font-bold text-white">JD</div>
+                                            <div className="w-10 h-10 rounded bg-purple-500 flex items-center justify-center font-bold text-white">JD</div>
                                             <div>
                                                 <p className="font-bold text-gray-900 text-sm">John Doe</p>
                                                 <p className="text-xs text-gray-500">HR Manager @ TechCorp</p>
@@ -229,7 +229,7 @@ export default function LandingPage() {
                                 <h3 className="text-2xl font-bold mb-8 text-gray-900">Frequently Asked Questions</h3>
                                 <div className="space-y-4">
                                     {FAQS.map((faq, i) => (
-                                        <div key={i} className="border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm">
+                                        <div key={i} className="border border-gray-200 rounded overflow-hidden bg-white shadow-sm">
                                             <button
                                                 onClick={() => setOpenFaqIndex(openFaqIndex === i ? null : i)}
                                                 className="w-full flex items-center justify-between p-4 text-left font-medium hover:bg-gray-50 transition-colors text-gray-900"

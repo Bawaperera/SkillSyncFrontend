@@ -18,7 +18,7 @@ export function TimelineNode({ status, isLast }: TimelineNodeProps) {
             )}
 
             {/* Node Icon */}
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all z-10 shrink-0 ${status === 'completed' ? "bg-green-500 border-green-500 text-white" :
+            <div className={`w-10 h-10 rounded flex items-center justify-center border-2 transition-all z-10 shrink-0 ${status === 'completed' ? "bg-green-500 border-green-500 text-white" :
                 status === 'in-progress' ? "bg-blue-600 border-blue-600 text-white shadow-lg shadow-blue-500/30 scale-110" :
                     "bg-white border-gray-200 text-gray-400"
                 }`}>

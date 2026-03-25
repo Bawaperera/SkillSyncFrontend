@@ -81,7 +81,7 @@ function ResetPasswordContent() {
 
     const marketingContent = (
         <div className="space-y-6">
-            <div className="bg-white/10 backdrop-blur-xl border border-white/10 p-8 rounded-3xl shadow-2xl">
+            <div className="bg-white/10 backdrop-blur-xl border border-white/10 p-8 rounded shadow-2xl">
                 <h3 className="text-xl font-bold text-white mb-4">Choose a Strong Password</h3>
                 <div className="space-y-3">
                     {[

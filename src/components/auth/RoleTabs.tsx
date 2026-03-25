@@ -18,7 +18,7 @@ export function RoleTabs({ activeRole, onRoleChange }: RoleTabsProps) {
     ] as const;
 
     return (
-        <div className="bg-gray-100 p-1 rounded-2xl border border-gray-200 flex relative mb-8">
+        <div className="bg-gray-100 p-1 rounded border border-gray-200 flex relative mb-8">
             {tabs.map((tab) => {
                 const isActive = activeRole === tab.id;
                 return (
@@ -33,7 +33,7 @@ export function RoleTabs({ activeRole, onRoleChange }: RoleTabsProps) {
                         {isActive && (
                             <motion.div
                                 layoutId="activeTab"
-                                className="absolute inset-0 bg-white rounded-xl shadow-sm border border-gray-200"
+                                className="absolute inset-0 bg-white rounded shadow-sm border border-gray-200"
                                 transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                             />
                         )}

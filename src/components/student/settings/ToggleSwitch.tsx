@@ -16,9 +16,9 @@ export function ToggleSwitch({ label, checked, onChange, description }: ToggleSw
             </div>
             <button
                 onClick={() => onChange(!checked)}
-                className={`w-11 h-6 rounded-full transition-colors relative ${checked ? "bg-blue-600" : "bg-gray-700"}`}
+                className={`w-11 h-6 rounded transition-colors relative ${checked ? "bg-blue-600" : "bg-gray-700"}`}
             >
-                <div className={`absolute top-1 left-1 bg-white w-4 h-4 rounded-full transition-transform ${checked ? "translate-x-5" : ""}`} />
+                <div className={`absolute top-1 left-1 bg-white w-4 h-4 rounded transition-transform ${checked ? "translate-x-5" : ""}`} />
             </button>
         </div>
     );

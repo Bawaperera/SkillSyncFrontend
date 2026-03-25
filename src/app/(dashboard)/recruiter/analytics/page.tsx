@@ -21,7 +21,7 @@ const SOURCE_COLORS = ["#2563EB", "#4F46E5", "#7C3AED", "#A855F7", "#D1D5DB"];
 function DarkTooltip({ active, payload, label }: any) {
     if (!active || !payload?.length) return null;
     return (
-        <div className="bg-gray-900 text-white rounded-lg px-3 py-2.5 shadow-xl text-[11px] min-w-[130px]">
+        <div className="bg-gray-900 text-white rounded px-3 py-2.5 shadow-xl text-[11px] min-w-[130px]">
             {label && <p className="font-semibold text-gray-300 mb-1.5">{label}</p>}
             {payload.map((entry: any) => (
                 <div key={entry.dataKey ?? entry.name} className="flex items-center justify-between gap-4 py-0.5">
@@ -47,7 +47,7 @@ function MetricCard({ label, value, delta, deltaLabel, icon: Icon, positive }: {
         ? "bg-gray-100 text-gray-500"
         : positive ? "bg-green-50 text-green-700" : "bg-red-50 text-red-600";
     return (
-        <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm flex flex-col gap-3">
+        <div className="bg-white border border-gray-200 rounded p-5 shadow-sm flex flex-col gap-3">
             <div className="flex items-center justify-between">
                 <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide leading-tight">{label}</p>
                 <div className="w-8 h-8 rounded-md bg-blue-50 flex items-center justify-center text-blue-600 flex-shrink-0">
@@ -81,7 +81,7 @@ function ActiveShape(props: any) {
 
 function Section({ title, children, action }: { title: string; children: React.ReactNode; action?: React.ReactNode }) {
     return (
-        <div className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
+        <div className="bg-white border border-gray-200 rounded shadow-sm overflow-hidden">
             <div className="px-5 py-3.5 border-b border-gray-100 bg-gray-50/50 flex items-center justify-between">
                 <h2 className="text-sm font-semibold text-gray-900">{title}</h2>
                 {action}
@@ -263,7 +263,7 @@ export default function AnalyticsPage() {
                                 content={({ active, payload }) => {
                                     if (!active || !payload?.length) return null;
                                     return (
-                                        <div className="bg-gray-900 text-white rounded-lg px-3 py-2 text-[11px] shadow-xl">
+                                        <div className="bg-gray-900 text-white rounded px-3 py-2 text-[11px] shadow-xl">
                                             <span className="font-bold">{payload[0].value} open roles</span>
                                         </div>
                                     );
@@ -325,7 +325,7 @@ export default function AnalyticsPage() {
                                         const d = payload[0].payload;
                                         const pct = ((d.value / funnelData[0].value) * 100).toFixed(0);
                                         return (
-                                            <div className="bg-gray-900 text-white rounded-lg px-3 py-2.5 shadow-xl text-[11px]">
+                                            <div className="bg-gray-900 text-white rounded px-3 py-2.5 shadow-xl text-[11px]">
                                                 <p className="font-bold text-white">{d.name}</p>
                                                 <p className="text-gray-300 mt-0.5">{d.value} candidates · {pct}%</p>
                                             </div>

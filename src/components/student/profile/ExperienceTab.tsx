@@ -37,7 +37,7 @@ export function ExperienceTab({ profile }: ExperienceTabProps) {
                                     </span>
                                 </div>
                             </div>
-                            <span className="px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-xs font-bold text-blue-700 w-fit">
+                            <span className="px-3 py-1 rounded-lg bg-blue-50 border border-blue-100 text-xs font-bold text-blue-700 w-fit">
                                 {exp.type}
                             </span>
                         </div>

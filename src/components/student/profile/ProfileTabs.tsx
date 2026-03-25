@@ -34,7 +34,7 @@ export function ProfileTabs({ profile }: ProfileTabsProps) {
                             <button
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
-                                className={`relative px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 shrink-0 ${isActive
+                                className={`relative px-5 py-2 rounded-lg text-sm font-medium transition-all duration-300 shrink-0 ${isActive
                                     ? "text-gray-900 bg-white shadow-sm ring-1 ring-gray-200"
                                     : "text-gray-500 hover:text-gray-900 hover:bg-white/50"
                                     }`}
@@ -43,7 +43,7 @@ export function ProfileTabs({ profile }: ProfileTabsProps) {
                                 {isActive && (
                                     <motion.div
                                         layoutId="activeTabIndicator"
-                                        className="absolute inset-0 rounded-full"
+                                        className="absolute inset-0 rounded-lg"
                                         initial={false}
                                         transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                                     />

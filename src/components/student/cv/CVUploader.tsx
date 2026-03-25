@@ -42,7 +42,7 @@ export function CVUploader({ onUpload }: CVUploaderProps) {
                         onDragOver={getRootProps().onDragOver}
                         onDragLeave={getRootProps().onDragLeave}
                         className={`
-              border-2 border-dashed rounded-3xl p-10 text-center cursor-pointer transition-all duration-300
+              border-2 border-dashed rounded p-10 text-center cursor-pointer transition-all duration-300
               flex flex-col items-center justify-center gap-4 group bg-white
               ${isDragActive
                                 ? "border-blue-500 bg-blue-50"
@@ -51,7 +51,7 @@ export function CVUploader({ onUpload }: CVUploaderProps) {
             `}
                     >
                         <input {...getInputProps()} />
-                        <div className={`p-4 rounded-full bg-gray-100 group-hover:bg-blue-50 transition-colors duration-300 ${isDragActive ? "bg-blue-100" : ""}`}>
+                        <div className={`p-4 rounded bg-gray-100 group-hover:bg-blue-50 transition-colors duration-300 ${isDragActive ? "bg-blue-100" : ""}`}>
                             <UploadCloud size={32} className={`text-gray-400 group-hover:text-blue-500 transition-colors duration-300 ${isDragActive ? "text-blue-500" : ""}`} />
                         </div>
                         <div>
@@ -82,12 +82,12 @@ export function CVUploader({ onUpload }: CVUploaderProps) {
 
                         {/* Fake progress loader */}
                         <div className="flex items-center gap-3">
-                            <div className="w-24 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                            <div className="w-24 h-1.5 bg-gray-100 rounded overflow-hidden">
                                 <motion.div
                                     initial={{ width: "0%" }}
                                     animate={{ width: "100%" }}
                                     transition={{ duration: 1.5, ease: "easeInOut" }}
-                                    className="h-full bg-blue-500 rounded-full"
+                                    className="h-full bg-blue-500 rounded"
                                 />
                             </div>
                             <span className="text-xs text-blue-600 font-medium whitespace-nowrap">Analyzing...</span>

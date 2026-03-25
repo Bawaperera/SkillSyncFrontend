@@ -46,16 +46,16 @@ function CandidateCard({
     const topSkills = candidate.skills.map(s => s.name).join(", ");
 
     return (
-        <div className="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md hover:border-gray-300 transition-all px-5 py-4">
+                    <div className="bg-white border border-gray-200 rounded shadow-sm hover:shadow-md hover:border-gray-300 transition-all px-5 py-4">
             {/* ── Row 1: Avatar + Info + Match Score ── */}
             <div className="flex items-start gap-4">
                 {/* Avatar */}
                 <div className="relative flex-shrink-0">
-                    <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-sm">
+                    <div className="w-10 h-10 rounded-md bg-blue-600 flex items-center justify-center text-white font-bold text-sm">
                         {candidate.name.split(" ").map(n => n[0]).join("").slice(0, 2)}
                     </div>
                     {candidate.github?.active && (
-                        <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-white rounded-full" />
+                        <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-white rounded-md" />
                     )}
                 </div>
 
@@ -64,7 +64,7 @@ function CandidateCard({
                     <div className="flex items-center gap-2 flex-wrap">
                         <h3 className="text-[15px] font-bold text-gray-900">{candidate.name}</h3>
                         {isTopMatch && (
-                            <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-green-50 text-green-700 border border-green-200">
+                            <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-green-50 text-green-700 border border-green-200">
                                 Top Match
                             </span>
                         )}
@@ -173,7 +173,7 @@ function SaveSearchModal({ onClose, onSave }: { onClose: () => void; onSave: (na
     const [notify, setNotify] = useState(true);
     return (
         <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
-            <div className="bg-white rounded-xl shadow-2xl w-full max-w-sm p-6">
+            <div className="bg-white rounded-lg shadow-2xl w-full max-w-sm p-6">
                 <h3 className="text-base font-bold text-gray-900 mb-1">Save Search</h3>
                 <p className="text-xs text-gray-500 mb-4">Name your search to reuse it later.</p>
                 <input
@@ -181,7 +181,7 @@ function SaveSearchModal({ onClose, onSave }: { onClose: () => void; onSave: (na
                     value={name}
                     onChange={e => setName(e.target.value)}
                     placeholder="e.g. Senior React Developers"
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 mb-3"
+                    <div className="w-full border border-gray-300 rounded px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 mb-3"
                 />
                 <label className="flex items-center gap-2 text-sm text-gray-700 mb-5 cursor-pointer">
                     <input
@@ -196,7 +196,7 @@ function SaveSearchModal({ onClose, onSave }: { onClose: () => void; onSave: (na
                     <button onClick={onClose} className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition-colors">Cancel</button>
                     <button
                         onClick={() => { if (name.trim()) { onSave(name.trim()); onClose(); } }}
-                        className="flex-1 px-3 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-lg text-sm font-semibold transition-colors disabled:opacity-50"
+                        className="flex-1 px-3 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded text-sm font-semibold transition-colors disabled:opacity-50"
                         disabled={!name.trim()}
                     >
                         Save
@@ -213,7 +213,7 @@ function MessageModal({ candidateName, onClose }: { candidateName: string; onClo
     const [message, setMessage] = useState(`Hi ${candidateName.split(" ")[0]},\n\nI came across your profile on SkillSync and I think you could be a great fit for an opportunity at our company. Would you be open to a brief chat?\n\nBest regards,\nSarah`);
     return (
         <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
-            <div className="bg-white rounded-xl shadow-2xl w-full max-w-md p-6">
+            <div className="bg-white rounded-lg shadow-2xl w-full max-w-md p-6">>
                 <div className="flex items-center justify-between mb-4">
                     <h3 className="text-base font-bold text-gray-900">Message {candidateName}</h3>
                     <button onClick={onClose} className="p-1.5 rounded hover:bg-gray-100 text-gray-400">
@@ -224,13 +224,13 @@ function MessageModal({ candidateName, onClose }: { candidateName: string; onClo
                     value={message}
                     onChange={e => setMessage(e.target.value)}
                     rows={7}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 resize-none mb-3"
+                    <div className="w-full border border-gray-300 rounded px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 resize-none mb-3"
                 />
                 <div className="flex gap-2">
                     <button onClick={onClose} className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition-colors">Cancel</button>
                     <button
                         onClick={onClose}
-                        className="flex-1 px-3 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-lg text-sm font-semibold transition-colors"
+                        className="flex-1 px-3 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded text-sm font-semibold transition-colors"
                     >
                         Send Message
                     </button>
@@ -383,9 +383,9 @@ export default function FindTalentPage() {
                 <div className="flex flex-wrap items-center gap-2">
                     <Search size={16} className="text-gray-400 flex-shrink-0" />
                     {searchSkills.map(s => (
-                        <span key={s} className="flex items-center gap-1 bg-blue-600 text-white text-xs font-semibold px-2.5 py-1 rounded-full">
+                        <span key={s} className="flex items-center gap-1 bg-blue-600 text-white text-xs font-semibold px-2.5 py-1 rounded">
                             {s}
-                            <button onClick={() => removeSkill(s)} className="hover:bg-blue-500 rounded-full p-0.5">
+                            <button onClick={() => removeSkill(s)} className="hover:bg-blue-500 rounded p-0.5">
                                 <X size={10} />
                             </button>
                         </span>
@@ -566,13 +566,13 @@ export default function FindTalentPage() {
                     <div className="px-4 py-3 space-y-2 border-t border-gray-100">
                         <button
                             onClick={resetAll}
-                            className="w-full flex items-center justify-center gap-1.5 py-2 border border-gray-300 rounded-lg text-xs font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+                            className="w-full flex items-center justify-center gap-1.5 py-2 border border-gray-300 rounded text-xs font-medium text-gray-600 hover:bg-gray-50 transition-colors"
                         >
                             <RotateCcw size={12} /> Reset All Filters
                         </button>
                         <button
                             onClick={() => setShowSaveModal(true)}
-                            className="w-full flex items-center justify-center gap-1.5 py-2 bg-blue-50 border border-blue-200 rounded-lg text-xs font-semibold text-blue-700 hover:bg-blue-100 transition-colors"
+                            className="w-full flex items-center justify-center gap-1.5 py-2 bg-blue-50 border border-blue-200 rounded text-xs font-semibold text-blue-700 hover:bg-blue-100 transition-colors"
                         >
                             <BookmarkPlus size={12} /> Save Search
                         </button>
@@ -593,7 +593,7 @@ export default function FindTalentPage() {
                                 <select
                                     value={sortBy}
                                     onChange={e => setSortBy(e.target.value as typeof sortBy)}
-                                    className="appearance-none text-xs border border-gray-200 rounded-lg px-3 py-2 pr-7 bg-white text-gray-700 outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                                    className="appearance-none text-xs border border-gray-200 rounded px-3 py-2 pr-7 bg-white text-gray-700 outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
                                 >
                                     <option value="match">Best Match</option>
                                     <option value="score">Highest Skill Score</option>
@@ -605,11 +605,11 @@ export default function FindTalentPage() {
                     </div>
 
                     {filtered.length === 0 ? (
-                        <div className="bg-white border border-gray-200 rounded-xl p-12 text-center">
+                        <div className="bg-white border border-gray-200 rounded-lg p-12 text-center">
                             <Users size={32} className="text-gray-300 mx-auto mb-3" />
                             <p className="text-sm font-medium text-gray-500">No candidates match your filters</p>
                             <p className="text-xs text-gray-400 mt-1">Try removing some filters or broadening your skill search.</p>
-                            <button onClick={resetAll} className="mt-4 px-4 py-2 text-xs font-semibold text-blue-700 border border-blue-200 rounded-lg hover:bg-blue-50 transition-colors">
+                            <button onClick={resetAll} className="mt-4 px-4 py-2 text-xs font-semibold text-blue-700 border border-blue-200 rounded hover:bg-blue-50 transition-colors">
                                 Reset Filters
                             </button>
                         </div>
@@ -639,7 +639,7 @@ export default function FindTalentPage() {
 
             {/* Toast */}
             {toast && (
-                <div className="fixed bottom-6 right-6 z-50 bg-gray-900 text-white text-sm px-4 py-3 rounded-lg shadow-xl flex items-center gap-2">
+                <div className="fixed bottom-6 right-6 z-50 bg-gray-900 text-white text-sm px-4 py-3 rounded shadow-xl flex items-center gap-2">>
                     <CheckCircle size={15} className="text-green-400 flex-shrink-0" />
                     {toast}
                 </div>

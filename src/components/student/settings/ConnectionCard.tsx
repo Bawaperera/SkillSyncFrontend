@@ -14,7 +14,7 @@ export function ConnectionCard({ provider, connected, username, onAction }: Conn
     return (
         <GlassCard className="p-4 flex items-center justify-between bg-white border border-gray-200 shadow-sm">
             <div className="flex items-center gap-4">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold ${provider === 'GitHub' ? "bg-gray-700 text-white" : "bg-blue-600 text-white"
+                <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-xl font-bold ${provider === 'GitHub' ? "bg-gray-700 text-white" : "bg-blue-600 text-white"
                     }`}>
                     {provider === 'GitHub' ? 'G' : 'in'}
                 </div>
@@ -31,7 +31,7 @@ export function ConnectionCard({ provider, connected, username, onAction }: Conn
 
             <button
                 onClick={onAction}
-                className={`text-xs font-medium px-3 py-1.5 rounded-lg border transition-colors ${connected
+                className={`text-xs font-medium px-3 py-1.5 rounded border transition-colors ${connected
                     ? "bg-red-50 text-red-600 border-red-200 hover:bg-red-100"
                     : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50"
                     }`}

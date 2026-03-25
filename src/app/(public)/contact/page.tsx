@@ -159,7 +159,7 @@ export default function ContactPage() {
                                         placeholder="Tell us more about your inquiry..."
                                         value={formData.message}
                                         onChange={handleChange}
-                                        className="w-full py-2.5 bg-gray-50 !border-2 !border-gray-300 text-gray-900 shadow-sm focus:bg-white focus:!border-blue-500 focus:ring-4 focus:ring-blue-500/10 placeholder:text-gray-400 rounded-xl px-4 pl-12 outline-none transition-all resize-none"
+                                        className="w-full py-2.5 bg-gray-50 !border-2 !border-gray-300 text-gray-900 shadow-sm focus:bg-white focus:!border-blue-500 focus:ring-4 focus:ring-blue-500/10 placeholder:text-gray-400 rounded-lg px-4 pl-12 outline-none transition-all resize-none"
                                         required
                                     />
                                 </div>

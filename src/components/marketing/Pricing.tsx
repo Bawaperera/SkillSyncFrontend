@@ -50,7 +50,7 @@ export function Pricing() {
                                         border border-white/10
                                         shadow-2xl">
                             {/* Inner Glow */}
-                            <div className="absolute inset-0 rounded-[24px] bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                            <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
 
                             <h3 className="text-xl font-bold text-white mb-2">Starter</h3>
                             <div className="flex items-baseline gap-1 mb-6">
@@ -76,7 +76,7 @@ export function Pricing() {
                         </div>
 
                         {/* Pro Plan (Featured) */}
-                        <div className="group relative p-10 rounded-[32px] transition-all duration-300 transform scale-105 z-20
+                        <div className="group relative p-10 rounded-lg transition-all duration-300 transform scale-105 z-20
                                         bg-white/10 
                                         backdrop-blur-[30px] 
                                         border border-blue-500/30
@@ -118,7 +118,7 @@ export function Pricing() {
                                         border border-white/10
                                         shadow-2xl">
                             {/* Inner Glow */}
-                            <div className="absolute inset-0 rounded-[24px] bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                            <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
 
                             <h3 className="text-xl font-bold text-white mb-2">Enterprise</h3>
                             <div className="flex items-baseline gap-1 mb-6">

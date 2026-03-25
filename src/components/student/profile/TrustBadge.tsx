@@ -28,7 +28,7 @@ export function TrustBadge({ type, className = "" }: TrustBadgeProps) {
 
     return (
         <div
-            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-xs font-medium ${style} ${className}`}
+            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs font-medium ${style} ${className}`}
         >
             <Icon size={12} />
             <span>{text}</span>

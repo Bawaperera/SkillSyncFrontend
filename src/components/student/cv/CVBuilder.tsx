@@ -92,7 +92,7 @@ export function CVBuilder() {
                             <textarea
                                 value={profile.summary}
                                 onChange={(e) => handleInputChange('summary', e.target.value)}
-                                className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-gray-900 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none h-24 resize-none transition-all"
+                                className="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2 text-gray-900 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none h-24 resize-none transition-all"
                             />
                         </div>
                     </GlassCard>
@@ -126,9 +126,9 @@ export function CVBuilder() {
                                         value={exp.description}
                                         onChange={(e) => handleExperienceChange(exp.id, 'description', e.target.value)}
                                         placeholder="Description"
-                                        className="w-full bg-white border border-gray-200 rounded-lg px-3 py-2 text-gray-600 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none h-20 resize-none transition-all"
+                                        className="w-full bg-white border border-gray-200 rounded px-3 py-2 text-gray-600 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none h-20 resize-none transition-all"
                                     />
-                                    <button className="absolute bottom-2 right-2 p-1.5 rounded-lg bg-purple-50 text-purple-600 hover:bg-purple-100 transition-colors opacity-0 group-hover/edit:opacity-100">
+                                    <button className="absolute bottom-2 right-2 p-1.5 rounded bg-purple-50 text-purple-600 hover:bg-purple-100 transition-colors opacity-0 group-hover/edit:opacity-100">
                                         <Sparkles size={14} />
                                     </button>
                                 </div>
@@ -143,10 +143,10 @@ export function CVBuilder() {
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-sm font-bold text-gray-400 uppercase tracking-wider">Live Preview</h2>
                     <div className="flex gap-2">
-                        <button className="px-3 py-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-medium border border-gray-300 flex items-center gap-2">
+                        <button className="px-3 py-1.5 rounded bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-medium border border-gray-300 flex items-center gap-2">
                             <Save size={14} /> Save Draft
                         </button>
-                        <button className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center gap-2">
+                        <button className="px-3 py-1.5 rounded bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center gap-2">
                             <Download size={14} /> Download PDF
                         </button>
                     </div>

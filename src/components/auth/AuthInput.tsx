@@ -53,7 +53,7 @@ export function AuthInput({
                     placeholder={placeholder}
                     {...register}
                     className={`
-                        w-full bg-white border border-gray-300 rounded-xl px-4 py-3.5 
+                        w-full bg-white border border-gray-300 rounded px-4 py-3.5 
                         text-gray-900 placeholder-gray-400 outline-none
                         focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-500/10
                         transition-all duration-300

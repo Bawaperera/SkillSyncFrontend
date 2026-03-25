@@ -46,7 +46,7 @@ export default function UniversityContactPage() {
 
     const marketingContent = (
         <div className="space-y-8">
-            <div className="bg-white/10 backdrop-blur-xl border border-white/10 p-8 rounded-3xl shadow-2xl">
+            <div className="bg-white/10 backdrop-blur-xl border border-white/10 p-8 rounded shadow-2xl">
                 <div className="flex items-center gap-4 mb-6">
                     <div className="w-12 h-12 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-400">
                         <Building2 size={24} />
@@ -113,7 +113,7 @@ export default function UniversityContactPage() {
                             <label className="block text-sm font-medium text-gray-700">How can we help?</label>
                             <textarea
                                 {...register("message")}
-                                className="w-full bg-white border border-gray-300 rounded-xl px-4 py-3.5 text-gray-900 placeholder-gray-400 outline-none focus:border-pink-500 focus:bg-white focus:ring-4 focus:ring-pink-500/10 h-32 resize-none"
+                                className="w-full bg-white border border-gray-300 rounded px-4 py-3.5 text-gray-900 placeholder-gray-400 outline-none focus:border-pink-500 focus:bg-white focus:ring-4 focus:ring-pink-500/10 h-32 resize-none"
                                 placeholder="Tell us about your current placement challenges..."
                             />
                             {errors.message && <p className="text-sm text-red-400">{errors.message.message}</p>}

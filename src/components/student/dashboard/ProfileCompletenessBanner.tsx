@@ -58,7 +58,7 @@ export function ProfileCompletenessBanner() {
     if (completedCount === totalSteps) return null;
 
     return (
-        <GlassCard className="p-8 mb-8 border border-blue-100 bg-white/80 backdrop-blur-sm shadow-sm relative overflow-hidden">
+        <GlassCard className="p-8 mb-8 border border-blue-100 bg-white/80 backdrop-blur-sm shadow-sm relative overflow-hidden rounded-lg">
             {/* Dismiss button */}
             <button
                 onClick={() => setIsDismissed(true)}
@@ -104,7 +104,7 @@ export function ProfileCompletenessBanner() {
                     <Link key={step.id} href={step.href}>
                         <div
                             className={`
-                                group flex items-center justify-between p-5 rounded-xl border transition-all text-left relative overflow-hidden
+                                group flex items-center justify-between p-5 rounded-lg border transition-all text-left relative overflow-hidden
                                 ${
                                     step.completed
                                         ? "bg-green-50/50 border-green-100 text-green-700 shadow-sm"

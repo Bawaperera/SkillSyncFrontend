@@ -48,8 +48,8 @@ export function SkillsTab({ profile }: SkillsTabProps) {
                     ))}
 
                     {/* Add New Skill CTA */}
-                    <button className="flex items-center justify-center gap-2 p-3 rounded-xl border border-dashed border-gray-300 bg-gray-50 hover:bg-white text-gray-500 hover:text-gray-900 transition-colors group">
-                        <span className="w-8 h-8 rounded-full bg-white flex items-center justify-center group-hover:bg-blue-50 border border-gray-200 group-hover:border-blue-100 transition-colors">
+                    <button className="flex items-center justify-center gap-2 p-3 rounded-lg border border-dashed border-gray-300 bg-gray-50 hover:bg-white text-gray-500 hover:text-gray-900 transition-colors group">>
+                        <span className="w-8 h-8 rounded-lg bg-white flex items-center justify-center group-hover:bg-blue-50 border border-gray-200 group-hover:border-blue-100 transition-colors">>
                             +
                         </span>
                         <span className="text-sm font-medium">Add Skill</span>
@@ -57,9 +57,9 @@ export function SkillsTab({ profile }: SkillsTabProps) {
                 </div>
             </section>
 
-            <GlassCard className="p-4 bg-blue-50 border-blue-100 flex items-center justify-between shadow-sm">
+            <GlassCard className="p-4 bg-blue-50 border-blue-100 flex items-center justify-between shadow-sm rounded-lg">
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm">
+                    <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center shadow-sm">
                         <CheckCircle2 size={20} className="text-blue-600" />
                     </div>
                     <div>

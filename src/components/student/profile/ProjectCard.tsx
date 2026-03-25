@@ -9,7 +9,7 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project }: ProjectCardProps) {
     return (
-        <GlassCard className="p-0 overflow-hidden border border-gray-100 hover:border-blue-500/30 transition-all duration-300 group shadow-sm bg-white">
+        <GlassCard className="p-0 overflow-hidden border border-gray-100 hover:border-blue-500/30 transition-all duration-300 group shadow-sm bg-white rounded-lg">
             <div className="p-6">
                 <div className="flex justify-between items-start mb-6">
                     <div className="space-y-2">
@@ -54,7 +54,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 </div>
 
                 {/* Project DNA */}
-                <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
                     <div className="flex items-center gap-2 mb-3">
                         <Code2 size={14} className="text-purple-600" />
                         <span className="text-xs font-bold uppercase tracking-wider text-purple-700">

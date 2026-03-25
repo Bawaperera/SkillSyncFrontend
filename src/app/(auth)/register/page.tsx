@@ -32,7 +32,7 @@ export default function RegisterPage() {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.2 + idx * 0.1 }}
-                        className="flex items-center gap-3 bg-white/5 backdrop-blur-sm p-4 rounded-2xl border border-white/10"
+                        className="flex items-center gap-3 bg-white/5 backdrop-blur-sm p-4 rounded border border-white/10"
                     >
                         <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-300">
                             <item.icon size={20} />
@@ -59,10 +59,10 @@ export default function RegisterPage() {
     }) => (
         <button
             onClick={onClick}
-            className="w-full group flex items-center justify-between p-5 rounded-2xl border border-gray-200 hover:border-blue-500 bg-white hover:bg-blue-50/50 transition-all duration-300 text-left shadow-sm hover:shadow-md"
+            className="w-full group flex items-center justify-between p-5 rounded border border-gray-200 hover:border-blue-500 bg-white hover:bg-blue-50/50 transition-all duration-300 text-left shadow-sm hover:shadow-md"
         >
             <div className="flex items-center gap-4">
-                <div className={cn("w-12 h-12 rounded-xl flex items-center justify-center transition-colors", colorClass)}>
+                <div className={cn("w-12 h-12 rounded flex items-center justify-center transition-colors", colorClass)}>
                     <Icon size={24} />
                 </div>
                 <div>

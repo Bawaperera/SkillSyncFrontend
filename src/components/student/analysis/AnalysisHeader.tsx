@@ -30,7 +30,7 @@ export function AnalysisHeader() {
                     </div>
                 </div>
 
-                <button className="px-4 py-2 rounded-xl bg-white hover:bg-gray-50 border border-gray-200 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors shadow-sm">
+                <button className="px-4 py-2 rounded bg-white hover:bg-gray-50 border border-gray-200 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors shadow-sm">
                     Change Goal
                 </button>
             </div>

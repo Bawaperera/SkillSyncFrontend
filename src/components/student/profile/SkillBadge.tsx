@@ -34,7 +34,7 @@ export function SkillBadge({ skill }: SkillBadgeProps) {
     const Icon = config.icon;
 
     return (
-        <div className={`relative group flex items-center gap-3 p-3 rounded-xl border bg-white hover:bg-gray-50 transition-colors shadow-sm ${config.border}`}>
+        <div className={`relative group flex items-center gap-3 p-3 rounded-lg border bg-white hover:bg-gray-50 transition-colors shadow-sm ${config.border}`}>
             {/* Icon Box */}
             <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${config.bg} ${config.text}`}>
                 {skill.icon ? (

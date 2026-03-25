@@ -11,7 +11,7 @@ interface SkillRadarProps {
 const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
         return (
-            <div className="bg-white border border-gray-200 p-3 rounded-lg shadow-xl">
+            <div className="bg-white border border-gray-200 p-3 rounded shadow-xl">
                 <p className="font-bold text-gray-900 mb-1">{label}</p>
                 <p className="text-xs text-blue-600">You: {payload[0].value}</p>
                 <p className="text-xs text-gray-500">Market: {payload[1].value}</p>
@@ -23,7 +23,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
 export function SkillRadar({ data }: SkillRadarProps) {
     return (
-        <GlassCard className="h-[400px] flex flex-col items-center justify-center relative p-4 bg-white border border-gray-200 shadow-sm">
+        <GlassCard className="h-[400px] flex flex-col items-center justify-center relative p-4 bg-white border border-gray-200 shadow-sm rounded-lg">
             <div className="absolute top-4 right-4 flex flex-col gap-2 z-10">
                 <div className="flex items-center gap-2">
                     <span className="w-3 h-3 rounded-full bg-blue-500" />

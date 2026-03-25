@@ -15,7 +15,7 @@ export function CareerVelocityHeader({ jobGoal, progress, totalCourses, complete
     const remainingCourses = totalCourses - completedCourses;
 
     return (
-        <GlassCard className="p-6 md:p-8 relative overflow-hidden mb-8 bg-white border border-gray-200 shadow-sm">
+        <GlassCard className="p-6 md:p-8 relative overflow-hidden mb-8 bg-white border border-gray-200 shadow-sm rounded-lg">
             <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
             <div className="relative z-10">
@@ -45,9 +45,9 @@ export function CareerVelocityHeader({ jobGoal, progress, totalCourses, complete
                         <span className="text-gray-900 font-bold">{progress}% Complete</span>
                         <span className="text-gray-500">{completedCourses}/{totalCourses} Modules</span>
                     </div>
-                    <div className="h-3 w-full bg-gray-200 rounded-full overflow-hidden">
+                    <div className="h-3 w-full bg-gray-200 rounded overflow-hidden">
                         <div
-                            className="h-full bg-gradient-to-r from-blue-600 to-purple-600 rounded-full transition-all duration-1000 ease-out"
+                            className="h-full bg-gradient-to-r from-blue-600 to-purple-600 rounded transition-all duration-1000 ease-out"
                             style={{ width: `${progress}%` }}
                         />
                     </div>

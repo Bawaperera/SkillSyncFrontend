@@ -129,7 +129,7 @@ export default function CurriculumGapAnalysisPage() {
             {/* ── Summary Stats (Alignment Score First) ─────────────────── */}
             <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
                 {/* 1. Alignment Score */}
-                <div className="bg-blue-600 p-4 rounded-xl border border-blue-500 shadow-sm flex flex-col justify-center text-white relative overflow-hidden">
+                <div className="bg-blue-600 p-4 rounded border border-blue-500 shadow-sm flex flex-col justify-center text-white relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full blur-2xl -mr-8 -mt-8"></div>
                     <p className="text-xs font-semibold text-blue-100 uppercase tracking-wider mb-1 relative z-10">Alignment Score</p>
                     <div className="flex items-end gap-2 relative z-10">
@@ -175,7 +175,7 @@ export default function CurriculumGapAnalysisPage() {
             </div>
 
             {/* ── Filters ───────────────────────────────────────────────── */}
-            <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex flex-wrap items-center gap-3">
+            <div className="bg-white p-4 rounded border border-gray-200 shadow-sm flex flex-wrap items-center gap-3">
                 <div className="flex items-center gap-2 text-sm text-gray-500 font-medium mr-2">
                     <Filter size={16} /> Filters
                 </div>
@@ -231,7 +231,7 @@ export default function CurriculumGapAnalysisPage() {
 
 
             {/* ── Heatmap Table / Chart View ────────────────────────────── */}
-            <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+            <div className="bg-white border border-gray-200 rounded shadow-sm overflow-hidden">
                 <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 bg-stone-50/50">
                     <div>
                         <h2 className="text-base font-bold text-gray-900">Student Competency vs Market Demand</h2>
@@ -565,7 +565,7 @@ function SkillDetailPanel({ skill, gap, severity }: { skill: SkillData, gap: num
                 </div>
 
                 {/* Job Market Data */}
-                <div className="space-y-4 bg-white p-5 rounded-xl border border-gray-100 shadow-sm mt-auto">
+                <div className="space-y-4 bg-white p-5 rounded border border-gray-100 shadow-sm mt-auto">
                     <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider flex items-center gap-2">
                         <Target size={14} className="text-blue-500" /> Job Market Context
                     </h4>
@@ -590,7 +590,7 @@ function SkillDetailPanel({ skill, gap, severity }: { skill: SkillData, gap: num
             <div className="xl:w-1/2 p-6 lg:p-8 flex flex-col">
                 <div className="flex items-center justify-between mb-6">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center shadow-md">
+                        <div className="w-10 h-10 rounded bg-blue-600 flex items-center justify-center shadow-md">
                             <Zap size={20} className="text-white fill-white/20" />
                         </div>
                         <div>
@@ -602,7 +602,7 @@ function SkillDetailPanel({ skill, gap, severity }: { skill: SkillData, gap: num
 
                 <div className="space-y-4 flex-1">
                     {/* Option 1 */}
-                    <div className="bg-white border-2 border-blue-500/20 rounded-xl p-5 shadow-md relative overflow-hidden transition-all hover:border-blue-500/40 hover:shadow-lg">
+                    <div className="bg-white border-2 border-blue-500/20 rounded p-5 shadow-md relative overflow-hidden transition-all hover:border-blue-500/40 hover:shadow-lg">
                         <div className="absolute top-0 right-0 bg-blue-600 text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-bl-lg shadow-sm">Recommended</div>
                         <h5 className="font-bold text-gray-900 text-sm mb-3 pr-20">Integrate into existing Advanced Web Dev</h5>
                         <ul className="space-y-2 mb-0">

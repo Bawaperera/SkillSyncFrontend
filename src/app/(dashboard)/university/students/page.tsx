@@ -32,9 +32,9 @@ function severityColor(s: MissingSkill["severity"]) {
 function ProgressBar({ value, max, color }: { value: number; max: number; color: string }) {
     const pct = Math.round((value / max) * 100);
     return (
-        <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+        <div className="w-full h-2 bg-gray-100 rounded overflow-hidden">
             <div
-                className="h-full rounded-full transition-all duration-500"
+                className="h-full rounded transition-all duration-500"
                 style={{ width: `${pct}%`, backgroundColor: color }}
             />
         </div>
@@ -45,7 +45,7 @@ function ProgressBar({ value, max, color }: { value: number; max: number; color:
 function DistTooltip({ active, payload, label }: any) {
     if (!active || !payload?.length) return null;
     return (
-        <div className="bg-gray-900 text-white rounded-lg px-3 py-2 text-xs shadow-xl">
+        <div className="bg-gray-900 text-white rounded px-3 py-2 text-xs shadow-xl">
             <p className="font-bold mb-0.5">Score {label}</p>
             <p className="text-gray-300">{payload[0].value} students</p>
         </div>
@@ -59,10 +59,10 @@ function KpiCard({ label, value, sub, icon: Icon }: {
     icon: React.ElementType;
 }) {
     return (
-        <div className="relative rounded-xl border p-5 flex flex-col gap-2.5 overflow-hidden transition-all hover:shadow-md bg-white border-gray-200 shadow-sm">
+        <div className="relative rounded-lg border p-5 flex flex-col gap-2.5 overflow-hidden transition-all hover:shadow-md bg-white border-gray-200 shadow-sm">
             <div className="flex items-center justify-between">
                 <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">{label}</p>
-                <div className="w-8 h-8 rounded-md flex items-center justify-center flex-shrink-0 bg-gray-100">
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 bg-gray-100">
                     <Icon size={15} className="text-gray-600" />
                 </div>
             </div>
@@ -105,15 +105,15 @@ function ProgrammeRow({ p, total }: { p: Programme; total: number }) {
             </td>
             <td className="py-3.5 px-3 text-right">
                 {p.atRisk > 35 ? (
-                    <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-gray-100 text-gray-700 border border-gray-200">
+                    <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-md bg-gray-100 text-gray-700 border border-gray-200">
                         High
                     </span>
                 ) : p.atRisk > 20 ? (
-                    <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 border border-gray-200">
+                    <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-md bg-gray-100 text-gray-600 border border-gray-200">
                         Medium
                     </span>
                 ) : (
-                    <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-gray-50 text-gray-500 border border-gray-200">
+                    <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-md bg-gray-50 text-gray-500 border border-gray-200">
                         Low
                     </span>
                 )}
@@ -163,7 +163,7 @@ export default function StudentAnalyticsPage() {
                     <h1 className="text-2xl font-bold text-gray-900">Student Analytics</h1>
                     <p className="text-sm text-gray-500 mt-1">Aggregate performance metrics across all programmes · Academic Year 2024/25</p>
                 </div>
-                <button className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-50 bg-white shadow-sm transition-colors">
+                <button className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded text-sm font-semibold text-gray-700 hover:bg-gray-50 bg-white shadow-sm transition-colors">
                     <Download size={14} /> Export Report
                 </button>
             </div>
@@ -203,7 +203,7 @@ export default function StudentAnalyticsPage() {
             </div>
 
             {/* ── Skill Score Distribution ──────────────────────────────── */}
-            <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+            <div className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-5 py-3.5 border-b border-gray-100 bg-stone-50/50">
                     <div>
                         <h2 className="text-sm font-semibold text-gray-900">Skill Score Distribution</h2>
@@ -214,7 +214,7 @@ export default function StudentAnalyticsPage() {
                         <select
                             value={selectedProgramme}
                             onChange={e => setSelectedProgramme(e.target.value)}
-                            className="text-xs font-semibold bg-white border border-gray-200 rounded-lg px-2.5 py-1.5 outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                            className="text-xs font-semibold bg-white border border-gray-200 rounded px-2.5 py-1.5 outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
                         >
                             <option value="All Programmes">All Programmes</option>
                             {PROGRAMMES.map(p => <option key={p.name}>{p.name}</option>)}
@@ -313,7 +313,7 @@ export default function StudentAnalyticsPage() {
                                 <div className="flex items-center justify-between mb-1.5">
                                     <div className="flex items-center gap-2.5">
                                         <p className="text-[13px] font-semibold text-gray-900">{sk.skill}</p>
-                                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${severityColor(sk.severity)}`}>
+                                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md border ${severityColor(sk.severity)}`}>
                                             {sk.category}
                                         </span>
                                     </div>
@@ -323,9 +323,9 @@ export default function StudentAnalyticsPage() {
                                     </div>
                                 </div>
                                 {/* Progress bar */}
-                                <div className="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden">
+                                <div className="w-full h-2.5 bg-gray-100 rounded-md overflow-hidden">
                                     <div
-                                        className="h-full rounded-full bg-gray-400 transition-all duration-700"
+                                        className="h-full rounded-md bg-gray-400 transition-all duration-700"
                                         style={{ width: `${pct}%` }}
                                     />
                                 </div>
@@ -349,7 +349,7 @@ export default function StudentAnalyticsPage() {
                 </div>
 
                 {/* Insight banner */}
-                <div className="mx-5 mb-5 p-4 bg-stone-50 border border-gray-200 rounded-xl flex gap-3 items-start">
+                <div className="mx-5 mb-5 p-4 bg-stone-50 border border-gray-200 rounded-lg flex gap-3 items-start">
                     <Info size={16} className="text-gray-500 flex-shrink-0 mt-0.5" />
                     <div>
                         <p className="text-xs font-bold text-gray-800 mb-0.5">Curriculum Intervention Recommended</p>

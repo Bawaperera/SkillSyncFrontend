@@ -66,7 +66,7 @@ export default function MessagesPage() {
                 <div className="p-4 bg-white/80 backdrop-blur-xl border-t border-gray-200">
                     <SmartReply onSelect={(text) => setInputText(text)} />
 
-                    <div className="flex items-end gap-2 bg-white border border-gray-200 rounded-2xl p-2 focus-within:border-blue-500 transition-colors shadow-sm">
+                    <div className="flex items-end gap-2 bg-white border border-gray-200 rounded p-2 focus-within:border-blue-500 transition-colors shadow-sm">
                         <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors rounded-lg hover:bg-gray-100">
                             <Paperclip size={20} />
                         </button>

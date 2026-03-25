@@ -61,7 +61,7 @@ export default function RecruiterRegisterPage() {
 
     const marketingContent = (
         <div className="space-y-8">
-            <div className="bg-white/10 backdrop-blur-xl border border-white/10 p-8 rounded-3xl shadow-2xl">
+            <div className="bg-white/10 backdrop-blur-xl border border-white/10 p-8 rounded shadow-2xl">
                 <div className="flex items-center gap-4 mb-6">
                     <div className="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400">
                         <Briefcase size={24} />
@@ -72,7 +72,7 @@ export default function RecruiterRegisterPage() {
                     </div>
                 </div>
 
-                <div className="relative h-48 bg-black/20 rounded-xl overflow-hidden mb-6 flex items-center justify-center border border-white/5">
+                <div className="relative h-48 bg-black/20 rounded overflow-hidden mb-6 flex items-center justify-center border border-white/5">
                     {/* Simulated Pipeline Animation */}
                     <div className="flex items-center gap-2">
                         <motion.div

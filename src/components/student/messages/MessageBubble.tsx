@@ -25,7 +25,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
 
     return (
         <div className={`flex flex-col mb-4 ${isMine ? 'items-end' : 'items-start'}`}>
-            <div className={`max-w-[80%] md:max-w-[70%] px-4 py-3 rounded-2xl text-sm leading-relaxed shadow-sm ${isMine
+            <div className={`max-w-[80%] md:max-w-[70%] px-4 py-3 rounded text-sm leading-relaxed shadow-sm ${isMine
                 ? 'bg-blue-600 text-white rounded-br-none shadow-blue-500/20'
                 : 'bg-white border border-gray-200 text-gray-800 rounded-bl-none'
                 }`}>

@@ -34,14 +34,14 @@ export function AvailabilityToggle({ initialStatus, onToggle }: AvailabilityTogg
 
             <button
                 onClick={handleToggle}
-                className={`w-12 h-6 rounded-full relative transition-colors duration-300 ${isLooking ? "bg-green-500/20 border border-green-500/50" : "bg-gray-700/50 border border-gray-600"
+                className={`w-12 h-6 rounded-lg relative transition-colors duration-300 ${isLooking ? "bg-green-500/20 border border-green-500/50" : "bg-gray-700/50 border border-gray-600"
                     }`}
             >
                 <motion.div
                     initial={false}
                     animate={{ x: isLooking ? 24 : 0 }}
                     transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                    className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full shadow-sm ${isLooking ? "bg-green-400" : "bg-gray-400"
+                    className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-md shadow-sm ${isLooking ? "bg-green-400" : "bg-gray-400"
                         }`}
                 />
             </button>

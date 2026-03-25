@@ -43,7 +43,7 @@ function CompanyCard({ company }: { company: Company }) {
     const initial = company.name.charAt(0).toUpperCase();
 
     return (
-        <div className="group bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-200 flex flex-col overflow-hidden">
+        <div className="group bg-white border border-gray-200 rounded shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-200 flex flex-col overflow-hidden">
             {/* Card Header */}
             <div className="p-5 pb-4 flex-1">
                 {/* Logo + Status */}
@@ -243,8 +243,8 @@ export default function PartnerCompaniesPage() {
             )}
 
             {/* ── Insight Footer ────────────────────────────────────────── */}
-            <div className="bg-slate-50 border border-slate-200 rounded-xl p-5 flex flex-col sm:flex-row gap-4 items-start">
-                <div className="w-10 h-10 rounded-xl bg-blue-100 flex-shrink-0 flex items-center justify-center">
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-5 flex flex-col sm:flex-row gap-4 items-start">
+                <div className="w-10 h-10 rounded-lg bg-blue-100 flex-shrink-0 flex items-center justify-center">
                     <TrendingUp size={18} className="text-blue-600" />
                 </div>
                 <div className="flex-1">

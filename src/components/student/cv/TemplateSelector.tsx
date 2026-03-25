@@ -50,7 +50,7 @@ export function TemplateSelector({ selectedTemplate, onSelect }: TemplateSelecto
                         </div>
                     )}
 
-                    <div className={`w-full h-24 rounded-lg mb-3 ${template.color} opacity-80`} />
+                    <div className={`w-full h-24 rounded mb-3 ${template.color} opacity-80`} />
 
                     <h3 className="font-bold text-gray-900 text-sm">{template.name}</h3>
                     <p className="text-xs text-gray-500 mt-1">{template.description}</p>

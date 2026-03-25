@@ -28,7 +28,7 @@ export function InterviewPrepModal({ isOpen, onClose, jobTitle, company }: Inter
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.95, opacity: 0 }}
                             onClick={(e) => e.stopPropagation()}
-                            className="w-full max-w-4xl max-h-[90vh] bg-white border border-gray-200 rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row"
+                            className="w-full max-w-4xl max-h-[90vh] bg-white border border-gray-200 rounded shadow-2xl overflow-hidden flex flex-col md:flex-row"
                         >
                             {/* Left: Job Context */}
                             <div className="md:w-1/2 p-6 border-b md:border-b-0 md:border-r border-gray-200 overflow-y-auto">
@@ -71,7 +71,7 @@ export function InterviewPrepModal({ isOpen, onClose, jobTitle, company }: Inter
                                 </div>
 
                                 <div className="space-y-6">
-                                    <GlassCard className="p-4 border-green-200 bg-green-50 shadow-sm">
+                                    <GlassCard className="p-4 border-green-200 bg-green-50 shadow-sm rounded-lg">
                                         <h4 className="text-sm font-bold text-green-700 mb-2 flex items-center gap-2">
                                             <CheckCircle2 size={14} /> Talking Points (Strengths)
                                         </h4>
@@ -81,7 +81,7 @@ export function InterviewPrepModal({ isOpen, onClose, jobTitle, company }: Inter
                                         </ul>
                                     </GlassCard>
 
-                                    <GlassCard className="p-4 border-blue-200 bg-blue-50 shadow-sm">
+                                    <GlassCard className="p-4 border-blue-200 bg-blue-50 shadow-sm rounded-lg">
                                         <h4 className="text-sm font-bold text-blue-700 mb-2 flex items-center gap-2">
                                             <MessageCircle size={14} /> Questions to Ask
                                         </h4>

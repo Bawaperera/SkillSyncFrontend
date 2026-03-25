@@ -36,7 +36,7 @@ export default function SettingsPage() {
                 <div className="flex flex-col md:flex-row gap-8">
                     {/* Sidebar */}
                     <div className="w-full md:w-64 shrink-0">
-                        <GlassCard className="p-2 bg-white border border-gray-200 shadow-sm">
+                        <GlassCard className="p-2 bg-white border border-gray-200 shadow-sm rounded-lg">
                             <SettingsSidebar activeTab={activeTab} onSelect={setActiveTab} />
                         </GlassCard>
                     </div>
@@ -78,7 +78,7 @@ export default function SettingsPage() {
                                 </section>
 
                                 {/* Personal Details Form */}
-                                <GlassCard className="p-6 space-y-4 bg-white border border-gray-200 shadow-sm">
+                                <GlassCard className="p-6 space-y-4 bg-white border border-gray-200 shadow-sm rounded-lg">
                                     <div className="grid md:grid-cols-2 gap-4">
                                         <div>
                                             <label className="text-xs font-bold text-gray-500 uppercase mb-1 block">Full Name</label>
@@ -105,7 +105,7 @@ export default function SettingsPage() {
                                 <h2 className="text-xl font-bold text-gray-900 mb-2">Notification Preferences</h2>
                                 <p className="text-gray-500 text-sm mb-6">Manage how you receive updates and alerts.</p>
 
-                                <GlassCard className="p-6 divide-y divide-gray-100 bg-white border border-gray-200 shadow-sm">
+                                <GlassCard className="p-6 divide-y divide-gray-100 bg-white border border-gray-200 shadow-sm rounded-lg">
                                     <div className="pb-4">
                                         <h3 className="text-sm font-bold text-blue-600 uppercase mb-4">Job Alerts</h3>
                                         <ToggleSwitch
@@ -145,7 +145,7 @@ export default function SettingsPage() {
                                 <h2 className="text-xl font-bold text-gray-900 mb-2">Privacy & Data</h2>
                                 <p className="text-gray-500 text-sm mb-6">Control visibility and data sharing settings.</p>
 
-                                <GlassCard className="p-6 mb-6 bg-white border border-gray-200 shadow-sm">
+                                <GlassCard className="p-6 mb-6 bg-white border border-gray-200 shadow-sm rounded-lg">
                                     <h3 className="text-sm font-bold text-green-600 uppercase mb-4 flex items-center gap-2">
                                         <ShieldCheck size={16} /> Data Sharing
                                     </h3>
@@ -163,7 +163,7 @@ export default function SettingsPage() {
                                     />
                                 </GlassCard>
 
-                                <GlassCard className="p-6 bg-white border border-gray-200 shadow-sm">
+                                <GlassCard className="p-6 bg-white border border-gray-200 shadow-sm rounded-lg">>
                                     <h3 className="text-sm font-bold text-gray-900 mb-4">Profile Visibility</h3>
                                     <div className="space-y-3">
                                         {[
@@ -171,7 +171,7 @@ export default function SettingsPage() {
                                             { id: 'open', label: 'Open to Work', desc: 'Visible only to recruiters (Hidden from current employer).' },
                                             { id: 'private', label: 'Private', desc: 'Only visible to you.' }
                                         ].map(opt => (
-                                            <label key={opt.id} className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${privacy.visibility === opt.id
+                                            <label key={opt.id} className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer transition-all ${privacy.visibility === opt.id
                                                 ? "bg-blue-50 border-blue-500 shadow-sm"
                                                 : "border-gray-200 hover:bg-gray-50"
                                                 }`}>

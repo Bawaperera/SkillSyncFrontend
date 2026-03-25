@@ -31,16 +31,16 @@ export function CVAnalysisDashboard({ file, onReset }: CVAnalysisDashboardProps)
     return (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 h-[calc(100vh-140px)]">
             {/* Left Column: PDF Preview */}
-            <div className="lg:col-span-7 flex flex-col h-full bg-gray-100 rounded-3xl border border-gray-200 overflow-hidden relative group shadow-sm">
+            <div className="lg:col-span-7 flex flex-col h-full bg-gray-100 rounded border border-gray-200 overflow-hidden relative group shadow-sm">
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                     <p className="text-gray-500 text-sm">PDF Preview for {file.name}</p>
                 </div>
                 {/* Overlay Controls */}
                 <div className="absolute bottom-0 inset-x-0 p-6 bg-gradient-to-t from-white/95 to-transparent flex justify-between items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <button onClick={onReset} className="px-4 py-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 text-sm font-bold border border-red-200 transition-colors">
+                    <button onClick={onReset} className="px-4 py-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 text-sm font-bold border border-red-200 transition-colors">
                         Delete & Re-upload
                     </button>
-                    <button className="px-4 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-bold border border-gray-300 transition-colors flex items-center gap-2">
+                    <button className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-bold border border-gray-300 transition-colors flex items-center gap-2">
                         <Download size={16} /> Download
                     </button>
                 </div>
@@ -49,7 +49,7 @@ export function CVAnalysisDashboard({ file, onReset }: CVAnalysisDashboardProps)
             {/* Right Column: Analysis */}
             <div className="lg:col-span-5 space-y-6 overflow-y-auto pr-2 custom-scrollbar">
                 {/* Score Card */}
-                <GlassCard className="p-6 flex items-center justify-between relative overflow-hidden bg-white border border-gray-200 shadow-sm">
+                <GlassCard className="p-6 flex items-center justify-between relative overflow-hidden bg-white border border-gray-200 shadow-sm rounded-lg">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                     <div>
                         <h3 className="text-lg font-bold text-gray-900 mb-1">ATS Compatibility Score</h3>
@@ -59,7 +59,7 @@ export function CVAnalysisDashboard({ file, onReset }: CVAnalysisDashboardProps)
                 </GlassCard>
 
                 {/* Critical Issues */}
-                <GlassCard className="p-6 border-l-4 border-l-orange-500 bg-white border-y border-r border-gray-200 shadow-sm">
+                <GlassCard className="p-6 border-l-4 border-l-orange-500 bg-white border-y border-r border-gray-200 shadow-sm rounded-lg">
                     <div className="flex items-center gap-2 mb-4">
                         <AlertTriangle className="text-orange-500" size={20} />
                         <h3 className="font-bold text-gray-900">Critical Issues Found</h3>
@@ -67,7 +67,7 @@ export function CVAnalysisDashboard({ file, onReset }: CVAnalysisDashboardProps)
                     <ul className="space-y-3">
                         {criticalIssues.map((issue, i) => (
                             <li key={i} className="flex items-start gap-3 text-sm text-gray-600">
-                                <span className="w-1.5 h-1.5 mt-1.5 rounded-full bg-orange-500 shrink-0" />
+                                <span className="w-1.5 h-1.5 mt-1.5 rounded bg-orange-500 shrink-0" />
                                 {issue}
                             </li>
                         ))}
@@ -75,7 +75,7 @@ export function CVAnalysisDashboard({ file, onReset }: CVAnalysisDashboardProps)
                     <button
                         onClick={handleAutoFix}
                         disabled={isFixing}
-                        className="w-full mt-6 py-3 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-sm shadow-lg shadow-orange-500/20 transition-all flex items-center justify-center gap-2"
+                        className="w-full mt-6 py-3 rounded-lg bg-orange-500 hover:bg-orange-600 text-white font-bold text-sm shadow-lg shadow-orange-500/20 transition-all flex items-center justify-center gap-2"
                     >
                         {isFixing ? (
                             <>Fixing Issues...</>
@@ -126,7 +126,7 @@ export function CVAnalysisDashboard({ file, onReset }: CVAnalysisDashboardProps)
                         <p className="text-xs text-gray-500 mb-3">
                             You have these missing skills in your profile. Add them to CV?
                         </p>
-                        <button className="w-full py-2.5 rounded-xl bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-700 font-bold text-xs transition-colors">
+                        <button className="w-full py-2.5 rounded-lg bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-700 font-bold text-xs transition-colors">
                             + Add Missing Keywords
                         </button>
                     </div>

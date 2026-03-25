@@ -19,7 +19,7 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
             <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start relative z-10">
                 {/* Avatar */}
                 <div className="relative shrink-0">
-                    <div className="w-24 h-24 md:w-32 md:h-32 rounded-2xl overflow-hidden border-2 border-white shadow-lg">
+                    <div className="w-24 h-24 md:w-32 md:h-32 rounded overflow-hidden border-2 border-white shadow-lg">>
                         <img
                             src={profile.avatarUrl}
                             alt={profile.name}
@@ -27,7 +27,7 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
                         />
                     </div>
                     {profile.isVerifiedStudent && (
-                        <div className="absolute -bottom-2 -right-2 bg-white p-1.5 rounded-full border border-gray-100 shadow-sm">
+                        <div className="absolute -bottom-2 -right-2 bg-white p-1.5 rounded-lg border border-gray-100 shadow-sm">
                             <TrustBadge type="verified_student" className="!bg-blue-50 !text-blue-600 !border-none !px-0 !py-0 !gap-0" />
                         </div>
                     )}
@@ -107,12 +107,12 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
                         Add 2 Projects to reach &apos;All-Star&apos; status
                     </span>
                 </div>
-                <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+                <div className="h-2 w-full bg-gray-200 rounded-lg overflow-hidden">
                     <motion.div
                         initial={{ width: 0 }}
                         animate={{ width: `${profile.profileStrength}%` }}
                         transition={{ duration: 1, ease: "easeOut" }}
-                        className={`h-full rounded-full ${profile.profileStrength > 80 ? 'bg-gradient-to-r from-green-500 to-emerald-500' :
+                        className={`h-full rounded-lg ${profile.profileStrength > 80 ? 'bg-gradient-to-r from-green-500 to-emerald-500' :
                             profile.profileStrength > 50 ? 'bg-gradient-to-r from-yellow-500 to-orange-500' :
                                 'bg-gradient-to-r from-red-500 to-pink-500'
                             }`}

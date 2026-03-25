@@ -34,14 +34,14 @@ export function JobDrawer({ job, onClose }: JobDrawerProps) {
                         <div className="p-6">
                             <button
                                 onClick={onClose}
-                                className="absolute top-4 right-4 p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500 hover:text-gray-900 transition-colors"
+                                className="absolute top-4 right-4 p-2 rounded bg-gray-100 hover:bg-gray-200 text-gray-500 hover:text-gray-900 transition-colors"
                             >
                                 <X size={20} />
                             </button>
 
                             <div className="mt-8">
-                                <div className="w-16 h-16 rounded-xl bg-gray-50 border border-gray-200 flex items-center justify-center mb-4 text-2xl">
-                                    {job.logo ? <img src={job.logo} alt={job.company} className="w-full h-full object-cover rounded-xl" /> : "🏢"}
+                                <div className="w-16 h-16 rounded bg-gray-50 border border-gray-200 flex items-center justify-center mb-4 text-2xl">
+                                    {job.logo ? <img src={job.logo} alt={job.company} className="w-full h-full object-cover rounded" /> : "🏢"}
                                 </div>
 
                                 <h2 className="text-2xl font-bold text-gray-900 mb-1">{job.title}</h2>
@@ -51,13 +51,13 @@ export function JobDrawer({ job, onClose }: JobDrawerProps) {
                                 </div>
 
                                 <div className="flex flex-wrap gap-3 mb-8">
-                                    <span className="px-3 py-1 rounded-full bg-green-50 text-green-700 border border-green-200 text-sm font-medium flex items-center gap-1.5">
+                                    <span className="px-3 py-1 rounded bg-green-50 text-green-700 border border-green-200 text-sm font-medium flex items-center gap-1.5">
                                         <DollarSign size={14} /> {job.salary}
                                     </span>
-                                    <span className="px-3 py-1 rounded-full bg-gray-100 text-gray-600 border border-gray-200 text-sm font-medium">
+                                    <span className="px-3 py-1 rounded bg-gray-100 text-gray-600 border border-gray-200 text-sm font-medium">
                                         Full-Time
                                     </span>
-                                    <span className="px-3 py-1 rounded-full bg-gray-100 text-gray-600 border border-gray-200 text-sm flex items-center gap-1.5 font-medium">
+                                    <span className="px-3 py-1 rounded bg-gray-100 text-gray-600 border border-gray-200 text-sm flex items-center gap-1.5 font-medium">
                                         <MapPin size={14} /> Remote / Hybrid
                                     </span>
                                 </div>
@@ -70,9 +70,9 @@ export function JobDrawer({ job, onClose }: JobDrawerProps) {
                                         </p>
                                     </div>
 
-                                    <div className="p-4 rounded-xl bg-blue-50 border border-blue-100">
+                                    <div className="p-4 rounded bg-blue-50 border border-blue-100">
                                         <h4 className="font-bold text-blue-600 mb-2 text-sm">Why you&apos;re a match ({job.matchScore}%)</h4>
-                                        <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden mb-2">
+                                        <div className="h-2 w-full bg-gray-200 rounded overflow-hidden mb-2">
                                             <div className="h-full bg-blue-600 w-[85%]" />
                                         </div>
                                         <p className="text-xs text-gray-500">
@@ -84,10 +84,10 @@ export function JobDrawer({ job, onClose }: JobDrawerProps) {
                         </div>
 
                         <div className="sticky bottom-0 p-6 bg-white/80 backdrop-blur-xl border-t border-gray-200 flex gap-4">
-                            <button className="flex-1 py-3 is-loading rounded-xl bg-gray-50 hover:bg-gray-100 text-gray-900 font-bold border border-gray-200 transition-colors">
+                            <button className="flex-1 py-3 is-loading rounded bg-gray-50 hover:bg-gray-100 text-gray-900 font-bold border border-gray-200 transition-colors">
                                 Save Job
                             </button>
-                            <button className="flex-[2] py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-lg shadow-blue-500/20 transition-all flex items-center justify-center gap-2">
+                            <button className="flex-[2] py-3 rounded bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-lg shadow-blue-500/20 transition-all flex items-center justify-center gap-2">
                                 Apply Now <ExternalLink size={16} />
                             </button>
                         </div>

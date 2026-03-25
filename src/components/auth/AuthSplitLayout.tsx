@@ -48,7 +48,7 @@ export function AuthSplitLayout({ children, marketingContent, backgroundImage }:
             <div className="w-full lg:w-1/2 flex flex-col justify-center items-center p-8 relative bg-white">
                 {/* Mobile Back Button */}
                 <div className="absolute top-8 left-8 lg:hidden">
-                    <Link href="/" className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors text-gray-600 hover:text-gray-900">
+                    <Link href="/" className="p-2 rounded-md bg-gray-100 hover:bg-gray-200 transition-colors text-gray-600 hover:text-gray-900">
                         <ArrowLeft className="w-5 h-5" />
                     </Link>
                 </div>

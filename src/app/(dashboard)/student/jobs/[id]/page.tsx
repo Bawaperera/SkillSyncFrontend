@@ -47,7 +47,7 @@ export default function JobDetailsPage({ params }: { params: Promise<{ id: strin
                 {/* Header Info */}
                 <div className="mb-8">
                     <div className="flex items-center gap-4 mb-4">
-                        <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-3xl font-bold text-white">
+                        <div className="w-16 h-16 rounded bg-white/5 border border-white/10 flex items-center justify-center text-3xl font-bold text-white">
                             {JOB.company.charAt(0)}
                         </div>
                         <div>

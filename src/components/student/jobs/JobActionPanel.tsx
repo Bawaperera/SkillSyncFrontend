@@ -23,7 +23,7 @@ export function JobActionPanel({ match }: JobActionPanelProps) {
     return (
         <div className="space-y-6">
             {/* Match Intelligence Card */}
-            <GlassCard className="p-6 relative overflow-hidden bg-white border border-gray-200 shadow-sm">
+            <GlassCard className="p-6 relative overflow-hidden bg-white border border-gray-200 shadow-sm rounded-lg">
                 <div className={`absolute top-0 left-0 w-full h-1 ${isHighMatch ? "bg-green-500" : "bg-yellow-500"}`} />
 
                 <div className="text-center mb-6">
@@ -35,7 +35,7 @@ export function JobActionPanel({ match }: JobActionPanelProps) {
                 </div>
 
                 {/* Segmented Progress Bar */}
-                <div className="h-3 w-full bg-gray-200 rounded-full overflow-hidden flex mb-6">
+                <div className="h-3 w-full bg-gray-200 rounded-lg overflow-hidden flex mb-6">
                     <div style={{ width: `${match.matchScore}%` }} className={`h-full ${isHighMatch ? "bg-green-500" : "bg-yellow-500"}`} />
                     <div className="flex-1 bg-gray-100 pattern-diagonal-lines opacity-50" />
                 </div>
@@ -89,10 +89,10 @@ export function JobActionPanel({ match }: JobActionPanelProps) {
             </GlassCard>
 
             {/* Quick Actions */}
-            <GlassCard className="p-6 space-y-3 bg-white border border-gray-200 shadow-sm">
+            <GlassCard className="p-6 space-y-3 bg-white border border-gray-200 shadow-sm rounded-lg">>
                 <h3 className="text-sm font-bold text-gray-900 mb-2">Quick Actions</h3>
 
-                <button className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-lg shadow-blue-500/20 transition-all flex items-center justify-center gap-2 group">
+                <button className="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-lg shadow-blue-500/20 transition-all flex items-center justify-center gap-2 group">
                     <Send size={16} className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
                     Easy Apply
                     <span className="text-xs font-normal opacity-90 bg-white/20 px-1.5 py-0.5 rounded">Verified</span>

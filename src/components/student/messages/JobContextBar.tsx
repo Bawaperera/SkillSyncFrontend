@@ -12,7 +12,7 @@ interface JobContextBarProps {
 export function JobContextBar({ context, onViewDetails }: JobContextBarProps) {
     return (
         <div className="sticky top-0 z-30 mb-4 px-4 pt-4">
-            <GlassCard className="rounded-xl border border-gray-200 bg-white/90 backdrop-blur-xl p-4 flex justify-between items-center shadow-sm">
+            <GlassCard className="rounded-lg border border-gray-200 bg-white/90 backdrop-blur-xl p-4 flex justify-between items-center shadow-sm">
                 <div>
                     <div className="flex items-center gap-2 mb-1">
                         <Briefcase size={14} className="text-gray-500" />

@@ -18,7 +18,7 @@ export function GapCard({ gap }: GapCardProps) {
     };
 
     return (
-        <div className="p-5 rounded-xl bg-white border border-gray-200 shadow-sm hover:shadow-md transition-all group">
+        <div className="p-5 rounded-lg bg-white border border-gray-200 shadow-sm hover:shadow-md transition-all group">
             <div className="flex justify-between items-start mb-4">
                 <div>
                     <h3 className="text-lg font-bold text-gray-900 mb-1">{gap.name}</h3>

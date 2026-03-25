@@ -60,7 +60,7 @@ export function StudentSidebar({ className, disabled = false }: StudentSidebarPr
             {/* Logo Area */}
             <div className="h-24 flex items-center px-8">
                 <Link href="/student/dashboard" className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center font-bold text-white shadow-lg shadow-blue-600/20">
+                    <div className="w-10 h-10 rounded bg-blue-600 flex items-center justify-center font-bold text-white shadow-lg shadow-blue-600/20">
                         SS
                     </div>
                     <span className="text-xl font-bold text-gray-900 tracking-tight">
@@ -78,7 +78,7 @@ export function StudentSidebar({ className, disabled = false }: StudentSidebarPr
                             key={item.href}
                             href={item.href}
                             className={cn(
-                                "flex items-center gap-4 px-5 py-3.5 rounded-2xl transition-all duration-300 group font-medium",
+                                "flex items-center gap-4 px-5 py-3.5 rounded transition-all duration-300 group font-medium",
                                 isActive
                                     ? "bg-blue-600 text-white shadow-xl shadow-blue-500/25"
                                     : "text-gray-500 hover:text-blue-600 hover:bg-blue-50"
@@ -95,14 +95,14 @@ export function StudentSidebar({ className, disabled = false }: StudentSidebarPr
             <div className="p-6 border-t border-gray-100 space-y-4">
                 <button
                     onClick={handleLogout}
-                    className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-gray-500 hover:text-red-600 hover:bg-red-50 transition-all font-medium"
+                    className="w-full flex items-center gap-3 px-4 py-3 rounded text-gray-500 hover:text-red-600 hover:bg-red-50 transition-all font-medium"
                 >
                     <LogOut size={20} />
                     <span className="text-[15px]">Log Out</span>
                 </button>
 
                 {/* Mini User Profile */}
-                <div className="flex items-center gap-4 p-3 rounded-2xl bg-gray-50 border border-gray-100">
+                <div className="flex items-center gap-4 p-3 rounded bg-gray-50 border border-gray-100">
                     <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-sm">
                         {initials}
                     </div>

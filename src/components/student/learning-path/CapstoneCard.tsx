@@ -15,19 +15,19 @@ export function CapstoneCard({ title, description, technologies, status }: Capst
     const isActive = status === 'active';
 
     return (
-        <GlassCard className={`relative p-6 mb-8 w-full border-y border-r border-gray-200 shadow-sm transition-all ${isActive ? "border-l-4 border-l-purple-600 bg-purple-50" :
+        <GlassCard className={`relative p-6 mb-8 w-full border-y border-r border-gray-200 shadow-sm transition-all rounded-lg ${isActive ? "border-l-4 border-l-purple-600 bg-purple-50" :
             isLocked ? "border-l-4 border-l-gray-300 bg-gray-50 opacity-60 grayscale" : "border-l-4 border-l-green-500 bg-white"
             }`}>
             {/* Header */}
             <div className="flex justify-between items-start mb-4">
                 <div>
                     <div className="flex items-center gap-2 mb-2">
-                        <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-purple-100 text-purple-700 border border-purple-200">
+                    <span className="px-2 py-0.5 rounded-lg text-[10px] font-bold uppercase bg-purple-100 text-purple-700 border border-purple-200">
                             Capstone Project
                         </span>
                         {isActive && (
                             <span className="flex items-center gap-1 text-[10px] font-bold text-green-600">
-                                <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" /> Live
+                                <div className="w-1.5 h-1.5 rounded bg-green-500 animate-pulse" /> Live
                             </span>
                         )}
                     </div>
@@ -52,7 +52,7 @@ export function CapstoneCard({ title, description, technologies, status }: Capst
             <div className="flex items-center gap-4">
                 {isActive ? (
                     <>
-                        <button className="px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white font-bold shadow-lg shadow-green-500/20 transition-all flex items-center gap-2">
+                        <button className="px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white font-bold shadow-lg shadow-green-500/20 transition-all flex items-center gap-2">>
                             <Play size={16} /> Start Project
                         </button>
                         <div className="h-4 w-[1px] bg-gray-300" />
@@ -61,7 +61,7 @@ export function CapstoneCard({ title, description, technologies, status }: Capst
                         </button>
                     </>
                 ) : isLocked ? (
-                    <button disabled className="px-4 py-2 rounded-lg bg-gray-100 text-gray-400 font-medium border border-gray-200 cursor-not-allowed flex items-center gap-2">
+                    <button disabled className="px-4 py-2 rounded-lg bg-gray-100 text-gray-400 font-medium border border-gray-200 cursor-not-allowed flex items-center gap-2">>
                         <GitBranch size={16} /> Locked
                     </button>
                 ) : (
